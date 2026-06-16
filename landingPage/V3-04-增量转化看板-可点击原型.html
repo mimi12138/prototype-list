@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>效果报表</title>
+  <style>
+    :root {
+      --bg: #f7f8fa; --paper: #fff; --ink: #0f172a; --muted: #64748b; --line: #e5e7eb;
+      --v2: #0d9488; --v2-bg: #ecfdf5; --control: #64748b; --control-bg: #f1f5f9;
+      --treat: #0d9488; --treat-bg: #ecfdf5; --ok: #16a34a; --warn: #d97706;
+      --shadow: 0 12px 36px rgba(15, 23, 42, 0.07); --r: 14px; --nav-w: 228px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; min-height: 100vh; }
+    .shell { display: flex; min-height: 100vh; }
+    .sidenav { width: var(--nav-w); background: #fff; color: var(--ink); padding: 16px 10px; flex-shrink: 0; border-right: 1px solid var(--line); }
+    .sidenav .logo { padding: 8px 8px 4px; font-weight: 800; font-size: 14px; color: #111827; }
+    .sidenav .ver { padding: 0 8px 14px; font-size: 11px; color: var(--muted); }
+    .nav-group { padding: 8px 8px 6px; font-size: 11px; color: var(--muted); font-weight: 800; }
+    .nav-item { display: block; padding: 9px 10px; border-radius: 8px; font-size: 13px; color: #334155; text-decoration: none; }
+    .nav-item.active { background: #f8fafc; color: #0f172a; box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; }
+    .nav-item:hover { color: #0f172a; background: #f8fafc; }
+    .main { flex: 1; padding: 0 24px 32px; min-width: 0; }
+    .page-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .page-head-main { flex: 1; min-width: 280px; }
+    .page-head h1 { margin: 0; font-size: 20px; }
+    .page-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; align-items: flex-start; }
+    .btn { border: 1px solid var(--line); background: var(--paper); padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
+    .camp-badge { display: inline-block; margin-top: 8px; padding: 6px 12px; background: var(--v2-bg); border: 1px solid #99f6e4; border-radius: 8px; font-size: 13px; font-weight: 600; color: #0f766e; }
+    .camp-badge small { font-weight: 500; color: var(--muted); margin-left: 8px; }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+    .filters select { padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 13px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+    .kpi { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; box-shadow: var(--shadow); }
+    .kpi .label { font-size: 12px; color: var(--muted); font-weight: 600; display: flex; align-items: flex-start; gap: 4px; }
+    .kpi .en { font-size: 10px; color: #94a3b8; font-weight: 500; }
+    .kpi .val { font-size: 24px; font-weight: 800; margin-top: 4px; }
+    .kpi .delta { font-size: 12px; margin-top: 4px; font-weight: 700; }
+    .delta.up { color: var(--ok); }
+    .delta.flat { color: var(--muted); }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); margin-top: 16px; }
+    .panel-head { padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .panel-head small { font-weight: 500; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { font-size: 12px; color: var(--muted); background: #fff; }
+    th .en { display: block; font-size: 10px; color: #94a3b8; font-weight: 500; }
+    th .th-inner { display: inline-flex; align-items: center; gap: 4px; }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; }
+    .pill.control { background: var(--control-bg); color: var(--control); }
+    .pill.treatment { background: var(--treat-bg); color: var(--treat); }
+    .pill.holdout { background: #fef3c7; color: #b45309; }
+    .sig { padding: 12px 16px; font-size: 13px; border-top: 1px solid var(--line); }
+    .sig.ok { background: #ecfdf5; color: #065f46; }
+    .sig.warn { background: #fffbeb; color: #92400e; }
+    .funnel { display: flex; gap: 8px; padding: 16px; flex-wrap: wrap; }
+    .funnel-step { flex: 1; min-width: 120px; text-align: center; padding: 12px; background: #f8fafc; border-radius: 10px; border: 1px solid var(--line); }
+    .funnel-step b { display: block; font-size: 18px; }
+    .funnel-step small { color: var(--muted); font-size: 11px; display: block; }
+    .funnel-step .en { font-size: 9px; color: #94a3b8; }
+    .arrow { color: var(--muted); align-self: center; }
+    .note { margin-top: 12px; padding: 12px 14px; font-size: 12px; color: var(--muted); background: var(--v2-bg); border: 1px dashed #99f6e4; border-radius: 10px; }
+    .tip-wrap { position: relative; display: inline-flex; align-items: center; }
+    .tip-btn {
+      width: 15px; height: 15px; padding: 0; border: 1px solid #cbd5e1; border-radius: 50%;
+      background: #fff; color: #64748b; font-size: 10px; font-weight: 800; cursor: help;
+      line-height: 13px; text-align: center; flex-shrink: 0;
+    }
+    .tip-btn:hover + .tip-bubble, .tip-btn:focus + .tip-bubble { display: block; }
+    .tip-bubble {
+      display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20;
+      width: max(220px, 100%); max-width: 280px; padding: 8px 10px;
+      background: #1e293b; color: #f8fafc; font-size: 11px; font-weight: 500; line-height: 1.45;
+      border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.18); text-align: left;
+    }
+    @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } .shell { flex-direction: column; } .sidenav { width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="sidenav">
+      <div class="logo">Social Link</div>
+      <div class="ver">Experience Link</div>
+      <div class="nav-group">营销增长</div>
+      <a class="nav-item" href="V3-01-Campaign列表-可点击原型.html">个性化落地页</a>
+      <a class="nav-item active" href="V3-04-增量转化看板-可点击原型.html">效果报表</a>
+    </nav>
+    <main class="main">
+      <header class="page-head">
+        <div class="page-head-main">
+          <h1>效果报表</h1>
+          <p>实验增量 · 对比个性化组 / 店铺基线页 / 对照组 · 分配决策 → 实际曝光 → 下单</p>
+          <div class="camp-badge" id="campBadge">—</div>
+        </div>
+        <div class="top-actions">
+          <a class="btn" id="linkBack" href="V3-01-Campaign列表-可点击原型.html">← 个性化落地页</a>
+        </div>
+      </header>
+      <div class="filters">
+        <label style="font-size:13px;color:var(--muted)">统计周期：</label>
+        <select id="selRange">
+          <option value="7">近 7 天</option>
+          <option value="14" selected>近 14 天</option>
+          <option value="30">近 30 天</option>
+        </select>
+      </div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <section class="card">
+        <div class="panel-head" id="funnelHead"></div>
+        <div class="funnel" id="funnel"></div>
+      </section>
+      <section class="card">
+        <div class="panel-head">分组对比</div>
+        <table>
+          <thead>
+            <tr id="compareHead"></tr>
+          </thead>
+          <tbody id="compareBody"></tbody>
+        </table>
+        <div class="sig ok" id="sigBox"></div>
+      </section>
+      <p class="note"><b>说明：</b>下单须回连到「实际曝光」而非仅页面浏览。订单经平台订单回传 / webhook 携带 <code>variant_id</code> 与 <code>rule_id</code>。悬停各字段旁 <b>?</b> 查看口径。以下为演示假数据。</p>
+    </main>
+  </div>
+  <script src="V3-共享数据.js"></script>
+  <script>
+    const TIPS = {
+      cvrUplift: "下单转化率提升：衡量个性化组相对「店铺基线页」多带来的下单比例增幅，是效果报表主指标。公式：(个性化组 CVR − 店铺基线页 CVR) ÷ 店铺基线页 CVR × 100%；其中 CVR = 下单人数 ÷ 有实验曝光的访客数。只统计能回连到 experiment_exposure 的访客；Holdout 对照组不参与此项对比。",
+      rpv: "每访客收入（RPV）：看每位进站访客平均贡献多少销售额，可同时反映转化率与客单价变化。公式：该组订单 GMV 合计 ÷ 该组有实验曝光的访客数（去重）。当客单价上升但 CVR 持平，RPV 仍可能提升。",
+      atc: "加购率：在有实验曝光的访客里，有多少人把商品加进购物车，反映页面诱购与商品区吸引力。公式：add_to_cart 人数 ÷ 有 experiment_exposure 的访客数 × 100%。加购事件须能回连 variant_id / rule_id，才算入本活动口径。",
+      expCov: "分配→曝光成功率：已做「分配决策」的访客里，有多少比例站侧插件也成功「实验曝光」（模块已渲染并上报）。公式：实验曝光人数 ÷ 分配决策人数。低于 100% 常见于插件未加载、主题不兼容、访客过快离开或埋点漏报。",
+      funnelHead: "漏斗展示「个性化组」从分配到下单的逐步流失。注意：有分配决策 ≠ 访客一定看到个性化内容，须以「实验曝光」为准。",
+      decision: "分配决策：Decision Engine 已为访客选定分组（treatment / control / holdout）并写入 personalization_decision 事件。",
+      exposure: "实验曝光：站侧插件确认个性化模块已渲染（experiment_exposure）。Holdout 对照组走 Shopify 原生页，此项通常为 0。",
+      moduleView: "模块浏览：访客实际看到至少一个个性化模块（personalized_module_view）。须发生在 exposure 之后。",
+      atcFunnel: "加购：产生 add_to_cart 且能回连 variant_id 的访客数。",
+      purchase: "下单：产生 purchase 且平台订单回传 / webhook 携带 variant_id + rule_id 的订单数（平台订单为交易真值）。",
+      group: "实验分组。个性化组=命中人群规则；店铺基线页=未命中规则走 default_variant；对照组=Holdout 桶看 Shopify 原生页。",
+      visitors: "访客数：统计周期内进入该活动目标 page_path 的去重访客（anonymous_id / customer_id_hash）。",
+      decisionCol: "该组被 Decision Engine 分配到的访客人次（与 visitors 在原型演示中一致；正式版可按 assignment 事件计数）。",
+      exposureCol: "该组确认 experiment_exposure 的访客人次。Holdout 组设计为 0。",
+      atcCol: "加购数：该组产生 add_to_cart 且能回连到本活动 variant 的访客人次。加购率 = 加购人数 ÷ 有实验曝光的访客数；须先有曝光，再计加购。",
+      purchaseCol: "该组下单数（Shopify 订单回连）。",
+      cvrCol: "转化率 CVR：该组访客中最终下单的比例。公式：下单人数 ÷ 有实验曝光的访客数 × 100%。报表主看个性化组相对店铺基线页的 CVR 提升，而非 Holdout 组。",
+      rpvCol: "每访客收入 RPV：该组每位访客平均贡献的销售额。公式：该组订单 GMV 合计 ÷ 有实验曝光的访客数。可同时反映「买得多」与「买得贵」。",
+      sig: "统计显著性：用两比例 z 检验比较 Treatment vs Control 的 CVR（原型为演示结论）。p<0.05 且样本足够时才建议据此放量。",
+    };
+
+    const DATA = {
+      camp_demo_paused: {
+        funnel: [
+          { label: "分配决策", en: "decision", tip: TIPS.decision, n: 4200 },
+          { label: "实验曝光", en: "exposure", tip: TIPS.exposure, n: 4050 },
+          { label: "模块浏览", en: "module_view", tip: TIPS.moduleView, n: 3680 },
+          { label: "加购", en: "add_to_cart", tip: TIPS.atcFunnel, n: 720 },
+          { label: "下单", en: "purchase", tip: TIPS.purchase, n: 198 },
+        ],
+        rows: [
+          { group: "个性化组 · Meta 再营销礼服", type: "treatment", visitors: 3780, decision: 3780, exposure: 3640, atc: 640, purchase: 178, cvr: "4.71%", rpv: "$3.12" },
+          { group: "店铺基线页", type: "control", visitors: 420, decision: 420, exposure: 410, atc: 80, purchase: 20, cvr: "4.76%", rpv: "$3.05" },
+          { group: "对照组 · 10% 全局", type: "holdout", visitors: 480, decision: 480, exposure: 0, atc: 52, purchase: 14, cvr: "2.92%", rpv: "$2.68" },
+        ],
+        uplift: "-1.0%", sig: false,
+        rpvDelta: "+2.3%", atcDelta: "-0.2 百分点", expNote: "活动已暂停 · 历史数据仍可查看",
+      },
+      camp_ai_meta_bf: {
+        funnel: [
+          { label: "分配决策", en: "decision", tip: TIPS.decision, n: 9200 },
+          { label: "实验曝光", en: "exposure", tip: TIPS.exposure, n: 8800 },
+          { label: "模块浏览", en: "module_view", tip: TIPS.moduleView, n: 7600 },
+          { label: "加购", en: "atc", tip: TIPS.atcFunnel, n: 1680 },
+          { label: "下单", en: "purchase", tip: TIPS.purchase, n: 512 },
+        ],
+        rows: [
+          { group: "个性化组 · 黑五广告点击", type: "treatment", visitors: 8280, decision: 8280, exposure: 7920, atc: 1520, purchase: 468, cvr: "5.65%", rpv: "$3.38" },
+          { group: "店铺基线页", type: "control", visitors: 920, decision: 920, exposure: 880, atc: 160, purchase: 44, cvr: "4.78%", rpv: "$2.96" },
+          { group: "对照组 · 10% 全局", type: "holdout", visitors: 1020, decision: 1020, exposure: 0, atc: 118, purchase: 32, cvr: "3.14%", rpv: "$2.52" },
+        ],
+        uplift: "+18.2%", sig: true,
+        rpvDelta: "+14.2%", atcDelta: "+2.6 百分点", expNote: "活动已结束 · 2026-03-01 ~ 2026-05-31",
+      },
+      camp_ai_meta_party: {
+        funnel: [
+          { label: "分配决策", en: "decision", tip: TIPS.decision, n: 5600 },
+          { label: "实验曝光", en: "exposure", tip: TIPS.exposure, n: 5400 },
+          { label: "模块浏览", en: "module_view", tip: TIPS.moduleView, n: 4800 },
+          { label: "加购", en: "atc", tip: TIPS.atcFunnel, n: 980 },
+          { label: "下单", en: "purchase", tip: TIPS.purchase, n: 310 },
+        ],
+        rows: [
+          { group: "个性化组 · Meta 派对礼服", type: "treatment", visitors: 5040, decision: 5040, exposure: 4860, atc: 880, purchase: 278, cvr: "5.51%", rpv: "$3.44" },
+          { group: "店铺基线页", type: "control", visitors: 560, decision: 560, exposure: 540, atc: 100, purchase: 32, cvr: "5.71%", rpv: "$3.38" },
+          { group: "对照组", type: "holdout", visitors: 620, decision: 620, exposure: 0, atc: 72, purchase: 18, cvr: "2.90%", rpv: "$2.71" },
+        ],
+        uplift: "-2.1%", sig: false,
+        rpvDelta: "+1.8%", atcDelta: "-0.4 百分点", expNote: "有分配决策且确认曝光",
+      },
+      camp_ai_google_pmax: {
+        funnel: [
+          { label: "分配决策", en: "decision", tip: TIPS.decision, n: 6800 },
+          { label: "实验曝光", en: "exposure", tip: TIPS.exposure, n: 6520 },
+          { label: "模块浏览", en: "module_view", tip: TIPS.moduleView, n: 5680 },
+          { label: "加购", en: "atc", tip: TIPS.atcFunnel, n: 1420 },
+          { label: "下单", en: "purchase", tip: TIPS.purchase, n: 486 },
+        ],
+        rows: [
+          { group: "个性化组 · Google 刹车片 PDP", type: "treatment", visitors: 6120, decision: 6120, exposure: 5860, atc: 1280, purchase: 438, cvr: "7.15%", rpv: "$5.12" },
+          { group: "店铺基线页", type: "control", visitors: 680, decision: 680, exposure: 640, atc: 140, purchase: 48, cvr: "6.88%", rpv: "$4.86" },
+          { group: "对照组 · 10% 全局", type: "holdout", visitors: 760, decision: 760, exposure: 0, atc: 98, purchase: 28, cvr: "3.68%", rpv: "$3.42" },
+        ],
+        uplift: "+15.8%", sig: true,
+        rpvDelta: "+10.6%", atcDelta: "+4.1 百分点", expNote: "Google PMax · a-premium.com · PDP 广告 SKU 置顶",
+      },
+    };
+
+    const params = new URLSearchParams(location.search);
+    let campaignId = params.get("campaign_id") || "camp_ai_google_pmax";
+    let camp = V3Store.getCampaign(campaignId);
+    if (!camp) {
+      campaignId = "camp_ai_google_pmax";
+      camp = V3Store.getCampaign(campaignId);
+    }
+
+    (function setupBackNav() {
+      const from = params.get("from") || "list";
+      const listUrl = "V3-01-Campaign列表-可点击原型.html";
+      const ruleUrl = `V3-02-分配规则编辑器-可点击原型.html?campaign_id=${campaignId}&from=list`;
+      const first = camp?.variants?.find((v) => v.type === "treatment");
+      const variantUrl = first
+        ? `V3-03-Variant模块配置-可点击原型.html?campaign_id=${campaignId}&variant_id=${first.id}&from=list`
+        : `V3-03-Variant模块配置-可点击原型.html?campaign_id=${campaignId}&from=list`;
+      document.getElementById("linkBack").href = listUrl;
+      document.querySelectorAll('.sidenav .nav-item[href*="V3-02"]').forEach((el) => { el.href = ruleUrl; });
+      document.querySelectorAll('.sidenav .nav-item[href*="V3-03"]').forEach((el) => { el.href = variantUrl; });
+    })();
+
+    function tipBtn(text) {
+      return `<span class="tip-wrap"><button type="button" class="tip-btn" aria-label="字段说明">?</button><span class="tip-bubble">${text}</span></span>`;
+    }
+
+    function thCell(label, en, tip) {
+      return `<th><span class="th-inner">${label}${tipBtn(tip)}</span><span class="en">${en}</span></th>`;
+    }
+
+    function kpiCard(label, en, val, sub, subClass, tip) {
+      return `<div class="kpi">
+        <div class="label">${label}${tipBtn(tip)}</div>
+        <div class="en">${en}</div>
+        <div class="val">${val}</div>
+        <div class="delta ${subClass}">${sub}</div>
+      </div>`;
+    }
+
+    function pillType(t) { return { treatment: "treatment", control: "control", holdout: "holdout" }[t] || "control"; }
+
+    function render() {
+      const period = V3Store.formatCampaignPeriod(camp);
+      document.getElementById("campBadge").innerHTML = `<b>${camp.name}</b><small>${camp.site}${camp.pagePath} · ${V3Store.statusLabel(camp.status)} · ${period}</small>`;
+
+      if (!V3Store.canViewReport(camp)) {
+        document.getElementById("kpiGrid").innerHTML = `<p style="padding:20px 8px;color:var(--muted);font-size:14px">活动尚未上线（${V3Store.statusLabel(camp.status)}），暂无实验数据。上线运行后可查看 CVR / RPV 等增量指标。</p>`;
+        document.getElementById("funnelHead").textContent = "";
+        document.getElementById("funnel").innerHTML = "";
+        document.getElementById("compareHead").innerHTML = "";
+        document.getElementById("compareBody").innerHTML = "";
+        document.getElementById("sigBox").textContent = "";
+        return;
+      }
+
+      const d = DATA[campaignId] || DATA.camp_ai_google_pmax;
+
+      document.getElementById("kpiGrid").innerHTML = [
+        kpiCard("下单转化率提升", "CVR Uplift · vs 店铺基线页", d.uplift, d.sig ? "统计显著 p<0.05" : "样本不足 · 未达显著", d.sig ? "up" : "flat", TIPS.cvrUplift),
+        kpiCard("每访客收入", "RPV · 个性化组", d.rows[0].rpv, `较店铺基线页 ${d.rpvDelta}`, "up", TIPS.rpv),
+        kpiCard("加购率", "ATC · 个性化组", d.rows[0].atc ? `${((d.rows[0].atc / d.rows[0].exposure) * 100).toFixed(1)}%` : "—", d.atcDelta, "up", TIPS.atc),
+        kpiCard("分配→曝光成功率", "Decision → Exposure", `${((d.funnel[1].n / d.funnel[0].n) * 100).toFixed(1)}%`, `${d.funnel[1].n.toLocaleString()} / ${d.funnel[0].n.toLocaleString()} 人已完成曝光`, "flat", TIPS.expCov),
+      ].join("");
+
+      document.getElementById("funnelHead").innerHTML = `转化漏斗 · 个性化组 ${tipBtn(TIPS.funnelHead)}`;
+
+      document.getElementById("funnel").innerHTML = d.funnel.map((s, i) => {
+        const arr = i < d.funnel.length - 1 ? '<span class="arrow">→</span>' : "";
+        return `<div class="funnel-step"><b>${s.n.toLocaleString()}</b><small>${s.label}${tipBtn(s.tip)}</small><span class="en">${s.en}</span></div>${arr}`;
+      }).join("");
+
+      document.getElementById("compareHead").innerHTML = [
+        thCell("分组", "Group", TIPS.group),
+        thCell("访客数", "Visitors", TIPS.visitors),
+        thCell("分配决策", "Decision", TIPS.decisionCol),
+        thCell("实际曝光", "Exposure", TIPS.exposureCol),
+        thCell("加购", "ATC", TIPS.atcCol),
+        thCell("下单", "Purchase", TIPS.purchaseCol),
+        thCell("转化率", "CVR", TIPS.cvrCol),
+        thCell("每访客收入", "RPV", TIPS.rpvCol),
+      ].join("");
+
+      document.getElementById("compareBody").innerHTML = d.rows.map((r) => `
+        <tr>
+          <td><span class="pill ${pillType(r.type)}">${r.group}</span></td>
+          <td>${r.visitors.toLocaleString()}</td>
+          <td>${r.decision.toLocaleString()}</td>
+          <td>${r.exposure.toLocaleString()}</td>
+          <td>${r.atc.toLocaleString()}</td>
+          <td>${r.purchase.toLocaleString()}</td>
+          <td>${r.cvr}</td>
+          <td>${r.rpv}</td>
+        </tr>
+      `).join("");
+
+      const sig = document.getElementById("sigBox");
+      sig.className = "sig " + (d.sig ? "ok" : "warn");
+      const sigText = d.sig
+        ? `✓ 统计显著：个性化组 vs 店铺基线页 · 转化率提升 ${d.uplift} · 95% 置信区间 · p<0.05（演示数据）`
+        : `⚠ 未达统计显著：当前周期 ${d.uplift} · 建议延长实验或加大流量（演示数据）`;
+      sig.innerHTML = `${sigText} ${tipBtn(TIPS.sig)}`;
+    }
+
+    document.getElementById("selRange").addEventListener("change", render);
+    render();
+  </script>
+</body>
+</html>

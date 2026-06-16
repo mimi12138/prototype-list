@@ -1,0 +1,1052 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>活动详情</title>
+  <style>
+    :root {
+      --bg: #f7f8fa; --paper: #fff; --ink: #0f172a; --muted: #64748b; --line: #e5e7eb;
+      --v3: #0d9488; --v3-bg: #ecfdf5; --teal: #0d9488; --teal-bg: #ecfdf5;
+      --warn: #b45309; --danger: #b91c1c; --shadow: 0 12px 36px rgba(15, 23, 42, 0.07); --r: 14px; --nav-w: 228px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; min-height: 100vh; }
+    .shell { display: flex; min-height: 100vh; }
+    .sidenav { width: var(--nav-w); background: #fff; color: var(--ink); padding: 16px 10px; flex-shrink: 0; border-right: 1px solid var(--line); }
+    .sidenav .logo { padding: 8px 8px 4px; font-weight: 800; font-size: 14px; color: #111827; }
+    .sidenav .ver { padding: 0 8px 14px; font-size: 11px; color: var(--muted); }
+    .nav-group { padding: 8px 8px 6px; font-size: 11px; color: var(--muted); font-weight: 800; }
+    .nav-item { display: block; padding: 9px 10px; border-radius: 8px; font-size: 13px; color: #334155; text-decoration: none; }
+    .nav-item.active { background: #f8fafc; color: #0f172a; box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; }
+    .nav-item:hover { color: #0f172a; background: #f8fafc; }
+    .main { flex: 1; padding: 0 24px 32px; min-width: 0; }
+    .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 20px 0 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+    .page-head h1 { margin: 0; font-size: 20px; font-weight: 800; }
+    .page-head .sub { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+    code { font-size: 12px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+    .head-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .status-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+    .status-badge.generating { background: #e0e7ff; color: #3730a3; }
+    .status-badge.pending_review { background: #fef3c7; color: #92400e; }
+    .status-badge.pending_launch { background: #dbeafe; color: #1d4ed8; }
+    .status-badge.active { background: #eaf8ef; color: #116b34; }
+    .status-badge.paused { background: #f1f5f9; color: #475569; }
+    .status-badge.ended { background: #fef2f2; color: #b91c1c; }
+    .btn { border: 1px solid var(--line); background: var(--paper); padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .btn-v3 { background: var(--v3); border-color: var(--v3); color: #fff; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .guide-panel { margin-top: 16px; padding: 14px 16px; background: linear-gradient(135deg, #ecfdf5, #ecfdf5); border: 1px solid #99f6e4; border-radius: var(--r); box-shadow: var(--shadow); }
+    .guide-panel .guide-msg { font-size: 14px; font-weight: 700; margin: 0; color: #334155; }
+    .tab-bar { display: flex; gap: 4px; margin-top: 16px; border-bottom: 1px solid var(--line); }
+    .tab-btn { padding: 10px 18px; border: none; background: none; font-size: 13px; font-weight: 800; color: var(--muted); cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .tab-btn.active { color: #0f766e; border-bottom-color: #0d9488; background: var(--v3-bg); border-radius: 8px 8px 0 0; }
+    .tab-pane { display: none; margin-top: 16px; }
+    .tab-pane.active { display: block; }
+    .layout-2 { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; box-shadow: var(--shadow); }
+    .card + .card { margin-top: 16px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .card-head h3 { margin: 0; font-size: 14px; font-weight: 800; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+    input, select, textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 13px; }
+    textarea { min-height: 72px; resize: vertical; }
+    .readonly { padding: 10px 12px; background: #f8fafc; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; }
+    .hint { margin: 0 0 10px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .warn { margin-top: 10px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; font-size: 12px; color: #92400e; }
+    .overview-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+    .overview-dl { margin: 0; font-size: 13px; }
+    .overview-dl dt { color: var(--muted); font-size: 12px; margin-top: 10px; }
+    .overview-dl dt:first-child { margin-top: 0; }
+    .overview-dl dd { margin: 4px 0 0; font-weight: 700; }
+    .rule-lines { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+    .rule-lines li { padding: 7px 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 8px; }
+    .pub-ok { color: #0f766e; font-weight: 800; font-size: 12px; }
+    .pub-pending { color: #b45309; font-weight: 800; font-size: 12px; }
+    .signal-map-table, .rule-table, .variant-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .signal-map-table th, .signal-map-table td, .rule-table th, .rule-table td, .variant-table th, .variant-table td { padding: 8px 6px; border-bottom: 1px dashed var(--line); text-align: left; vertical-align: top; }
+    .signal-map-table th, .rule-table th, .variant-table th { font-size: 11px; color: var(--muted); font-weight: 800; background: #fff; }
+    .entry-match-box { display: grid; gap: 6px; min-width: 260px; }
+    .entry-match-row { display: grid; grid-template-columns: minmax(110px, 1fr) minmax(120px, 1fr) 24px; gap: 6px; align-items: center; }
+    .entry-match-del { width: 24px; height: 24px; border: none; background: none; color: #94a3b8; cursor: pointer; font-size: 15px; line-height: 1; }
+    .entry-match-add, .btn-link { justify-self: start; border: none; background: none; color: #0f766e; padding: 0; font-size: 11px; font-weight: 800; cursor: pointer; font-family: inherit; text-decoration: underline; }
+    .ai-badge { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+    .ai-badge.pending { background: #f1f5f9; color: #64748b; }
+    .ai-badge.queued { background: #ecfdf5; color: #0f766e; }
+    .ai-badge.ready { background: #ecfdf5; color: #0f766e; }
+    .ai-badge.failed { background: #fef2f2; color: #b91c1c; }
+    .ai-badge.pub-draft { background: #fff6e8; color: #b45309; }
+    .ai-badge.pub-published { background: #dbeafe; color: #1d4ed8; }
+    .page-state { min-width: 210px; font-size: 12px; line-height: 1.55; }
+    .page-state b { color: #334155; }
+    .page-state .state-line { font-weight: 800; }
+    .page-state .state-ok { color: #0f766e; }
+    .page-state .state-warn { color: #c2410c; }
+    .page-state .state-muted { color: #64748b; }
+    .page-state .state-action { margin-top: 4px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+    .btn-row-add { padding: 8px 12px; border: 1px dashed #99f6e4; background: var(--v3-bg); color: #0f766e; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: inherit; }
+    .btn-row-del { border: none; background: none; color: #94a3b8; cursor: pointer; font-size: 16px; padding: 4px 8px; }
+    pre { margin: 0; padding: 12px; background: #0f172a; color: #a7f3d0; border-radius: 10px; font-size: 11px; overflow: auto; max-height: 560px; }
+    .variant-shell { display: grid; grid-template-columns: 260px minmax(300px, 1fr) minmax(340px, 1fr); gap: 16px; align-items: start; }
+    .variant-editor-stack { display: grid; gap: 16px; align-items: start; }
+    .variant-list { display: grid; gap: 8px; }
+    .variant-item { display: grid; grid-template-columns: 20px 1fr; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; font-size: 12px; }
+    .variant-item.active { border-color: #99f6e4; background: #ecfdf5; }
+    .variant-item b { display: block; }
+    .variant-item small { color: var(--muted); }
+    .preview-box { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fafafa; }
+    .preview-top { background: #111827; color: #fff; padding: 8px 12px; font-size: 11px; display: flex; justify-content: space-between; }
+    .mod-preview { padding: 12px 14px; border-bottom: 1px solid var(--line); position: relative; background: #fff; }
+    .mod-preview.highlight { outline: 2px solid var(--teal); outline-offset: -2px; background: #f0fdfa; }
+    .mod-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .mod-item { padding: 9px 10px; border-radius: 10px; cursor: pointer; border: 1px solid var(--line); font-size: 12px; background: #fff; min-width: 0; }
+    .mod-item:hover { background: #f8fafc; }
+    .mod-item.active { background: var(--teal-bg); border-color: #99f6e4; }
+    .mod-item b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mod-item code { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; background: transparent; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .form-area { padding-top: 2px; }
+    .recommendation-basis-card { margin-bottom: 14px; padding: 12px 14px; border: 1px solid #ccfbf1; border-radius: 12px; background: #f8fffd; font-size: 12px; }
+    .basis-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .basis-card-head b { font-size: 13px; }
+    .basis-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: #0f766e; border: 1px solid #99f6e4; font-size: 10px; font-weight: 800; white-space: nowrap; }
+    .basis-summary { display: grid; gap: 6px; }
+    .basis-row { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 10px; align-items: start; padding: 7px 0; border-top: 1px dashed #dbe5e1; }
+    .basis-row:first-child { border-top: none; }
+    .basis-row span { color: var(--muted); font-weight: 800; }
+    .basis-row b { color: #0f172a; font-weight: 700; line-height: 1.45; word-break: break-word; }
+    .basis-detail { margin-top: 8px; color: var(--muted); }
+    .basis-detail summary { cursor: pointer; display: inline-flex; color: #0f766e; font-size: 11px; font-weight: 800; }
+    .basis-detail dl { margin: 8px 0 0; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 5px 10px; padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line); }
+    .basis-detail dt { color: var(--muted); font-weight: 800; }
+    .basis-detail dd { margin: 0; color: #334155; word-break: break-word; }
+    .basis-edit-link { margin-top: 10px; text-decoration: none; }
+    .product-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+    .product-table th, .product-table td { border-bottom: 1px solid var(--line); padding: 7px 4px; vertical-align: middle; text-align: left; }
+    .product-table th { color: var(--muted); font-weight: 800; background: #fff; }
+    .mini-btn { border: 1px solid var(--line); background: #fff; color: #334155; border-radius: 6px; padding: 3px 6px; font-size: 10px; font-weight: 800; cursor: pointer; font-family: inherit; }
+    .hero { background: linear-gradient(135deg, #0f766e, #0d9488); color: #fff; padding: 28px 16px; text-align: center; }
+    .hero h2 { margin: 0 0 6px; font-size: 18px; }
+    .hero p { margin: 0 0 12px; font-size: 12px; opacity: .9; }
+    .hero .cta { display: inline-block; background: #fff; color: #0f766e; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+    .offer { background: #fef3c7; color: #92400e; text-align: center; padding: 8px; font-size: 12px; font-weight: 700; }
+    .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 12px; }
+    .prod { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 11px; text-align: center; }
+    .prod .img { height: 44px; background: #ecfdf5; border-radius: 6px; margin-bottom: 4px; display: grid; place-items: center; font-size: 20px; }
+    .trust { padding: 10px 14px; font-size: 11px; color: var(--muted); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 8px; background: #f8fafc; }
+    .deploy-block { margin-top: 14px; }
+    .deploy-block:first-of-type { margin-top: 0; }
+    .deploy-block h4 { margin: 0 0 6px; font-size: 13px; font-weight: 800; color: #334155; }
+    .deploy-block p { margin: 0 0 8px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .deploy-code { margin: 0 0 8px; padding: 10px 12px; background: #0f172a; color: #a7f3d0; border-radius: 10px; font-size: 11px; line-height: 1.55; white-space: pre-wrap; overflow: auto; }
+    .btn-copy { padding: 6px 10px; font-size: 12px; color: #0f766e; background: var(--v3-bg); border-color: #99f6e4; }
+    .deploy-warning { margin-top: 14px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; font-size: 12px; color: #92400e; line-height: 1.45; }
+    @media (max-width: 1280px) { .variant-shell { grid-template-columns: 240px minmax(0, 1fr); } }
+    @media (max-width: 1100px) { .layout-2, .overview-layout, .variant-shell { grid-template-columns: 1fr; } .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .basis-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .mod-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="sidenav">
+      <div class="logo">Social Link</div>
+      <div class="ver">Experience Link</div>
+      <div class="nav-group">营销增长</div>
+      <a class="nav-item active" href="V3-01-Campaign列表-可点击原型.html">个性化落地页</a>
+      <a class="nav-item" href="V3-04-增量转化看板-可点击原型.html">效果报表</a>
+    </nav>
+    <main class="main">
+      <header class="page-head">
+        <div>
+          <h1 id="campTitle">—</h1>
+          <p class="sub" id="campSub"></p>
+          <div class="head-meta" id="headMeta"></div>
+        </div>
+        <div class="top-actions">
+          <a class="btn" href="V3-01-Campaign列表-可点击原型.html">← 返回列表</a>
+          <button class="btn" type="button" id="btnCopy">复制活动</button>
+          <button class="btn btn-v3" type="button" id="btnSaveActivity">确认修改</button>
+          <button class="btn btn-primary" type="button" id="btnLaunch">发布上线</button>
+          <button class="btn" type="button" id="btnEnd" style="display:none">结束活动</button>
+        </div>
+      </header>
+
+      <section class="guide-panel" id="guidePanel"></section>
+
+      <nav class="tab-bar" aria-label="活动详情 Tab">
+        <button class="tab-btn active" type="button" data-tab="overview">概览</button>
+        <button class="tab-btn" type="button" data-tab="rules">规则配置</button>
+        <button class="tab-btn" type="button" data-tab="variants">个性化页面</button>
+      </nav>
+
+      <div class="tab-pane active" id="pane-overview"></div>
+      <div class="tab-pane" id="pane-rules"></div>
+      <div class="tab-pane" id="pane-variants"></div>
+    </main>
+  </div>
+
+  <script src="V3-共享数据.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    let campaignId = params.get("campaign_id") || "camp_demo_pending_review";
+    let camp = V3Store.getCampaign(campaignId) || V3Store.getCampaign("camp_demo_pending_review");
+    campaignId = camp.id;
+
+    let activeTab = params.get("tab") || "overview";
+    let basicDraft = {};
+    let ruleDraft = null;
+    let selectedVariantId = params.get("variant_id") || "";
+    let selectedPublishIds = new Set();
+    let originalAiImpactKey = "";
+    let originalRuleSnapshotById = {};
+    let activeMod = "mod_hero";
+    let variantDraft = null;
+
+    const MODULES = [
+      { id: "mod_hero", name: "首屏区", en: "Hero", fields: [["headline", "主标题"], ["subhead", "副标题"], ["cta", "主按钮文案"], ["image_url", "首屏图片 URL"]] },
+      { id: "mod_offer", name: "优惠条", en: "Offer", fields: [["text", "优惠文案"], ["code", "优惠码"]] },
+      { id: "mod_products", name: "商品展示区", en: "Products", fields: [["count", "首屏商品数"]] },
+      { id: "mod_trust", name: "信任保障区", en: "Trust", fields: [["shipping", "配送承诺"], ["payment", "支付方式"], ["reviews", "评价摘要"]] },
+      { id: "mod_cta", name: "行动按钮", en: "CTA", fields: [["label", "按钮文案"], ["anchor", "跳转锚点"], ["hint", "辅助说明"]] },
+    ];
+
+    const aiImpactKey = (rule) => {
+      const r = V3Store.normalizeRule(rule);
+      return JSON.stringify({
+        recommendation_strategy: r?.recommendation_strategy || {},
+        matching_rules: (r?.matching_rules || []).map((mr) => ({
+          audience_id: mr.audience_id || "",
+          entry_match: mr.entry_match || {},
+          enabled: mr.enabled !== false,
+        })),
+      });
+    };
+
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    const isReadOnly = () => camp.status === "paused" || camp.status === "ended";
+    const roAttr = () => isReadOnly() ? " disabled" : "";
+
+    function reloadCamp({ keepDraft = false } = {}) {
+      camp = V3Store.getCampaign(campaignId);
+      if (!keepDraft) initDrafts();
+      renderAll();
+    }
+
+    function initDrafts() {
+      basicDraft = {
+        name: camp.name,
+        pagePath: camp.pagePath,
+        holdout: Number(camp.holdout || 0),
+      };
+      ruleDraft = camp.rule
+        ? JSON.parse(JSON.stringify(V3Store.normalizeRule(camp.rule)))
+        : V3Store.buildInitialRuleDraft(camp);
+      if (!ruleDraft.matching_rules?.length) ruleDraft.matching_rules = V3Store.defaultWizardMatchingRules(camp);
+      (ruleDraft.matching_rules || []).forEach((row) => {
+        row._entry_match_draft = row.entry_match && Object.keys(row.entry_match).length
+          ? Object.entries(row.entry_match).map(([field, value]) => ({ field, value }))
+          : [{ field: "", value: "" }];
+      });
+      originalRuleSnapshotById = {};
+      (ruleDraft.matching_rules || []).forEach((row) => {
+        if (row.id) originalRuleSnapshotById[row.id] = row.ai_context_strategy_snapshot || V3Store.matchingRuleAiSnapshotKey(ruleDraft, row);
+      });
+      originalAiImpactKey = aiImpactKey(ruleDraft);
+      const firstTreatment = V3Store.treatmentVariants(camp)[0];
+      if (!selectedVariantId && firstTreatment) selectedVariantId = firstTreatment.id;
+    }
+
+    function statusBadge() {
+      return `<span class="status-badge ${camp.status}">状态：${V3Store.statusLabel(camp.status)}</span>`;
+    }
+
+    function renderHeader() {
+      document.getElementById("campTitle").textContent = basicDraft.name || camp.name;
+      document.getElementById("campSub").innerHTML = `${V3Store.sourceLabel(camp.source)} · ${camp.pageType}<br><code>${camp.site}${basicDraft.pagePath || camp.pagePath}</code>`;
+      document.getElementById("headMeta").innerHTML = statusBadge();
+      const btnSave = document.getElementById("btnSaveActivity");
+      const btnLaunch = document.getElementById("btnLaunch");
+      const btnCopy = document.getElementById("btnCopy");
+      btnSave.style.display = ["generating", "pending_review", "pending_launch", "active"].includes(camp.status) ? "" : "none";
+      btnLaunch.style.display = camp.status === "pending_launch" ? "" : "none";
+      btnCopy.style.display = "";
+      const btnEnd = document.getElementById("btnEnd");
+      btnEnd.style.display = (camp.status === "active" || camp.status === "paused") ? "" : "none";
+      btnEnd.onclick = () => {
+        if (confirm("确认结束活动？结束后不可再恢复运行。")) {
+          V3Store.setCampaignStatus(campaignId, "ended");
+          reloadCamp();
+        }
+      };
+    }
+
+    function renderGuide() {
+      const guide = V3Store.campaignStatusGuideData(camp);
+      document.getElementById("guidePanel").innerHTML = `<p class="guide-msg">${guide.icon} ${guide.message}</p>`;
+    }
+
+    function renderOverview() {
+      const treatments = V3Store.treatmentVariants(camp);
+      const published = treatments.filter((v) => v.variant_publish_status === "published").length;
+      const ruleLines = V3Store.campaignRulesSummaryLines({ ...camp, rule: ruleDraft });
+      document.getElementById("pane-overview").innerHTML = `
+        <div class="overview-layout">
+          <div>
+            <section class="card">
+              <div class="card-head"><h3>基础信息</h3><span class="hint">统一点击右上角「确认修改」生效</span></div>
+              <div class="grid-2">
+                <div class="field"><label>活动名称</label><input id="basicName" value="${esc(basicDraft.name)}"${roAttr()} /></div>
+                <div class="field"><label>对照组比例</label><select id="basicHoldout"${roAttr()}><option value="10">10%</option><option value="5">5%</option><option value="0">关闭</option></select></div>
+              </div>
+              <div class="grid-2">
+                <div class="field"><label>流量来源</label><div class="readonly">${V3Store.sourceLabel(camp.source)} · 创建后锁定</div></div>
+                <div class="field"><label>业务场景</label><div class="readonly">${V3Store.sceneLabel(camp.scene)} · 创建后锁定</div></div>
+              </div>
+              <div class="grid-2">
+                <div class="field"><label>页面类型</label><div class="readonly">${camp.pageType}</div></div>
+                <div class="field"><label>站点域名</label><div class="readonly">${camp.site}</div></div>
+              </div>
+              <div class="field"><label>页面路径</label><input id="basicPath" value="${esc(basicDraft.pagePath)}"${roAttr()} /></div>
+              <div class="warn">${isReadOnly() ? "当前活动已暂停或已结束，配置仅可查看，不可修改。" : "页面路径、活动名称、对照组比例不影响 AI 生成；人群、entry_match、推荐策略变更才需要重新入队。"}</div>
+            </section>
+            ${V3Store.deploymentGuideHtml(camp, { readonly: isReadOnly() })}
+          </div>
+          <section class="card">
+            <div class="card-head"><h3>规则摘要</h3></div>
+            <dl class="overview-dl">
+              <dt>Matching Rule</dt><dd>${(ruleDraft.matching_rules || []).length} 条规则</dd>
+              <dt>信号采集</dt><dd>${V3Store.signalSummaryForCampaign(camp)}</dd>
+              <dt>个性化页面</dt><dd>${treatments.length} 套（${published} 已发布）</dd>
+            </dl>
+            <ul class="rule-lines">
+              ${ruleLines.map((r) => `<li><span>#${r.index} ${r.line}</span><span class="pub-${r.pub.cls}">${r.pub.icon}${r.pub.label}</span></li>`).join("") || "<li>暂无规则</li>"}
+            </ul>
+          </section>
+        </div>`;
+      document.getElementById("basicHoldout").value = String(basicDraft.holdout);
+      bindBasicInputs();
+      bindDeploymentGuide();
+    }
+
+    function bindBasicInputs() {
+      if (isReadOnly()) return;
+      document.getElementById("basicName")?.addEventListener("input", (e) => { basicDraft.name = e.target.value; renderHeader(); });
+      document.getElementById("basicPath")?.addEventListener("input", (e) => { basicDraft.pagePath = e.target.value; renderHeader(); });
+      document.getElementById("basicHoldout")?.addEventListener("change", (e) => {
+        basicDraft.holdout = Number(e.target.value);
+        ruleDraft.holdout = { ...(ruleDraft.holdout || {}), ratio_pct: basicDraft.holdout, stable_per_visitor: true, control_mode: "platform_native" };
+        renderRulesPreview();
+      });
+    }
+
+    function bindDeploymentGuide() {
+      document.querySelectorAll(".btn-copy[data-copy]").forEach((btn) => {
+        btn.onclick = async () => {
+          const text = btn.dataset.copy || "";
+          try {
+            await navigator.clipboard.writeText(text);
+            const old = btn.textContent;
+            btn.textContent = "已复制";
+            setTimeout(() => { btn.textContent = old; }, 1200);
+          } catch (e) {
+            prompt("复制失败，请手动复制：", text);
+          }
+        };
+      });
+    }
+
+    function fieldOptionsHtml(selected) {
+      const channel = V3Store.mediaChannelFromSource(camp.source);
+      const fields = V3Store.entryMatchFieldsForChannel(channel);
+      const list = selected && !fields.some((f) => f.value === selected)
+        ? [...fields, { value: selected, label: selected }]
+        : fields;
+      return `<option value="">不限</option>${list.map((f) => `<option value="${f.value}"${f.value === selected ? " selected" : ""}>${f.label}</option>`).join("")}`;
+    }
+
+    function audienceOptionsHtml(selected) {
+      const cats = V3Store.getAudienceCategories(camp.source);
+      return cats.map((cat) => {
+        const list = V3Store.getAudiencesForCategory(cat.id, camp.source);
+        return list.length ? `<optgroup label="${cat.name}">${list.map((a) => `<option value="${a.id}"${a.id === selected ? " selected" : ""}>${a.name}</option>`).join("")}</optgroup>` : "";
+      }).join("");
+    }
+
+    function entryMatchEditorHtml(row, idx) {
+      const conditions = row._entry_match_draft?.length
+        ? row._entry_match_draft.map((x) => [x.field, x.value])
+        : (row.entry_match && Object.keys(row.entry_match).length ? Object.entries(row.entry_match) : [["", ""]]);
+      return `<div class="entry-match-box" data-rule-idx="${idx}">
+        ${conditions.map(([field, value], ci) => `
+          <div class="entry-match-row" data-cond-idx="${ci}">
+            <select data-entry-field${roAttr()}>${fieldOptionsHtml(field)}</select>
+            <input data-entry-value placeholder="= party_dress" value="${esc(value)}"${roAttr()} />
+            ${!isReadOnly() && conditions.length > 1 ? '<button type="button" class="entry-match-del" data-entry-del>×</button>' : '<span></span>'}
+          </div>`).join("")}
+        ${isReadOnly() ? "" : '<button type="button" class="entry-match-add" data-entry-add>+ 添加条件</button>'}
+      </div>
+      <div class="hint">${V3Store.formatEntryMatch(row.entry_match)}</div>`;
+    }
+
+    function renderRules() {
+      const channel = V3Store.mediaChannelFromSource(camp.source);
+      document.getElementById("pane-rules").innerHTML = `
+        <div class="layout-2">
+          <div>
+            <section class="card">
+              <div class="card-head"><h3>① 目标落地页</h3></div>
+              <div class="readonly">${camp.pageType} · <code>${camp.site}${basicDraft.pagePath || camp.pagePath}</code></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h3>② 对照组 Holdout</h3></div>
+              <div class="field"><label>对照组比例</label><select id="ruleHoldout"${roAttr()}><option value="10">10%</option><option value="5">5%</option><option value="0">关闭</option></select></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h3>③ 广告上下文 · 信号采集</h3></div>
+              <p class="hint">入口渠道由活动来源锁定：<b>${V3Store.mediaChannelLabel(channel)}</b>。URL 参数供 ④ entry_match 对照。</p>
+              ${V3Store.signalMappingTableHtml(channel)}
+            </section>
+            <section class="card">
+              <div class="card-head"><h3>④ 匹配规则 · AI 任务</h3></div>
+              <table class="rule-table">
+                <thead><tr><th>#</th><th>Social Link 目标人群</th><th>进站信号 entry_match</th><th>个性化页面</th><th></th></tr></thead>
+                <tbody id="rulesBody"></tbody>
+              </table>
+              <div class="toolbar">
+                <button class="btn-row-add" type="button" id="btnAddRule"${roAttr()}>+ 添加人群规则</button>
+                <button class="btn" type="button" id="btnQueueAll"${roAttr()}>为全部待提交人群提交 AI 任务</button>
+                <button class="btn" type="button" id="btnSimulateAi"${roAttr()}>模拟：AI 生成完成</button>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h3>⑤ 推荐策略</h3></div>
+              <p class="hint">这些字段影响 AI 生成和运行时商品置顶；确认修改后相关 AI 页面会重新入队，活动回退到生成中。</p>
+              <div class="grid-3">
+                <div class="field"><label>广告 SKU 优先级</label><select id="stAdSku"${roAttr()}><option value="top_2">广告 SKU 前 2 位</option><option value="top_4">广告 SKU 前 4 位</option><option value="none">不固定置顶</option></select></div>
+                <div class="field"><label>商品来源</label><select id="stSource"${roAttr()}><option value="manual_collection">广告 / 专题 Collection</option><option value="cart_items">弃购购物车</option><option value="recently_viewed">最近浏览</option><option value="shop_default_collection">店铺默认集合</option></select></div>
+                <div class="field"><label>首屏商品数</label><select id="stHeroCount"${roAttr()}><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></div>
+              </div>
+              <div class="field"><label>补齐规则</label><input id="stFallback"${roAttr()} /></div>
+              <div class="field"><label>规则顺序</label><input id="stRuleOrder"${roAttr()} /></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h3>⑥ 默认与兜底</h3></div>
+              <div class="grid-2">
+                <div class="field"><label>活动默认页</label><select id="mapDefault"${roAttr()}></select></div>
+                <div class="field"><label>异常兜底页</label><select id="mapFallback"${roAttr()}></select></div>
+              </div>
+            </section>
+          </div>
+          <aside class="card">
+            <div class="card-head"><h3>规则 JSON 预览</h3></div>
+            <pre id="rulePreview"></pre>
+          </aside>
+        </div>`;
+      bindRulesTab();
+      fillStrategyForm();
+      fillVariantMaps();
+      renderRuleRows();
+      renderRulesPreview();
+    }
+
+    function variantDisplayName(row, variant) {
+      const aud = row.audience_id ? V3Store.audienceLabel(row.audience_id).split(" · ")[0] : "未选人群";
+      const em = row.entry_match && Object.keys(row.entry_match).length
+        ? V3Store.formatEntryMatch(row.entry_match).replace(/\s*且\s*/g, "+").replace(/\s*=\s*/g, ":")
+        : "不限";
+      return variant?.name || `${aud}+${em}`;
+    }
+
+    function isRuleAiContextChanged(row) {
+      const status = row.ai_status || (row.variant_id ? "ready" : "pending");
+      if (status !== "ready" || !row.variant_id) return false;
+      const baseline = row.ai_context_strategy_snapshot || originalRuleSnapshotById[row.id];
+      if (!baseline) return false;
+      return baseline !== V3Store.matchingRuleAiSnapshotKey(buildRuleFromDraft(), row);
+    }
+
+    function hasStaleReadyRuleInDraft() {
+      return (ruleDraft.matching_rules || []).some((row) => {
+        const status = row.ai_status || (row.variant_id ? "ready" : "pending");
+        return status === "ready" && row.variant_id && isRuleAiContextChanged(row);
+      });
+    }
+
+    function pageStateCell(row) {
+      const status = row.ai_status || (row.variant_id ? "ready" : "pending");
+      const variant = row.variant_id ? camp.variants.find((v) => v.id === row.variant_id) : null;
+      const name = variantDisplayName(row, variant);
+      if (status === "failed") {
+        return `<div class="page-state"><div class="state-line state-warn">生成失败</div>${isReadOnly() ? "" : `<div class="state-action"><button type="button" class="btn-link" data-requeue="${row.id}">重新入队</button></div>`}</div>`;
+      }
+      if (status === "queued") {
+        return `<div class="page-state"><div class="state-line state-muted">已入队 · 等待批处理</div></div>`;
+      }
+      if (status !== "ready" || !variant) {
+        return `<div class="page-state">${isReadOnly() ? '<span class="state-muted">还没提交 AI</span>' : `<button type="button" class="btn-link" data-submit-ai="${row.id}">提交 AI 任务</button>`}</div>`;
+      }
+      if (isRuleAiContextChanged(row)) {
+        return `<div class="page-state">
+          <div class="state-line state-warn">⚠️ 策略已变更</div>
+          <b>${esc(name)}</b>
+          <div class="state-warn">当前 3,4,5 与生成时不一致，需重新生成</div>
+          <div class="state-muted">请点右上角「确认修改」后重新生成 AI 任务</div>
+        </div>`;
+      }
+      if (variant.variant_publish_status === "published") {
+        return `<div class="page-state">
+          <div class="state-line state-ok">✓ 已发布</div>
+          <b>${esc(name)}</b>
+          <div class="state-muted">可在「个性化页面」Tab 继续微调</div>
+        </div>`;
+      }
+      return `<div class="page-state">
+        <div class="state-line">AI 已生成 · 待发布</div>
+        <b>${esc(name)}</b>
+        <div class="state-muted">请到「个性化页面」Tab 审阅并发布</div>
+        ${isReadOnly() ? "" : `<div class="state-action"><button type="button" class="btn-link" data-review="${variant.id}">去审阅</button></div>`}
+      </div>`;
+    }
+
+    function renderRuleRows() {
+      document.getElementById("rulesBody").innerHTML = (ruleDraft.matching_rules || []).map((row, i) => `
+        <tr data-rule-idx="${i}">
+          <td><b>${i + 1}</b></td>
+          <td><select data-rule-audience${roAttr()}>${audienceOptionsHtml(row.audience_id)}</select></td>
+          <td>${entryMatchEditorHtml(row, i)}</td>
+          <td data-page-state>${pageStateCell(row)}</td>
+          <td>${isReadOnly() ? "" : '<button type="button" class="btn-row-del" data-rule-del>×</button>'}</td>
+        </tr>`).join("") || `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:18px">暂无规则</td></tr>`;
+      bindRuleRows();
+    }
+
+    function refreshRuleStateCells() {
+      document.querySelectorAll("#rulesBody tr[data-rule-idx]").forEach((tr) => {
+        const idx = Number(tr.dataset.ruleIdx);
+        const cell = tr.querySelector("[data-page-state]");
+        if (cell && ruleDraft.matching_rules[idx]) cell.innerHTML = pageStateCell(ruleDraft.matching_rules[idx]);
+      });
+      bindPageStateActions();
+    }
+
+    function syncEntryMatchFromBox(idx, box) {
+      const next = {};
+      const draft = [];
+      box.querySelectorAll(".entry-match-row").forEach((line) => {
+        const field = line.querySelector("[data-entry-field]")?.value || "";
+        const value = line.querySelector("[data-entry-value]")?.value.trim() || "";
+        draft.push({ field, value });
+        if (field && value) next[field] = value;
+      });
+      ruleDraft.matching_rules[idx]._entry_match_draft = draft.length ? draft : [{ field: "", value: "" }];
+      if (Object.keys(next).length) ruleDraft.matching_rules[idx].entry_match = next;
+      else delete ruleDraft.matching_rules[idx].entry_match;
+    }
+
+    function bindRuleRows() {
+      if (isReadOnly()) return;
+      document.querySelectorAll("#rulesBody tr[data-rule-idx]").forEach((tr) => {
+        const idx = Number(tr.dataset.ruleIdx);
+        tr.querySelector("[data-rule-audience]")?.addEventListener("change", (e) => {
+          ruleDraft.matching_rules[idx].audience_id = e.target.value;
+          refreshRuleStateCells();
+          renderRulesPreview();
+        });
+        tr.querySelectorAll("[data-entry-field], [data-entry-value]").forEach((el) => {
+          const handler = () => {
+            syncEntryMatchFromBox(idx, tr.querySelector(".entry-match-box"));
+            renderRulesPreview();
+            renderRuleRows();
+          };
+          el.addEventListener("change", handler);
+          if (el.hasAttribute("data-entry-value")) el.addEventListener("input", () => {
+            syncEntryMatchFromBox(idx, tr.querySelector(".entry-match-box"));
+            refreshRuleStateCells();
+            renderRulesPreview();
+          });
+        });
+        tr.querySelectorAll("[data-entry-del]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            btn.closest(".entry-match-row")?.remove();
+            syncEntryMatchFromBox(idx, tr.querySelector(".entry-match-box"));
+            renderRuleRows();
+            renderRulesPreview();
+          });
+        });
+        tr.querySelector("[data-entry-add]")?.addEventListener("click", () => {
+          syncEntryMatchFromBox(idx, tr.querySelector(".entry-match-box"));
+          ruleDraft.matching_rules[idx]._entry_match_draft = [
+            ...(ruleDraft.matching_rules[idx]._entry_match_draft || [{ field: "", value: "" }]),
+            { field: "", value: "" },
+          ];
+          renderRuleRows();
+        });
+        tr.querySelector("[data-rule-del]")?.addEventListener("click", () => {
+          ruleDraft.matching_rules.splice(idx, 1);
+          renderRuleRows();
+          renderRulesPreview();
+        });
+      });
+      bindPageStateActions();
+    }
+
+    function bindPageStateActions() {
+      document.querySelectorAll("[data-submit-ai], [data-requeue]").forEach((btn) => {
+        btn.onclick = () => {
+          saveActivity({ silent: true, skipAiPrompt: true });
+          const ruleId = btn.dataset.submitAi || btn.dataset.requeue;
+          const row = ruleDraft.matching_rules.find((r) => r.id === ruleId);
+          const isRequeueReset = Boolean(btn.dataset.requeue);
+          if (row) {
+            row.variant_id = "";
+            row.ai_status = "pending";
+            row.ai_context_strategy_snapshot = "";
+            V3Store.saveRule(campaignId, buildRuleFromDraft());
+          }
+          if (!isRequeueReset) V3Store.queueAiPageForRule(campaignId, ruleId);
+          reloadCamp();
+          setTab("rules");
+        };
+      });
+      document.querySelectorAll("[data-review]").forEach((btn) => {
+        btn.onclick = () => {
+          selectedVariantId = btn.dataset.review;
+          setTab("variants");
+        };
+      });
+    }
+
+    function bindRulesTab() {
+      document.getElementById("ruleHoldout").value = String(basicDraft.holdout);
+      if (isReadOnly()) return;
+      document.getElementById("ruleHoldout").addEventListener("change", (e) => {
+        basicDraft.holdout = Number(e.target.value);
+        ruleDraft.holdout = { ...(ruleDraft.holdout || {}), ratio_pct: basicDraft.holdout, stable_per_visitor: true, control_mode: "platform_native" };
+        renderRulesPreview();
+      });
+      document.getElementById("btnAddRule").onclick = () => {
+        const def = V3Store.newMatchingRuleDefaults(camp, ruleDraft.matching_rules || []);
+        ruleDraft.matching_rules.push({ id: `mr_${Date.now()}`, audience_id: def.audience_id, variant_id: "", ai_status: "pending", enabled: true });
+        renderRuleRows();
+        renderRulesPreview();
+      };
+      document.getElementById("btnQueueAll").onclick = () => {
+        saveActivity({ silent: true, skipAiPrompt: true });
+        const r = V3Store.queueAllMatchingRulesForAi(campaignId);
+        alert(`已提交 ${r.count} 条 AI 任务`);
+        reloadCamp();
+        setTab("rules");
+      };
+      document.getElementById("btnSimulateAi").onclick = () => {
+        saveActivity({ silent: true, skipAiPrompt: true });
+        const n = V3Store.simulateOvernightBatch(campaignId).length;
+        alert(n ? `模拟完成 · ${n} 套页面已生成` : "当前没有 queued 规则");
+        reloadCamp();
+        setTab("variants");
+      };
+    }
+
+    function fillStrategyForm() {
+      const st = ruleDraft.recommendation_strategy || V3Store.defaultRecommendationStrategy(camp);
+      document.getElementById("stAdSku").value = st.ad_sku_priority || "top_2";
+      document.getElementById("stSource").value = st.product_source || "manual_collection";
+      document.getElementById("stHeroCount").value = String(st.hero_count ?? 4);
+      document.getElementById("stFallback").value = st.fallback || "";
+      document.getElementById("stRuleOrder").value = (st.rule_order || []).join(" > ");
+      ["stAdSku", "stSource", "stHeroCount", "stFallback", "stRuleOrder"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el || isReadOnly()) return;
+        const evt = el.tagName === "INPUT" ? "input" : "change";
+        el.addEventListener(evt, () => {
+          readStrategyForm();
+          (ruleDraft.matching_rules || []).forEach((row) => {
+            const status = row.ai_status || (row.variant_id ? "ready" : "pending");
+          });
+          refreshRuleStateCells();
+          renderRulesPreview();
+        });
+      });
+    }
+
+    function readStrategyForm() {
+      const stAdSkuEl = document.getElementById("stAdSku");
+      if (!stAdSkuEl) return;
+      const adSku = stAdSkuEl.value || "none";
+      const skuPin = adSku !== "none";
+      ruleDraft.recommendation_strategy = {
+        ...(ruleDraft.recommendation_strategy || {}),
+        mode: "white_box",
+        audience_relation: (camp.source === "meta" || camp.source === "google") ? "ad_first" : "social_first",
+        conflict_rule: "current_ad_intent_first",
+        audience_output: "生成本次访客画像，作为商品推荐规则的输入",
+        ad_sku_priority: adSku,
+        sku_pin_enabled: skuPin,
+        sku_pin_source: skuPin ? "url_param:ad_skus" : "",
+        product_source: document.getElementById("stSource")?.value || "manual_collection",
+        fallback: document.getElementById("stFallback")?.value.trim() || "",
+        rule_order: (document.getElementById("stRuleOrder")?.value || "").split(">").map((x) => x.trim()).filter(Boolean),
+        hero_count: Number(document.getElementById("stHeroCount")?.value || 4),
+        feed_mode: "infinite",
+        feed_batch_size: 8,
+        feed_pool_limit: 200,
+        explanation_visible: true,
+      };
+    }
+
+    function fillVariantMaps() {
+      const opts = camp.variants.map((v) => `<option value="${v.id}">${v.name}</option>`).join("");
+      document.getElementById("mapDefault").innerHTML = opts;
+      document.getElementById("mapFallback").innerHTML = opts;
+      document.getElementById("mapDefault").value = ruleDraft.default_variant_id || "default_baseline";
+      document.getElementById("mapFallback").value = ruleDraft.fallback_variant_id || "default_baseline";
+      if (isReadOnly()) return;
+      document.getElementById("mapDefault").onchange = (e) => { ruleDraft.default_variant_id = e.target.value; renderRulesPreview(); };
+      document.getElementById("mapFallback").onchange = (e) => { ruleDraft.fallback_variant_id = e.target.value; renderRulesPreview(); };
+    }
+
+    function buildRuleFromDraft() {
+      readStrategyForm();
+      return {
+        schema: "v3_matching_rule_v1",
+        campaign_id: campaignId,
+        target_page: { page_type: camp.pageType, page_path: basicDraft.pagePath, site: camp.site },
+        entry_context: ruleDraft.entry_context || V3Store.defaultEntryCondition(camp),
+        recommendation_strategy: ruleDraft.recommendation_strategy,
+        holdout: { ratio_pct: Number(basicDraft.holdout), stable_per_visitor: true, control_mode: "platform_native" },
+        default_variant_id: ruleDraft.default_variant_id || "default_baseline",
+        fallback_variant_id: ruleDraft.fallback_variant_id || "default_baseline",
+        matching_rules: (ruleDraft.matching_rules || []).map((r, i) => ({
+          id: r.id,
+          priority: i + 1,
+          audience_id: r.audience_id,
+          variant_id: r.variant_id || "",
+          ai_status: r.ai_status || (r.variant_id ? "ready" : "pending"),
+          ai_context_strategy_snapshot: r.ai_context_strategy_snapshot || "",
+          variant_publish_status: r.variant_publish_status || undefined,
+          entry_match: r.entry_match && Object.keys(r.entry_match).length ? { ...r.entry_match } : undefined,
+          enabled: r.enabled !== false,
+        })),
+      };
+    }
+
+    function renderRulesPreview() {
+      const pre = document.getElementById("rulePreview");
+      if (pre) pre.textContent = JSON.stringify(buildRuleFromDraft(), null, 2);
+    }
+
+    function renderVariants() {
+      const treatments = V3Store.treatmentVariants(camp);
+      if (!selectedVariantId && treatments[0]) selectedVariantId = treatments[0].id;
+      const current = camp.variants.find((v) => v.id === selectedVariantId) || treatments[0] || camp.variants[0];
+      selectedVariantId = current?.id || selectedVariantId;
+      variantDraft = JSON.parse(JSON.stringify(current?.modules || V3Store.blankModules()));
+      document.getElementById("pane-variants").innerHTML = `
+        <div class="variant-shell">
+          <aside class="card">
+            <div class="card-head"><h3>个性化页面</h3></div>
+            <label style="display:flex;gap:8px;align-items:center;font-size:12px;font-weight:800;margin-bottom:10px">
+              <input type="checkbox" id="checkAllVariants" style="width:auto"${roAttr()} /> 全选待发布页面
+            </label>
+            <div class="variant-list" id="variantList"></div>
+            <div class="toolbar">
+              <button class="btn btn-primary" type="button" id="btnPublishSelected"${roAttr()}>发布选中的页面</button>
+            </div>
+          </aside>
+          <div class="variant-editor-stack">
+            <section class="card">
+              <div class="card-head"><h3>模块清单</h3></div>
+              <div class="mod-list" id="detailModList"></div>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <h3 id="variantFormTitle">${current ? esc(current.name) : "暂无页面"}</h3>
+              </div>
+              <div class="form-area" id="variantFormArea">${current ? "" : "<p class='hint'>暂无个性化页面，请先提交并完成 AI 任务。</p>"}</div>
+            </section>
+          </div>
+          <section class="card">
+            <div class="card-head"><h3>落地页预览</h3><span class="hint" id="variantPreviewMeta">${current ? esc(current.name) : "—"}</span></div>
+            <div id="variantPreviewHost">${current ? "" : "<p class='hint'>暂无预览</p>"}</div>
+          </section>
+        </div>`;
+      renderVariantList();
+      renderModList();
+      renderVariantForm();
+      renderVariantPreview();
+      document.getElementById("checkAllVariants").onchange = (e) => {
+        if (isReadOnly()) return;
+        treatments.filter((v) => v.variant_publish_status !== "published").forEach((v) => {
+          if (e.target.checked) selectedPublishIds.add(v.id);
+          else selectedPublishIds.delete(v.id);
+        });
+        renderVariantList();
+      };
+      document.getElementById("btnPublishSelected").onclick = publishSelectedVariants;
+    }
+
+    function renderVariantList() {
+      const treatments = V3Store.treatmentVariants(camp);
+      document.getElementById("variantList").innerHTML = treatments.map((v) => {
+        const pub = v.variant_publish_status || "draft";
+        const checked = selectedPublishIds.has(v.id) ? " checked" : "";
+        return `
+          <div class="variant-item ${v.id === selectedVariantId ? "active" : ""}" data-variant-id="${v.id}">
+            <input type="checkbox" data-variant-check value="${v.id}"${checked}${roAttr()} />
+            <div>
+              <b>${esc(v.name)} ${pub === "published" ? '<span class="ai-badge pub-published">已发布</span>' : '<span class="ai-badge pub-draft">待发布</span>'}</b>
+              <small>${v.aiGenerated ? "AI 生成页" : "人工页面"} · ${v.id}</small>
+            </div>
+          </div>`;
+      }).join("") || "<p class='hint'>暂无个性化页面</p>";
+      document.querySelectorAll("[data-variant-id]").forEach((el) => {
+        el.onclick = (e) => {
+          if (e.target.matches("[data-variant-check]")) return;
+          selectedVariantId = el.dataset.variantId;
+          activeMod = "mod_hero";
+          renderVariants();
+        };
+      });
+      document.querySelectorAll("[data-variant-check]").forEach((el) => {
+        if (isReadOnly()) return;
+        el.onchange = () => {
+          if (el.checked) selectedPublishIds.add(el.value);
+          else selectedPublishIds.delete(el.value);
+        };
+      });
+    }
+
+    function renderModList() {
+      const host = document.getElementById("detailModList");
+      if (!host) return;
+      host.innerHTML = MODULES.map((m) => `
+        <div class="mod-item ${m.id === activeMod ? "active" : ""}" data-mod-id="${m.id}">
+          <b>${m.name}</b><code>${m.en}</code>
+        </div>`).join("");
+      host.querySelectorAll("[data-mod-id]").forEach((el) => {
+        el.onclick = () => {
+          activeMod = el.dataset.modId;
+          renderModList();
+          renderVariantForm();
+          renderVariantPreview();
+        };
+      });
+    }
+
+    function ensureVariantDraft() {
+      if (!variantDraft) variantDraft = V3Store.blankModules();
+      MODULES.forEach((m) => {
+        if (!variantDraft[m.id]) variantDraft[m.id] = {};
+      });
+      if (!Array.isArray(variantDraft.mod_products?.items)) {
+        variantDraft.mod_products.items = V3Store.productItemsForSource(variantDraft.mod_products?.source || "shop_default_collection", variantDraft.mod_products?.count || 4);
+      }
+    }
+
+    function renderVariantForm() {
+      const area = document.getElementById("variantFormArea");
+      if (!area || !selectedVariantId) return;
+      ensureVariantDraft();
+      const mod = MODULES.find((m) => m.id === activeMod) || MODULES[0];
+      if (mod.id === "mod_products") {
+        const p = variantDraft.mod_products;
+        area.innerHTML = `
+          ${V3Store.recommendationBasisCardHtml(campaignId, V3Store.campaignDetailUrl(campaignId, "rules"))}
+          <div class="grid-2">
+            <div class="field"><label>商品来源</label><div class="readonly">${esc(p.source || "按规则生成")}</div></div>
+            <div class="field"><label>首屏商品数</label><input data-product-count value="${esc(p.count || 4)}"${roAttr()} /></div>
+          </div>
+          <table class="product-table">
+            <thead><tr><th>#</th><th>商品</th><th>价格</th><th>操作</th></tr></thead>
+            <tbody>${(p.items || []).map((item, i) => `
+              <tr>
+                <td>${i + 1}</td>
+                <td>${esc(item.title)}<br><code>${esc(item.sku_id || "")}</code></td>
+                <td>${esc(item.price || "")}</td>
+                <td>
+                  <button type="button" class="mini-btn" data-prod-up="${i}" ${i === 0 || isReadOnly() ? "disabled" : ""}>上移</button>
+                  <button type="button" class="mini-btn" data-prod-down="${i}" ${i === p.items.length - 1 || isReadOnly() ? "disabled" : ""}>下移</button>
+                  <button type="button" class="mini-btn" data-prod-replace="${i}"${roAttr()}>替换</button>
+                </td>
+              </tr>`).join("")}</tbody>
+          </table>`;
+        area.querySelector("[data-product-count]")?.addEventListener("input", (e) => {
+          if (isReadOnly()) return;
+          variantDraft.mod_products.count = Number(e.target.value) || 4;
+          renderVariantPreview();
+        });
+      area.querySelectorAll("[data-prod-up]").forEach((btn) => btn.onclick = () => moveProduct(Number(btn.dataset.prodUp), -1));
+        area.querySelectorAll("[data-prod-down]").forEach((btn) => btn.onclick = () => moveProduct(Number(btn.dataset.prodDown), 1));
+        area.querySelectorAll("[data-prod-replace]").forEach((btn) => btn.onclick = () => replaceProduct(Number(btn.dataset.prodReplace)));
+        return;
+      }
+      area.innerHTML = mod.fields.map(([key, label]) => `
+        <div class="field">
+          <label>${label}</label>
+          <textarea data-module-field="${key}"${roAttr()}>${esc(variantDraft[mod.id]?.[key] || "")}</textarea>
+        </div>`).join("");
+      area.querySelectorAll("[data-module-field]").forEach((el) => {
+        el.addEventListener("input", () => {
+          if (isReadOnly()) return;
+          variantDraft[mod.id][el.dataset.moduleField] = el.value;
+          renderVariantPreview();
+        });
+      });
+    }
+
+    function moveProduct(index, delta) {
+      if (isReadOnly()) return;
+      const list = variantDraft.mod_products.items || [];
+      const next = index + delta;
+      if (next < 0 || next >= list.length) return;
+      [list[index], list[next]] = [list[next], list[index]];
+      renderVariantForm();
+      renderVariantPreview();
+    }
+
+    function replaceProduct(index) {
+      if (isReadOnly()) return;
+      const options = V3Store.PRODUCT_POOL.map((p, i) => `${i + 1}. ${p.title} (${p.sku_id})`).join("\n");
+      const picked = prompt(`选择替换商品编号：\n${options}`, "1");
+      const product = V3Store.PRODUCT_POOL[Number(picked) - 1];
+      if (!product) return;
+      variantDraft.mod_products.items[index] = { ...product, source: "manual_replace", locked: true };
+      renderVariantForm();
+      renderVariantPreview();
+    }
+
+    function renderVariantPreview() {
+      const host = document.getElementById("variantPreviewHost");
+      if (!host || !selectedVariantId) return;
+      ensureVariantDraft();
+      const m = variantDraft;
+      const products = Array.isArray(m.mod_products?.items) && m.mod_products.items.length
+        ? m.mod_products.items
+        : V3Store.productItemsForSource(m.mod_products?.source || "shop_default_collection", m.mod_products?.count || 4);
+      const hi = (id) => id === activeMod ? "highlight" : "";
+      host.innerHTML = `
+        <div class="preview-box">
+          <div class="preview-top"><span>${camp.site}</span><span>${camp.variants.find((v) => v.id === selectedVariantId)?.variant_publish_status === "published" ? "已发布" : "待发布"}</span></div>
+          <div class="mod-preview ${hi("mod_hero")}">
+            <div class="hero">
+              <h2>${esc(m.mod_hero?.headline || "个性化首屏标题")}</h2>
+              <p>${esc(m.mod_hero?.subhead || "AI 生成的落地页副标题")}</p>
+              <span class="cta">${esc(m.mod_hero?.cta || "立即查看")}</span>
+            </div>
+          </div>
+          <div class="mod-preview ${hi("mod_offer")}"><div class="offer">${esc(m.mod_offer?.text || "优惠信息")}</div></div>
+          <div class="mod-preview ${hi("mod_products")}"><div class="products">${products.slice(0, Number(m.mod_products?.count || 4)).map((p) => `<div class="prod"><div class="img">${p.emoji || "📦"}</div>${esc(p.title)}<br><small>${esc(p.price || "")}</small></div>`).join("")}</div></div>
+          <div class="mod-preview ${hi("mod_trust")}"><div class="trust"><span>${esc(m.mod_trust?.shipping || "快速配送")}</span><span>${esc(m.mod_trust?.payment || "安全支付")}</span><span>${esc(m.mod_trust?.reviews || "真实评价")}</span></div></div>
+          <div class="mod-preview ${hi("mod_cta")}"><b>${esc(m.mod_cta?.label || "完成购买")}</b> · ${esc(m.mod_cta?.hint || "按钮说明")}</div>
+        </div>`;
+    }
+
+    function publishSelectedVariants() {
+      if (isReadOnly()) { alert("当前活动已暂停或已结束，不可发布个性化页面"); return; }
+      if (!selectedPublishIds.size) { alert("请先勾选要发布的个性化页面"); return; }
+      if (!confirm(`确认发布选中的 ${selectedPublishIds.size} 个个性化页面？`)) return;
+      selectedPublishIds.forEach((id) => {
+        const v = camp.variants.find((x) => x.id === id);
+        if (!v) return;
+        const modules = id === selectedVariantId ? variantDraft : (v.modules || V3Store.blankModules());
+        V3Store.publishVariant(campaignId, id, modules);
+      });
+      selectedPublishIds.clear();
+      reloadCamp();
+      setTab("variants");
+    }
+
+    function saveActivity({ silent = false, skipAiPrompt = false } = {}) {
+      const name = String(basicDraft.name || "").trim();
+      const pagePath = String(basicDraft.pagePath || "").trim();
+      if (!name) { alert("请填写活动名称"); return false; }
+      if (!pagePath) { alert("请填写页面路径"); return false; }
+      const nextRule = buildRuleFromDraft();
+      const nextImpact = aiImpactKey(nextRule);
+      const aiChanged = nextImpact !== originalAiImpactKey;
+      const hasStaleReady = hasStaleReadyRuleInDraft();
+      const affectsAi = aiChanged || hasStaleReady;
+      if (!skipAiPrompt) {
+        const message = affectsAi
+          ? "本次修改包含人群、entry_match 或推荐策略等影响 AI 生成的配置。\n\n确认修改后，相关 AI 页面将重新生成，活动状态回退到「生成中」。是否继续？"
+          : "确认保存本次修改？\n\n本次仅修改基础信息、页面路径或对照组比例，不会重新生成 AI 页面。";
+        if (!confirm(message)) return false;
+      }
+      V3Store.updateCampaignBasicInfo(campaignId, { name, pagePath, holdout: basicDraft.holdout });
+      V3Store.saveRule(campaignId, nextRule);
+      if (affectsAi) {
+        const latest = V3Store.getCampaign(campaignId);
+        (latest.rule?.matching_rules || []).forEach((mr) => {
+          if (mr.enabled === false || !mr.audience_id) return;
+          const draftRow = (ruleDraft.matching_rules || []).find((r) => r.id === mr.id);
+          if (!draftRow) return;
+          mr.variant_id = "";
+          mr.ai_status = "queued";
+          mr.ai_context_strategy_snapshot = "";
+        });
+        latest.status = "generating";
+        V3Store.upsertCampaign(latest);
+      }
+      camp = V3Store.getCampaign(campaignId);
+      initDrafts();
+      if (!silent) alert(affectsAi ? "修改已确认，相关 AI 任务已重新入队" : "修改已确认");
+      renderAll();
+      return true;
+    }
+
+    function launchActivity() {
+      if (!saveActivity({ silent: true, skipAiPrompt: false })) return;
+      if (camp.status !== "pending_launch") { alert("当前状态不可发布上线；请先完成 AI 生成与个性化页面发布。"); return; }
+      if (!confirm(`确认发布活动「${camp.name}」？\n\n发布后站侧将按规则生效。`)) return;
+      const r = V3Store.launchCampaign(campaignId);
+      if (!r?.ok) {
+        const block = V3Store.rulesPublishBlockers(campaignId);
+        if (block.reason === "not_published") alert("还有个性化页面未发布，请先在「个性化页面」Tab 批量发布。");
+        else if (block.reason === "queued") alert("还有 AI 任务生成中，请生成完成后再发布。");
+        else alert("发布失败，请确认规则与页面均已就绪。");
+        return;
+      }
+      alert("活动已发布 · 线上生效");
+      reloadCamp();
+      setTab("overview");
+    }
+
+    function setTab(tab) {
+      activeTab = tab || "overview";
+      renderHeader();
+      renderGuide();
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === activeTab));
+      document.querySelectorAll(".tab-pane").forEach((p) => p.classList.remove("active"));
+      document.getElementById(`pane-${activeTab}`).classList.add("active");
+      const u = new URL(location.href);
+      u.searchParams.set("tab", activeTab);
+      history.replaceState(null, "", u);
+      if (activeTab === "rules") renderRules();
+      if (activeTab === "variants") renderVariants();
+      if (activeTab === "overview") renderOverview();
+    }
+
+    function renderAll() {
+      setTab(activeTab);
+    }
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => btn.addEventListener("click", () => setTab(btn.dataset.tab)));
+    document.getElementById("btnSaveActivity").onclick = () => saveActivity();
+    document.getElementById("btnLaunch").onclick = launchActivity;
+    document.getElementById("btnCopy").onclick = () => {
+      const copy = V3Store.duplicateCampaign(campaignId);
+      if (copy) location.href = V3Store.campaignDetailUrl(copy.id, "overview");
+    };
+
+    initDrafts();
+    setTab(activeTab);
+  </script>
+</body>
+</html>
+
+

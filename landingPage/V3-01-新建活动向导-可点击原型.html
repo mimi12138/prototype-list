@@ -1,0 +1,686 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>新建活动向导</title>
+  <style>
+    :root {
+      --bg: #f7f8fa; --paper: #fff; --ink: #0f172a; --muted: #64748b; --line: #e5e7eb;
+      --v3: #0d9488; --v3-bg: #ecfdf5; --teal: #0d9488; --teal-bg: #ecfdf5;
+      --shadow: 0 12px 36px rgba(15, 23, 42, 0.07); --r: 14px; --nav-w: 228px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; min-height: 100vh; }
+    .shell { display: flex; min-height: 100vh; }
+    .sidenav { width: var(--nav-w); background: #fff; color: var(--ink); padding: 16px 10px; flex-shrink: 0; border-right: 1px solid var(--line); }
+    .sidenav .logo { padding: 8px 8px 4px; font-weight: 800; font-size: 14px; color: #111827; }
+    .sidenav .ver { padding: 0 8px 14px; font-size: 11px; color: var(--muted); }
+    .nav-group { padding: 8px 8px 6px; font-size: 11px; color: var(--muted); font-weight: 800; }
+    .nav-item { display: block; padding: 9px 10px; border-radius: 8px; font-size: 13px; color: #334155; text-decoration: none; }
+    .nav-item.active { background: #f8fafc; color: #0f172a; box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; }
+    .nav-item:hover { color: #0f172a; background: #f8fafc; }
+    .main { flex: 1; padding: 0 32px 44px; min-width: 0; width: 100%; }
+    .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 24px 0 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+    .page-head h1 { margin: 0; font-size: 24px; letter-spacing: 0; }
+    .page-head p { margin: 8px 0 0; font-size: 13px; color: var(--muted); max-width: 720px; }
+    .wizard-steps { display: none; }
+    .wizard-step {
+      flex: 1; text-align: center; padding: 10px 8px; border-radius: 10px;
+      font-size: 12px; font-weight: 700; color: var(--muted); background: #f8fafc; border: 1px solid var(--line);
+    }
+    .wizard-step.active { background: var(--v3-bg); color: #0f766e; border-color: #99f6e4; }
+    .wizard-step.done { color: #0f766e; border-color: #a7f3d0; background: #ecfdf5; }
+    .wizard-stage { display: grid; grid-template-columns: minmax(260px, 300px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 18px; width: 100%; }
+    .wizard-stage.success-mode { grid-template-columns: minmax(0, 760px); justify-content: center; }
+    .wizard-stage.success-mode .wizard-aside { display: none; }
+    .wizard-aside { position: sticky; top: 18px; }
+    .side-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; }
+    .side-card h2 { margin: 0; font-size: 14px; }
+    .side-card p { margin: 6px 0 14px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .side-step { display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 12px 0; border-top: 1px dashed var(--line); }
+    .side-step:first-of-type { border-top: none; }
+    .side-num { width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; justify-self: center; background: #f1f5f9; color: #64748b; font-size: 12px; font-weight: 800; line-height: 1; text-align: center; }
+    .side-step b { display: block; font-size: 13px; }
+    .side-step span { display: block; margin-top: 2px; font-size: 11px; color: var(--muted); line-height: 1.45; }
+    .side-step.active .side-num { background: var(--v3); color: #fff; }
+    .side-step.active b { color: #0f766e; }
+    .side-step.done .side-num { background: #0f766e; color: #fff; }
+    .side-note { margin-top: 14px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--line); border-radius: 10px; font-size: 11px; color: #475569; line-height: 1.5; }
+    .wizard-content { min-width: 0; width: 100%; max-width: 1120px; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); margin-top: 0; margin-bottom: 16px; padding: 22px; }
+    .card h2 { margin: 0 0 12px; font-size: 16px; }
+    .hint { margin: 0 0 12px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+    .field input, .field select { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 13px; font-family: inherit; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .signal-channel-locked { font-size: 13px; font-weight: 800; color: #0f766e; padding: 6px 12px; background: var(--v3-bg); border: 1px solid #99f6e4; border-radius: 8px; display: inline-block; }
+    .signal-channel-lock-hint { font-size: 11px; color: var(--muted); margin-left: 8px; }
+    .signal-map-panel, .signal-status-panel { margin-top: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-radius: 10px; font-size: 12px; }
+    .signal-map-hint { margin: 6px 0 10px; color: var(--muted); font-size: 11px; }
+    .signal-map-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .signal-map-table th, .signal-map-table td { padding: 6px 8px; border-bottom: 1px dashed var(--line); text-align: left; }
+    .signal-map-table code { font-size: 10px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+    .signal-map-example { color: #64748b; font-size: 11px; }
+    .signal-entry-match-tip { margin: 10px 0 0; padding: 8px 10px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; font-size: 11px; color: #92400e; }
+    .signal-pending-msg { margin: 0; font-size: 12px; color: #64748b; }
+    .signal-status-config { background: #f8fafc; }
+    .entry-match-preset-box { margin: 0 0 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--line); border-radius: 10px; font-size: 12px; color: #475569; }
+    .rule-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+    .rule-table th, .rule-table td { padding: 8px 6px; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+    .rule-table th { font-size: 11px; color: var(--muted); font-weight: 700; text-align: left; background: #fff; }
+    .entry-match-box { display: grid; gap: 6px; }
+    .entry-match-row { display: grid; grid-template-columns: minmax(96px, 1fr) minmax(110px, 1fr) 24px; gap: 6px; align-items: center; }
+    .entry-match-row select, .entry-match-row input { min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; font-size: 11px; }
+    .entry-match-del { width: 24px; height: 24px; border: none; background: none; color: #94a3b8; cursor: pointer; font-size: 15px; line-height: 1; }
+    .entry-match-add { justify-self: start; border: none; background: none; color: #0f766e; padding: 0; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .entry-match-hint { font-size: 10px; color: var(--muted); }
+    .btn-row-add { margin-top: 8px; padding: 8px 12px; border: 1px dashed #99f6e4; background: var(--v3-bg); color: #0f766e; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; }
+    .btn-row-del { border: none; background: none; color: #94a3b8; cursor: pointer; font-size: 16px; }
+    .strategy-details { margin-top: 12px; border: 1px dashed #99f6e4; border-radius: 10px; background: #f0fdfa; }
+    .strategy-details summary { padding: 10px 14px; cursor: pointer; font-weight: 700; color: #0f766e; font-size: 13px; list-style: none; }
+    .strategy-details summary::-webkit-details-marker { display: none; }
+    .strategy-details summary::before { content: "▸ "; }
+    .strategy-details[open] summary::before { content: "▾ "; }
+    .strategy-details-body { padding: 0 14px 14px; border-top: 1px solid #a7f3d0; }
+    .strategy-subhead { margin: 0 0 8px; font-size: 13px; font-weight: 800; color: #334155; }
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .sku-pin-note { margin-top: 6px; padding: 7px 9px; border-radius: 8px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #0f766e; font-size: 11px; line-height: 1.45; }
+    .sku-pin-note.off { background: #f8fafc; border-color: var(--line); color: #64748b; }
+    .feed-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .confirm-dl { display: grid; grid-template-columns: 100px 1fr; gap: 6px 12px; font-size: 13px; margin: 0 0 16px; }
+    .confirm-dl dt { color: var(--muted); font-weight: 600; }
+    .confirm-dl dd { margin: 0; }
+    .confirm-rules { margin: 0; padding-left: 18px; font-size: 13px; color: #334155; }
+    .confirm-check { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; margin-top: 12px; padding: 12px; background: var(--teal-bg); border: 1px solid #99f6e4; border-radius: 10px; }
+    .wizard-foot { display: flex; justify-content: flex-end; gap: 12px; margin-top: 2px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); background: rgba(255,255,255,.88); box-shadow: var(--shadow); }
+    .btn { border: 1px solid var(--line); background: var(--paper); padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; color: inherit; }
+    .btn-primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .wizard-pane { display: none; }
+    .wizard-pane.active { display: block; }
+    .success-box { text-align: center; padding: 42px 44px; }
+    .success-box h2 { color: #0f766e; margin: 0 0 10px; font-size: 22px; }
+    .success-box p { color: #334155; font-size: 13px; line-height: 1.8; margin: 0; }
+    .success-actions { display: flex; gap: 10px; max-width: 420px; margin: 24px auto 0; }
+    .success-actions .btn { justify-content: center; text-align: center; }
+    @media (max-width: 980px) {
+      .main { padding: 0 18px 32px; }
+      .wizard-stage { grid-template-columns: 1fr; }
+      .wizard-aside { position: static; }
+      .strategy-grid, .feed-grid, .grid-2 { grid-template-columns: 1fr; }
+      .success-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="sidenav">
+      <div class="logo">Social Link</div>
+      <div class="ver">Experience Link</div>
+      <div class="nav-group">营销增长</div>
+      <a class="nav-item active" href="V3-01-Campaign列表-可点击原型.html">个性化落地页</a>
+      <a class="nav-item" href="V3-04-增量转化看板-可点击原型.html">效果报表</a>
+    </nav>
+    <main class="main">
+      <header class="page-head" id="wizardHead">
+        <div>
+          <h1>新建个性化活动</h1>
+        </div>
+        <a class="btn" href="V3-01-Campaign列表-可点击原型.html">← 返回列表</a>
+        <div class="wizard-steps" id="stepBar">
+          <div class="wizard-step active" data-n="1">① 基础</div>
+          <div class="wizard-step" data-n="2">② 规则配置</div>
+          <div class="wizard-step" data-n="3">③ 确认</div>
+        </div>
+      </header>
+
+      <div class="wizard-stage">
+        <aside class="wizard-aside">
+          <div class="side-card">
+            <h2>创建流程</h2>
+            <p>先确定活动入口，再配置人群和推荐策略，最后确认是否立即提交 AI 任务。</p>
+            <div class="side-step active" data-side-step="1">
+              <span class="side-num">1</span>
+              <div><b>基础信息</b><span>来源、场景、站点和目标落地页。</span></div>
+            </div>
+            <div class="side-step" data-side-step="2">
+              <span class="side-num">2</span>
+              <div><b>规则配置</b><span>Holdout、人群规则、广告信号和白盒推荐。</span></div>
+            </div>
+            <div class="side-step" data-side-step="3">
+              <span class="side-num">3</span>
+              <div><b>确认创建</b><span>检查配置并决定是否自动提交 AI 任务。</span></div>
+            </div>
+            <div class="side-note">创建后可在活动详情页继续查看规则、审阅个性化页面和复制部署指南。</div>
+          </div>
+        </aside>
+
+        <section class="wizard-content">
+          <div id="wizardPanes">
+            <div class="wizard-pane active" data-pane="1">
+          <div class="card">
+            <h2>活动基础</h2>
+            <p class="hint">流量来源决定 ③ 信号映射模板（创建后不可在规则页切换渠道）。</p>
+            <div class="field"><label>活动名称</label><input id="wName" placeholder="如：Meta 广告 · 产品聚合页" /></div>
+            <div class="grid-2">
+              <div class="field"><label>流量来源</label><select id="wSource"></select></div>
+              <div class="field"><label>业务场景</label><select id="wScene"></select></div>
+            </div>
+            <div class="field"><label>站点域名</label><input id="wSite" value="bellabarnett.com" /></div>
+            <div class="grid-2">
+              <div class="field"><label>页面类型</label>
+                <select id="wPageType">
+                  <option>产品聚合页</option><option>首页</option><option>大促活动页</option><option>商品详情页 PDP</option>
+                </select>
+              </div>
+              <div class="field"><label>页面路径</label><input id="wPath" value="/collections/ad-landing" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wizard-pane" data-pane="2">
+          <div class="card">
+            <h2>② 对照组 Holdout</h2>
+            <div class="field"><label>对照组比例</label>
+              <select id="wHoldout"><option value="10" selected>10%</option><option value="5">5%</option><option value="0">关闭</option></select>
+            </div>
+          </div>
+          <div class="card">
+            <h2>③ 广告上下文</h2>
+            <p class="hint">入口渠道由第①步来源锁定；向导阶段只展示 URL 参数映射表，不展示采集状态。</p>
+            <div style="margin-bottom:10px">
+              <span class="signal-channel-locked" id="wChannelLabel">Meta 广告</span>
+              <span class="signal-channel-lock-hint" id="wChannelHint">由活动来源锁定</span>
+            </div>
+            <div id="wAdContextHost"></div>
+          </div>
+          <div class="card">
+            <h2>④ 匹配规则</h2>
+            <table class="rule-table">
+              <thead><tr><th>#</th><th>Social Link 人群</th><th>entry_match</th><th></th></tr></thead>
+              <tbody id="wRuleBody"></tbody>
+            </table>
+            <button type="button" class="btn-row-add" id="btnAddRule">+ 添加人群规则</button>
+          </div>
+          <div class="card">
+            <h2>⑤ 推荐策略</h2>
+            <p class="hint">快速创建只展示 P0 必配字段；P1 高级项默认折叠，可保持默认值。</p>
+            <h3 class="strategy-subhead">P0 可配字段</h3>
+            <div class="strategy-grid">
+              <div class="field"><label>广告 SKU 优先级</label><select id="stAdSku"><option value="top_2">前 2 位</option><option value="top_4">前 4 位</option><option value="none">不固定</option></select><div id="skuPinNote" class="sku-pin-note"></div></div>
+              <div class="field"><label>商品来源</label><select id="stSource"><option value="manual_collection">广告 / 专题 Collection</option><option value="cart_items">弃购购物车</option><option value="recently_viewed">最近浏览</option><option value="shop_default_collection">店铺默认集合</option></select></div>
+              <div class="field"><label>补齐规则</label><input id="stFallback" placeholder="同品类热销 + 有库存优先" /></div>
+            </div>
+            <div class="field" style="margin-top:10px"><label>规则顺序</label><input id="stRuleOrder" /></div>
+            <div class="strategy-grid">
+              <div class="field"><label>首屏商品数</label><select id="stHeroCount"><option value="4">4</option><option value="6">6</option><option value="8">8</option></select></div>
+            </div>
+            <details class="strategy-details">
+              <summary>高级设置（P1 默认值）</summary>
+              <div class="strategy-details-body">
+                <div class="feed-grid">
+                  <div class="field"><label>猜你喜欢</label><select id="stFeedMode"><option value="infinite">无限流</option><option value="paged">分页</option><option value="fixed">固定</option></select></div>
+                  <div class="field"><label>每次加载</label><select id="stFeedBatch"><option value="8">8</option><option value="4">4</option><option value="12">12</option></select></div>
+                  <div class="field"><label>推荐池上限</label><select id="stPoolLimit"><option value="200">200</option><option value="100">100</option><option value="50">50</option></select></div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="wizard-pane" data-pane="3">
+          <div class="card">
+            <h2>确认并创建</h2>
+            <dl class="confirm-dl" id="confirmSummary"></dl>
+            <label class="confirm-check">
+              <input type="checkbox" id="wAutoQueue" checked />
+              <span>创建后自动提交 AI 任务（为每条已选人群规则入队，可在列表进入规则页查看状态）</span>
+            </label>
+          </div>
+        </div>
+
+          </div>
+
+          <div class="wizard-foot" id="wizardFoot">
+            <div style="display:flex;gap:8px">
+              <button type="button" class="btn" id="btnPrev" disabled>上一步</button>
+              <button type="button" class="btn btn-primary" id="btnNext">下一步</button>
+            </div>
+          </div>
+        </section>
+        </div>
+    </main>
+  </div>
+
+  <script src="V3-共享数据.js"></script>
+  <script>
+    let step = 1;
+    let matchingRules = [];
+    let recommendationStrategy = {};
+    let entryContext = { media_channel: "meta", signal_sample: null };
+    let createdCampId = null;
+
+    const wSource = document.getElementById("wSource");
+    const wScene = document.getElementById("wScene");
+    const SCENES_BY_SOURCE = {
+      klaviyo: ["abandoned_cart", "browse_abandonment", "localization"],
+      meta: ["campaign_ad", "ad_product", "localization"],
+      google: ["campaign_ad", "ad_product", "localization"],
+    };
+    const PAGE_DEFAULTS_BY_SCENE = {
+      abandoned_cart: { pageType: "产品聚合页", path: "/collections/cart-recovery" },
+      browse_abandonment: { pageType: "产品聚合页", path: "/collections/browse-recommendations" },
+      campaign_ad: { pageType: "产品聚合页", path: "/collections/ad-landing" },
+      ad_product: { pageType: "商品详情页 PDP", path: "/products/ad-product" },
+      localization: { pageType: "首页", path: "/" },
+    };
+    const SITE_DEFAULTS_BY_SOURCE = {
+      klaviyo: "bellabarnett.com",
+      meta: "bellabarnett.com",
+      google: "a-premium.com",
+    };
+    const ENTRY_MATCH_DEFAULTS = {
+      abandoned_cart: {},
+      browse_abandonment: {},
+      campaign_ad: { meta: { creative_tags: "party_dress" }, google: { campaign_id: "google_pmax_brake" } },
+      ad_product: { meta: { ad_skus: "sku_dress_003" }, google: { ad_skus: "sku_brake_001" } },
+      localization: {},
+    };
+
+    V3Store.SOURCE_OPTIONS.forEach((o) => {
+      wSource.innerHTML += `<option value="${o.value}">${o.label}</option>`;
+    });
+    wSource.value = "meta";
+    wScene.value = "ad_product";
+
+    function sceneOptionsForSource(source) {
+      const allowed = SCENES_BY_SOURCE[source] || ["localization"];
+      return V3Store.SCENE_OPTIONS.filter((s) => allowed.includes(s.value));
+    }
+
+    function renderSceneOptions(preferredScene) {
+      const options = sceneOptionsForSource(wSource.value);
+      const nextScene = options.some((s) => s.value === preferredScene) ? preferredScene : options[0]?.value || "localization";
+      wScene.innerHTML = options.map((o) =>
+        `<option value="${o.value}" ${o.value === nextScene ? "selected" : ""}>${o.label}</option>`
+      ).join("");
+      wScene.value = nextScene;
+    }
+
+    function applySourceDefaults() {
+      document.getElementById("wSite").value = SITE_DEFAULTS_BY_SOURCE[wSource.value] || "bellabarnett.com";
+    }
+
+    function applySceneDefaults() {
+      const defaults = PAGE_DEFAULTS_BY_SCENE[wScene.value] || PAGE_DEFAULTS_BY_SCENE.campaign_ad;
+      document.getElementById("wPageType").value = defaults.pageType;
+      if (wScene.value === "ad_product" && wSource.value === "google") {
+        document.getElementById("wPath").value = "/products/premium-brake-pads";
+      } else if (wScene.value === "ad_product" && wSource.value === "meta") {
+        document.getElementById("wPath").value = "/products/party-dress";
+      } else {
+        document.getElementById("wPath").value = defaults.path;
+      }
+    }
+
+    function defaultEntryMatchForDraft(draft) {
+      const channel = V3Store.mediaChannelFromSource(draft.source);
+      const byScene = ENTRY_MATCH_DEFAULTS[draft.scene];
+      return byScene?.[channel] ? { ...byScene[channel] } : {};
+    }
+
+    function resetMatchingRulesForDraft() {
+      const draft = wizardCampaignDraft();
+      const entryMatch = defaultEntryMatchForDraft(draft);
+      matchingRules = V3Store.defaultWizardMatchingRules(draft).map((r) => ({
+        ...r,
+        entry_match: Object.keys(entryMatch).length ? { ...entryMatch } : undefined,
+      }));
+      renderMatchingRules();
+    }
+
+    function wizardCampaignDraft() {
+      return {
+        source: wSource.value,
+        scene: wScene.value,
+        status: "draft",
+        site: document.getElementById("wSite").value.trim(),
+        pageType: document.getElementById("wPageType").value,
+        pagePath: document.getElementById("wPath").value.trim(),
+        holdout: Number(document.getElementById("wHoldout").value),
+      };
+    }
+
+    function refreshStrategyDefaults() {
+      const draft = wizardCampaignDraft();
+      recommendationStrategy = V3Store.defaultRecommendationStrategy(draft);
+      document.getElementById("stAdSku").value = recommendationStrategy.ad_sku_priority || "top_2";
+      document.getElementById("stSource").value = recommendationStrategy.product_source || "manual_collection";
+      document.getElementById("stFallback").value = recommendationStrategy.fallback || "";
+      document.getElementById("stRuleOrder").value = (recommendationStrategy.rule_order || []).join(" > ");
+      document.getElementById("stHeroCount").value = String(recommendationStrategy.hero_count ?? 4);
+      document.getElementById("stFeedMode").value = recommendationStrategy.feed_mode || "infinite";
+      document.getElementById("stFeedBatch").value = String(recommendationStrategy.feed_batch_size ?? 8);
+      document.getElementById("stPoolLimit").value = String(recommendationStrategy.feed_pool_limit ?? 200);
+      refreshSkuPinNote();
+    }
+
+    function readStrategyForm() {
+      const adSkuPriority = document.getElementById("stAdSku").value;
+      const skuPinEnabled = adSkuPriority !== "none";
+      recommendationStrategy = {
+        mode: "white_box",
+        audience_relation: recommendationStrategy.audience_relation || (wSource.value === "meta" || wSource.value === "google" ? "ad_first" : "social_first"),
+        conflict_rule: "current_ad_intent_first",
+        audience_output: "生成本次访客画像，作为商品推荐规则的输入",
+        ad_sku_priority: adSkuPriority,
+        sku_pin_enabled: skuPinEnabled,
+        sku_pin_source: skuPinEnabled ? "url_param:ad_skus" : "",
+        product_source: document.getElementById("stSource").value,
+        fallback: document.getElementById("stFallback").value.trim(),
+        rule_order: document.getElementById("stRuleOrder").value.split(">").map((x) => x.trim()).filter(Boolean),
+        hero_count: Number(document.getElementById("stHeroCount").value),
+        feed_mode: document.getElementById("stFeedMode").value,
+        feed_batch_size: Number(document.getElementById("stFeedBatch").value),
+        feed_pool_limit: Number(document.getElementById("stPoolLimit").value),
+        explanation_visible: true,
+      };
+    }
+
+    function refreshSkuPinNote() {
+      const note = document.getElementById("skuPinNote");
+      const stAdSku = document.getElementById("stAdSku");
+      if (!note || !stAdSku) return;
+      const pinEnabled = stAdSku.value !== "none";
+      note.classList.toggle("off", !pinEnabled);
+      note.textContent = pinEnabled
+        ? "↳ 运行时从 URL ad_skus 参数读取，由站侧 SDK / 平台适配器自动置顶"
+        : "↳ 不执行运行时置顶，商品排序按 AI 生成结果";
+    }
+
+    function refreshAdContextPanel() {
+      const draft = wizardCampaignDraft();
+      entryContext = V3Store.defaultEntryCondition(draft);
+      document.getElementById("wChannelLabel").textContent = V3Store.mediaChannelLabel(entryContext.media_channel);
+      document.getElementById("wChannelHint").textContent = `由活动来源（${V3Store.sourceLabel(draft.source)}）锁定`;
+      document.getElementById("wAdContextHost").innerHTML = V3Store.adContextMappingOnlyPanelHtml(entryContext, draft);
+    }
+
+    function audienceOptions(selectedId, source) {
+      const cats = V3Store.getAudienceCategories(source);
+      return cats.map((cat) => {
+        const list = V3Store.getAudiencesForCategory(cat.id, source);
+        if (!list.length) return "";
+        return `<optgroup label="${cat.name}">${list.map((a) =>
+          `<option value="${a.id}" ${a.id === selectedId ? "selected" : ""}>${a.name}</option>`
+        ).join("")}</optgroup>`;
+      }).join("");
+    }
+
+    function renderMatchingRules() {
+      const source = wSource.value;
+      const channel = V3Store.mediaChannelFromSource(source);
+      document.getElementById("wRuleBody").innerHTML = matchingRules.map((row, i) => {
+        const fields = V3Store.entryMatchFieldsForChannel(channel);
+        const conditions = row.entry_match && Object.keys(row.entry_match).length
+          ? Object.entries(row.entry_match)
+          : [["", ""]];
+        const conditionRows = conditions.map(([field, val]) => {
+          const fieldList = field && !fields.some((f) => f.value === field)
+            ? [...fields, { value: field, label: V3Store.formatEntryMatch({ [field]: "" }).replace(" = ", "") || field }]
+            : fields;
+          const fieldOpts = fieldList.map((f) =>
+            `<option value="${f.value}" ${f.value === field ? "selected" : ""}>${f.label}</option>`
+          ).join("");
+          return `
+            <div class="entry-match-row">
+              <select data-f="entry_match_field"><option value="">不限</option>${fieldOpts}</select>
+              <input data-f="entry_match_value" placeholder="= party_dress" value="${String(val || "").replace(/"/g, "&quot;")}" />
+              <button type="button" class="entry-match-del" data-entry-del title="删除条件">×</button>
+            </div>`;
+        }).join("");
+        const hint = row.entry_match && Object.keys(row.entry_match).length
+          ? V3Store.formatEntryMatch(row.entry_match)
+          : "不限 · 仅人群";
+        return `
+          <tr data-id="${row.id}">
+            <td>${i + 1}</td>
+            <td><select data-f="audience_id" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;font-size:12px">${audienceOptions(row.audience_id, source)}</select></td>
+            <td>
+              <div class="entry-match-box">
+                ${conditionRows}
+                <button type="button" class="entry-match-add" data-entry-add>+ 添加条件</button>
+              </div>
+              <div class="entry-match-hint">${hint}</div>
+            </td>
+            <td><button type="button" class="btn-row-del" data-del="${row.id}">×</button></td>
+          </tr>`;
+      }).join("");
+
+      document.getElementById("wRuleBody").querySelectorAll("tr").forEach((tr) => {
+        const id = tr.dataset.id;
+        tr.querySelectorAll("[data-f]").forEach((el) => {
+          el.addEventListener("change", () => syncRuleRow(id, tr));
+          if (el.dataset.f === "entry_match_value") el.addEventListener("input", () => syncRuleRow(id, tr));
+        });
+        tr.querySelectorAll("[data-entry-del]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            btn.closest(".entry-match-row")?.remove();
+            syncRuleRow(id, tr);
+            renderMatchingRules();
+          });
+        });
+        tr.querySelector("[data-entry-add]")?.addEventListener("click", () => {
+          const row = matchingRules.find((r) => r.id === id);
+          if (!row) return;
+          syncRuleRow(id, tr);
+          const nextField = V3Store.entryMatchFieldsForChannel(channel).find((f) => !row.entry_match?.[f.value])?.value || "";
+          row.entry_match = { ...(row.entry_match || {}) };
+          if (nextField) row.entry_match[nextField] = "";
+          renderMatchingRules();
+        });
+        tr.querySelector("[data-del]")?.addEventListener("click", () => {
+          matchingRules = matchingRules.filter((r) => r.id !== id);
+          renderMatchingRules();
+        });
+      });
+    }
+
+    function syncRuleRow(id, tr) {
+      const row = matchingRules.find((r) => r.id === id);
+      if (!row) return;
+      row.audience_id = tr.querySelector("[data-f=\"audience_id\"]").value;
+      const next = {};
+      tr.querySelectorAll(".entry-match-row").forEach((line) => {
+        const f = line.querySelector("[data-f=\"entry_match_field\"]")?.value || "";
+        const v = line.querySelector("[data-f=\"entry_match_value\"]")?.value.trim() || "";
+        if (f && v) next[f] = v;
+      });
+      if (Object.keys(next).length) row.entry_match = next;
+      else delete row.entry_match;
+    }
+
+    function cleanEntryMatch(entryMatch) {
+      const next = {};
+      Object.entries(entryMatch || {}).forEach(([field, value]) => {
+        const v = String(value || "").trim();
+        if (field && v) next[field] = v;
+      });
+      return next;
+    }
+
+    function resetMatchingRulesForSource() {
+      resetMatchingRulesForDraft();
+    }
+
+    function refreshStepTwoPanels() {
+      refreshAdContextPanel();
+      refreshStrategyDefaults();
+      renderMatchingRules();
+    }
+
+    function handleSourceChange() {
+      const previousScene = wScene.value;
+      applySourceDefaults();
+      renderSceneOptions(previousScene);
+      applySceneDefaults();
+      resetMatchingRulesForDraft();
+      if (step === 2) refreshStepTwoPanels();
+    }
+
+    function handleSceneChange() {
+      applySceneDefaults();
+      resetMatchingRulesForDraft();
+      if (step === 2) refreshStepTwoPanels();
+    }
+
+    function renderConfirm() {
+      readStrategyForm();
+      const name = document.getElementById("wName").value.trim();
+      const site = document.getElementById("wSite").value.trim();
+      const path = document.getElementById("wPath").value.trim();
+      const holdout = document.getElementById("wHoldout").value;
+      const rulesHtml = matchingRules.map((r, i) => {
+        const aud = V3Store.audienceLabel(r.audience_id).split(" · ")[0];
+        const em = r.entry_match && Object.keys(r.entry_match).length
+          ? V3Store.formatEntryMatch(r.entry_match)
+          : "仅人群";
+        return `<li>#${i + 1} ${aud} · ${em}</li>`;
+      }).join("");
+      document.getElementById("confirmSummary").innerHTML = `
+        <dt>活动名称</dt><dd>${name || "—"}</dd>
+        <dt>来源 / 场景</dt><dd>${V3Store.sourceLabel(wSource.value)} · ${V3Store.sceneLabel(wScene.value)}</dd>
+        <dt>目标页</dt><dd>${site}<br><code>${path}</code> · ${document.getElementById("wPageType").value}</dd>
+        <dt>对照组</dt><dd>${holdout}%</dd>
+        <dt>规则</dt><dd>${matchingRules.length} 条<ul class="confirm-rules">${rulesHtml}</ul></dd>
+        <dt>自动入队</dt><dd>${document.getElementById("wAutoQueue").checked ? "是 · 创建后立即提交 AI 任务" : "否 · 稍后在规则页手动提交"}</dd>`;
+    }
+
+    function showPane(which) {
+      document.querySelectorAll(".wizard-pane").forEach((p) => {
+        p.classList.toggle("active", p.dataset.pane === which);
+      });
+      const isWizard = which === "1" || which === "2" || which === "3";
+      const stage = document.querySelector(".wizard-stage");
+      if (stage) stage.classList.toggle("success-mode", which === "success");
+      document.getElementById("stepBar").style.display = "none";
+      document.getElementById("wizardFoot").style.display = isWizard ? "" : "none";
+      document.getElementById("wizardHead").style.display = which === "success" ? "none" : "";
+      document.querySelectorAll(".side-step").forEach((el) => {
+        const n = Number(el.dataset.sideStep);
+        el.classList.toggle("active", isWizard && n === Number(which));
+        el.classList.toggle("done", isWizard && n < Number(which));
+      });
+    }
+
+    function renderStep() {
+      showPane(String(step));
+      document.querySelectorAll("#stepBar .wizard-step").forEach((el) => {
+        const n = Number(el.dataset.n);
+        el.classList.toggle("active", n === step);
+        el.classList.toggle("done", n < step);
+      });
+      document.getElementById("btnPrev").style.display = step === 1 ? "none" : "";
+      document.getElementById("btnPrev").disabled = step === 1;
+      document.getElementById("btnNext").textContent = step === 3 ? "创建活动" : "下一步";
+      if (step === 2) {
+        refreshStepTwoPanels();
+      }
+      if (step === 3) renderConfirm();
+    }
+
+    wSource.addEventListener("change", handleSourceChange);
+    wScene.addEventListener("change", handleSceneChange);
+
+    document.getElementById("stAdSku").addEventListener("change", refreshSkuPinNote);
+
+    document.getElementById("btnAddRule").addEventListener("click", () => {
+      const draft = wizardCampaignDraft();
+      const def = V3Store.newMatchingRuleDefaults(draft, matchingRules);
+      const entryMatch = defaultEntryMatchForDraft(draft);
+      matchingRules.push({
+        id: `mr_w_${Date.now()}`,
+        audience_id: def.audience_id,
+        entry_match: Object.keys(entryMatch).length ? { ...entryMatch } : undefined,
+        enabled: true,
+      });
+      renderMatchingRules();
+    });
+
+    document.getElementById("btnPrev").addEventListener("click", () => {
+      if (step > 1) { step--; renderStep(); }
+    });
+
+    document.getElementById("btnNext").addEventListener("click", () => {
+      if (step === 1) {
+        if (!document.getElementById("wName").value.trim()) {
+          alert("请填写活动名称");
+          return;
+        }
+        step = 2;
+        if (!matchingRules.length) resetMatchingRulesForSource();
+        renderStep();
+        return;
+      }
+      if (step === 2) {
+        document.querySelectorAll("#wRuleBody tr").forEach((tr) => syncRuleRow(tr.dataset.id, tr));
+        if (!matchingRules.length) { alert("请至少添加一条人群规则"); return; }
+        const missing = matchingRules.find((r) => !r.audience_id);
+        if (missing) { alert("请为每条规则选择人群"); return; }
+        step = 3;
+        renderStep();
+        return;
+      }
+      if (step === 3) {
+        readStrategyForm();
+        const payload = {
+          name: document.getElementById("wName").value.trim(),
+          source: wSource.value,
+          scene: wScene.value,
+          site: document.getElementById("wSite").value.trim(),
+          pageType: document.getElementById("wPageType").value,
+          pagePath: document.getElementById("wPath").value.trim(),
+          holdout: document.getElementById("wHoldout").value,
+          autoQueueAi: document.getElementById("wAutoQueue").checked,
+          rule: {
+            holdout_pct: Number(document.getElementById("wHoldout").value),
+            entry_context: entryContext,
+            recommendation_strategy: recommendationStrategy,
+            matching_rules: matchingRules.map((r) => {
+              const entryMatch = cleanEntryMatch(r.entry_match);
+              const out = {
+                id: r.id,
+                audience_id: r.audience_id,
+                enabled: true,
+              };
+              if (Object.keys(entryMatch).length) out.entry_match = entryMatch;
+              return out;
+            }),
+          },
+        };
+        const { campaign, queuedCount } = V3Store.createCampaignWithWizard(payload);
+        createdCampId = campaign.id;
+        const queueMsg = payload.autoQueueAi
+          ? `已为 <b>${queuedCount}</b> 条人群规则提交 AI 任务 · 可在规则页「模拟生成完成」演示审阅。`
+          : "未自动入队 · 请稍后在规则配置页提交 AI 任务。";
+        sessionStorage.setItem("sl_v3_create_success", JSON.stringify({
+          campaignId: campaign.id,
+          name: campaign.name,
+          queuedCount,
+          queueMsg,
+        }));
+        location.href = "V3-01-Campaign列表-可点击原型.html?created=" + encodeURIComponent(campaign.id);
+      }
+    });
+
+    renderSceneOptions(wScene.value);
+    applySourceDefaults();
+    applySceneDefaults();
+    resetMatchingRulesForSource();
+    renderStep();
+  </script>
+</body>
+</html>
+
