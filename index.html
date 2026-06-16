@@ -1,11 +1,113 @@
 <!DOCTYPE html>
-<html>
-<head><title>原型列表</title></head>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>原型列表</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --paper: #fff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e5e7eb;
+      --teal: #0d9488;
+      --teal-bg: #ecfdf5;
+      --shadow: 0 12px 36px rgba(15, 23, 42, 0.07);
+      --r: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.5;
+    }
+    .main {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 36px 0 48px;
+    }
+    .page-head {
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .page-head h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+    .page-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .prototype-card {
+      display: block;
+      min-height: 132px;
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .18s, background .18s, transform .18s;
+    }
+    .prototype-card:hover {
+      border-color: #99f6e4;
+      background: #f0fdfa;
+      transform: translateY(-1px);
+    }
+    .prototype-card h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .prototype-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .prototype-card .meta {
+      display: inline-flex;
+      margin-top: 16px;
+      padding: 4px 9px;
+      border: 1px solid #99f6e4;
+      border-radius: 999px;
+      background: var(--teal-bg);
+      color: #0f766e;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    @media (max-width: 640px) {
+      .main { width: calc(100% - 32px); padding-top: 24px; }
+      .page-head h1 { font-size: 22px; }
+      .prototype-card { min-height: 118px; }
+    }
+  </style>
+</head>
 <body>
-  <h1>我的原型集合</h1>
-  <ul>
-    <li><a href="/landingPage/">落地页原型</a></li>
-    <!-- 更多原型 -->
-  </ul>
+  <main class="main">
+    <header class="page-head">
+      <h1>原型列表</h1>
+      <p>这里集中放置不同原型的入口。</p>
+    </header>
+
+    <section class="prototype-grid" aria-label="原型入口">
+      <a class="prototype-card" href="./landingPage/index.html">
+        <h2>个性化落地页原型</h2>
+        <p>活动列表、新建活动、活动详情和增量转化看板。</p>
+        <span class="meta">进入原型</span>
+      </a>
+    </section>
+  </main>
 </body>
 </html>
