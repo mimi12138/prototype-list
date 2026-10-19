@@ -1,0 +1,1494 @@
+/* ============================================================
+   Tokens — mirrored from cmt-shopify-headless
+   app/styles/app.css + design-system.css
+   ============================================================ */
+/* 全局正文字体：本地 Source Han Sans CN（assets/fonts 里客户放的全字库，7.9M）。
+   family 名与 --font-body 首项一致，所以全局直接生效；
+   font-display:swap 让字体加载期间先用回退字体渲染，避免白屏阻塞。 */
+@font-face{
+  font-family:'Source Han Sans CN';
+  src:url('fonts/Source Han Sans CN.ttf') format('truetype');
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+:root{
+  --header-height:72px;
+  --content-max-width:1280px;
+  --content-gutter:24px;
+
+  --color-primary:#283837;
+  --color-primary-hover:#1b2726;
+  --color-heading:#1e2b29;
+  --color-deep:#14201e;
+  --color-footer-home:#293f3d;   /* footer 底色。⚠ Flora 指定「footer 不随主题变」→ 墨绿主题下仍是深青蓝；
+                                    名字里的 home 是历史遗留，详见 Footer 段。首页 .footband 通栏图共用它 → 自动同色，接缝不会露缝 */
+  --color-text:#303030;
+  --color-text-muted:#6b6b6b;
+  --color-page:#f7f7f7;
+  --color-surface:#fff;
+  --color-surface-cool:#f1f1f1;
+  --color-surface-selected:#ececec;
+  --color-border:#dedede;
+  --color-border-soft:#e8e8e8;
+  --color-border-strong:#c6c6c6;
+  --color-focus:rgb(var(--color-primary-rgb) / 30%);
+  --color-overlay:rgb(var(--color-deep-rgb) / 48%);
+
+  /* ============================================================
+     颜色 token 分层（2026-09-22 收敛，Flora 定的「换主题只改变量」）
+     四层，改哪层取决于你要换什么：
+       ① 品牌色  primary / primary-hover / accent        ← 换主题色必改
+       ② 深色域  dark-1·2·3 + glow + scrim + shadow       ← 换主题色必改（否则与主色相冲）
+       ③ 深底前景 on-dark-1…6 + 纹理描边                  ← 深底由深变浅时才改
+       ④ 表面与文字 surface* / text* / border* / page      ← 换明暗风格时才改
+     ⚠ 分量式（值为 `26 26 26` 这种）用于要带透明度的场合，写法 rgb(var(--x) / α%)。
+
+     ── 主题历史 ──  ① 蓝绿（2026-09-22 前；完整值见 tmp/_snapshot-20260922-bw/style.css）
+                     ② 黑白（2026-09-22 13:50–14:30，全中性灰；快照 tmp/_snapshot-20260922-1430-flora/）
+                     ③ 墨绿（当前）—— 主色 #283837，深色域同色系压暗；④ 浅色层未动
+     ============================================================ */
+
+  /* ---- ① 品牌色 ---- */
+  --color-primary-rgb:40 56 55;        /* 主色的 rgb 分量，供投影 / focus 复用（必须与 --color-primary 同步） */
+  --color-accent:#9dc4bc;              /* 深底上的眉题 / 小标签 */
+  --color-accent-rgb:157 196 188;      /* 深底网格纹理线 */
+  --color-accent-line:#9ab2ad;         /* 浅底卡片 hover 描边 */
+  --color-on-dark-brand:#456a64;       /* 深底上的实心按钮底 —— 不可直接用 primary：墨绿 #283837 压在 #080d0c 深底上对比仅 1.6:1，等于隐形，提亮到 ~3.3:1 才有块感 */
+  --color-on-dark-brand-hover:#4f7a73; /* 深底实心按钮 hover：深底上「变亮」，与浅底按钮「变深」方向相反 */
+
+  /* ---- ② 深色域：全站深底 / 遮罩 / 投影的唯一来源 ---- */
+  --color-dark-1:#080d0c;              /* 深底渐变 · 最深端 */
+  --color-dark-2:#16211f;              /* 深底渐变 · 中段 */
+  --color-dark-3:#0f1716;              /* 深底渐变 · 末段 */
+  --color-dark-glow-a:32 64 60;        /* 深底光晕 · 青绿 */
+  --color-dark-glow-b:20 44 41;        /* 深底光晕 · 深青绿 */
+  --color-scrim:4 12 11;               /* 深底遮罩基色（hero / pagehead / 图片压暗） */
+  --color-deep-rgb:20 32 30;           /* --color-deep(#14201e) 的分量形式，供 badge / 模态遮罩用 */
+  --color-shadow:6 18 16;              /* 全站投影基色 */
+
+  /* ---- ③ 深底上的前景档（1 最强 → 6 最弱）
+         原本是 26 种白色透明度散在 42 处，现收敛为 6 档。 ---- */
+  --color-on-dark-1:#fff;                    /* 标题 / 主色底上的按钮字 */
+  --color-on-dark-2:rgb(255 255 255 / 90%);  /* 导语 / 面包屑当前项 */
+  --color-on-dark-3:rgb(255 255 255 / 82%);  /* 次级正文 */
+  --color-on-dark-4:rgb(255 255 255 / 72%);  /* 弱化信息 */
+  --color-on-dark-5:rgb(255 255 255 / 58%);  /* 极弱：社交图标 / 面包屑 */
+  --color-on-dark-6:rgb(255 255 255 / 50%);  /* 版权行 */
+
+  /* ---- ③b 深底上的纹理、描边与面板 ---- */
+  --color-on-dark-mesh:rgb(255 255 255 / 18%);       /* 网格纹理线 */
+  --color-on-dark-hairline:rgb(255 255 255 / 12%);   /* 分隔线 / 淡底 / 悬停底 */
+  --color-on-dark-hairline-2:rgb(255 255 255 / 16%); /* 细描边 */
+  --color-on-dark-line:rgb(255 255 255 / 42%);       /* 描边按钮的边框 */
+  --color-on-dark-line-2:rgb(255 255 255 / 34%);     /* 圆钮 / 面包屑分隔符 */
+  --color-on-dark-line-3:rgb(255 255 255 / 55%);     /* 实拍图上的描边次按钮 */
+  --color-on-dark-veil:rgb(255 255 255 / 8%);        /* 淡底 */
+  --color-on-dark-veil-2:rgb(255 255 255 / 24%);     /* 悬停底 · 强 */
+  --color-on-dark-panel:rgb(255 255 255 / 50%);      /* 压在实拍图上的半透明面板 */
+  --color-on-dark-panel-2:rgb(255 255 255 / 64%);    /* 面板悬停 */
+  --color-on-dark-panel-line:rgb(255 255 255 / 65%); /* 面板描边 */
+  --color-glass:rgb(255 255 255 / 96%);              /* 毛玻璃（header） */
+  --color-badge-glass:rgb(255 255 255 / 93%);        /* 实拍图上的徽标底 */
+  --color-text-shadow:rgb(0 0 0 / 35%);              /* 图上文字投影 */
+
+  /* ---- ④ 浅色表面补充 ---- */
+  --color-surface-bright:#fefefe;      /* 近白区底（与 --color-surface 差 1 阶） */
+  --color-primary-tint:#eaf0ef;        /* 主色浅底（按钮 hover） */
+  --color-card-soft:rgb(224 224 224 / 27%);  /* 承诺卡半透明底 */
+
+  /* ---- 占位假图（缺图时的色块）：4 阶墨绿，跨度要够宽，
+         .ph-1…4 的 135° 渐变方向才看得出来（全压在同一档里就等于纯色块） ---- */
+  --color-photo-bg:#16201f;            /* 实拍图兜底底 */
+  --color-ph-deep:#2a3b39;
+  --color-ph-mid:#4e6b67;
+  --color-ph-light:#7f9d98;
+
+  --font-body:'Source Han Sans CN','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+  --font-display:var(--font-body);
+
+  --radius-control:6px;
+  --radius-card:8px;
+  --radius-panel:20px;   /* 浮在实拍图上的大圆角面板（首页 CTA）*/
+  --shadow-card:0 14px 34px rgb(var(--color-shadow) / 7%);
+  --shadow-layer:0 18px 48px rgb(var(--color-shadow) / 12%);
+  --duration-fast:160ms;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--color-page);scroll-behavior:smooth;overflow-x:clip}
+body{
+  margin:0;background:var(--color-page);color:var(--color-text);
+  font-family:var(--font-body);font-size:17px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,h5{color:var(--color-heading);font-family:var(--font-display);letter-spacing:0;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:var(--color-text)}
+img,svg{display:block;max-width:100%}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--color-focus);outline-offset:3px}
+::selection{background:var(--color-surface-selected);color:var(--color-text)}
+[id]{scroll-margin-top:calc(var(--header-height) + 24px)}
+
+.shell{
+  width:100%;max-width:var(--content-max-width);
+  margin-inline:auto;padding-inline:var(--content-gutter);
+}
+
+/* ============================================================
+   Header — sticky, 72px, translucent, 2px primary rule
+   ============================================================ */
+.site-header{
+  position:sticky;top:0;z-index:30;height:var(--header-height);
+  background:var(--color-glass);
+  border-bottom:1px solid var(--color-border);
+  backdrop-filter:blur(14px) saturate(1.5);
+  transition:box-shadow var(--duration-fast) var(--ease-out);
+}
+.site-header::after{
+  content:'';position:absolute;bottom:-1px;right:0;left:0;height:2px;
+  background:var(--color-primary);opacity:0;
+  transition:opacity var(--duration-fast) var(--ease-out);
+}
+.site-header.is-scrolled{box-shadow:0 10px 32px rgb(var(--color-shadow) / 10%)}
+.site-header.is-scrolled::after{opacity:1}
+/* 两列：左「品牌 + 语言」，右「菜单」。第三块 .site-header__actions 在每一端都恰好
+   是隐藏的（桌面 display:none，≤900 时换成 .site-header__menu 隐藏），display:none
+   的元素不参与 grid 放置，所以少一列不会空出格子。
+   ⚠ 原来是三列 auto/1fr/auto。留着空列时，列间距会白吃 18px —— 菜单就贴不到内容右缘。 */
+.site-header__inner{
+  display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;
+  gap:18px;min-height:calc(var(--header-height) - 1px);
+}
+.site-header__identity{display:flex;align-items:center;gap:14px;min-width:0}
+
+/* 右侧动作区。桌面端里面只剩一个隐藏的 .menu-toggle，所以：
+     · ≤900px —— 菜单折叠，toggle 是唯一入口，靠右对齐；
+     · >900px —— 整块收掉。不收的话它仍占着 grid 的第三列，列间距白吃 18px，
+       菜单的 flex-end 就只能贴到「内容右缘 − 18px」，贴不齐。
+       列数同步收成两列，否则会多出一行把 header 撑高。 */
+.site-header__actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+@media (min-width:901px){
+  .site-header__actions{display:none}
+}
+
+.brand{display:inline-flex;align-items:center;flex:0 0 auto;min-height:44px}
+/* 官方 logo 文件直引。宽度取 cmt-shopify-headless 的 Header/Footer 实测值：
+   头部 164px（≤640px 时 155px）、页脚 180px，height:auto 交给 SVG 固有比例。
+   注意：图形只占 viewBox 上下约 7 成，所以 164px 宽≈34px 视觉高度，不是撑满。 */
+.brand__logo{display:block;height:auto;width:164px;flex:none;transition:opacity var(--duration-fast) var(--ease-out)}
+.site-header .brand:hover .brand__logo{opacity:.82}
+.site-footer .brand__logo{width:180px}
+
+/* 2026-09-22（Flora）：右侧的「预约回电」按钮撤掉后，菜单改右对齐，贴住 header 右缘。 */
+.site-header__menu{display:flex;align-items:center;justify-content:flex-end;gap:26px;min-width:0}
+:lang(en) .site-header__menu{gap:clamp(12px,1vw,18px)}
+.site-header__link{
+  position:relative;display:inline-flex;align-items:center;height:var(--header-height);
+  padding:0;border:0;background:none;
+  font-size:15px;font-weight:600;color:var(--color-text);
+  transition:color var(--duration-fast) var(--ease-out);
+}
+:lang(en) .site-header__link{font-size:14px}
+.site-header__link::after{
+  content:'';position:absolute;left:2px;right:2px;bottom:13px;height:3px;
+  border-radius:999px;background:var(--color-primary);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--duration-fast) var(--ease-out);
+}
+.site-header__link:hover{color:var(--color-primary)}
+.site-header__link:hover::after{transform:scaleX(1)}
+/* 当前栏目选中态。build.cjs 已经按页写了 aria-current="page"，
+   这里复用 hover 那套下划线 + 主色文字，全站视觉语汇统一。
+   放在 :hover 之后，保证选中页悬停时也不会掉回未选中样式。 */
+.site-header__link[aria-current]{color:var(--color-primary)}
+.site-header__link[aria-current]::after{transform:scaleX(1)}
+
+/* language segmented pill */
+.lang{
+  display:inline-flex;align-items:center;gap:2px;padding:3px;
+  border:1px solid var(--color-border);border-radius:999px;
+  background:var(--color-surface-cool);
+}
+.lang button{
+  min-height:36px;min-width:46px;padding:0 10px;border:0;border-radius:999px;
+  background:none;font-size:13px;letter-spacing:.03em;color:var(--color-text-muted);
+  transition:background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
+}
+.lang button:hover{background:var(--color-surface);color:var(--color-primary)}
+.lang button.on{background:var(--color-primary);color:var(--color-on-dark-1);box-shadow:0 2px 10px rgb(var(--color-primary-rgb) / 32%)}
+
+.navcta{
+  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  min-height:44px;padding:0 18px;border:1px solid var(--color-primary);border-radius:var(--radius-control);
+  background:var(--color-primary);color:var(--color-on-dark-1);font-size:14px;font-weight:700;
+  transition:background var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.navcta:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover);transform:translateY(-1px)}
+
+.menu-toggle{
+  display:none;align-items:center;gap:7px;min-height:44px;padding:0 14px;
+  border:1px solid var(--color-border-strong);border-radius:999px;background:none;
+  font-size:14px;font-weight:600;
+}
+.menu-toggle:hover{border-color:var(--color-primary);background:var(--color-surface-selected);color:var(--color-primary)}
+.menu-toggle svg{width:18px;height:18px}
+
+/* mobile navigation sheet */
+.mnav{position:fixed;inset:0;z-index:85;display:none;flex-direction:column;background:var(--color-surface);padding-bottom:32px}
+.mnav.on{display:flex}
+.mnav__head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  min-height:var(--header-height);padding:0 var(--content-gutter);
+  border-bottom:1px solid var(--color-border);
+}
+.mnav__list{display:flex;flex:1;flex-direction:column;overflow-y:auto;padding:8px var(--content-gutter)}
+.mnav__list a{
+  padding:16px 0;border-bottom:1px solid var(--color-border-soft);background:none;
+  text-align:left;font-size:17px;font-weight:600;color:var(--color-heading);
+}
+.mnav__list a:hover{color:var(--color-primary)}
+/* 当前栏目选中态，与顶部导航同一套语汇（主色文字 + 主色下边框） */
+.mnav__list a[aria-current]{color:var(--color-primary);border-bottom-color:var(--color-primary)}
+.mnav .navcta{margin:20px var(--content-gutter) 0;display:inline-flex}
+
+/* ============================================================
+   Hero — full-bleed, dark, centred
+   ============================================================ */
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:grid;align-items:center;color:var(--color-on-dark-1);background:var(--color-deep);
+  /* 视频是 1920×822 超宽横幅(≈2.3:1)。原来 min-height 撑满整屏，科宽画框
+     cover 把横幅上下裁得很重，观感像被"拉伸"。降到随视口缩放 + 封顶，
+     更贴近横幅比例；文案 > min-height 时 section 自动随内容增高，不影响内容。 */
+  min-height:clamp(480px, 68vh, 640px);
+}
+/* stand-in for the hero video/photo of the real build */
+.hero__media{
+  position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 620px at 22% 26%, rgb(var(--color-dark-glow-a)) 0%, rgb(var(--color-dark-glow-a) / 0%) 62%),
+    radial-gradient(900px 560px at 82% 76%, rgb(var(--color-dark-glow-b)) 0%, rgb(var(--color-dark-glow-b) / 0%) 60%),
+    linear-gradient(158deg,var(--color-dark-1) 0%,var(--color-dark-2) 42%,var(--color-dark-3) 100%);
+}
+.hero__media::after{
+  content:'';position:absolute;inset:0;opacity:.5;
+  background-image:
+    linear-gradient(rgb(var(--color-accent-rgb) / 7%) 1px,transparent 1px),
+    linear-gradient(90deg,rgb(var(--color-accent-rgb) / 7%) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+/* 客户实拍图替换色块：关掉占位网格，图铺满，压暗仍交给 .hero__scrim */
+.hero__media--photo{background:var(--color-photo-bg)}
+.hero__media--photo::after{display:none}
+.hero__media--photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:72% 50%}
+/* 首页 hero 真视频：关掉占位网格，视频铺满，压暗仍交给 .hero__scrim */
+.hero__media--video{background:var(--color-photo-bg)}
+.hero__media--video::after{display:none}
+.hero__media--video video{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero__scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgb(var(--color-scrim) / 72%),rgb(var(--color-scrim) / 34%) 58%,rgb(var(--color-scrim) / 54%));
+}
+.hero__content{
+  width:min(var(--content-max-width),100%);
+  margin-inline:auto;padding:88px 24px 82px;text-align:left;position:relative;
+}
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin:0 0 14px;
+  color:var(--color-accent);font-size:13px;font-weight:700;
+}
+.hero__eyebrow::before{content:'';width:30px;height:1px;background:currentColor}
+.hero h1{
+  color:var(--color-on-dark-1);font-size:clamp(42px,5.3vw,72px);font-weight:700;
+  line-height:1.16;margin-inline:0;max-width:1180px;
+}
+:lang(zh-CN) .hero h1{max-width:900px}
+.hero__lead{font-size:18px;line-height:1.75;margin:20px 0 0;max-width:45em;color:var(--color-on-dark-2)}
+.hero__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:12px;margin-top:20px}
+.hero__cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 18px;border:1px solid transparent;border-radius:var(--radius-control);
+  font-size:15px;font-weight:700;
+  transition:background var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.hero__cta:hover{transform:translateY(-1px)}
+.hero__cta--light{background:var(--color-surface);color:var(--color-primary)}
+.hero__cta--light:hover{background:var(--color-primary-tint);color:var(--color-primary-hover)}
+.hero__cta--primary{background:var(--color-on-dark-brand);color:var(--color-on-dark-1)}
+.hero__cta--primary:hover{background:var(--color-on-dark-brand-hover)}
+.hero__cta svg{width:18px;height:18px}
+
+.hero__trust{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:14px 28px;
+  list-style:none;margin:20px 0 0;padding:0;
+}
+.hero__trust li{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--color-on-dark-3)}
+.hero__trust svg{width:17px;height:17px;color:var(--color-on-dark-1);flex:none}
+
+.hero__scroll{
+  position:absolute;left:50%;bottom:24px;transform:translateX(-50%);
+  display:grid;place-items:center;width:46px;height:46px;
+  border:1px solid var(--color-on-dark-line);border-radius:50%;
+  background:var(--color-on-dark-veil);color:var(--color-on-dark-1);
+  transition:background var(--duration-fast) var(--ease-out),border-color var(--duration-fast) var(--ease-out);
+}
+.hero__scroll:hover{background:var(--color-on-dark-mesh);border-color:var(--color-on-dark-1)}
+.hero__scroll svg{width:20px;height:20px;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+
+/* ============================================================
+   Section scaffolding
+   ============================================================ */
+section{padding:92px 0 98px}
+.sec-white{background:var(--color-surface)}
+.sec-white-2{background:var(--color-surface-bright);}
+/* 「六项承诺」的轻提示条 —— 完整模块在首页 #commitments（2026-09-22 随服务流程页一起搬来）；
+   行程详情页 / 关于我们页各留一句，锚点指回首页。 */
+.sec-note{padding:6px 0 42px;background:var(--color-page)}
+.sec-tint{background:var(--color-surface-selected);border-block:1px solid var(--color-border-soft)}
+
+.sec-head{margin:0}
+/* ⚠ `.assure-note`（旧版六项承诺那句「保障承诺见首页」轻提示）已于 2026-09-21 随文案一起删，
+   这里不再有对应规则；`.sec-note / .sec-tint` 是别的用途，别混。 */
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 9px;color:var(--color-primary);font-size:13px;font-weight:700}
+.eyebrow::before{content:'';width:30px;height:2px;background:currentColor;flex:none}
+.sec-head h2,h2.sec-head{color:var(--color-heading);font-size:clamp(30px,3vw,42px);line-height:1.22;margin:0}
+/* 区块副标题：必须显式挂类。原来写成 .sec-head > p，特指度(0,1,1)高于 .eyebrow(0,1,0)，
+   把同为 <p> 的眉题一起染成 16px 灰字 —— 眉题层级被吃掉（2026-09-21 修）。 */
+.sec-head__lead{margin:13px 0 0;max-width:720px;color:var(--color-text-muted);font-size:16px;line-height:1.75}
+
+.sec-head--row{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.linkmore{
+  display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;min-height:40px;
+  border-bottom:1px solid var(--color-accent-line);color:var(--color-primary);font-size:15px;font-weight:700;
+  background:none;border-top:0;border-left:0;border-right:0;padding:0;
+}
+.linkmore svg{width:18px;height:18px;transition:transform var(--duration-fast) var(--ease-out)}
+.linkmore:hover{color:var(--color-primary-hover);border-bottom-color:var(--color-primary-hover)}
+.linkmore:hover svg{transform:translateX(4px)}
+
+/* ============================================================
+   Journey band (mirrors .home-journey)
+   ============================================================ */
+/* values 行：左大标题 + 右眉题，下面裸排列（图标 / 全大写小标题 / 描述），列间一条竖线。
+   版式照 Flora 2026-09-21 给的参考稿；区块底就是全站浅底，不套深色面板。
+   两处共用这套版式 —— 首页四步（section.journey，2026-09-21）与目的地页选择指引
+   （.dest-guide，2026-09-22 Flora 要求「按这个风格」）。下面凡是成对写的选择器就是这两处共用；
+   只有背景与整段内边距归首页独有，目的地页那块嵌在 .sec-white 里。 */
+.journey{background:var(--color-page);padding:78px 0 84px}
+.journey__head,.dest-guide__head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:46px}
+.journey h2,.dest-guide h2{color:var(--color-heading);font-size:clamp(30px,3vw,42px);line-height:1.15;text-align:left;margin:0}
+/* 右眉题：全大写小字、右对齐，与标题底边同线（参考稿如此）。中文不做大写、字距收窄。 */
+.journey__note,.dest-guide__note{margin:0 0 5px;max-width:34ch;color:var(--color-heading);font-size:12px;font-weight:800;letter-spacing:.1em;line-height:1.65;text-transform:uppercase;text-align:right}
+:lang(zh-CN) .journey__note,:lang(zh-CN) .dest-guide__note{letter-spacing:.04em;font-size:13px;text-transform:none}
+.journey ol,.dest-guide ol{
+  display:grid;list-style:none;margin:0;padding:0;
+}
+/* 列数各自定：首页四步 4 列，目的地页选择指引 3 条。 */
+.journey ol{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dest-guide ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* 首尾列不缩进：第一列与 h2 左边缘对齐（参考稿就是齐的）。 */
+.journey li,.dest-guide li{position:relative;min-width:0;padding:0 30px;text-align:left}
+.journey li:first-child,.dest-guide li:first-child{padding-left:0}
+.journey li:last-child,.dest-guide li:last-child{padding-right:0}
+.journey li:not(:last-child)::after,.dest-guide li:not(:last-child)::after{content:'';position:absolute;top:1px;right:0;bottom:3px;width:1px;background:var(--color-border)}
+.journey__ico,.dest-guide__ico{display:block;width:20px;height:20px;color:var(--color-heading)}
+.journey__ico svg,.dest-guide__ico svg{display:block;width:20px;height:20px}
+.journey li h3,.dest-guide li h3{color:var(--color-heading);font-size:13px;letter-spacing:.1em;line-height:1.45;text-transform:uppercase;margin:18px 0 10px}
+:lang(zh-CN) .journey li h3,:lang(zh-CN) .dest-guide li h3{letter-spacing:.02em;font-size:18px;text-transform:none}
+.journey li p,.dest-guide li p{color:var(--color-text-muted);font-size:14px;line-height:1.72;margin:0}
+
+/* ============================================================
+   Grids + cards
+   ============================================================ */
+.grid4{display:grid;gap:18px;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:40px}
+.grid3{display:grid;gap:22px;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:40px}
+.grid2{display:grid;gap:22px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:40px}
+/* 首页行程卡是全出血大图：图片即卡片，宽高随图片比例缩放（一行两张）。
+   标题 / 产品线 / 前往链接浮在图片底部半透明白圆角条里、白字。 */
+.jcard{position:relative;display:block;overflow:hidden;border-radius:16px;background:#0b2b3c;color:#fff}
+.jcard__img{display:block;width:100%;height:auto;object-fit:cover}
+.jcard__badge{
+  position:absolute;top:14px;left:14px;z-index:1;
+  padding:6px 12px;border-radius:100px;
+  background:rgb(255 255 255 / 22%);backdrop-filter:blur(10px) saturate(1.4);
+  color:#fff;font-size:12px;font-weight:700;letter-spacing:.02em;
+  border:1px solid rgb(255 255 255 / 28%);
+}
+.jcard__body{
+  position:absolute;left:12px;right:12px;bottom:12px;
+  display:flex;flex-direction:column;gap:9px;
+  padding:14px 16px 15px;border-radius:13px;
+  background:rgb(255 255 255 / 20%);backdrop-filter:blur(12px) saturate(1.5);
+  border:1px solid rgb(255 255 255 / 22%);
+}
+.jcard__body h3{color:#fff;font-size:19px;line-height:1.35}
+.jcard__row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.jcard__tags{display:flex;flex-wrap:wrap;gap:6px}
+.jcard__tag{
+  padding:4px 10px;border-radius:100px;
+  background:rgb(0 0 0 / 32%);border:1px solid rgb(255 255 255 / 26%);
+  color:#fff;font-size:12px;font-weight:600;
+}
+.jcard__go{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:13px;font-weight:700;white-space:nowrap}
+.jcard__go svg{width:16px;height:16px;flex:none}
+.jcard:hover .jcard__body{background:rgb(255 255 255 / 30%)}
+
+/* treatment / programme card — media on top */
+.prog{
+  display:grid;grid-template-rows:auto 1fr;overflow:hidden;text-align:left;width:100%;padding:0;
+  background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;color:inherit;
+  transition:border-color var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.prog__media{position:relative;aspect-ratio:16/10;background:var(--color-surface-cool);display:flex;align-items:flex-start;justify-content:space-between;padding:12px;gap:8px}
+.prog__media::after{content:'';position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(var(--color-on-dark-mesh) 1px,transparent 1px),linear-gradient(90deg,var(--color-on-dark-mesh) 1px,transparent 1px);
+  background-size:30px 30px;}
+/* 图层顺序必须显式写全：img 给 z-index:0，压暗层在它之上(1)，徽章与景点名最上(2)。
+   只给 ::before 写 z-index、img 不写，两者都落进「z-index auto/0 的定位元素」同一档，
+   按树顺序绘制 → ::before 在前、img 在后，压暗层被照片整个盖住，等于没加。
+   （2026-09-21 用最小对照页实测确认：只写 ::before 的那版上下毫无变暗。） */
+.prog__media b{position:absolute;left:14px;bottom:12px;color:var(--color-on-dark-1);font-size:15px;font-weight:700;text-shadow:0 1px 3px var(--color-text-shadow);z-index:2}
+/* 有实拍封面时：关掉色块网格，图铺满，上下各压一层暗让徽章与景点名立得住 */
+.prog__media--photo{background:var(--color-photo-bg)}
+.prog__media--photo::after{display:none}
+.prog__media--photo::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgb(var(--color-scrim) / 30%),rgb(var(--color-scrim) / 0%) 42%,rgb(var(--color-scrim) / 62%));
+}
+.prog__img{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover}
+.badge{
+  position:relative;z-index:2;padding:5px 11px;border-radius:100px;background:var(--color-badge-glass);
+  color:var(--color-deep);font-size:12px;font-weight:700;white-space:nowrap;
+}
+.badge--dark{background:rgb(var(--color-deep-rgb) / 88%);color:var(--color-on-dark-1)}
+
+/* 日游卡封面右上角的「看详情」圆箭头（Flora 2026-09-22，替代原来的深色时长徽标）。
+   半透明白圆 + 深色箭头：压在实拍封面或墨绿占位色块上都能立住。
+   它是 .prog__media 的 flex 子项 + space-between，所以自动被推到右上角；
+   z-index:2 跟徽标同一层，仍需显式写——::before 压暗层是 1，不写就会掉到它下面。
+   整张卡就是 <a>，所以不加 cursor / 不挂 JS，hover 挪到 .prog:hover 里整卡联动。 */
+.prog__arrow{
+  position:relative;z-index:2;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:50%;
+  background:rgb(255 255 255 / 42%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 6px 18px rgb(var(--color-shadow) / 14%);
+  color:var(--color-primary);
+  transition:background var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.prog__arrow svg{width:17px;height:17px;flex:none}
+/* hover 只在卡片本身的悬停态下联动（.prog__arrow 自己不是交互元素，别给它写 :hover） */
+.prog:hover .prog__arrow{background:rgb(255 255 255 / 88%);transform:translateX(2px)}
+.prog__body{display:flex;flex-direction:column;gap:9px;padding:18px 20px 20px;flex:1}
+.prog__body h3{font-size:17px;line-height:1.4;color:var(--color-heading)}
+.prog__meta{font-size:13px;color:var(--color-text-muted);font-weight:600}
+.prog__body p{font-size:14px;line-height:1.72;color:var(--color-text-muted);flex:1;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+/* 日游详情页的卖点标签行（客户原文里的卖点短语），放在行程列表上方 */
+.usp-row{margin:0 0 20px}
+.tag{padding:3px 9px;border-radius:100px;background:var(--color-surface-selected);color:var(--color-primary);font-size:12px;font-weight:600;white-space:nowrap}
+.prog__go{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--color-primary);font-size:14px;font-weight:700}
+.prog__go svg{width:16px;height:16px;flex:none}
+
+/* 行程卡的底部一行：标签在左、「查看详情」在右（Flora 2026-09-21：按钮不再单独占一行）。
+   只作用于带标签的卡；.prog__go 原本的 margin-top:6px 在这里归零，别去改那条基础规则。 */
+.prog__foot{display:flex;align-items:center;justify-content:space-between;gap:8px 14px;flex-wrap:wrap;margin-top:4px}
+.prog__foot .tags{margin-top:0}
+.prog__foot .prog__go{margin:0 0 0 auto}
+
+.prog:hover{border-color:var(--color-accent-line);box-shadow:0 16px 34px rgb(var(--color-shadow) / 12%);transform:translateY(-4px)}
+
+/* 「想了解更多」转化卡：复用 .prog 的外框与尺寸（同款边框、圆角；作为 grid3 子项高自动对齐
+   同行的日游卡），内部保持原 ctaCard 模块的内容布局——标签、目的地名、说明、两条按钮。 */
+.prog-more{display:flex;flex-direction:column;gap:10px;padding:24px;text-align:center;align-items:center}
+.prog-more .ctacard__actions{margin-top:auto;width:100%}
+.prog-more .ctacard__actions .btn-ghost,.prog-more .ctacard__actions .btn-solid{justify-content:center}
+/* 按钮组（2026-09-22）在「想了解更多」卡片里沿用同一处理：钉到卡底、占满整宽、居中 */
+.prog-more .btnpair{margin-top:auto;width:100%;justify-content:center}
+/* 「想了解更多」卡（.prog-more）正文说明段：只改正文 <p>，不动「Questions？」标签与地名 */
+.prog-more > p:not(.ctacard__label){font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+.ctacard .btnpair{justify-content:center}
+
+
+/* city card */
+.city{
+  position:relative;display:block;overflow:hidden;text-align:left;width:100%;padding:0;
+  background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);color:inherit;
+  transition:border-color var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+/* 封面高度跟行程卡的 .prog__media 用同一个比例 → 同一 .grid3 里列宽相同，
+   于是两者图片高度严格相等（原来是写死的 124px，比行程卡矮一截）。 */
+.city__ph{position:relative;aspect-ratio:16/10;display:flex;align-items:flex-end;padding:14px}
+.city__ph::after{content:'';position:absolute;inset:0;opacity:.45;
+  background-image:linear-gradient(var(--color-on-dark-hairline-2) 1px,transparent 1px),linear-gradient(90deg,var(--color-on-dark-hairline-2) 1px,transparent 1px);
+  background-size:26px 26px;}
+/* 有实拍封面时：关掉色块网格，图铺满，底部压暗托住地名（与行程卡同一套做法） */
+.city__ph--photo{background:var(--color-photo-bg)}
+.city__ph--photo::after{display:none}
+.city__img{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover}
+.city__ph--photo::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgb(var(--color-scrim) / 18%),rgb(var(--color-scrim) / 0%) 40%,rgb(var(--color-scrim) / 66%));
+}
+.city__ph b{position:relative;z-index:2;color:var(--color-on-dark-1);font-size:18px;font-weight:700;text-shadow:0 1px 3px var(--color-text-shadow)}
+.city__body{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 16px}
+.city__body span{font-size:13px;color:var(--color-text-muted)}
+.city:hover{border-color:var(--color-accent-line);box-shadow:0 16px 34px rgb(var(--color-shadow) / 12%);transform:translateY(-4px)}
+/* 首页「五个目的地」：裸图错落带（客户参考稿样式）。
+   与 destinations.html 的 .grid3 卡片是两套：那边保留白底卡片 + 下方文字区，
+   这边去掉外壳，只留圆角实拍图 + 叠加地名，靠 margin-top 做垂直起伏
+   （刻意不用 transform —— 会和 .city:hover 的 translateY(-4px) 互相覆盖）。
+   比例由 16:10 改 4:5 竖向，这是参考稿观感的关键，但横图左右各裁掉近一半：
+   现有 4 张 400x250 的卡图裁后有效宽度仅 200px，2x 屏会发软 —— 需客户补竖构图原图。 */
+.city-arc{display:grid;gap:0 18px;align-items:start;margin-top:52px;grid-template-columns:repeat(5,minmax(0,1fr))}
+.city-arc .city{background:none;border:0;border-radius:0;overflow:visible}
+.city-arc .city__ph{aspect-ratio:4/5;border-radius:16px;overflow:hidden;padding:0}
+.city-arc .city__ph b{position:absolute;left:16px;right:16px;bottom:14px;font-size:17px}
+.city-arc .city__body{display:none}
+.city-arc .city:nth-child(1){margin-top:34px}
+.city-arc .city:nth-child(3){margin-top:16px}
+.city-arc .city:nth-child(5){margin-top:28px}
+.city-arc .city:hover{box-shadow:none;transform:translateY(-4px)}
+.city-arc .city:hover .city__ph{box-shadow:0 18px 36px rgb(var(--color-shadow) / 18%)}
+
+/* 目的地聚合页分栏：左一张主卡（澄江，占满右栏 2×2 的高度），右栏其余四张排 2×2。
+   自带 margin-top 替代原 .grid3 的上边距；主卡照片用 flex:1 撑满剩余高度，跟右侧等高无白缝。 */
+.city-split{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;
+  align-items:stretch;margin-top:44px;
+}
+.city-split .city{height:100%}
+.city-split__lead{min-width:0}
+.city-split__lead .city{display:flex;flex-direction:column}
+.city-split__lead .city__ph{flex:1;width:100%;aspect-ratio:auto}
+.city-split__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+
+.ph-1{background:linear-gradient(135deg,var(--color-ph-deep),var(--color-primary))}
+.ph-2{background:linear-gradient(135deg,var(--color-primary),var(--color-ph-mid))}
+.ph-3{background:linear-gradient(135deg,var(--color-primary-hover),var(--color-ph-mid))}
+.ph-4{background:linear-gradient(135deg,var(--color-primary),var(--color-ph-light))}
+.ph-5{background:linear-gradient(135deg,var(--color-dark-2),var(--color-ph-mid))}
+.ph-6{background:linear-gradient(135deg,var(--color-ph-deep),var(--color-ph-mid))}
+
+/* closing CTA band */
+.closing{background:var(--color-page);padding:0 0 92px}
+/* 首页页脚通栏实拍图：纯展示，不带任何文案与覆盖层（Flora 2026-09-21）。
+   源图 1280x460（2.78:1），此处按整宽铺满；视口 >=1440 时会被放大，
+   若要上更大视口需换更大源图。
+   必须显式 padding:0 —— .footband 是 <section>，会吃到全局
+   section{padding:92px 0 98px}；不写就等于上下各架一层留白，图被悬空。
+   背景取与 footer 相同的色（--color-footer-home，全站 footer 现在都是它）：图高 = 视口宽 / 2.783，几乎总是小数
+   （1440 → 517.5px），亚像素缝在浅底上会显成一条淡线，深底完全看不见。 */
+.footband{background:var(--color-footer-home);line-height:0;padding:0}
+.footband img{display:block;width:100%;height:auto}
+
+/* 首页 CTA 浮在通栏图上（Flora 2026-09-21）：图当背景，卡片是半透明白长条。
+   .footband--cta 是修饰类 —— 基础 .footband 仍是「纯图、无覆盖层」，别的页要用不冲突。
+   aspect-ratio 保住桌面原有高度（1440 → 517.5px，与改动前一致）；
+   min-height 兜住窄屏：390 视口按比例只有 140px，卡片放不下，此时改为裁图（object-fit:cover）。
+   底色仍是 --color-footer-home，与下方 footer 同色，避免亚像素缝。 */
+.footband--cta{
+  position:relative;display:grid;align-content:start;
+  aspect-ratio:1280/460;padding:0;line-height:1.6;
+  /* 白条顶部高出图片顶边多少（Flora 2026-09-21：位置往上挪，比图再高一点）。
+     用 translateY 做位移、不用 padding —— 位移不参与布局，图片高度和「紧贴 footer」
+     的关系都不受影响；padding 会让容器长高、把图往下推。
+     align-content 同时由 center 改 start：白条不再居中，而是紧贴图顶再往上冒。 */
+  --cta-overlap:26px;
+}
+/* 窄屏切换：视口 <1280 时，按比例算出的高度（1280 / 2.783 ≈ 460）已不足以放卡片，
+   改用固定下限 + cover 裁图。
+   ⚠ 不要在同一元素上同时写 aspect-ratio 与 min-height —— Chrome 会拿 min-height
+   **反推宽度**（460 × 1280/460 = 1280px），把区块撑到 1280px 宽、直接顶出横向滚动条
+   （2026-09-21 实测踩到：1024 视口下 scrollWidth = 1280）。两个属性分断点使用才安全。 */
+@media (max-width:1280px){
+  .footband--cta{aspect-ratio:auto;min-height:460px}
+}
+.footband--cta .footband__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.footband--cta .footband__overlay{position:relative;z-index:1;width:100%}
+/* 半透明白面板：底色 + backdrop-blur，与参考稿一致。文字必须转深色 ——
+   原 .closing__inner 是深色底 + 白字，直接搬过来会白字白底看不见。
+   底白透明度 50%（Flora 2026-09-21 由 90% 下调）；卡片压在图的上半部（天空/山体，
+   明度偏高），50% 白叠加后底色仍够浅，深色正文对比度有余量，blur 别去掉。 */
+.footband--cta .closing__inner{
+  padding:36px 40px;border-radius:var(--radius-panel);
+  /* 冒头位移与 hover 抬升合成同一条 transform（同 .city-arc 的做法）——
+     另外写一条 translateY 会把 --cta-overlap 的冒头整个顶掉。 */
+  --cta-lift:0px;
+  transform:translateY(calc(-1 * var(--cta-overlap,26px) + var(--cta-lift)));
+  background:var(--color-on-dark-panel);
+  backdrop-filter:blur(12px) saturate(1.1);-webkit-backdrop-filter:blur(12px) saturate(1.1);
+  border:1px solid var(--color-on-dark-panel-line);box-shadow:0 20px 50px rgb(var(--color-shadow) / 26%);
+  color:var(--color-heading);
+  transition:background var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+/* 移入：抬 4px + 白底提亮一档 + 投影加深 —— 玻璃面板「被拿起来」的聚焦感。 */
+.footband--cta .closing__inner:hover{
+  --cta-lift:-4px;background:var(--color-on-dark-panel-2);box-shadow:0 28px 60px rgb(var(--color-shadow) / 34%);
+}
+.footband--cta .closing__inner h2{color:var(--color-heading)}
+.footband--cta .closing__inner p{color:var(--color-text-muted)}
+/* 按钮：白底按钮放在白面板上会「消失」，改成主色实底 */
+.footband--cta .closing__inner .btn-light{background:var(--color-primary);border-color:var(--color-primary);color:var(--color-on-dark-1)}
+.footband--cta .closing__inner .btn-light:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-on-dark-1)}
+@media (max-width:640px){
+  /* 窄屏卡片自身更高（内容换行），冒头量收小，免得挤到上一区块的正文 */
+  .footband--cta{--cta-overlap:16px}
+  .footband--cta .closing__inner{padding:26px 22px}
+}
+.closing__inner{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;
+  padding:48px;border-radius:var(--radius-card);color:var(--color-on-dark-1);
+  background:linear-gradient(112deg,var(--color-dark-2),var(--color-ph-mid));
+}
+.closing__inner h2{color:var(--color-on-dark-1);font-size:clamp(24px,2.6vw,32px);line-height:1.28;margin-bottom:10px}
+.closing__actions{display:flex;gap:12px;flex-wrap:wrap}
+.closing__inner p{color:var(--color-on-dark-4);font-size:16px;line-height:1.75;max-width:560px;margin:0}
+.btn-light{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;
+  min-height:48px;padding:0 22px;border:1px solid transparent;border-radius:var(--radius-control);
+  background:var(--color-surface);color:var(--color-primary);font-size:15px;font-weight:700;
+  transition:background var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.btn-light:hover{background:var(--color-primary-tint);transform:translateY(-1px)}
+
+/* ============================================================
+   Footer — 深青蓝底、watermark、4-col grid
+   ============================================================ */
+/* 全站 footer 统一取 --color-footer-home（Flora 2026-09-22）：原来只有首页是青蓝，
+   其余 20 页是 deep navy #102b44，现在一个色。
+   ⚠ 变量名里的 home 是历史遗留（2026-09-21 它确实是首页专用），别再被名字带偏。
+   首页的 .footband 通栏图用的也是它 —— 两者同色才不会在图片与 footer 的接缝处露亚像素缝。 */
+.site-footer{position:relative;overflow:hidden;background:var(--color-footer-home);color:var(--color-on-dark-4);margin-top:auto}
+/* .site-footer--home 保留：build.cjs 仍给首页挂这个类，值与基础规则相同（幂等，无副作用）。 */
+.site-footer.site-footer--home{background:var(--color-footer-home)}
+.site-footer__watermark{
+  position:absolute;right:0;bottom:0;width:310px;height:310px;opacity:.06;
+  overflow:hidden;pointer-events:none;
+}
+.site-footer__watermark svg{width:310px;height:auto}
+.site-footer__inner{position:relative;z-index:1}
+/* 4 列（品牌 / 浏览 / 法律文件 / 联系我们）。只在 >1100px 成立：
+   1100 以下每列不足 210px，英文条目会折行 → 退回 3 列（见下方断点）。 */
+.site-footer__main{
+  display:grid;align-items:start;gap:48px;
+  grid-template-columns:minmax(280px,15fr) repeat(3,minmax(140px,11fr));
+  padding-block:62px 48px;
+}
+.site-footer__brand-block{min-width:0}
+.site-footer__brand-block .brand{margin-bottom:0}
+.site-footer__brand-block p{
+  margin:26px 0 0;max-width:34ch;color:var(--color-on-dark-4);font-size:14px;line-height:1.75;
+}
+.site-footer__social{display:flex;flex-wrap:wrap;gap:16px;list-style:none;margin:22px 0 0;padding:0}
+.site-footer__social a{display:inline-flex;color:var(--color-on-dark-5);transition:color var(--duration-fast) var(--ease-out)}
+.site-footer__social a:hover{color:var(--color-on-dark-1)}
+.site-footer__social svg{width:22px;height:22px}
+.site-footer__cta{
+  display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;
+  min-height:42px;margin-top:18px;padding:0 18px;border:1px solid var(--color-on-dark-line);
+  border-radius:var(--radius-control);background:transparent;color:var(--color-on-dark-1);font-size:14px;font-weight:700;
+  transition:background var(--duration-fast) var(--ease-out),border-color var(--duration-fast) var(--ease-out);
+}
+.site-footer__cta:hover{background:var(--color-on-dark-hairline);border-color:var(--color-on-dark-panel-line)}
+.site-footer__col{min-width:0}
+.site-footer__col h2{color:var(--color-on-dark-1);font-size:14px;line-height:1.4;margin:0 0 16px}
+.site-footer__col ul{display:grid;gap:6px;list-style:none;margin:0;padding:0}
+/* 法律文件列是纯展示（条目没有目标页，用 <span> 而非 <a>），排版与链接列对齐 */
+.site-footer__col a,.site-footer__col--legal span{display:inline-flex;font-size:13px;line-height:1.6;color:var(--color-on-dark-4);min-height:21px}
+.site-footer__col a:hover{color:var(--color-on-dark-1)}
+.site-footer__col--contact ul{gap:11px}
+.site-footer__col--contact li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--color-on-dark-3)}
+.site-footer__col--contact svg{width:18px;height:18px;flex:none;margin-top:3px}
+.site-footer__col--contact .ctxt{display:inline-flex;line-height:1.5}
+.site-footer__col--contact a{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--color-on-dark-3)}
+.site-footer__col--contact a:hover{color:var(--color-on-dark-1)}
+.site-footer__col--contact a svg{width:18px;height:18px;flex:none;margin-top:3px}
+.site-footer__bottom{border-top:1px solid var(--color-on-dark-hairline);padding-block:28px 32px;font-size:12px;line-height:1.6;color:var(--color-on-dark-6)}
+.site-footer__bottom .site-footer__inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.site-footer__bottom p:last-child{max-width:62ch;text-align:right}
+
+/* ============================================================
+   Floating actions
+   ============================================================ */
+.floaters{position:fixed;right:22px;bottom:22px;z-index:30;display:flex;flex-direction:column;align-items:center;gap:12px;
+  transition:opacity var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+.floaters.is-hidden{opacity:0;transform:translateY(8px);pointer-events:none}
+.floater{
+  display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
+  border:1px solid var(--color-primary);background:var(--color-primary);color:var(--color-on-dark-1);
+  box-shadow:var(--shadow-layer);
+  transition:transform var(--duration-fast) var(--ease-out),background var(--duration-fast) var(--ease-out);
+}
+.floater:hover{background:var(--color-primary-hover);transform:translateY(-2px)}
+.floater svg{width:24px;height:24px}
+
+/* ============================================================
+   Page header band — every sub-page opens with one of these
+   ============================================================ */
+.pagehead{position:relative;isolation:isolate;overflow:hidden;color:var(--color-on-dark-1);background:var(--color-deep)}
+.pagehead__media{
+  position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 480px at 18% 20%,rgb(var(--color-dark-glow-a)) 0%, rgb(var(--color-dark-glow-a) / 0%) 64%),
+    radial-gradient(760px 440px at 88% 86%,rgb(var(--color-dark-glow-b)) 0%, rgb(var(--color-dark-glow-b) / 0%) 62%),
+    linear-gradient(150deg,var(--color-dark-1) 0%,var(--color-dark-2) 44%,var(--color-dark-3) 100%);
+}
+.pagehead__media::after{
+  content:'';position:absolute;inset:0;opacity:.42;
+  background-image:
+    linear-gradient(rgb(var(--color-accent-rgb) / 7%) 1px,transparent 1px),
+    linear-gradient(90deg,rgb(var(--color-accent-rgb) / 7%) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+/* 客户实拍图替换色块：关掉占位网格，图铺满。pagehead 本来没有 .hero__scrim，
+   白字直接压图会糊，所以带图时另加一层压暗（文字左对齐 → 左侧更重）。 */
+.pagehead__media--photo{background:var(--color-photo-bg)}
+.pagehead__media--photo::after{display:none}
+.pagehead__media--photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:72% 44%}
+/* 传了窄屏竖构图版时，页头图会包一层 <picture>。它是 inline 元素，不给尺寸的话
+   里面 img 的 height:100% 没有参照、图会塌 → 显式撑满。 */
+.pagehead__media--photo picture{display:block;width:100%;height:100%}
+/* 目的地详情页（destination-*.html）页头背景：destination-hero.jpg 原尺寸展示，不做
+   cover 缩放 —— 宽横幅图在细长页头里自然截取一条即可。同时关掉占位网格。 */
+.pagehead--desthero .pagehead__media{
+  background-image:url('images/destination-hero.jpg');
+  background-size:auto;
+  background-repeat:no-repeat;
+  background-position:50% 50%;
+}
+.pagehead--desthero .pagehead__media::after{display:none}
+/* 目的地页头也是「实拍图 + 白字」，但图挂在 CSS 背景上 → 产物里没有 .pagehead__scrim
+   元素，白字直接压图读不了，在这里补一层压暗。
+   ① 用 ::before 而不是 ::after —— ::after 已被上面那条占用来关占位网格；
+   ② 值比 .pagehead__scrim 重一档：这张 destination-hero.jpg 亮部多（湖面反光），
+      而目的地页的标签行宽度铺到 96%，横向渐变救不了右侧 → 整体也要压住。
+   ⚠ 想调明暗就改这里的几个百分比，别动 .pagehead__media 上的 background（那是 Flora 调的）。 */
+.pagehead--desthero .pagehead__media::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgb(var(--color-scrim) / 62%),rgb(var(--color-scrim) / 46%) 55%,rgb(var(--color-scrim) / 38%)),
+    linear-gradient(180deg,rgb(var(--color-scrim) / 10%),rgb(var(--color-scrim) / 26%));
+}
+/* about 页头：横构图取左下（湖面 + 亭台，裁掉上方天空）。窄屏换成竖构图版，
+   取景改居中偏下（见 ≤640 断点）。用修饰类而非行内样式，否则窄屏那条顶不掉。 */
+.pagehead--cover-left .pagehead__media--photo img{object-position:left bottom}
+.pagehead__scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(90deg,rgb(var(--color-scrim) / 30%),rgb(var(--color-scrim) / 25%) 50%,rgb(var(--color-scrim) / 21%)),
+    linear-gradient(180deg,rgb(var(--color-scrim) / 4%),rgb(var(--color-scrim) / 19%));
+}
+.pagehead__inner{width:min(var(--content-max-width),100%);margin-inline:auto;padding:56px 24px 52px}
+/* 日游详情页（9 条 day-tour-*.html）走 slim 形态 —— 实测 1440 下 band 从 604px 压到
+   约 306px（约一半；中文页 521 → 约 296）。四件事：
+     ① 段间留白收紧：band 自己的上下 92/98 是给正文 section 的节奏，对页头过宽；
+     ② inner 内边距 40/38 → 14/14；
+     ③ crumb / eyebrow / lead / actions 的行间距各收一格 —— 这一页只有
+        「面包屑 + 眉题 + 标题 + 摘要 + CTA」五层，留白占了原先一半的体量；
+     ④ 解除 h1 的 max-width —— 24ch（中文 20ch）会把 "Pu'er Time Secret Realm ·
+        rainforest and Nake Li" 这类长标题硬折成两行；放开后最长行 1096px，在 1440
+        的 1232px 可用宽度里自然落成一行（9 条 × 中英双语实测全部单行）。
+   不设 white-space:nowrap：<1100 的视口本来就放不下，nowrap 会直接撑出横向滚动，
+   窄屏保持折行是正确降级。 */
+.pagehead--slim{padding:18px 0 20px}
+.pagehead--slim .pagehead__inner{padding:14px 24px 14px}
+.pagehead--slim .crumb{margin-bottom:10px}
+.pagehead--slim .pagehead__eyebrow{margin-bottom:6px}
+.pagehead--slim .pagehead__lead{margin-top:10px;max-width:none}
+.pagehead--slim .pagehead__actions{margin-top:14px}
+/* 目的地页把「该目的地的内容」压成标签行并进 pagehead（Flora 2026-09-21）。
+   深底上直接复用 .tag 会是一块亮底浅字，跟 eyebrow 的青色互抢；这里改成半透明白底 +
+   白字 + 一圈描边。white-space 放回 normal：这批标签里有
+   "Haidong wetland and Dianchi Lake red-billed gulls (winter)" 这种长句，390 屏
+   一行放不下，nowrap 会直接撑出横向滚动条。 */
+/* 不要给这行设 max-width 的 ch 值：ch 按容器 16px 字号算（1ch≈8px），78ch 只有
+   约 620px，1232px 的可用宽度用不到一半，澄江 10 条标签会被挤成 7 行。 */
+.pagehead__facts{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px}
+.pagehead__facts-label{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--color-accent)}
+/* 分组不止一组时（如「该目的地的内容」+「落地产品线」），第二组的 label 会紧接在
+   上一组最后一个标签后面 —— 加个左间距，免得读成同一串。 */
+.pagehead__facts-label:not(:first-child){margin-left:10px}
+.pagehead__facts .tag{
+  background:var(--color-on-dark-hairline);color:var(--color-on-dark-1);border:1px solid var(--color-on-dark-hairline-2);
+  white-space:normal;font-size:11px;padding:2px 8px;line-height:1.65;
+}
+.pagehead--slim .pagehead__facts{margin-top:12px}
+/* 三个目录页（产品线 / 行程 / 目的地）的实拍 banner 统一高度 —— 由 build.cjs 的
+   pagehead({hero:true}) 打标（.pagehead--hero）。.pagehead 是 <section>，会吃到全局
+   section{padding:92px 0 98px}，而各页 hero 文案长短不同（产品线页还多一行 CTA），
+   band 就会从 470 长到 600，并排看参差。这里三件事：
+     ① 收紧 banner 自己的上下留白 —— 92/98 是给正文 section 的节奏，对 banner 过宽；
+     ② 给一个 min-height 地板，让三页落在同一高度；
+     ③ flex 垂直居中，内容多寡都居中放置，不会「文字贴顶、底下留大片空」。
+   min-height 只兜底、不裁切：内容真的超了，band 自然长高，不会切字。 */
+@media (min-width:768px){
+  .pagehead--hero{display:flex;align-items:center;padding-block:32px;min-height:500px}
+}
+.pagehead h1{color:var(--color-on-dark-1);font-size:clamp(30px,3.6vw,46px);line-height:1.2;margin:0;max-width:29ch}
+/* 目录页主标题用自然换行，不用 balance：中文按避头尾标点断行，
+   逗号收在行尾（「四种康养选择，」/「定制你的身心之旅」），而不是在词中断开。 */
+.pagehead h1{text-wrap:wrap}
+:lang(zh-CN) .pagehead h1{max-width:29ch}
+/* 日游 slim 页解除 h1 限宽，让标题落成一行。必须写在这两行**之后**：
+   .pagehead--slim h1 与 .pagehead h1 特指度相同（0,1,1），
+   放前面会被上面的 max-width:24ch / 20ch 覆盖（踩过）。 */
+.pagehead--slim h1,
+:lang(zh-CN) .pagehead--slim h1{max-width:none}
+.pagehead__lead{margin:16px 0 0;max-width:64ch;color:var(--color-on-dark-3);font-size:16px;line-height:1.75}
+.pagehead__eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 12px;color:var(--color-accent);font-size:13px;font-weight:700}
+.pagehead__eyebrow::before{content:'';width:30px;height:1px;background:currentColor}
+.pagehead__actions{
+  /* 页头「预约回电」改用首页 hero 同款 btnpair 实心按钮。容器原不是 .btnpair，
+     没有那组 CSS 变量，这里补上 solid 一份，btnpair__btn 就能直接复用。 */
+  --bpp-h:40px;--bpp-ico:32px;--bpp-inset:4px;--bpp-inner:13px;--bpp-pad:32px;--bpp-font:15px;
+  --bpp-solid-bg:var(--color-surface);--bpp-solid-bg-hover:var(--color-primary-tint);--bpp-solid-fg:var(--color-heading);
+  --bpp-solid-ico-bg:var(--color-deep);--bpp-solid-ico-fg:var(--color-on-dark-1);
+  --bpp-solid-shadow:0 10px 26px rgb(var(--color-shadow) / 22%);
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;
+}
+
+.crumb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 18px;padding:0;list-style:none;font-size:13px;color:var(--color-on-dark-5)}
+.crumb li{display:inline-flex;align-items:center;gap:8px}
+.crumb li+li::before{content:'/';color:var(--color-on-dark-line-2)}
+.crumb a:hover{color:var(--color-on-dark-1)}
+.crumb [aria-current]{color:var(--color-on-dark-2);font-weight:600}
+
+/* 栏目内二级导航（.subnav）2026-09-20 已移除：它夹在 sticky header 与 hero 之间，
+   只吃第一屏的 55px 却不吸顶，栏目内切换改由页面内列表承担。 */
+
+/* ============================================================
+   Long-form prose
+   ============================================================ */
+.prose > * + *{margin-top:15px}
+.prose p{font-size:16px;line-height:1.8;color:var(--color-text-muted)}
+.prose h3{font-size:19px;color:var(--color-heading);margin-top:30px}
+.prose ul{margin:0;padding-left:22px}
+.prose li{font-size:16px;line-height:1.8;color:var(--color-text-muted);margin-top:6px}
+
+.checks{display:grid;gap:10px;list-style:none;margin:0;padding:0}
+.checks li{display:flex;align-items:flex-start;gap:11px;font-size:15px;line-height:1.7;color:var(--color-text-muted)}
+.checks svg{width:19px;height:19px;flex:none;margin-top:4px;color:var(--color-primary)}
+.checks b{color:var(--color-heading);font-weight:600}
+/* 费用不含列：✕ 用 muted 灰，和「含」的青色 ✓ 区分开 */
+.checks--excl svg{color:var(--color-text-muted)}
+/* journey "What is included" — two-column checklist */
+.includes-2col .checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px}
+
+/* numbered steps — a four-across rail with a connector line, not a card grid.
+   .steps/.step__n base rules below still serve the stat blocks on the About page
+   (those live in .grid4, so the .steps-scoped overrides here do not reach them). */
+.steps{--step-gap:22px;position:relative;display:grid;gap:0 var(--step-gap);grid-template-columns:repeat(4,minmax(0,1fr));margin-top:44px}
+/* 连接线由每列各画半段（本圆右侧 → 下一圆左侧）：与圆严格对齐，
+   不靠百分比估算，首尾也不会外延。最后一步不画。 */
+.steps .step{position:relative;padding:0 4px;background:none;border:0;border-radius:0;text-align:center}
+.steps .step:not(:last-child)::before{
+  content:'';position:absolute;top:24px;left:calc(50% + 30px);right:calc(-50% - var(--step-gap));
+  height:2px;background:var(--color-border);border-radius:2px;
+}
+.steps .step__n{position:relative;z-index:1;width:46px;height:46px;margin:0 auto;font-size:14px;background:var(--color-surface);border:2px solid var(--color-primary)}
+.steps .step h3{font-size:17px;margin:20px 0 8px}
+.steps .step p{font-size:14px;line-height:1.7}
+/* base step card (still used by the About stat blocks) */
+.step{padding:24px;background:var(--color-surface);border:1px solid var(--color-border);border-top:3px solid var(--color-primary);border-radius:var(--radius-card)}
+.step__n{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--color-surface-selected);color:var(--color-primary);font-size:13px;font-weight:700}
+.step h3{font-size:17px;margin:16px 0 8px;color:var(--color-heading)}
+.step p{font-size:15px;line-height:1.75;color:var(--color-text-muted);margin:0}
+
+/* definition grid */
+.spec{border:1px solid var(--color-border-soft);border-radius:var(--radius-control);overflow:hidden}
+.spec__row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:20px;padding:14px 18px;border-bottom:1px solid var(--color-border-soft)}
+.spec__row:last-child{border-bottom:0}
+.spec__row:nth-child(odd){background:var(--color-surface-cool)}
+.spec__row dt{font-size:13px;font-weight:700;color:var(--color-primary);line-height:1.65;margin:0}
+.spec__row dd{margin:0;font-size:15px;line-height:1.7;color:var(--color-text)}
+
+/* day-by-day timeline */
+.dayline{list-style:none;margin:0;padding:0}
+.dayline > li{position:relative;padding:0 0 28px 40px;border-left:2px solid var(--color-border)}
+.dayline > li:last-child{border-left-color:transparent;padding-bottom:0}
+.dayline > li::before{content:'';position:absolute;left:-8px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--color-surface);border:3px solid var(--color-primary)}
+.dayline h3{font-size:17px;color:var(--color-heading);margin:0 0 8px}
+.dayline__slot{display:flex;gap:14px;padding:4px 0;font-size:15px;line-height:1.7;color:var(--color-text-muted)}
+.dayline__slot time{flex:none;width:104px;color:var(--color-primary);font-size:13px;font-weight:700;padding-top:3px;font-variant-numeric:tabular-nums}
+.dayline__note{margin-top:8px;font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+
+/* 行程项配图：跟在所解释的那条行程项下方 */
+.dayline__slot--media{flex-wrap:wrap}
+.photos{flex:0 0 100%;display:flex;flex-wrap:wrap;gap:8px;margin:7px 0 3px}
+.photo{display:block;line-height:0;border:1px solid var(--color-border);border-radius:var(--radius-card);overflow:hidden;background:var(--color-surface-cool);cursor:zoom-in;transition:box-shadow var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+.photo img{display:block;height:124px;width:auto;max-width:100%;object-fit:cover}
+.photo:hover{box-shadow:var(--shadow-card);transform:translateY(-1px)}
+.photo:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.photos--sm{gap:6px;margin:9px 0 0}
+.photo--sm img{height:54px}
+
+/* 看图灯箱（site.js） */
+.lightbox{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:30px;background:rgb(var(--color-deep-rgb) / 90%)}
+.lightbox.on{display:flex}
+.lightbox__stage{max-width:100%;text-align:center}
+.lightbox__img{max-width:min(94vw,1400px);max-height:78vh;width:auto;height:auto;border-radius:var(--radius-card);box-shadow:var(--shadow-layer)}
+.lightbox__caption{margin:14px auto 0;max-width:760px;font-size:14px;line-height:1.65;color:var(--color-on-dark-3)}
+.lightbox__count{position:absolute;top:26px;left:26px;font-size:13px;letter-spacing:.4px;color:var(--color-on-dark-4);font-variant-numeric:tabular-nums}
+.lightbox__close,.lightbox__nav{position:absolute;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--color-on-dark-line-2);border-radius:50%;background:var(--color-on-dark-hairline);color:var(--color-on-dark-1);font-size:20px;line-height:1;cursor:pointer;transition:background var(--duration-fast) var(--ease-out)}
+.lightbox__close{top:20px;right:22px;font-size:24px}
+.lightbox__nav--prev{left:20px;top:50%;transform:translateY(-50%)}
+.lightbox__nav--next{right:20px;top:50%;transform:translateY(-50%)}
+.lightbox__close:hover,.lightbox__nav:hover{background:var(--color-on-dark-veil-2)}
+
+
+/* notice — used to mark content that is still to be supplied */
+.notice{display:flex;gap:12px;padding:16px 18px;border:1px dashed var(--color-border-strong);border-radius:var(--radius-card);background:var(--color-surface-cool)}
+.notice svg{width:20px;height:20px;flex:none;margin-top:2px;color:var(--color-primary)}
+.notice b{display:block;margin-bottom:4px;font-size:14px;color:var(--color-heading)}
+.notice p{font-size:14px;line-height:1.7;color:var(--color-text-muted);margin:0}
+/* 目的地页「选择指引」：原来是三列圆形编号的引导条，2026-09-22 改成 values 行版式。
+   整套版式与首页四步共用，规则写在上面的 .journey / .dest-guide 分组选择器里，这里不再重复定义。 */
+
+/* filter chips */
+.filterbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.filterbar button{
+  min-height:38px;padding:0 15px;border:1px solid var(--color-border-strong);border-radius:999px;
+  background:var(--color-surface);font-size:14px;font-weight:600;color:var(--color-text-muted);
+  transition:border-color var(--duration-fast) var(--ease-out),background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
+}
+.filterbar button:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.filterbar button.on{background:var(--color-primary);border-color:var(--color-primary);color:var(--color-on-dark-1)}
+.filterbar button b{font-weight:700;font-variant-numeric:tabular-nums;opacity:.72}
+
+/* compact CTA used in sidebars and inside long pages */
+.ctacard{
+  padding:24px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);
+  display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+}
+.ctacard__label{
+  margin:0;font-size:17px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--color-primary);
+}
+.ctacard__subject{font-size:16px;line-height:1.45;color:var(--color-heading)}
+.ctacard p{margin:0;font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+.ctacard__actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ctacard__actions .btn-ghost{min-height:42px;padding:0 15px;font-size:14px}
+.ctacard__actions .btn-solid{white-space:nowrap}
+/* 目的地页底部唯一的行动区：把「想了解更多」卡片收窄居中，替掉原来整幅的 closing CTA
+   （Flora 2026-09-21）。不新造卡片样式，仍是 .ctacard 本体，只控制容器宽度。 */
+.solo-card{max-width:800px;margin-inline:auto}
+
+/* buttons */
+.btn-solid{
+  display:inline-flex;align-items:center;gap:9px;min-height:50px;padding:0 22px;
+  background:var(--color-primary);border:1px solid var(--color-primary);border-radius:var(--radius-control);
+  color:var(--color-on-dark-1);font-size:15px;font-weight:600;text-decoration:none;
+  transition:background var(--duration-fast) var(--ease-out),border-color var(--duration-fast) var(--ease-out);
+}
+.btn-solid:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover)}
+.btn-solid svg{width:17px;height:17px;flex:none}
+.btn-solid--sm{min-height:42px;padding:0 17px;font-size:14px}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;min-height:50px;padding:0 20px;
+  background:var(--color-surface);border:1px solid var(--color-border-strong);border-radius:var(--radius-control);
+  color:var(--color-text);font-size:15px;font-weight:600;text-decoration:none;
+  transition:border-color var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
+}
+.btn-ghost:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.btn-ghost svg{width:17px;height:17px;flex:none}
+
+/* ============================================================
+   Button pair（Flora 2026-09-22 参考稿）
+   ------------------------------------------------------------
+   一个按钮组＝两枚胶囊按钮，各自尾随一枚圆形图标钮（↗）：左实心主按钮、
+   右描边次按钮。参考稿是压在海面实拍图上的「白底实心 + 白描边透明」。
+
+   同一套结构要在几种底色上都成立，所以配色全走变量：
+     · 默认（深色 / 实拍图背景）—— 参考稿原样：白底实心 + 白描边透明
+     · .btnpair--onlight（白卡、半透明白面板）—— 白底按钮在那儿会看不见，
+       实心换主色实底、描边换灰线深字
+   尺寸也走变量：--bpp-ico + 上下各一份 --bpp-inset = --bpp-h，
+   三个一起换档，圆钮始终刚好撑满按钮内高，不用手调内边距。
+
+   ⚠ 位移合并到 --bpp-lift 上再写进 transform：以后谁给按钮加 transform，
+     别另写一条 translateY，会把 hover 抬升整条顶掉（.city-arc 和
+     .footband--cta 都踩过这个坑）。
+   ============================================================ */
+.btnpair{
+  /* 2026-09-22（Flora）：「扁扁长长的」——把高度压下来、横向留白补上去。
+     基准不是拍脑袋：用 tmp/_refbtn.cjs 量了参考稿那枚白底按钮的像素边界，
+     是 187×42px（长宽比 4.45:1），原先实现的 189×44 偏高、看着「胖」。
+     现在 187×40（4.68:1），比参考稿再扁一档。
+     ⚠ 恒等式 --bpp-ico + 上下各一份 --bpp-inset = --bpp-h 必须成立
+       （32 + 4×2 = 40），否则圆钮撑不满内高，上下会露边。 */
+  --bpp-h:40px;--bpp-ico:32px;--bpp-inset:4px;--bpp-inner:13px;--bpp-pad:32px;
+  --bpp-font:15px;--bpp-gap:12px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--bpp-gap);
+
+  --bpp-solid-bg:var(--color-surface);--bpp-solid-bg-hover:var(--color-primary-tint);--bpp-solid-fg:var(--color-heading);
+  --bpp-solid-ico-bg:var(--color-deep);--bpp-solid-ico-fg:var(--color-on-dark-1);
+  --bpp-solid-shadow:0 10px 26px rgb(var(--color-shadow) / 22%);
+  --bpp-ghost-bg:var(--color-on-dark-veil);--bpp-ghost-bg-hover:var(--color-on-dark-veil-2);
+  --bpp-ghost-fg:var(--color-on-dark-1);--bpp-ghost-line:var(--color-on-dark-line-3);--bpp-ghost-line-hover:var(--color-on-dark-1);
+  --bpp-ghost-ico-bg:var(--color-surface);--bpp-ghost-ico-fg:var(--color-heading);
+}
+.btnpair--onlight{
+  --bpp-solid-bg:var(--color-primary);--bpp-solid-bg-hover:var(--color-primary-hover);--bpp-solid-fg:var(--color-on-dark-1);
+  --bpp-solid-ico-bg:var(--color-surface);--bpp-solid-ico-fg:var(--color-primary);
+  --bpp-solid-shadow:0 10px 26px rgb(var(--color-shadow) / 18%);
+  --bpp-ghost-bg:var(--color-surface);--bpp-ghost-bg-hover:var(--color-surface-cool);
+  --bpp-ghost-fg:var(--color-heading);--bpp-ghost-line:var(--color-border-strong);--bpp-ghost-line-hover:var(--color-primary);
+  --bpp-ghost-ico-bg:var(--color-surface-selected);--bpp-ghost-ico-fg:var(--color-primary);
+}
+/* 紧凑档：侧栏转化卡与「想了解更多」卡（卡外 396px、内边距 22px → 卡内 352px）。
+   两枚按钮实测 150+188，加间距 8 = 346，余量只剩 6px —— `--bpp-pad` 再放宽就会折成两行，
+   这就是上限。（窄屏卡更窄，本来就得折，不去管它。） */
+.btnpair--sm{--bpp-h:36px;--bpp-ico:28px;--bpp-inset:4px;--bpp-inner:10px;--bpp-pad:16px;--bpp-font:13px;--bpp-gap:8px}
+
+.btnpair__btn{
+  display:inline-flex;align-items:center;white-space:nowrap;
+  height:var(--bpp-h);padding:0 var(--bpp-inset) 0 var(--bpp-pad);
+  border:1px solid transparent;border-radius:999px;
+  font-size:var(--bpp-font);font-weight:600;line-height:1.2;
+  transform:translateY(var(--bpp-lift,0px));
+  transition:background var(--duration-fast) var(--ease-out),border-color var(--duration-fast) var(--ease-out),
+             color var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out),
+             transform var(--duration-fast) var(--ease-out);
+}
+.btnpair__btn:hover{--bpp-lift:-2px}
+.btnpair__btn--solid{background:var(--bpp-solid-bg);border-color:var(--bpp-solid-bg);color:var(--bpp-solid-fg);box-shadow:var(--bpp-solid-shadow)}
+.btnpair__btn--solid:hover{background:var(--bpp-solid-bg-hover);border-color:var(--bpp-solid-bg-hover)}
+.btnpair__btn--solid .btnpair__ico{background:var(--bpp-solid-ico-bg);color:var(--bpp-solid-ico-fg)}
+.btnpair__btn--ghost{background:var(--bpp-ghost-bg);border-color:var(--bpp-ghost-line);color:var(--bpp-ghost-fg)}
+.btnpair__btn--ghost:hover{background:var(--bpp-ghost-bg-hover);border-color:var(--bpp-ghost-line-hover)}
+.btnpair__btn--ghost .btnpair__ico{background:var(--bpp-ghost-ico-bg);color:var(--bpp-ghost-ico-fg)}
+.btnpair__ico{
+  display:grid;place-items:center;flex:none;margin-left:var(--bpp-inner);
+  width:var(--bpp-ico);height:var(--bpp-ico);border-radius:50%;
+  transition:background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
+}
+.btnpair__ico svg{width:calc(var(--bpp-ico) * .45);height:calc(var(--bpp-ico) * .45)}
+
+/* request.html — the single form page */
+/* request 页（Flora 2026-09-21 17:47）：照参考稿改成「整屏背景 + 左文案 + 右浮起白卡表单」。
+   ---------------------------------------------------------------
+   背景图：assets/images/yunnan-forest-green-hero-1280x460.jpg（2560×1440 实拍，247KB，2026-09-21 换上）。
+   → cover / 居中 / 压暗渐变 / 不重复 都已就位；**换图只动 --reqhero-photo 这一行**
+     （url 相对本 CSS 文件，即 images/xxx.jpg，别写成 assets/images/…）。
+   → 想微调压暗程度只改那条 linear-gradient 的百分比。
+   → 左文案整体上移量 = --reqhero-copy-lift（≤1100 单列时归零，免得压到页头）。
+   --------------------------------------------------------------- */
+.reqhero{
+  --reqhero-photo:url('images/yunnan-forest-green-hero-1280x460.jpg');
+  /* 左文案整体上移量；负位移不影响网格高度，卡片与 hero 尺寸都不动 */
+  --reqhero-copy-lift:48px;
+  display:grid;align-items:center;
+  /* 整屏：减去 sticky header 的高度（--header-height 在 900 断点会自己变 64px） */
+  min-height:calc(100vh - var(--header-height));
+  padding:clamp(44px,6vw,64px) 0;
+  color:var(--color-on-dark-1);
+  background-color:var(--color-deep);
+  background-image:
+    linear-gradient(102deg, rgb(var(--color-scrim) / 46%) 0%, rgb(var(--color-scrim) / 40%) 54%, rgb(var(--color-scrim) / 16%) 100%),
+    var(--reqhero-photo);
+  background-size:cover;background-repeat:no-repeat;
+}
+/* 左文案 1fr / 右白卡定宽 520（卡宽是照着表单两列栅格算的：520−60 padding→460，
+   减 13 的列间距 → 每列 223px，input 不会被挤扁） */
+.reqhero__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:56px;align-items:center}
+.reqhero__copy{min-width:0;transform:translateY(calc(-1 * var(--reqhero-copy-lift)))}
+.reqhero__eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin:0;
+  font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--color-on-dark-3);
+}
+.reqhero__eyebrow::before{content:'';width:30px;height:1px;background:currentColor}
+/* 参考稿是大字压图：h1 走 clamp，两段各占一行（span 在首页 hero 也是这个写法） */
+.reqhero__title{margin:18px 0 0;font-size:clamp(34px,4vw,58px);line-height:1.08;letter-spacing:-.015em;font-weight:800;color:var(--color-on-dark-1);max-width:none}
+.reqhero__title span{display:block}
+.reqhero__lead{margin:18px 0 0;font-size:17px;line-height:1.7;color:var(--color-on-dark-2);max-width:32em}
+.reqhero__card{background:var(--color-surface);border-radius:var(--radius-panel);padding:clamp(22px,2.4vw,30px);box-shadow:0 32px 74px rgb(var(--color-shadow) / 38%)}
+/* 提交成功面板本来就是白底带边框，塞进白卡会出双框 → 在卡里去框去内边距 */
+.reqhero__card .reqok{border:0;padding:0}
+/* hero 下方：左说明列 / 右图墙。列比 .62:1.38 —— 图墙宽约 814px → 每格 ≈407px，
+   与 400×250 的源图几乎 1:1（不再放大，也就不会发软）。 */
+.reqpage__layout{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:52px;align-items:start}
+.reqpage__side{display:flex;flex-direction:column}
+/* 「关于这份表单」说明块：表单搬进 hero 白卡后，这一段单独占左列（不再接在表单后面，去掉分隔线） */
+.reqpage__info{padding-top:6px}
+/* 目的地封面拼图：2 列无缝（gap:0，格子紧贴），整块一个圆角把四角裁齐。
+   格子比例取 16/10 —— 5 张源图全是这个比例（4 张 400×250 + fuxianfu-card 1586×992），
+   用 16/10 几乎不裁切；换成 4/3 会把每张图的左右裁掉一截。
+   末尾的 --wide 给奇数张收口（跨两列），3.2/1 = 2 格宽 / 1 格高，与其他行等高。 */
+.mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-radius:var(--radius-panel);overflow:hidden}
+.mosaic__cell{position:relative;display:block;aspect-ratio:16/10;overflow:hidden}
+.mosaic__cell--wide{grid-column:span 2;aspect-ratio:32/10}
+.mosaic__cell img{width:100%;height:100%;object-fit:cover;display:block}
+.reqpage__info h3,
+.reqpage__side h3{font-size:16px;line-height:1.3;color:var(--color-heading);margin:0 0 10px}
+.reqpage__note{margin:0;font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+.reqform__check{display:flex;align-items:flex-start;gap:10px;margin:2px 0 0;padding:0}
+.reqform__check input{width:18px;height:18px;min-height:0;flex:none;margin-top:2px;accent-color:var(--color-primary)}
+.reqform__check span{font-size:13px;line-height:1.6;font-weight:400;color:var(--color-text-muted)}
+.reqform__foot{display:flex;align-items:center;gap:14px;margin-top:6px}
+.reqform__hint{font-size:13px;color:var(--color-text-muted)}
+.reqok{
+  padding:34px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);
+  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+}
+.reqok__ico{
+  display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;
+  background:var(--color-surface-selected);color:var(--color-primary-hover);
+}
+.reqok__ico svg{width:24px;height:24px}
+.reqok h2{font-size:clamp(21px,2.2vw,26px);margin:2px 0 0}
+.reqok p{margin:0;font-size:15px;line-height:1.75;color:var(--color-text-muted)}
+.reqok__meta{font-size:13px;color:var(--color-text-muted)}
+.reqok .btn-solid{margin-top:8px}
+
+/* assurance cards —— 六项承诺「一行 6 张」错落卡（Flora 2026-09-22 参考稿）。
+   ⚠ 2026-09-23 更正：这套**留在 about 页**用（「从健康项目到云南旅程」四条），
+   首页六项承诺已换成 .assplit「左图右列」—— 别再把它当成首页的旧版往回加。
+   参考稿要点：白卡不带描边、卡面只有「标题 / 描述 / 底部胶囊标签」，整排上下交错。
+   6 张在 1232px 内容区里每张约 190px → 内边距与字号都按窄卡收过（h3 仍是站内规范的 17px）。
+   两件事必须一起成立：
+   ① **六张卡等宽等高** —— grid 默认 align-items:stretch，整行拉到最高那张的高度；
+   ② **偶数位整体下移** —— 用 transform:translateY，**不能用 margin-top**：
+      grid item 的 margin 会从拉伸高度里扣掉 → 双数卡矮一截、底部反而对齐（2026-09-22 踩过）。
+      transform 不参与布局，所以行高与卡片高度都不变，只是整张卡视觉下移。
+   （`.city-arc` 那边用 margin 是因为 `.city:hover` 已经占了 transform；这里错落与 hover 抬升
+     分别记在 --assure-offset / --assure-lift 两个变量上，同一条 transform 里相加，互不覆盖。）
+   底部标签 margin-top:auto 钉在卡底，与参考稿的气口一致。 */
+.assure{display:grid;gap:16px;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:36px}
+.assure article{
+  display:flex;flex-direction:column;
+  padding:24px 20px 22px;background:var(--color-card-soft);border-radius:14px;
+  box-shadow:0 1px 3px rgb(var(--color-shadow) / 5%);   /* 半透明卡压在 --color-surface-bright 上，只留一点投影做轮廓 */
+  /* 位移拆成两个变量再相加：错落（offset）与 hover 抬升（lift）都走 transform，
+     写死一条 translateY 会互相覆盖 —— hover 时偶数卡会「跳回」顶行再抬升。 */
+  --assure-offset:0px;--assure-lift:0px;
+  transform:translateY(calc(var(--assure-offset) + var(--assure-lift)));
+  transition:box-shadow var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out);
+}
+.assure article:nth-child(even){--assure-offset:26px}
+/* 移入：抬 4px + 加深投影（与 .prog / .city 同一套 hover 口径）。卡片不是链接，所以不变色。
+   列间距只有 16px，34px 的投影会被右邻居压掉一截 —— 悬停时提一层 z-index 让它浮在兄弟之上。 */
+.assure article:hover{--assure-lift:-4px;box-shadow:0 16px 34px rgb(var(--color-shadow) / 12%);position:relative;z-index:1}
+.assure h3{font-size:17px;line-height:1.4;color:var(--color-heading);margin:0}
+.assure p{font-size:14px;line-height:1.7;color:var(--color-text-muted);margin:12px 0 0}
+.assure__tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:20px}
+.assure__tag{
+  padding:4px 10px;border:1px solid var(--color-border);border-radius:100px;
+  color:var(--color-text-muted);font-size:12px;line-height:1.4;white-space:nowrap; background-color: var(--color-surface-bright);
+}
+/* about 页那处只有 4 张（是「从健康项目到云南旅程」四条，不是六项承诺）→ 4 列并排，
+   错落位移照旧。⚠ 基础版 6 列是给首页六项承诺调的，别把这档的列数写回基础版。 */
+.assure--band{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* ============================================================
+   「左图右列」（Flora 2026-09-23 参考图）—— **首页六项承诺专用**
+   ------------------------------------------------------------
+   左列一张竖图（占整行一半宽），右列标题 + 六条「图标 + 标题 + 描述」，
+   由 [data-render="assuranceSplit"] 运行时渲染。
+   about 页「从健康项目到云南旅程」用的是上面那套 .assure 六卡错落（2026-09-23 Flora 更正），
+   与本版式无关 —— 两处别混。
+   图上那枚底部说明条（参考图里的半透明黑条）先不做——图与文案都是原型的，等需要再补。
+   ⚠ 左图写死 width:50%（她要的一半宽），别改成 1fr —— 两列等宽是参考稿的关键。
+   ============================================================ */
+.assplit{display:grid;grid-template-columns:50% 1fr;gap:clamp(28px,4vw,64px);align-items:stretch;margin-top:36px}
+/* 图卡跟着行高走 —— stretch 让 figure 与右列等高，figure 是 flex 容器把 img 拉满。
+   ⚠ 图片高度**不写死**（Flora 2026-09-23）：中文 610 够，切英文文案变长就不够、右边矮一节、
+   图会露白。改成「右列多高，图就多高」。
+   ⚠ 铁律：aspect-ratio 与显式 height/min-height 不可同元素（Chrome 反推宽度 → 横向溢出），
+   所以这里两者都不给 —— 高度全靠 flex/stretch 撑。 */
+.assplit__media{margin:0;display:flex;border-radius:18px;overflow:hidden;background:var(--color-photo-bg);
+  box-shadow:0 22px 54px rgb(var(--color-shadow) / 16%)}
+.assplit__media img{display:block;width:100%;height:100%;min-height:0;object-fit:cover}
+/* 右列：大标题 → 六条。标题与首条之间留出参考稿那种大留白。 */
+.assplit__head{margin:0 0 clamp(22px,2.6vw,34px)}
+.assplit__list{display:flex;flex-direction:column;gap:clamp(18px,2.2vw,30px);margin:0;padding:0;list-style:none}
+.assplit__item{display:flex;align-items:flex-start;gap:16px}
+/* 图标底：一枚浅底圆角方块（参考稿里是淡灰小方块、图标本身是线稿）。 */
+.assplit__ico{
+  display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:10px;
+  background:var(--color-surface-cool);color:var(--color-primary);
+}
+.assplit__ico svg{width:20px;height:20px}
+.assplit__txt{min-width:0}
+.assplit h3{font-size:17px;line-height:1.4;color:var(--color-heading);margin:0}
+/* ⚠ 正文必须限定在 .assplit__txt 里：文案列里除了正文还有别的 <p>，
+   写成 `.assplit p` 会一并误伤。 */
+.assplit__txt p{font-size:14px;line-height:1.72;color:var(--color-text-muted);margin:7px 0 0}
+
+/* ≤900：一列叠起来 —— 图上文下。单列里 stretch 会把 figure 拉到「图+文案」的总高（图被撑死），
+   所以这一档必须把 img 的高度交回内容：写死一个比例（16:9）比「跟着右列」合理。 */
+@media (max-width:900px){
+  .assplit{grid-template-columns:1fr;gap:28px}
+  .assplit__media img{height:auto;aspect-ratio:16/9}
+}
+
+/* FAQ */
+.faq{display:grid;gap:12px;margin-top:34px}
+.faq details{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);overflow:hidden}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;font-size:16px;font-weight:600;color:var(--color-heading);list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex:none;font-size:20px;font-weight:400;color:var(--color-primary);line-height:1}
+.faq details[open] summary::after{content:'–'}
+.faq__body{padding:0 22px 20px;font-size:15px;line-height:1.8;color:var(--color-text-muted)}
+
+/* article list */
+.artlist{display:grid;margin-top:34px;border-top:1px solid var(--color-border)}
+.artlist article{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:26px;align-items:center;padding:22px 0;border-bottom:1px solid var(--color-border)}
+.artlist__ph{height:88px;border-radius:var(--radius-control)}
+.artlist h3{font-size:17px;color:var(--color-heading);margin:0 0 6px}
+.artlist p{margin:0;font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+.artlist__meta{display:flex;align-items:center;gap:12px;flex:none;font-size:13px;color:var(--color-text-muted)}
+.artlist__meta svg{width:16px;height:16px}
+.artlist__meta .tag{font-size:12px}
+
+/* layout helpers */
+.split{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px;align-items:start}
+.split--even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.sticky-side{position:sticky;top:calc(var(--header-height) + 26px)}
+.mt-s{margin-top:18px}
+.mt-m{margin-top:30px}
+.mt-l{margin-top:46px}
+.section-label{display:flex;align-items:center;gap:10px;margin:0 0 16px;color:var(--color-primary);font-size:13px;font-weight:700}
+.section-label::before{content:'';width:26px;height:2px;background:currentColor;flex:none}
+
+.x{
+  display:grid;place-items:center;flex:none;width:36px;height:36px;
+  border:1px solid var(--color-border-strong);border-radius:50%;background:none;
+  color:var(--color-text-muted);font-size:17px;line-height:1;
+}
+.x:hover{background:var(--color-surface-cool);border-color:var(--color-primary);color:var(--color-primary)}
+.drawer__body{flex:1;overflow-y:auto;padding:26px 26px 100px}
+.blk{margin-bottom:28px}
+.blk h4{
+  display:flex;align-items:center;gap:9px;margin-bottom:14px;
+  color:var(--color-heading);font-size:15px;font-weight:700;
+}
+.blk h4::before{content:'';width:22px;height:2px;background:var(--color-primary);flex:none}
+.blk > p{font-size:15px;line-height:1.75;color:var(--color-text-muted)}
+
+.itin{display:flex;flex-direction:column;gap:0;list-style:none;margin:0;padding:0}
+.itin li{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--color-border-soft);font-size:14px}
+.itin li:last-child{border-bottom:0}
+.itin .d{flex:none;width:64px;padding-top:1px;color:var(--color-primary);font-size:13px;font-weight:700}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fact{padding:13px 15px;border:1px solid var(--color-border-soft);border-radius:var(--radius-control);background:var(--color-surface-cool)}
+.fact span{display:block;margin-bottom:4px;font-size:12px;color:var(--color-text-muted)}
+.fact b{font-size:14px;font-weight:600;color:var(--color-heading)}
+
+/* ============================================================
+   Zigzag — 中轴竖线 + 左右交替图文（about 页「三点」）
+   参考稿：一条中轴贯穿全块，每条一个实心节点，图文左右交替。
+   DOM 里 media 恒在前、copy 恒在后，左右翻转交给 order ——
+   这样窄屏把 order 归零，就自动统一成「图在上、文在下」。
+   ============================================================ */
+.zigzag{position:relative;margin-top:46px}
+/* 中轴：1px 线对齐到半像素，否则在非整数倍缩放下会糊成 2px */
+.zigzag::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:var(--color-border);transform:translateX(-.5px);
+}
+.zigzag__item{
+  position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:96px;align-items:center;
+}
+.zigzag__item + .zigzag__item{margin-top:64px}
+/* 节点：实心圆盖在中轴上。绝对定位的伪元素不参与 grid 布局，不会占掉一格 */
+.zigzag__item::before{
+  content:'';position:absolute;left:50%;top:50%;width:11px;height:11px;border-radius:50%;
+  background:var(--color-heading);transform:translate(-50%,-50%);z-index:1;
+}
+.zigzag__item--flip .zigzag__media{order:2}
+.zigzag__item--flip .zigzag__copy{order:1}
+.zigzag__media{margin:0}
+.zigzag__media img{
+  width:100%;aspect-ratio:3/2;object-fit:cover;
+  border-radius:var(--radius-card);box-shadow:var(--shadow-card);
+}
+.zigzag__copy h3{margin:0;font-size:20px;line-height:1.35;color:var(--color-heading)}
+.zigzag__copy p{margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--color-text-muted)}
+/* 事实带：全宽 4 列（.facts 是 2 列的基础版，pagehead 的胶囊标签也用它）。 */
+.facts--band{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:34px}
+
+@media (max-width:1100px){
+  .zigzag__item{column-gap:64px}
+}
+@media (max-width:900px){
+  /* 单列：中轴与节点失去意义，收掉；两条图文统一成「图在上、文在下」 */
+  .zigzag::before,.zigzag__item::before{display:none}
+  .zigzag__item{grid-template-columns:minmax(0,1fr);row-gap:20px}
+  .zigzag__item--flip .zigzag__media,
+  .zigzag__item--flip .zigzag__copy{order:0}
+  .zigzag__item + .zigzag__item{margin-top:44px}
+  .facts--band{grid-template-columns:1fr 1fr}
+}
+
+form.enq{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+form.enq .full{grid-column:1/-1}
+label{display:block;margin-bottom:6px;font-size:13px;font-weight:600;color:var(--color-text-muted)}
+input,select,textarea{
+  width:100%;min-height:48px;padding:10px 13px;
+  border:1px solid var(--color-border-strong);border-radius:var(--radius-control);
+  background:var(--color-surface);color:var(--color-text);font:inherit;font-size:15px;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-focus);outline:none}
+textarea{min-height:88px;resize:vertical}
+.submit{
+  grid-column:1/-1;min-height:40px;padding:0 30px;
+  border:1px solid var(--color-primary);border-radius:var(--radius-control);
+  background:var(--color-primary);color:var(--color-on-dark-1);font-size:15px;font-weight:700;cursor:pointer;
+  transition:background var(--duration-fast) var(--ease-out);
+}
+.submit:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover)}
+
+.cost{list-style:none;margin:0;padding:0;border:1px solid var(--color-border-soft);border-radius:var(--radius-control);overflow:hidden}
+.cost li{display:flex;justify-content:space-between;gap:16px;padding:10px 15px;font-size:14px;background:var(--color-surface);border-bottom:1px solid var(--color-border-soft)}
+.cost li:nth-child(even){background:var(--color-surface-cool)}
+.cost li:last-child{border-bottom:0}
+.cost li span{color:var(--color-text-muted);line-height:1.55}
+.cost li b{font-weight:600;color:var(--color-heading);white-space:nowrap;font-variant-numeric:tabular-nums}
+.cost__sum{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:10px;padding:13px 15px;border-radius:var(--radius-control);background:var(--color-surface-selected)}
+.cost__sum span{font-size:14px;color:var(--color-text-muted)}
+.cost__sum b{font-size:19px;font-weight:700;color:var(--color-primary);font-variant-numeric:tabular-nums}
+.callout{display:flex;gap:11px;padding:13px 15px;border-left:3px solid var(--color-primary);border-radius:0 var(--radius-control) var(--radius-control) 0;background:var(--color-surface-selected)}
+.callout p{font-size:14px;line-height:1.7;color:var(--color-text-muted)}
+.callout b{display:block;margin-bottom:3px;font-size:13px;font-weight:700;color:var(--color-primary)}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:1100px){
+  .site-header__menu{gap:17px}
+  .site-header__link{font-size:14px}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* 步骤条在 2 列时连接线的几何不成立，去掉线并补上行间距 */
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 22px}
+  .steps .step::before{display:none}
+  /* 5 列在 1100 以下每列不足 160px，降到 3 列并取消错落（换行后奇数位偏移不成立） */
+  .city-arc{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .city-arc .city:nth-child(n){margin-top:0}
+  /* 错落取消后回到横版比例：400x250 的源图在 3/2/1 列下横版几乎不放大（0.7~1.0x），
+     而 4:5 竖版要放大到 1.7~3.0x（2x 屏明显发软）。宁可比例在断点处跳一下，也别糊。 */
+  .city-arc .city__ph{aspect-ratio:16/10}
+  /* request 整屏 hero：1100 以下左文案 + 520 宽白卡并排会挤扁文案，改上下叠放；
+     min-height 归零交给内容撑高 —— 否则窄屏会留一大片空背景。 */
+  .reqhero{min-height:0;padding:52px 0;--reqhero-copy-lift:0px}
+  .reqhero__inner{grid-template-columns:1fr;gap:34px}
+  /* footer 的 4 列只在 1100 以上成立（法律文件列 2026-09-22 加入）。
+     1100 以下每列不足 210px，英文条目「Medical & Service Disclaimer」会折行
+     → 退回 3 列（浏览 / 法律文件 / 联系我们），品牌块独占一行。 */
+  .site-footer__main{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 36px;padding-block:48px 36px}
+  .site-footer__brand-block{grid-column:1/-1}
+  /* 六项承诺卡（about 用）：6 列在 1100 以下每列不足 170px，降到 3 列；
+     换行成两行后错落会跟下一行叠住（位移不占位，行间距吃不下 26px），一并取消。 */
+  .assure{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .assure article:nth-child(even){--assure-offset:0px}
+}
+@media (max-width:900px){
+  :root{--header-height:64px}
+  .site-header__menu{display:none}
+  .menu-toggle{display:inline-flex}
+  .navcta{display:none}
+  section{padding:68px 0 74px}
+  .grid3,.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .city-arc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* 首页四步：2 列时列间竖线的几何不成立，去掉线、改用列间距；头部两栏也改上下。 */
+  .journey{padding:60px 0 66px}
+  .journey__head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:34px}
+  .journey__note{text-align:left;max-width:none}
+  .journey ol{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 40px}
+  .journey li{padding:0}
+  .journey li:not(:last-child)::after{display:none}
+  /* 目的地页选择指引：3 条在窄屏继续 3 列会折成一堆短行 → 单列堆叠，竖线同理关掉。 */
+  .dest-guide__head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:34px}
+  .dest-guide__note{text-align:left;max-width:none}
+  .dest-guide ol{grid-template-columns:1fr;gap:30px}
+  .dest-guide li{padding:0}
+  .dest-guide li:not(:last-child)::after{display:none}
+  /* footer 的列布局不在这里定义：4 列在 1100 以上、3 列在 1100 以下（见上一断点），
+     640 以下单列（见下一断点）。900 这一档没有额外调整。 */
+  .site-footer__bottom .site-footer__inner{flex-direction:column;align-items:flex-start;gap:10px}
+  .site-footer__bottom p:last-child{text-align:left}
+  .closing__inner{padding:36px 28px}
+  .split,.split--even,.reqpage__layout{grid-template-columns:1fr;gap:32px}
+  .sticky-side{position:static}
+  .spec__row{grid-template-columns:1fr;gap:6px}
+  .artlist article{grid-template-columns:118px minmax(0,1fr);gap:18px}
+  .artlist__meta{display:none}
+  .pagehead__inner{padding:42px 24px 38px}
+  .reqok{padding:26px}
+  .assure{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  :root{--header-height:62px;--content-gutter:16px}
+  body{font-size:16px}
+  .hero h1{font-size:clamp(30px,8.4vw,44px)}
+  .hero__lead{font-size:16px}
+  .hero__content{padding:64px 16px 76px}
+  /* 2.78:1 的宽幅图在 390px 宽的屏上只露出约 18% 的宽度，取景位置就变得致命：
+     居中(50%)是干净的山水但没人；左移(62%)会把人物切成半截躯干；78% 正对人物。
+     真上线时这张应该另出一版竖构图（art direction），别指望同一张横图两头通吃。 */
+  .hero__media--photo img{object-position:78% 50%}
+  /* 详情页 banner 同理：窄屏下 2.78:1 的图横向只露约 40%，取景位置决定成败 */
+  .pagehead__media--photo img{object-position:80% 50%}
+  /* about 页头在窄屏换的是竖构图版（<picture> 的 source 就在这里断的），
+     竖图按宽度正好铺满、只裁纵向 → 取景往下压一点，让人物与亭台留在画面里。 */
+  .pagehead--cover-left .pagehead__media--photo img{object-position:50% 62%}
+  /* 窄屏文字铺满整幅，横向渐变救不了正文 → 换成纵向压暗，底部最重 */
+  .pagehead__scrim{
+    background:
+      linear-gradient(180deg,rgb(var(--color-scrim) / 30%),rgb(var(--color-scrim) / 72%) 25%,rgb(var(--color-scrim) / 22%)),
+      linear-gradient(90deg,rgb(var(--color-scrim) / 19%),rgb(var(--color-scrim) / 20%));
+  }
+  /* 目的地页头（CSS 背景图那条）同理换纵向压暗，比 .pagehead__scrim 重一档 */
+  .pagehead--desthero .pagehead__media::before{
+    background:
+      linear-gradient(180deg,rgb(var(--color-scrim) / 36%),rgb(var(--color-scrim) / 78%) 25%,rgb(var(--color-scrim) / 26%)),
+      linear-gradient(90deg,rgb(var(--color-scrim) / 24%),rgb(var(--color-scrim) / 26%));
+  }
+  .grid4,.grid3,.grid2,.journey ol,.dest-guide ol{grid-template-columns:1fr}
+  .city-arc{grid-template-columns:1fr}
+  /* 目的地分栏：窄屏退回单列，主卡不再撑高，右侧 2×2 保留两列 */
+  .city-split{grid-template-columns:1fr;margin-top:32px}
+  .city-split__lead .city__ph{aspect-ratio:16/10;flex:none}
+  .city-split__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .site-footer__main{grid-template-columns:1fr}
+  form.enq{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .brand__logo{width:155px}
+  .floaters{right:14px;bottom:14px}
+  .floater{width:52px;height:52px}
+  .assure{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:32px}
+  .steps .step::before{display:none}
+  .dayline > li{padding-left:28px}
+  .dayline__slot{flex-direction:column;gap:3px}
+  .dayline__slot time{width:auto;padding-top:0}
+  .photos{gap:6px}
+  .photo img{height:92px}
+  .photo--sm img{height:42px}
+  .lightbox{padding:14px}
+  .lightbox__nav{width:38px;height:38px}
+  .lightbox__nav--prev{left:6px}
+  .lightbox__nav--next{right:6px}
+  .lightbox__caption{font-size:13px}
+  .artlist article{grid-template-columns:1fr;gap:14px}
+  .artlist__ph{height:120px}
+  .pagehead h1{font-size:clamp(26px,7.4vw,36px)}
+  .pagehead__inner{padding:34px 16px 32px}
+  /* 日游 slim 页在窄屏再收一格（h1 此时必然折行，只能靠留白压高度） */
+  .pagehead--slim{padding:16px 0 18px}
+  .pagehead--slim .pagehead__inner{padding:14px 16px 12px}
+  .pagehead--slim .pagehead__facts{margin-top:10px;gap:6px}
+  .btn-solid,.btn-ghost{justify-content:center;width:100%}
+  .reqok{padding:22px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}

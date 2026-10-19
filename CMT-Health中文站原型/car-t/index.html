@@ -1,0 +1,4213 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="了解中国 CAR-T 治疗的获批产品、适应症评估、治疗流程、风险监测与赴华医疗协调路径。">
+  <title>中国 CAR-T 治疗：产品、流程与赴华评估 | CMT Health</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --surface: #ffffff;
+      --fg: #17203e;
+      --muted: #5f6d84;
+      --border: #d7e0e9;
+      --navy: #18245f;
+      --navy-deep: #0f1842;
+      --route-blue: #337fb8;
+      --sky: #68c5e8;
+      --care-teal: #36aaa4;
+      --success: #2ba65a;
+      --white: #ffffff;
+      --porcelain: #f7fafc;
+      --ink: #17203e;
+      --line: #d7e0e9;
+      --soft-blue: #e6f1f8;
+      --soft-teal: #eaf7f6;
+      --soft-green: #edf8ef;
+      --accent: var(--route-blue);
+      --primary: var(--route-blue);
+      --text-secondary: var(--muted);
+      --font-display: 'Medora Display', 'Medora Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', system-ui, sans-serif;
+      --font-body: 'Medora Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', system-ui, sans-serif;
+      --font-mono: var(--font-body);
+      --surface-soft: #e6f1f8;
+      --surface-cool: #eaf7f6;
+      --warning-bg: #fff6e7;
+      --warning-fg: #9c5d13;
+      --danger: #a93747;
+      --accent-ink: #ffffff;
+      --radius: 10px;
+      --border-soft: color-mix(in oklch, var(--border), transparent 30%);
+      --border-strong: color-mix(in oklch, var(--border), var(--fg) 12%);
+      --shadow-control: 0 10px 30px rgb(30 42 109 / 8%);
+      --shadow: 0 16px 44px rgb(18 27 79 / 12%);
+      --inset-highlight: inset 0 1px 0 rgb(255 255 255 / 72%);
+      --brand-gradient: linear-gradient(120deg, #18245f 0%, #337fb8 34%, #68c5e8 58%, #36aaa4 80%, #2ba65a 100%);
+      --gradient-cta: linear-gradient(120deg, #18245f 0%, #337fb8 62%, #36aaa4 100%);
+      --gradient-navy: linear-gradient(155deg, #18245f 0%, #0f1842 100%);
+      --ease-out: ease-out;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 170%;
+      letter-spacing: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.is-locked { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    strong, b { font-weight: 600; }
+    button, summary, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { background: color-mix(in oklch, var(--accent), transparent 74%); color: var(--fg); }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      background: var(--fg);
+      color: var(--bg);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1220px, calc(100% - 48px)); margin-inline: auto; }
+    .preview-banner {
+      background: color-mix(in oklch, var(--surface-soft), var(--bg) 36%);
+      color: color-mix(in oklch, var(--fg), var(--accent) 18%);
+      border-bottom: 1px solid color-mix(in oklch, var(--accent), transparent 68%);
+      font-size: 13px;
+      letter-spacing: calc(1em / 100);
+    }
+    .preview-banner .shell {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-block: 7px;
+    }
+    .preview-banner strong {
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: color-mix(in oklch, var(--surface), transparent 3%);
+      border-bottom: 1px solid var(--border);
+      box-shadow: none;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-row {
+      min-height: 88px;
+      display: grid;
+      grid-template-columns: 280px 1fr auto auto;
+      align-items: center;
+      gap: 30px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .brand-logo { width: 184px; height: auto; }
+    .desktop-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      white-space: nowrap;
+    }
+    .desktop-nav a {
+      position: relative;
+      padding-block: 31px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-decoration: none;
+      color: color-mix(in oklch, var(--fg), var(--navy) 35%);
+      transition: color 160ms ease;
+    }
+    .desktop-nav a:hover { color: var(--fg); }
+    .desktop-nav a[aria-current="page"] {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .desktop-nav a[aria-current="page"]::after {
+      content: '';
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .language {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface-cool);
+    }
+    .language span {
+      min-width: 42px;
+      text-align: center;
+      color: var(--navy);
+      font-size: 13px;
+    }
+    .language .active {
+      display: grid;
+      place-items: center;
+      min-height: 36px;
+      border-radius: 19px;
+      background: linear-gradient(105deg, var(--accent), var(--success));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .site-header .button {
+      min-height: 46px;
+      padding-inline: 18px;
+      border-radius: 24px;
+    }
+    .menu-toggle {
+      display: none;
+      min-width: 48px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-control);
+      font-size: 14px;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out), transform 140ms ease;
+    }
+    .icon-sprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    .icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .button { gap: 9px; }
+    .button .icon { width: 17px; height: 17px; }
+    .menu-toggle .icon,
+    .icon-button .icon { width: 20px; height: 20px; }
+    .menu-icon-close { display: none; }
+    .menu-toggle[aria-expanded="true"] { background: var(--surface-cool); }
+    .menu-toggle[aria-expanded="true"] .menu-icon-open { display: none; }
+    .menu-toggle[aria-expanded="true"] .menu-icon-close { display: block; }
+    .mobile-nav {
+      display: none;
+      padding: 8px 24px 22px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .mobile-nav.is-open { display: grid; }
+    .mobile-nav a {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .mobile-nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+    .page-nav-band {
+      position: fixed;
+      top: 50%;
+      left: clamp(12px, 2vw, 32px);
+      z-index: 26;
+      width: min(190px, calc(100vw - 24px));
+      transform: translateY(-50%);
+      border: 1px solid color-mix(in oklch, var(--border), transparent 18%);
+      border-radius: 8px;
+      background: color-mix(in oklch, var(--surface), transparent 18%);
+      box-shadow: 0 12px 32px color-mix(in oklch, var(--fg), transparent 90%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .page-anchor-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      padding: 8px;
+      gap: 2px;
+      overflow: visible;
+      white-space: normal;
+    }
+    .page-anchor-nav::-webkit-scrollbar { display: none; }
+    .page-anchor-nav a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 7px 10px;
+      border-radius: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .page-anchor-nav a:hover,
+    .page-anchor-nav a[aria-current="location"] { color: var(--fg); background: color-mix(in oklch, var(--surface), var(--accent) 8%); }
+    .page-anchor-nav a[aria-current="location"]::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      bottom: 9px;
+      left: 0;
+      width: 2px;
+      height: auto;
+      border-radius: 0 2px 2px 0;
+      background: var(--accent);
+    }
+    .page-anchor-nav .page-nav-back { margin-bottom: 5px; border-bottom: 1px solid color-mix(in oklch, var(--border), transparent 24%); border-radius: 0; }
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: clamp(434px, calc(100dvh - 188px), 544px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding-block: clamp(34px, calc(42vw / 10), 58px);
+      background: color-mix(in oklch, var(--fg), var(--accent) 10%);
+    }
+    .hero-grid {
+      position: static;
+      display: block;
+    }
+    .hero-breadcrumb {
+      position: absolute;
+      top: clamp(24px, calc(32vw / 10), 42px);
+      left: 50%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: min(1220px, calc(100% - 48px));
+      margin: 0;
+      color: color-mix(in oklch, var(--surface), transparent 28%);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 140%;
+      letter-spacing: 0;
+      transform: translateX(-50%);
+    }
+    .hero-breadcrumb a { color: inherit; text-decoration: none; }
+    .hero-breadcrumb a:hover { color: var(--surface); }
+    .hero-breadcrumb .separator { color: color-mix(in oklch, var(--surface), transparent 52%); }
+    .hero-breadcrumb [aria-current="page"] { color: var(--surface); }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      transform: translateY(clamp(26px, calc(26vw / 10), 36px));
+    }
+    .topic-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .topic-label::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      flex: 0 0 auto;
+      background: var(--border);
+    }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-feature-settings: normal;
+      margin: 0;
+      color: var(--fg);
+      text-wrap: balance;
+    }
+    h4 { margin: 0; text-wrap: balance; }
+    h1 {
+      max-width: none;
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 112%;
+      letter-spacing: 0;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    h2 {
+      max-width: 18ch;
+      font-size: clamp(32px, 4vw, 44px);
+      line-height: 120%;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+    h3 {
+      font-size: 21px;
+      line-height: 140%;
+      font-weight: 600;
+    }
+    .hero-copy {
+      max-width: 900px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 165%;
+      text-wrap: pretty;
+    }
+    .responsibility-note {
+      max-width: 64ch;
+      margin: 18px 0 0;
+      padding-left: 14px;
+      border-left: 2px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 160%;
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 26px 12px 20px;
+      border-radius: 9999px;
+      border: 1px solid var(--fg);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out), background 180ms var(--ease-out), border-color 180ms var(--ease-out), color 180ms var(--ease-out), opacity 160ms ease;
+    }
+    .button:disabled,
+    .button[aria-disabled="true"] {
+      opacity: 52%;
+      cursor: not-allowed;
+      pointer-events: none;
+      box-shadow: none;
+      transform: none;
+    }
+    .button-primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--accent-ink);
+      box-shadow:
+        inset 0 1px 0 color-mix(in oklch, var(--surface), transparent 72%),
+        0 8px 20px color-mix(in oklch, var(--accent), transparent 74%);
+    }
+    .button-secondary {
+      border-color: var(--border-strong);
+      background: var(--surface);
+      color: var(--fg);
+      box-shadow: var(--shadow-control);
+    }
+    .hero h1 { color: var(--surface); }
+    .hero .topic-label { color: color-mix(in oklch, var(--surface), transparent 20%); }
+    .hero .topic-label::before { background: var(--accent); }
+    .hero .hero-copy { color: color-mix(in oklch, var(--surface), transparent 14%); }
+    .hero .responsibility-note {
+      border-left-color: color-mix(in oklch, var(--surface), transparent 62%);
+      color: color-mix(in oklch, var(--surface), transparent 28%);
+    }
+    .hero .button-primary {
+      border-color: var(--surface);
+      background: var(--surface);
+      color: var(--fg);
+      box-shadow: 0 12px 30px color-mix(in oklch, var(--fg), transparent 65%);
+    }
+    .hero .button-secondary {
+      border-color: color-mix(in oklch, var(--surface), transparent 35%);
+      background: color-mix(in oklch, var(--surface), transparent 90%);
+      color: var(--surface);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .hero .cta-helper {
+      max-width: 900px;
+      margin-top: 14px;
+      color: color-mix(in oklch, var(--surface), transparent 34%);
+    }
+    @media (hover: hover) {
+      .button-primary:hover {
+        border-color: color-mix(in oklch, var(--accent), var(--fg) 10%);
+        background: color-mix(in oklch, var(--accent), var(--fg) 10%);
+        box-shadow: 0 10px 24px color-mix(in oklch, var(--accent), transparent 64%);
+        transform: translateY(-1px);
+      }
+      .hero .button-primary:hover {
+        border-color: color-mix(in oklch, var(--surface), var(--border) 10%);
+        background: color-mix(in oklch, var(--surface), var(--border) 10%);
+        box-shadow: 0 16px 36px color-mix(in oklch, var(--fg), transparent 56%);
+      }
+      .hero .button-secondary:hover {
+        border-color: var(--surface);
+        background: color-mix(in oklch, var(--surface), transparent 80%);
+        color: var(--surface);
+      }
+      .button-secondary:hover,
+      .menu-toggle:hover,
+      .icon-button:hover {
+        border-color: color-mix(in oklch, var(--accent), var(--border) 54%);
+        background: var(--surface-cool);
+      }
+      .institution-tab:not([aria-selected="true"]):hover { color: var(--fg); background: var(--surface); }
+    }
+    .button:active { transform: translateY(1px); }
+    .cta-helper {
+      width: 100%;
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 155%;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      margin: 0;
+    }
+    .hero-media-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      aspect-ratio: auto;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: var(--surface-cool);
+      box-shadow: none;
+    }
+    .hero-media-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, color-mix(in oklch, var(--fg), transparent 18%) 0%, color-mix(in oklch, var(--fg), transparent 48%) 48%, color-mix(in oklch, var(--fg), transparent 76%) 100%),
+        linear-gradient(180deg, color-mix(in oklch, var(--fg), transparent 90%) 0%, color-mix(in oklch, var(--fg), transparent 55%) 100%);
+      pointer-events: none;
+    }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
+    .image-loading,
+    .image-error {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: none;
+      place-items: center;
+      padding: 32px;
+      text-align: center;
+      color: var(--surface);
+      background: color-mix(in oklch, var(--fg), var(--accent) 8%);
+    }
+    .hero-media-frame.is-loading .image-loading { display: grid; }
+    .image-error.is-visible { display: grid; }
+    .hero-media figcaption { display: none; }
+    .section-media { margin: 28px 0 0; }
+    .motion-enabled .section-media {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 220ms ease-out, transform 260ms ease-out;
+      will-change: opacity, transform;
+    }
+    .motion-enabled .section-media.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+      will-change: auto;
+    }
+    .motion-enabled #why-china .section-media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
+    .section-media-frame {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface-cool);
+      box-shadow: var(--inset-highlight);
+    }
+    .section-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(94%) contrast(102%);
+    }
+    .section-media figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 155%;
+    }
+    .section-media--assessment {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+    .section-media--assessment .section-media-frame {
+      flex: none;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+      background: var(--fg);
+    }
+    .section-media--assessment img { object-fit: contain; object-position: center; }
+    .scope-band {
+      margin-top: -1px;
+      border-top: 0;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface);
+    }
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      padding-block: 0;
+    }
+    .scope-item {
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-block: 16px;
+      padding-inline: 0 clamp(22px, 3vw, 34px);
+      border: 0;
+      border-top: 1px solid var(--border-soft);
+      background: var(--surface);
+      box-shadow: none;
+    }
+    .scope-item + .scope-item {
+      padding-inline: clamp(22px, 3vw, 34px) 0;
+      border-left: 1px solid var(--border-soft);
+    }
+    .scope-item strong { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 600; }
+    .scope-item span { display: block; color: var(--text-secondary); font-size: 14px; line-height: 165%; }
+    .scope-plan-label { margin: 8px 0 12px; color: color-mix(in oklch, var(--fg), var(--accent) 20%); font-size: 16px; font-weight: 650; line-height: 135%; letter-spacing: 0; }
+    .scope-plan-value {
+      display: block;
+      margin: 0;
+      color: color-mix(in oklch, var(--fg), var(--accent) 14%);
+      font-family: var(--font-display);
+      font-size: clamp(38px, 4vw, 56px);
+      line-height: 104%;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+    .scope-item--cost .scope-plan-value { color: color-mix(in oklch, var(--fg), var(--accent) 26%); }
+    .scope-plan-note { display: block; max-width: 49ch; color: var(--text-secondary); font-size: 15px; line-height: 165%; }
+    .scope-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .scope-breakdown li {
+      padding: 8px 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      background: color-mix(in oklch, var(--surface-cool), var(--surface) 24%);
+    }
+    .scope-breakdown span { color: var(--muted); font-size: 11px; line-height: 130%; }
+    .scope-breakdown strong { margin: 2px 0 0; color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 120%; }
+    .section { padding-block: clamp(52px, 5vw, 72px); scroll-margin-top: 88px; }
+    .section + .section { border-top: 1px solid var(--border-soft); }
+    .section-intro { max-width: 60ch; margin: 12px 0 0; color: var(--text-secondary); line-height: 168%; text-wrap: pretty; }
+    .section-heading-centered {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      max-width: none;
+      margin-inline: 0;
+      text-align: left;
+    }
+    .section-heading-centered h2 { width: 100%; max-width: none; }
+    .section-heading-centered .section-intro { max-width: none; margin-inline: 0; }
+    #why-china .section-heading-centered { max-width: none; }
+    #why-china .section-heading-centered h2 { max-width: none; }
+    #why-china { scroll-margin-top: 88px; }
+    main { counter-reset: none; }
+    .section { counter-increment: none; }
+    .section-heading-centered::before {
+      content: none;
+      display: none;
+    }
+    #hospital-assessment,
+    #care-journey { background: var(--surface); }
+    #detail-basic,
+    #detail-procedure,
+    #detail-recovery { background: var(--surface); }
+    #detail-basic,
+    #detail-procedure,
+    #detail-recovery {
+      counter-increment: none;
+    }
+    #detail-basic .section-heading-centered::before,
+    #detail-procedure .section-heading-centered::before,
+    #detail-recovery .section-heading-centered::before {
+      content: none;
+      display: none;
+    }
+    .review-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--warning-bg);
+      color: var(--warning-fg);
+      font-size: 14px;
+      line-height: 155%;
+    }
+    .evidence-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 22fr) minmax(0, 28fr);
+      gap: clamp(34px, 5vw, 68px);
+      align-items: start;
+      margin-top: 36px;
+    }
+    #why-china .evidence-layout { align-items: stretch; margin-top: 32px; }
+    .evidence-visual { min-width: 0; }
+    .evidence-visual .section-media { margin: 0; }
+    #why-china .evidence-visual { display: flex; }
+    #why-china .evidence-visual .section-media { display: flex; flex: 1; flex-direction: column; }
+    #why-china .evidence-visual .section-media-frame { flex: 1; min-height: 420px; aspect-ratio: auto; }
+    #why-china .evidence-visual .section-media img { object-position: 56% center; }
+    .evidence-visual .review-note { margin-top: 18px; }
+    .claim-list { margin-top: 0; }
+    .claim-item {
+      display: grid;
+      grid-template-columns: minmax(150px, 13fr) minmax(0, 27fr);
+      gap: 14px 32px;
+      padding-block: 26px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .claim-item:first-child { border-top: 1px solid var(--border-soft); }
+    .claim-item p { margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 170%; }
+    #why-china .claim-item { grid-template-columns: 1fr; gap: 7px; padding-block: 18px; }
+    #why-china .claim-item h3 { font-size: 18px; line-height: 135%; }
+    #why-china .claim-item p { font-size: 14px; line-height: 162%; }
+    .evaluation-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 28fr) minmax(360px, 22fr);
+      gap: clamp(36px, 5vw, 72px);
+      align-items: start;
+      margin-top: 36px;
+    }
+    .evaluation-layout--summary {
+      grid-template-columns: 1fr;
+      margin-top: 32px;
+    }
+    #hospital-assessment .evaluation-layout--summary {
+      grid-template-columns: minmax(0, 51fr) minmax(340px, 49fr);
+      align-items: stretch;
+    }
+    #hospital-assessment .evaluation-copy { display: flex; }
+    #hospital-assessment .evaluation-layout--summary .situation-list {
+      grid-template-columns: 1fr;
+      gap: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    #hospital-assessment .evaluation-layout--summary .situation {
+      min-height: 0;
+      padding: 12px 0;
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+    #hospital-assessment .section-heading-centered { width: 100%; }
+    #hospital-assessment .section-heading-centered h2 { font-size: 36px; }
+    #hospital-assessment .section-intro { max-width: none; margin-top: 8px; font-size: 15px; line-height: 155%; }
+    #hospital-assessment .situation h3 { font-size: 18px; line-height: 130%; }
+    #hospital-assessment .situation p { margin-top: 5px; font-size: 13px; line-height: 150%; }
+    #hospital-assessment .situation-link { margin-top: 7px; font-size: 13px; }
+    #hospital-assessment .evaluation-layout--summary .situation {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 16px;
+      row-gap: 3px;
+      flex: 1;
+      align-content: center;
+      padding: 12px 0;
+    }
+    #hospital-assessment .situation h3 { grid-column: 1; align-self: center; }
+    #hospital-assessment .situation-link {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      margin: 0;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    #hospital-assessment .situation p { grid-column: 1 / -1; margin: 0; line-height: 140%; }
+    .evaluation-summary-media { margin: 0; }
+    .evaluation-summary-media .section-media-frame { aspect-ratio: 4 / 3; }
+    .evaluation-summary-media figcaption { margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 155%; }
+    @media (max-width: 760px) {
+      #hospital-assessment .evaluation-layout--summary { grid-template-columns: 1fr; }
+      #hospital-assessment .section-heading-centered { width: 100%; }
+      #hospital-assessment .section-heading-centered h2 { font-size: 30px; }
+    }
+    @media (max-width: 480px) {
+      #hospital-assessment .evaluation-layout--summary .situation { grid-template-columns: 1fr; }
+      #hospital-assessment .situation-link { grid-column: 1; grid-row: auto; margin-top: 3px; }
+    }
+    .evaluation-copy { min-width: 0; }
+    .situation-list { display: grid; border-top: 1px solid var(--border-soft); }
+    .evaluation-layout--summary .situation-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      border-top: 0;
+    }
+    .situation {
+      display: grid;
+      grid-template-columns: minmax(180px, 2fr) minmax(0, 3fr);
+      gap: 26px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .evaluation-layout--summary .situation {
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      padding: 26px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .situation h3 { margin: 0; font-family: var(--font-display); font-size: 23px; font-weight: 600; letter-spacing: 0; }
+    .situation p { margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 170%; }
+    .situation-link {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .situation-link .icon { width: 16px; height: 16px; transition: transform 180ms var(--ease-out); }
+    .evaluation-layout--summary .situation-link { margin-top: auto; }
+    .situation-link:hover .icon { transform: translateX(2px); }
+    .medical-disclaimer {
+      margin-top: 20px;
+      padding: 20px 22px;
+      border-radius: var(--radius);
+      background: var(--surface-cool);
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    .planning-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 59fr) minmax(320px, 41fr);
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .planning-panel {
+      min-width: 0;
+      padding: clamp(26px, calc(35vw / 10), 38px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .planning-panel.primary {
+      border-color: color-mix(in oklch, var(--accent), var(--border) 72%);
+      background: color-mix(in oklch, var(--surface-soft), var(--surface) 22%);
+      box-shadow: var(--inset-highlight);
+    }
+    .planning-label { margin: 0 0 8px; color: var(--muted); font-size: 13px; letter-spacing: 0; }
+    .planning-value { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); line-height: 122%; letter-spacing: 0; font-weight: 600; }
+    .planning-panel--cost .planning-value { max-width: 9em; font-size: clamp(34px, 4vw, 42px); }
+    .planning-card-context { margin: 0 0 10px; color: var(--text-secondary); font-size: 14px; line-height: 160%; }
+    .planning-panel--cost { display: flex; flex-direction: column; }
+    .planning-conversion { margin: 16px 0 0; color: var(--fg); font-size: 18px; font-weight: 600; }
+    .planning-meta { margin: 10px 0 0; color: var(--muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0; }
+    .treatment-timeline {
+      --timeline-node: clamp(60px, 6vw, 72px);
+      --timeline-line-y: clamp(29px, 3vw, 35px);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin: 32px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline-stage {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      text-align: center;
+    }
+    .timeline-stage::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: var(--timeline-line-y);
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border);
+    }
+    .timeline-stage:first-child::before { left: 50%; }
+    .timeline-stage:last-child::before { right: 50%; }
+    .timeline-phase {
+      position: relative;
+      z-index: 1;
+      width: var(--timeline-node);
+      height: var(--timeline-node);
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--fg);
+      box-shadow: var(--shadow-control);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+    .timeline-duration {
+      display: block;
+      margin-top: 16px;
+      color: var(--fg);
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      line-height: 115%;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+    .timeline-task {
+      display: block;
+      margin-top: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 150%;
+    }
+    .planning-panel .planning-note {
+      margin: 28px 0 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    .planning-panel--cost .planning-note { margin-top: auto; }
+    .preparation-details {
+      margin-top: 0;
+      padding-block: 28px;
+      border-block: 1px solid var(--border-soft);
+    }
+    .detail-heading { margin: 0 0 16px; font-size: 21px; font-weight: 600; }
+    details.disclosure {
+      border-top: 1px solid var(--border-soft);
+    }
+    details.disclosure:last-child { border-bottom: 1px solid var(--border-soft); }
+    details.disclosure summary {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+    }
+    details.disclosure summary::-webkit-details-marker { display: none; }
+    .disclosure-chevron { transition: transform 180ms var(--ease-out); }
+    details[open] > summary .disclosure-chevron { transform: rotate(180deg); }
+    .disclosure-body { max-width: 68ch; padding: 0 0 24px; color: var(--text-secondary); font-size: 15px; }
+    .disclosure-body ul { margin: 0; padding-left: 20px; }
+    .section-cta {
+      margin-top: 28px;
+      justify-content: center;
+    }
+    .section-cta .cta-helper { max-width: 56ch; text-align: center; }
+    .detail-section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 9fr) minmax(0, 16fr);
+      gap: clamp(28px, 5vw, 68px);
+      align-items: start;
+      margin-top: 36px;
+    }
+    .detail-section-grid--media {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(30px, 4vw, 54px);
+      align-items: start;
+    }
+    .cart-flow { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-rows: 280px 280px; gap: 72px 18px; margin-top: 42px; padding: 16px 0 20px; }
+    .cart-flow-track { position: absolute; top: 80px; left: 10%; width: 80%; height: 352px; pointer-events: none; }
+    .cart-flow-track svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    .cart-flow-path { fill: none; stroke: color-mix(in oklch, var(--fg), white 82%); stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .cart-flow-pulse { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 36 964; stroke-linecap: round; vector-effect: non-scaling-stroke; animation: cart-flow-pulse-run 7s linear infinite; }
+    .cart-flow-step { position: relative; z-index: 1; display: grid; justify-items: center; align-content: start; min-width: 0; text-align: center; }
+    .cart-flow-step--6 { grid-column: 4; grid-row: 2; }
+    .cart-flow-step--7 { grid-column: 3; grid-row: 2; }
+    .cart-flow-step--8 { grid-column: 2; grid-row: 2; }
+    .cart-flow-step--9 { grid-column: 1; grid-row: 2; }
+    .cart-flow-time { min-height: 22px; color: color-mix(in oklch, var(--accent), var(--fg) 40%); font-size: 13px; line-height: 145%; }
+    .cart-flow-node { width: 48px; height: 48px; display: grid; place-items: center; margin: 18px 0 14px; border: 1px solid color-mix(in oklch, var(--fg), white 30%); border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 6px var(--surface); color: white; font-family: var(--font-mono); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    @keyframes cart-flow-pulse-run { to { stroke-dashoffset: -1000; } }
+    .cart-flow-title { margin: 0; color: var(--fg); font-size: 16px; font-weight: 650; line-height: 140%; }
+    .cart-flow-copy { max-width: 23ch; margin: 12px 0 0; color: var(--text-secondary); font-size: 13px; line-height: 162%; }
+    .detail-kicker {
+      max-width: 58ch;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .detail-kicker h4 { margin: 0; font-size: clamp(24px, 2vw, 32px); line-height: 122%; }
+    .detail-kicker p { margin: 12px 0 0; color: var(--text-secondary); font-size: 16px; line-height: 172%; }
+    .detail-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .care-team-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 5vw, 72px); margin-top: 32px; }
+    .care-team-card { padding: 24px 0; border-top: 1px solid var(--border-soft); }
+    .care-team-card h3 { margin: 0; font-size: 20px; line-height: 135%; }
+    .care-team-expert { margin: 8px 0 0; color: var(--accent); font-size: 14px; line-height: 150%; }
+    .care-team-meta { display: grid; gap: 12px; margin: 20px 0 0; }
+    .care-team-meta div { display: grid; gap: 4px; }
+    .care-team-meta dt { color: var(--muted); font-size: 12px; line-height: 140%; }
+    .care-team-meta dd { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 162%; }
+    .cart-technology-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+    .cart-technology-item { display: grid; gap: 16px; }
+    .cart-technology-item .detail-media-card,
+    .cart-technology-item .detail-media-card img { background: var(--surface); }
+    .cart-technology-item .detail-card { padding-top: 0; border-top: 0; }
+    .cart-product-table-wrap { margin-top: 28px; overflow-x: auto; border: 1px solid var(--border-soft); }
+    .cart-product-table { width: 100%; min-width: 980px; border-collapse: collapse; background: var(--surface); font-size: 13px; line-height: 150%; }
+    .cart-product-table th { padding: 13px 14px; background: var(--navy); color: var(--white); font-size: 12px; text-align: left; white-space: nowrap; }
+    .cart-product-table td { padding: 14px; border-top: 1px solid var(--border-soft); color: var(--text-secondary); vertical-align: top; }
+    .cart-product-table td:first-child, .cart-product-table td:last-child { white-space: nowrap; }
+    .cart-product-source { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 155%; }
+    .cart-product-sources { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border-soft); }
+    .cart-product-sources h3 { margin: 0 0 10px; font-size: 16px; line-height: 135%; color: var(--fg); }
+    .cart-product-sources ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; margin: 0; padding-left: 20px; }
+    .cart-product-sources li { padding-left: 2px; color: var(--text-secondary); font-size: 14px; line-height: 155%; }
+    .cart-product-sources a { color: var(--primary); text-underline-offset: 3px; }
+    .detail-section-grid--media .detail-columns { grid-template-columns: 1fr; }
+    .detail-card {
+      min-width: 0;
+      padding: 20px 0;
+      border: 1px solid var(--border-soft);
+      border-width: 1px 0 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .detail-card h4 { margin: 0 0 12px; font-size: 18px; line-height: 135%; }
+    .detail-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .detail-list li { position: relative; padding-left: 18px; color: var(--text-secondary); font-size: 14px; line-height: 162%; }
+    .detail-list li::before { content: ""; position: absolute; left: 0; top: calc(72em / 100); width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .detail-media-card {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .detail-media-card img,
+    .detail-media-card video {
+      display: block;
+      width: 100%;
+      background: var(--fg);
+    }
+    .detail-media-card img {
+      height: auto;
+      max-height: min(56vh, 520px);
+      object-fit: contain;
+    }
+    .cart-treatment-flow-media img { max-height: none; }
+    .detail-media-card video {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
+    .detail-media-caption {
+      display: grid;
+      gap: 4px;
+      padding: 14px 16px 16px;
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 155%;
+    }
+    .detail-media-caption strong {
+      color: var(--fg);
+      font-size: 15px;
+      line-height: 135%;
+    }
+    .detail-content-stack {
+      display: grid;
+      gap: 18px;
+    }
+    .recovery-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(24px, 4vw, 40px);
+      align-items: start;
+      margin-top: 36px;
+    }
+    .recovery-lead {
+      display: grid;
+      gap: 18px;
+      padding: clamp(24px, 3vw, 34px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: color-mix(in oklch, var(--surface-cool), var(--surface) 42%);
+      box-shadow: var(--inset-highlight);
+    }
+    .recovery-lead p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 178%;
+    }
+    .recovery-plan-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 22px;
+    }
+    .recovery-panel {
+      padding: clamp(24px, 3vw, 34px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .recovery-panel h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 130%;
+    }
+    .recovery-panel h4 {
+      margin: 18px 0 10px;
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 135%;
+      font-weight: 600;
+    }
+    .recovery-panel p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 172%;
+    }
+    .recovery-focus-list,
+    .recovery-support-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .recovery-focus-list li,
+    .recovery-support-list li {
+      padding: 7px 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--fg);
+      font-size: 13px;
+      line-height: 135%;
+    }
+    .recovery-timeline-card {
+      padding: clamp(24px, 3vw, 34px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .recovery-timeline-card h3 {
+      margin: 0 0 22px;
+      font-size: 24px;
+      line-height: 125%;
+    }
+    .recovery-timeline {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+    }
+    .recovery-timeline li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: start;
+      gap: 10px;
+      min-width: 0;
+      padding: 34px 12px 0 0;
+    }
+    .recovery-timeline li + li { padding-top: 34px; }
+    .recovery-timeline li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 12px;
+      height: 12px;
+      border: 3px solid var(--surface);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent), var(--border) 40%);
+    }
+    .recovery-timeline li::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 0;
+      top: 10px;
+      height: 2px;
+      background: color-mix(in oklch, var(--accent), var(--border) 62%);
+    }
+    .recovery-timeline li:last-child { padding-right: 0; }
+    .recovery-timeline li:last-child::after { display: none; }
+    .recovery-timeline span {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 145%;
+    }
+    .recovery-timeline strong {
+      display: block;
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 145%;
+    }
+    .recovery-timeline p {
+      margin: 4px 0 0;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 158%;
+    }
+    .recovery-source {
+      margin: 22px 0 0;
+      padding: 14px 0 0;
+      border-top: 1px solid var(--border-soft);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 170%;
+    }
+    .institution-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(108px, 1fr));
+      gap: 4px;
+      width: max-content;
+      margin: 24px auto 0 0;
+      padding: 4px;
+      border: 1px solid var(--border-soft);
+      border-radius: 9999px;
+      background: color-mix(in oklch, var(--surface-cool), var(--surface) 32%);
+      box-shadow: inset 0 1px 0 color-mix(in oklch, var(--surface), transparent 20%);
+    }
+    .institution-tab {
+      min-height: 44px;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: transform 140ms ease, color 180ms var(--ease-out), background 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+    }
+    .institution-tab:active { transform: translateY(1px); }
+    .institution-tab[aria-selected="true"] {
+      background: var(--fg);
+      color: var(--surface);
+      box-shadow:
+        inset 0 1px 0 color-mix(in oklch, var(--surface), transparent 78%),
+        0 5px 14px color-mix(in oklch, var(--fg), transparent 84%);
+    }
+    .institution-panel { margin-top: 26px; }
+    .institution-panel[hidden] { display: none; }
+    .hospital-panel-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .hospital-panel-heading h3 { font-size: 24px; }
+    .hospital-panel-heading p { max-width: 68ch; margin: 8px 0 0; color: var(--text-secondary); font-size: 14px; }
+    .institution-empty {
+      margin: 0;
+      padding: 28px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .hospital-carousel-controls {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 8px;
+    }
+    .hospital-carousel-button {
+      display: inline-grid;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--fg);
+      box-shadow: var(--shadow-control);
+      cursor: pointer;
+      transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out), background 180ms var(--ease-out), transform 140ms ease, box-shadow 180ms var(--ease-out);
+    }
+    .hospital-carousel-button:hover { border-color: var(--accent); color: var(--accent); background: var(--surface-soft); }
+    .hospital-carousel-button:active { transform: translateY(1px); }
+    .hospital-carousel-button:disabled { opacity: 35%; cursor: not-allowed; }
+    .hospital-carousel-button:disabled:hover { border-color: var(--border); color: var(--fg); background: var(--surface); }
+    .hospital-carousel-button .icon { width: 18px; height: 18px; }
+    [data-hospital-carousel-prev] .icon { transform: rotate(90deg); }
+    [data-hospital-carousel-next] .icon { transform: rotate(-90deg); }
+    .hospital-showcase { display: grid; gap: 12px; }
+    .hospital-carousel {
+      display: grid;
+      grid-auto-columns: minmax(300px, 360px);
+      grid-auto-flow: column;
+      gap: 14px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 2px 2px 10px;
+      scroll-behavior: smooth;
+      scroll-padding-inline: 2px;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hospital-carousel::-webkit-scrollbar { display: none; }
+    .hospital-card {
+      display: grid;
+      min-height: 400px;
+      grid-template-rows: 176px auto;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+      scroll-snap-align: start;
+    }
+    .hospital-card-media {
+      display: grid;
+      min-width: 0;
+      overflow: hidden;
+      background: var(--surface-cool);
+    }
+    .hospital-card-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(94%) contrast(102%);
+    }
+    .hospital-card-body {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      padding: 18px 20px 20px;
+    }
+    .hospital-card h4 {
+      overflow: hidden;
+      font-size: 17px;
+      line-height: 140%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .hospital-card--team h4 {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      min-height: 48px;
+      text-overflow: clip;
+      white-space: normal;
+    }
+    .hospital-card--team .hospital-highlight { display: grid; gap: 10px; margin-top: 12px; }
+    .hospital-card--team .hospital-highlight p + p { padding-top: 10px; border-top: 1px solid var(--border-soft); }
+    .hospital-city {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .hospital-city .icon { width: 14px; height: 14px; color: var(--accent); }
+    .hospital-highlight { margin-top: 14px; }
+    .hospital-highlight p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 170%; }
+    .hospital-source-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 165%;
+    }
+    .expert-block { margin-top: 26px; }
+    .expert-block.institution-panel { margin-top: 26px; }
+    .expert-block > h3 { font-size: clamp(26px, 3vw, 36px); letter-spacing: 0; }
+    .expert-block > p { max-width: 68ch; margin: 12px 0 26px; color: var(--text-secondary); }
+    .expert-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .expert-item {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      gap: 0;
+      align-items: start;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--inset-highlight);
+    }
+    .expert-photo {
+      align-self: start;
+      aspect-ratio: 4 / 5;
+      margin: 24px 0 24px 24px;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--surface-cool);
+    }
+    .expert-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(94%) contrast(102%);
+    }
+    .expert-photo--pending { display: grid; place-items: center; padding: 16px; color: var(--muted); font-size: 12px; line-height: 150%; text-align: center; }
+    .expert-copy { min-width: 0; padding: 24px; }
+    .expert-item h4 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+    .expert-item p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 165%; }
+    .expert-item p + p { margin-top: 12px; }
+    .expert-role { margin-top: 7px !important; color: var(--fg) !important; font-weight: 500; }
+    .flow-wrap {
+      position: relative;
+      width: min(100%, 1040px);
+      margin: 36px auto 0;
+    }
+    .flow-list {
+      --flow-progress: 0%;
+      position: relative;
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .flow-list::before,
+    .flow-list::after {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 34px;
+      width: 2px;
+      border-radius: 2px;
+    }
+    .flow-list::before { bottom: 34px; background: var(--border); }
+    .flow-list::after { height: var(--flow-progress); max-height: calc(100% - 68px); background: var(--accent); transition: height 360ms ease; }
+    .flow-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 48px minmax(170px, 13fr) minmax(0, 27fr);
+      gap: 28px;
+      align-items: start;
+      padding: 24px 0;
+    }
+    .flow-index {
+      position: relative;
+      z-index: 1;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--border-soft);
+      background: var(--bg);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
+    }
+    .flow-step.is-active .flow-index { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+    .flow-owner { display: inline-block; margin-top: 7px; color: var(--muted); font-size: 13px; letter-spacing: 0; }
+    .flow-step p { margin: 0; color: var(--text-secondary); line-height: 170%; }
+    .flow-step p strong { color: inherit; font-weight: 600; }
+    .flow-cta {
+      width: min(100%, 1040px);
+      margin: 30px auto 0;
+      justify-content: center;
+    }
+    .faq-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 410px);
+      gap: clamp(40px, 5vw, 72px);
+      align-items: start;
+      margin-top: 32px;
+    }
+    .faq-content { width: 100%; min-width: 0; margin: 0; }
+    .faq-list details { border-top: 1px solid var(--border-soft); }
+    .faq-list details:last-child { border-bottom: 1px solid var(--border-soft); }
+    .faq-list summary {
+      min-height: 74px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+      list-style: none;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      transition: color 160ms ease;
+    }
+    .faq-list details[open] summary { color: var(--accent); }
+    @media (hover: hover) {
+      .faq-list summary:hover { color: var(--accent); }
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-answer { max-width: 68ch; padding: 0 42px 24px 0; color: var(--text-secondary); font-size: 15px; line-height: 170%; }
+    .faq-consult-card {
+      position: sticky;
+      top: 96px;
+      padding: 30px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      box-shadow: var(--shadow-control), var(--inset-highlight);
+    }
+    .faq-consult-card > p:first-child { margin: 0; color: var(--text-secondary); line-height: 175%; }
+    .faq-consult-card .cta-group { margin-top: 24px; align-items: stretch; }
+    .faq-consult-card .button { width: 100%; }
+    .faq-consult-card .cta-helper { margin-top: 14px; }
+    .sources { margin-top: 40px; }
+    .sources .disclosure-body { font-family: var(--font-mono); font-size: 12px; }
+    .site-footer {
+      position: relative;
+      overflow: hidden;
+      background: color-mix(in oklch, var(--fg), var(--accent) 10%);
+      color: rgb(255 255 255 / 72%);
+    }
+    .footer-main {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(280px, 17fr) repeat(3, minmax(140px, 10fr));
+      gap: 48px;
+      align-items: start;
+      padding-block: 62px 48px;
+    }
+    .footer-brand-logo {
+      width: 180px;
+      height: auto;
+      filter: grayscale(1) brightness(0) invert(1);
+    }
+    .footer-brand p {
+      max-width: 34ch;
+      margin: 26px 0 0;
+      color: rgb(255 255 255 / 66%);
+      font-size: 14px;
+      line-height: 175%;
+    }
+    .footer-group h2 {
+      margin: 0 0 16px;
+      color: var(--surface);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 140%;
+    }
+    .footer-links {
+      display: grid;
+      gap: 12px;
+    }
+    .footer-links a {
+      width: fit-content;
+      color: rgb(255 255 255 / 72%);
+      font-size: 13px;
+      line-height: 160%;
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+    @media (hover: hover) {
+      .footer-links a:hover { color: var(--surface); }
+    }
+    .footer-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      padding-block: 28px 32px;
+      border-top: 1px solid rgb(255 255 255 / 12%);
+      color: rgb(255 255 255 / 50%);
+      font-size: 12px;
+      line-height: 160%;
+    }
+    .footer-bottom p { margin: 0; }
+    .footer-bottom p:last-child { max-width: 62ch; text-align: right; }
+    .footer-watermark {
+      position: absolute;
+      right: 0;
+      bottom: -14px;
+      width: 310px;
+      height: 310px;
+      overflow: hidden;
+      opacity: 6%;
+      pointer-events: none;
+    }
+    .footer-watermark img {
+      width: 1148px;
+      max-width: none;
+      height: auto;
+      filter: grayscale(1) brightness(0) invert(1);
+    }
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      opacity: 0;
+      background: rgb(15 24 66 / 48%);
+      backdrop-filter: blur(3px);
+      transition: opacity 160ms ease-out;
+    }
+    .drawer-backdrop.is-open { opacity: 1; }
+    .consult-drawer {
+      position: fixed;
+      inset: 0 0 0 auto;
+      z-index: 60;
+      width: min(460px, 100%);
+      height: 100dvh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      opacity: 0;
+      transform: translateX(24px);
+      background: var(--surface);
+      box-shadow: -24px 0 72px rgb(15 24 66 / 18%);
+      overscroll-behavior: contain;
+      transition: opacity 160ms ease-out, transform 220ms ease-out;
+    }
+    .consult-drawer.is-open { opacity: 1; transform: translateX(0); }
+    .drawer-head,
+    .drawer-foot { padding: 22px 24px; }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--border); }
+    .drawer-head h2 { font-size: 24px; letter-spacing: 0; }
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 140ms ease, background 180ms var(--ease-out), border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+    }
+    .icon-button:active { transform: translateY(1px); }
+    .drawer-body { overflow-y: auto; padding: 28px 24px; }
+    .drawer-body > p { margin: 0 0 22px; color: var(--text-secondary); }
+    .drawer-warning { padding: 16px; border-radius: var(--radius); background: var(--warning-bg); color: var(--warning-fg); font-size: 14px; }
+    .consult-topics { margin: 28px 0 0; padding: 0; list-style: none; }
+    .consult-topics li { padding: 14px 0; border-bottom: 1px solid var(--border); font-weight: 500; }
+    .consult-topics li:first-child { border-top: 1px solid var(--border); }
+    .reply-time { margin-top: 26px !important; font-size: 14px; }
+    .drawer-foot {
+      padding-bottom: max(22px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+    }
+    .drawer-foot .button { width: 100%; }
+    [hidden] { display: none !important; }
+    @media (max-width: 1080px) {
+      .nav-row { grid-template-columns: 220px 1fr auto auto; gap: 18px; }
+      .desktop-nav { gap: 18px; }
+      .desktop-nav a { font-size: 14px; }
+      .nav-actions .button-secondary { display: none; }
+    }
+    @media (max-width: 900px) {
+      .shell { width: min(100% - 36px, 720px); }
+      .nav-row { min-height: 64px; grid-template-columns: 1fr auto auto; }
+      .desktop-nav { display: none; }
+      .nav-actions .language,
+      .nav-actions .button-secondary { display: none; }
+      .page-nav-band { top: 82px; left: 12px; width: min(172px, calc(100vw - 24px)); transform: none; }
+      .section { scroll-margin-top: 64px; }
+      #why-china { scroll-margin-top: 64px; }
+      .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .hero { min-height: clamp(320px, calc(100dvh - 260px), 430px); padding: 72px 0 44px; }
+      .hero-grid,
+      .evidence-layout,
+      .evaluation-layout,
+      .faq-layout { grid-template-columns: 1fr; }
+      #why-china .evidence-visual .section-media-frame { flex: none; min-height: 0; aspect-ratio: 4 / 3; }
+      .claim-list { margin-top: 0; }
+      .section-media--assessment { min-height: 0; }
+      .section-media--assessment .section-media-frame {
+        flex: none;
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+      }
+      .hero-media-frame { min-height: 0; height: 100%; aspect-ratio: auto; }
+      .hero-media-frame::after {
+        background:
+          linear-gradient(90deg, color-mix(in oklch, var(--fg), transparent 14%) 0%, color-mix(in oklch, var(--fg), transparent 42%) 64%, color-mix(in oklch, var(--fg), transparent 68%) 100%),
+          linear-gradient(180deg, color-mix(in oklch, var(--fg), transparent 84%) 0%, color-mix(in oklch, var(--fg), transparent 48%) 100%);
+      }
+      .hero-media img { object-position: 62% center; }
+      .scope-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scope-item {
+        min-height: 166px;
+        padding-block: 22px;
+        padding-inline: 0 18px;
+      }
+      .scope-plan-value { font-size: clamp(30px, 5vw, 42px); }
+      .scope-plan-note { font-size: 14px; }
+      .scope-breakdown { display: none; }
+      .scope-item + .scope-item {
+        padding-inline: 18px 0;
+        border-left: 1px solid var(--border-soft);
+        border-top: 1px solid var(--border-soft);
+      }
+      .evaluation-layout--summary .situation-list { grid-template-columns: 1fr; }
+      .detail-section-grid { grid-template-columns: 1fr; }
+      .cart-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 52px 18px; }
+      .cart-flow-track { display: none; }
+      .cart-flow-step--6, .cart-flow-step--7, .cart-flow-step--8, .cart-flow-step--9 { grid-column: auto; grid-row: auto; }
+      .detail-columns { grid-template-columns: 1fr; }
+      .care-team-grid { grid-template-columns: 1fr; }
+      .recovery-layout { grid-template-columns: 1fr; }
+      .planning-grid { grid-template-columns: 1fr; }
+      .expert-list { grid-template-columns: 1fr; }
+      .faq-consult-card { position: static; max-width: 620px; }
+      .footer-main { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .shell { width: min(100% - 32px, 560px); }
+      .section { padding-block: 52px; scroll-margin-top: 62px; }
+      #why-china { scroll-margin-top: 62px; }
+      .page-nav-band {
+        top: auto;
+        right: 12px;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        left: 12px;
+        width: auto !important;
+        transform: none;
+        border-radius: 9px;
+      }
+      .page-anchor-nav {
+        width: 100% !important;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px;
+        gap: 3px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        white-space: nowrap;
+        scrollbar-width: none;
+      }
+      .page-anchor-nav a {
+        flex: 0 0 auto;
+        min-height: 34px;
+        padding: 6px 9px;
+        font-size: 12px;
+      }
+      .page-anchor-nav .page-nav-back {
+        margin: 0 3px 0 0;
+        padding-right: 10px;
+        border-right: 1px solid color-mix(in oklch, var(--border), transparent 24%);
+        border-bottom: 0;
+        border-radius: 5px;
+      }
+      .page-anchor-nav a[aria-current="location"]::after {
+        top: auto;
+        right: 8px;
+        bottom: 3px;
+        left: 8px;
+        width: auto;
+        height: 2px;
+        border-radius: 2px;
+      }
+      .preview-banner .shell { align-items: flex-start; }
+      .nav-row { min-height: 62px; gap: 16px; }
+      .nav-actions { display: none; }
+      h1 { font-size: clamp(36px, 10vw, 54px); }
+      h2 { font-size: clamp(30px, 9vw, 38px); }
+      .hero { min-height: clamp(300px, calc(100dvh - 244px), 400px); padding: 66px 0 36px; }
+      .hero-breadcrumb { width: min(100% - 32px, 560px); top: 20px; gap: 7px; font-size: 11px; }
+      .hero-content { transform: translateY(16px); }
+      .hero-copy { font-size: 17px; }
+      .hero-media-frame { min-height: 0; height: 100%; aspect-ratio: auto; }
+      .cta-group { align-items: stretch; }
+      .cta-group .button { width: 100%; }
+      .claim-item { grid-template-columns: 1fr; gap: 10px; padding-block: 22px; }
+      .situation { grid-template-columns: 1fr; gap: 10px; }
+      .evaluation-layout--summary .situation { min-height: 0; padding: 22px; }
+      .scope-grid { grid-template-columns: 1fr; }
+      .page-nav-band { width: min(154px, calc(100vw - 24px)); }
+      .page-anchor-nav { padding: 6px; }
+      .page-anchor-nav a { min-height: 32px; padding: 5px 8px; font-size: 12px; }
+      .cart-flow { grid-template-columns: 1fr; gap: 34px; margin-top: 32px; }
+      .cart-flow-step { grid-template-columns: 52px minmax(0, 1fr); justify-items: start; text-align: left; }
+      .cart-flow-time { grid-column: 2; grid-row: 1; min-height: 0; }
+      .cart-flow-node { grid-column: 1; grid-row: 1 / span 3; margin: 0; }
+      .cart-flow-title, .cart-flow-copy { grid-column: 2; }
+      .cart-flow-copy { max-width: none; margin-top: 6px; }
+      .scope-item { min-height: 0; padding: 24px 0; border-radius: 0; }
+      .scope-item + .scope-item { padding-inline: 0; border-left: 0; }
+      .scope-plan-value { font-size: clamp(32px, 9vw, 42px); }
+      .scope-plan-label { margin: 7px 0 10px; font-size: 15px; }
+      .scope-plan-note { font-size: 14px; line-height: 155%; }
+      .cart-product-sources ul { grid-template-columns: 1fr; gap: 8px; }
+      .cart-technology-comparison { grid-template-columns: 1fr; }
+      .recovery-lead { padding: 22px; }
+      .recovery-timeline-card { padding: 22px; }
+      .recovery-timeline {
+        grid-template-columns: repeat(7, minmax(180px, 1fr));
+        padding-bottom: 8px;
+      }
+      .planning-grid { grid-template-columns: 1fr; }
+      .planning-panel { min-height: 0; }
+      .treatment-timeline { gap: 0; margin-top: 30px; }
+      .timeline-duration { font-size: 22px; }
+      .timeline-task { font-size: 13px; }
+      .flow-list::before, .flow-list::after { left: 19px; }
+      .flow-step { grid-template-columns: 40px 1fr; gap: 18px; padding: 22px 0; }
+      .flow-index { width: 40px; height: 40px; }
+      .flow-step > p { grid-column: 2; }
+      .flow-cta .button { width: 100%; }
+      .faq-answer { padding-right: 0; }
+      .brand-logo { width: 155px; }
+      .footer-main { grid-template-columns: 1fr; gap: 32px; padding-block: 48px 40px; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { flex-direction: column; gap: 10px; padding-block: 24px 28px; }
+      .footer-bottom p:last-child { text-align: left; }
+      .footer-watermark { right: -70px; width: 250px; height: 250px; }
+      .footer-watermark img { width: 925px; }
+      .hospital-panel-heading { align-items: center; }
+      .hospital-carousel { grid-auto-columns: minmax(300px, 92%); gap: 14px; }
+      .hospital-card { min-height: 390px; grid-template-rows: 156px auto; }
+      .hospital-card-body { padding: 16px 18px 18px; }
+      .hospital-card h4 { font-size: 15px; }
+      .institution-tabs { width: 100%; }
+      .expert-item { grid-template-columns: 96px minmax(0, 1fr); }
+      .expert-photo { margin: 16px 0 16px 16px; }
+      .expert-copy { padding: 16px; }
+      .drawer-head, .drawer-body, .drawer-foot { padding-inline: 20px; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .site-header {
+        background: var(--bg);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+      .hero .button-secondary {
+        background: color-mix(in oklch, var(--fg), transparent 12%);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+      .flow-list::after { display: none; }
+      .section-media,
+      .consult-drawer,
+      .drawer-backdrop { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* CMT Health visual system alignment: colors, hierarchy, and component surfaces only. */
+    .shell { width: min(1240px, calc(100% - 48px)); }
+    .site-header {
+      background: rgb(255 255 255 / 94%);
+      border-bottom-color: var(--border);
+    }
+    .site-header::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      height: 3px;
+      background: var(--brand-gradient);
+      opacity: 90%;
+    }
+    .nav-row { min-height: 84px; }
+    .brand-logo { width: 174px; }
+    .desktop-nav a { color: var(--fg); }
+    .desktop-nav a[aria-current="page"] { color: var(--navy); }
+    .desktop-nav a[aria-current="page"]::after { background: var(--brand-gradient); }
+    .language .active,
+    .button-primary { border-color: transparent; background: var(--gradient-cta); }
+    .button-primary {
+      background-origin: border-box;
+      background-clip: border-box;
+      background-size: 100% 100%;
+      box-shadow: 0 10px 30px rgb(30 42 109 / 16%);
+      overflow: hidden;
+    }
+    .button-secondary { border-color: var(--border); color: var(--navy); box-shadow: none; }
+    .hero { background: var(--navy); }
+    .hero-media-frame::after {
+      background: linear-gradient(90deg, rgb(24 36 95 / 98%) 0%, rgb(32 57 116 / 84%) 40%, rgb(15 24 66 / 18%) 76%, rgb(15 24 66 / 5%) 100%);
+    }
+    .hero h1 { font-size: clamp(43px, calc(45vw / 10), 60px); }
+    h2 { font-size: clamp(32px, 4vw, 48px); color: var(--navy); }
+    h3, h4 { color: var(--fg); }
+    .section { padding-block: clamp(64px, 7vw, 100px); }
+    .section + .section { border-top-color: var(--border); }
+    .section-media-frame,
+    .situation,
+    .detail-card,
+    .planning-card,
+    .hospital-card,
+    .expert-item,
+    .faq-consult-card,
+    .drawer-panel {
+      border-color: var(--border);
+      box-shadow: none;
+    }
+    .section-media-frame { border-radius: 10px; }
+    .situation,
+    .detail-card,
+    .planning-card,
+    .hospital-card,
+    .expert-item,
+    .faq-consult-card { background: var(--surface); }
+    .situation-link,
+    .cart-product-sources a { color: var(--route-blue); }
+    .site-footer { background: var(--gradient-navy); }
+    .flow-step.is-active .flow-index,
+    .cart-flow-node { background: var(--navy); }
+    .flow-list::after { background: var(--care-teal); }
+    .cart-flow-pulse { stroke: var(--care-teal); }
+    @media (hover: hover) {
+      .button-primary:hover { background: linear-gradient(120deg, #0f1842 0%, #337fb8 62%, #36aaa4 100%); box-shadow: 0 16px 44px rgb(18 27 79 / 16%); transform: translateY(-2px); }
+      .button-secondary:hover { border-color: var(--route-blue); background: var(--surface-soft); }
+      .hospital-card:hover,
+      .expert-item:hover { border-color: var(--route-blue); box-shadow: 0 10px 30px rgb(30 42 109 / 8%); transform: translateY(-2px); }
+    }
+    @media (max-width: 860px) {
+      .shell { width: min(100% - 32px, 720px); }
+      .nav-row { min-height: 70px; }
+      .brand-logo { width: 142px; }
+      .section { padding-block: 72px; }
+    }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 24px, 560px); }
+      .section { padding-block: 58px; }
+      body { font-size: 15px; }
+    }
+
+    /* Alternating content bands keep the long-form page light while reserving navy for one key section. */
+    #why-china,
+    #detail-basic,
+    #detail-followup { background: var(--soft-blue); }
+    #care-journey,
+    #detail-procedure { background: var(--bg); }
+    #hospital-assessment,
+    #institutions,
+    #detail-technology,
+    #detail-recovery { background: var(--surface); }
+    #next-step {
+      background: var(--gradient-navy);
+      border-top-color: rgb(255 255 255 / 16%);
+    }
+    #next-step h2,
+    #next-step .faq-list summary { color: var(--white); }
+    #next-step .faq-list details { border-color: rgb(255 255 255 / 22%); }
+    #next-step .faq-list details[open] summary,
+    #next-step .faq-list summary:hover { color: var(--sky); }
+    #next-step .faq-answer { color: rgb(255 255 255 / 78%); }
+    #next-step .faq-consult-card {
+      background: var(--white);
+      border-color: rgb(255 255 255 / 32%);
+      box-shadow: 0 16px 44px rgb(18 27 79 / 18%);
+    }
+    #next-step .faq-consult-card > p:first-child,
+    #next-step .faq-consult-card .cta-helper { color: var(--muted); }
+    #detail-procedure .detail-columns,
+    #detail-followup .detail-columns { margin-top: 32px; }
+    #detail-procedure .detail-card,
+    #detail-followup .detail-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+    @media (max-width: 600px) {
+      #detail-procedure .detail-columns,
+      #detail-followup .detail-columns { margin-top: 24px; }
+      #detail-procedure .detail-card,
+      #detail-followup .detail-card { padding: 20px; }
+    }
+
+    /* V2: trust-first treatment-page refinement. */
+    :root {
+      --bg: #f5f7f8;
+      --surface: #ffffff;
+      --fg: #17324d;
+      --muted: #526679;
+      --border: #d7e0e5;
+      --navy: #163a5c;
+      --navy-deep: #102b44;
+      --route-blue: #187b80;
+      --care-teal: #187b80;
+      --success: #3f7d62;
+      --soft-blue: #edf3f5;
+      --soft-teal: #eaf4f2;
+      --soft-green: #eef4ef;
+      --accent: #187b80;
+      --primary: #187b80;
+      --surface-soft: #edf3f5;
+      --surface-cool: #eaf4f2;
+      --radius: 8px;
+      --brand-coral: #e84c4f;
+      --brand-gradient: linear-gradient(90deg, var(--brand-coral), var(--route-blue));
+      --gradient-cta: linear-gradient(120deg, #176f75, #245d74);
+      --gradient-navy: linear-gradient(155deg, #163a5c, #102b44);
+      --shadow-control: 0 6px 18px rgb(17 43 68 / 7%);
+      --shadow: 0 18px 48px rgb(17 43 68 / 10%);
+    }
+    body { color: var(--fg); background: var(--bg); }
+    .shell { width: min(1180px, calc(100% - 48px)); }
+    .preview-banner {
+      background: #f7eeee;
+      color: #683e46;
+      border-bottom-color: #ead1d3;
+    }
+    .preview-banner .shell { min-height: 34px; padding-block: 5px; }
+    .preview-banner strong { color: #a93c46; }
+    .site-header { background: rgb(255 255 255 / 96%); }
+    .site-header::after { height: 2px; background: var(--brand-gradient); }
+    .nav-row {
+      min-height: 72px;
+      grid-template-columns: 212px 1fr auto auto;
+      gap: 24px;
+    }
+    .brand-logo { width: 164px; }
+    .desktop-nav { gap: 26px; }
+    .desktop-nav a { padding-block: 23px; font-size: 15px; }
+    .desktop-nav a[aria-current="page"]::after {
+      bottom: 13px;
+      height: 3px;
+      background: var(--brand-coral);
+    }
+    .language { min-height: 42px; border-radius: 8px; background: var(--soft-teal); }
+    .language .active { min-height: 32px; border-radius: 6px; background: var(--navy); box-shadow: none; }
+    .site-header .button { min-height: 42px; padding-inline: 15px; border-radius: 6px; }
+    .button {
+      min-height: 46px;
+      border-radius: 6px;
+      padding: 11px 20px;
+    }
+    .button-primary { background: var(--gradient-cta); box-shadow: 0 8px 22px rgb(23 111 117 / 18%); }
+    .button-secondary { background: var(--surface); border-color: #b9c9d2; }
+    .hero {
+      min-height: 498px;
+      padding: 104px 0 58px;
+      background: var(--navy-deep);
+    }
+    .hero-breadcrumb {
+      top: 26px;
+      width: min(1180px, calc(100% - 48px));
+      font-size: 12px;
+    }
+    .hero-content {
+      max-width: 650px;
+      transform: none;
+    }
+    .hero .topic-label {
+      margin-bottom: 12px;
+      color: rgb(255 255 255 / 78%);
+      font-size: 14px;
+    }
+    .hero .topic-label::before { background: var(--brand-coral); }
+    .hero h1 {
+      font-size: clamp(44px, 5vw, 62px);
+      line-height: 1.06;
+      font-weight: 650;
+    }
+    .hero .hero-copy {
+      max-width: 37ch;
+      margin-top: 18px;
+      color: rgb(255 255 255 / 88%);
+      font-size: 18px !important;
+      line-height: 1.65;
+    }
+    .hero .cta-group { margin-top: 26px; }
+    .hero .button-primary {
+      border-color: var(--surface);
+      background: var(--surface);
+      color: var(--navy-deep);
+      box-shadow: 0 10px 28px rgb(8 30 48 / 28%);
+    }
+    .hero .button-secondary { background: rgb(16 43 68 / 45%); }
+    .hero-media-frame::after {
+      background:
+        linear-gradient(90deg, rgb(16 43 68 / 97%) 0%, rgb(18 54 84 / 88%) 37%, rgb(16 43 68 / 30%) 69%, rgb(16 43 68 / 8%) 100%),
+        linear-gradient(180deg, rgb(16 43 68 / 10%), rgb(16 43 68 / 30%));
+    }
+    .hero-media img { object-position: 63% center; }
+    .scope-band { background: var(--surface); }
+    .scope-grid { max-width: 1180px; }
+    .scope-item {
+      min-height: 112px;
+      justify-content: center;
+      padding-block: 20px;
+    }
+    .scope-item .scope-plan-value {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(30px, 3vw, 42px);
+      line-height: 1.05;
+      font-weight: 650;
+    }
+    .scope-item--cost .scope-plan-value { color: var(--navy); }
+    .scope-plan-label {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .page-nav-band {
+      position: sticky;
+      top: 72px;
+      left: auto;
+      z-index: 25;
+      width: 100% !important;
+      transform: none;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      background: rgb(255 255 255 / 96%);
+      box-shadow: 0 6px 18px rgb(17 43 68 / 5%);
+    }
+    .page-anchor-nav {
+      width: min(1180px, calc(100% - 48px)) !important;
+      min-height: 48px;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+      margin-inline: auto;
+      padding: 5px 0;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .page-anchor-nav a {
+      flex: 0 0 auto;
+      min-height: 36px;
+      padding: 7px 12px;
+      border-radius: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .page-anchor-nav a[aria-current="location"] { color: var(--navy); background: var(--soft-teal); }
+    .page-anchor-nav a[aria-current="location"]::after {
+      top: auto;
+      right: 12px;
+      bottom: 2px;
+      left: 12px;
+      width: auto;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--brand-coral);
+    }
+    .page-anchor-nav .page-nav-back {
+      margin: 0 8px 0 0;
+      padding-right: 18px;
+      border-right: 1px solid var(--border);
+      border-bottom: 0;
+      border-radius: 0;
+      color: var(--navy);
+    }
+    .section { padding-block: clamp(64px, 7vw, 88px); scroll-margin-top: 120px; }
+    #why-china { scroll-margin-top: 120px; }
+    .motion-enabled .section-media {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
+    h2 { font-size: clamp(32px, 3.6vw, 44px); }
+    .section-intro { max-width: 66ch; }
+    #why-china .evidence-layout { grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr); gap: 56px; }
+    #why-china .evidence-visual .section-media-frame { min-height: 460px; }
+    #why-china .claim-item { padding-block: 16px; }
+    #hospital-assessment .evaluation-layout--summary { gap: 56px; }
+    .section-media-frame,
+    .situation,
+    .detail-card,
+    .planning-card,
+    .hospital-card,
+    .expert-item,
+    .faq-consult-card { border-radius: 8px; }
+    .cart-technology-item .detail-media-card { aspect-ratio: 4 / 3; }
+    .cart-technology-item .detail-media-card img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: contain;
+    }
+    #next-step {
+      background: var(--soft-teal);
+      border-top-color: var(--border);
+    }
+    #next-step h2,
+    #next-step .faq-list summary { color: var(--navy); }
+    #next-step .faq-list details { border-color: #c8d9d8; }
+    #next-step .faq-list details[open] summary,
+    #next-step .faq-list summary:hover { color: var(--accent); }
+    #next-step .faq-answer { color: var(--muted); }
+    #next-step .faq-consult-card {
+      background: var(--surface);
+      border-color: var(--border);
+      box-shadow: var(--shadow-control);
+    }
+    #next-step .faq-consult-card > p:first-child,
+    #next-step .faq-consult-card .cta-helper { color: var(--muted); }
+    .site-footer { background: var(--navy-deep); }
+    @media (hover: hover) {
+      .button-primary:hover { background: var(--navy); box-shadow: 0 12px 28px rgb(17 43 68 / 20%); }
+      .hero .button-primary:hover { color: var(--navy-deep); background: #f0f5f6; }
+    }
+    @media (max-width: 1080px) {
+      .nav-row { grid-template-columns: 190px 1fr auto auto; gap: 16px; }
+      .desktop-nav { gap: 17px; }
+      .brand-logo { width: 150px; }
+    }
+    @media (max-width: 900px) {
+      .nav-row { min-height: 64px; grid-template-columns: 1fr auto auto; }
+      .page-nav-band { top: 64px; }
+      .page-anchor-nav { width: min(100% - 36px, 720px) !important; }
+      .section, #why-china { scroll-margin-top: 112px; }
+      .hero { min-height: 470px; padding: 94px 0 52px; }
+      .hero-breadcrumb { top: 24px; }
+      .hero-content { max-width: 580px; }
+      #why-china .evidence-layout { grid-template-columns: 1fr; gap: 32px; }
+      #why-china .evidence-visual .section-media-frame { min-height: 0; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 32px, 560px); }
+      .preview-banner .shell { display: block; padding-block: 8px; line-height: 1.45; }
+      .preview-banner strong { margin-right: 6px; }
+      .nav-row { min-height: 62px; }
+      .page-nav-band {
+        position: sticky;
+        top: 62px;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        width: 100% !important;
+        border-radius: 0;
+      }
+      .page-anchor-nav {
+        width: calc(100% - 32px) !important;
+        padding: 5px 0;
+      }
+      .page-anchor-nav .page-nav-back {
+        margin-right: 5px;
+        padding-right: 13px;
+        border-right: 1px solid var(--border);
+      }
+      .page-anchor-nav a { min-height: 34px; padding: 6px 9px; }
+      .section, #why-china { scroll-margin-top: 108px; }
+      .hero {
+        min-height: 430px;
+        padding: 82px 0 40px;
+      }
+      .hero-breadcrumb { width: calc(100% - 32px); top: 18px; }
+      .hero .topic-label { margin-bottom: 8px; font-size: 13px; }
+      .hero h1 { font-size: clamp(40px, 12vw, 50px); }
+      .hero .hero-copy { max-width: 30ch; margin-top: 14px; font-size: 16px !important; line-height: 1.55; }
+      .hero .cta-group { margin-top: 20px; }
+      .hero .cta-group .button { width: auto; flex: 1 1 145px; }
+      .hero-media img { object-position: 68% center; }
+      .hero-media-frame::after {
+        background: linear-gradient(90deg, rgb(16 43 68 / 96%), rgb(16 43 68 / 62%));
+      }
+      .cart-flow {
+        grid-template-rows: none;
+        grid-auto-rows: auto;
+        gap: 30px;
+      }
+      .scope-item { min-height: 0; padding: 20px 0; }
+      .scope-item .scope-plan-value { font-size: 30px; }
+      .section { padding-block: 56px; }
+      #why-china .evidence-layout { gap: 24px; }
+      #hospital-assessment .evaluation-layout--summary { gap: 28px; }
+    }
+
+    /* V2.1 refinement: trust-first typography, depth, motion, and interaction polish. */
+    :root {
+      --font-display: 'Avenir Next', 'SF Pro Display', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      --font-body: 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      --ease-premium: cubic-bezier(.16, 1, .3, 1);
+      --shadow-control: 0 8px 24px rgb(17 43 68 / 7%);
+      --shadow-elevated: 0 20px 54px rgb(17 43 68 / 11%);
+      --shadow-hover: 0 18px 44px rgb(17 43 68 / 13%);
+    }
+    body {
+      font-kerning: normal;
+      font-synthesis-weight: none;
+    }
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 80;
+      display: none;
+      height: 2px;
+      pointer-events: none;
+    }
+    .reading-progress span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transform: scaleX(0);
+      transform-origin: left center;
+      background: var(--brand-gradient);
+    }
+    @supports (animation-timeline: scroll()) {
+      .reading-progress { display: block; }
+      .reading-progress span {
+        animation: reading-progress linear both;
+        animation-timeline: scroll(root block);
+      }
+    }
+    @keyframes reading-progress { to { transform: scaleX(1); } }
+
+    .site-header {
+      transition: border-color 260ms var(--ease-premium), box-shadow 260ms var(--ease-premium), background 260ms var(--ease-premium);
+    }
+    .site-header.is-elevated {
+      border-bottom-color: color-mix(in oklch, var(--border), var(--navy) 8%);
+      background: rgb(255 255 255 / 98%);
+      box-shadow: 0 10px 32px rgb(17 43 68 / 9%);
+    }
+    .brand-logo { transition: opacity 180ms ease, transform 260ms var(--ease-premium); }
+    .brand:hover .brand-logo { opacity: .86; transform: translateY(-1px); }
+    .desktop-nav a::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 13px;
+      left: 0;
+      height: 3px;
+      opacity: 0;
+      transform: scaleX(.35);
+      transform-origin: center;
+      border-radius: 2px;
+      background: color-mix(in oklch, var(--brand-coral), transparent 24%);
+      transition: opacity 180ms ease, transform 240ms var(--ease-premium);
+    }
+    .desktop-nav a:hover::before { opacity: .7; transform: scaleX(1); }
+    .desktop-nav a[aria-current='page']::before { display: none; }
+
+    .hero { min-height: 506px; }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border: 1px solid rgb(255 255 255 / 7%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 620px; }
+    .hero h1 {
+      font-weight: 660;
+      text-shadow: 0 12px 32px rgb(8 30 48 / 22%);
+    }
+    .hero .hero-copy { text-wrap: pretty; }
+    .hero-media img {
+      transform: scale(1.01);
+      transition: transform 1.4s var(--ease-premium), filter 420ms ease;
+      filter: saturate(.92) contrast(1.03);
+    }
+    .hero:hover .hero-media img { transform: scale(1.022); }
+    .hero .button { min-width: 128px; }
+    .button {
+      border-radius: 7px;
+      transition: transform 180ms var(--ease-premium), box-shadow 220ms var(--ease-premium), background 180ms ease, border-color 180ms ease, color 180ms ease, opacity 160ms ease;
+    }
+    .button:active { transform: translateY(1px) scale(.985); }
+
+    .scope-band { box-shadow: 0 12px 30px rgb(17 43 68 / 4%); }
+    .scope-item { position: relative; overflow: hidden; }
+    .scope-item::after {
+      content: '';
+      position: absolute;
+      right: 28px;
+      bottom: 0;
+      left: 28px;
+      height: 1px;
+      opacity: 0;
+      background: var(--brand-gradient);
+      transition: opacity 180ms ease;
+    }
+    .scope-item:hover::after { opacity: .62; }
+    .scope-plan-value { font-variant-numeric: tabular-nums; }
+
+    .page-nav-band { transition: box-shadow 220ms var(--ease-premium), background 220ms ease; }
+    .page-anchor-nav { scroll-snap-type: inline proximity; }
+    .page-anchor-nav a {
+      scroll-snap-align: center;
+      transition: color 180ms ease, background 180ms ease, transform 180ms var(--ease-premium);
+    }
+    .page-anchor-nav a:hover { transform: translateY(-1px); }
+    .page-anchor-nav a[aria-current='location'] { font-weight: 650; }
+
+    .section { position: relative; }
+    .section-heading-centered { gap: 0; }
+    .section-heading-centered h2 {
+      max-width: 22ch;
+      color: var(--navy);
+      font-weight: 650;
+      line-height: 1.17;
+      text-wrap: balance;
+    }
+    .section-intro {
+      max-width: 66ch;
+      color: color-mix(in oklch, var(--muted), var(--navy) 8%);
+      font-size: 16px;
+      line-height: 1.72;
+    }
+    .section-media-frame,
+    .detail-media-card {
+      border-color: color-mix(in oklch, var(--border), var(--navy) 5%);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 78%), 0 14px 36px rgb(17 43 68 / 7%);
+    }
+    .section-media img { transition: transform 700ms var(--ease-premium), filter 420ms ease; }
+    .section-media:hover img { transform: scale(1.018); filter: saturate(.98) contrast(1.035); }
+    .section-media figcaption,
+    .evaluation-summary-media figcaption { padding-inline: 2px; }
+
+    #why-china .evidence-layout { align-items: center; }
+    #why-china .evidence-visual .section-media-frame { min-height: 500px; }
+    #why-china .claim-item {
+      position: relative;
+      padding: 18px 12px 18px 0;
+      transition: padding 220ms var(--ease-premium), background 220ms ease;
+    }
+    #why-china .claim-item:hover { padding-left: 12px; background: rgb(255 255 255 / 48%); }
+    #why-china .claim-item h3 { color: var(--navy); }
+
+    #hospital-assessment .situation {
+      position: relative;
+      padding-right: 8px;
+      transition: padding 220ms var(--ease-premium), background 220ms ease;
+    }
+    #hospital-assessment .situation:hover { padding-left: 10px; background: color-mix(in oklch, var(--soft-teal), transparent 48%); }
+    #hospital-assessment .situation-link { color: var(--accent); }
+
+    .flow-wrap { margin-top: 40px; }
+    .flow-step {
+      border-radius: 8px;
+      transition: background 220ms ease, transform 220ms var(--ease-premium);
+    }
+    .flow-step:hover { background: rgb(255 255 255 / 64%); transform: translateX(4px); }
+    .flow-index { box-shadow: 0 0 0 6px var(--bg); }
+    .flow-step.is-active .flow-index {
+      box-shadow: 0 0 0 6px var(--bg), 0 8px 22px rgb(24 123 128 / 18%);
+    }
+
+    .institution-tabs { border-radius: 8px; }
+    .institution-tab { border-radius: 6px; }
+    .institution-panel:not([hidden]) { animation: panel-enter 420ms var(--ease-premium) both; }
+    @keyframes panel-enter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hospital-panel-heading h3 { color: var(--navy) !important; }
+    .hospital-carousel { gap: 18px; padding: 6px 4px 24px; cursor: grab; }
+    .hospital-carousel:active { cursor: grabbing; }
+    .hospital-card {
+      min-height: 432px;
+      grid-template-rows: 188px auto;
+      border-color: color-mix(in oklch, var(--border), var(--navy) 5%);
+      box-shadow: 0 10px 28px rgb(17 43 68 / 6%);
+      transition: border-color 220ms ease, box-shadow 260ms var(--ease-premium), transform 260ms var(--ease-premium);
+    }
+    .hospital-card-media img { transition: transform 650ms var(--ease-premium), filter 320ms ease; }
+    .hospital-card:hover {
+      border-color: color-mix(in oklch, var(--accent), var(--border) 60%);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+    .hospital-card:hover .hospital-card-media img { transform: scale(1.035); filter: saturate(1) contrast(1.03); }
+    .hospital-card h4 { color: var(--navy); }
+    .hospital-carousel-button { box-shadow: 0 7px 20px rgb(17 43 68 / 8%); }
+
+    .expert-item {
+      border-color: color-mix(in oklch, var(--border), var(--navy) 5%);
+      box-shadow: 0 10px 28px rgb(17 43 68 / 6%);
+      transition: border-color 220ms ease, box-shadow 260ms var(--ease-premium), transform 260ms var(--ease-premium);
+    }
+    .expert-item:hover {
+      border-color: color-mix(in oklch, var(--accent), var(--border) 62%);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .expert-photo img { transition: transform 650ms var(--ease-premium), filter 320ms ease; }
+    .expert-item:hover .expert-photo img { transform: scale(1.035); filter: saturate(1) contrast(1.03); }
+
+    .faq-list details {
+      transition: background 220ms ease, padding 220ms var(--ease-premium);
+    }
+    .faq-list details:hover,
+    .faq-list details[open] {
+      padding-inline: 14px;
+      background: rgb(255 255 255 / 46%);
+    }
+    .faq-list details[open] .faq-answer { animation: faq-answer-enter 300ms var(--ease-premium) both; }
+    @keyframes faq-answer-enter {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .faq-consult-card {
+      top: 136px;
+      border-color: color-mix(in oklch, var(--border), var(--accent) 8%);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .cart-product-table-wrap {
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 18px 46px rgb(17 43 68 / 8%);
+      scrollbar-color: var(--accent) var(--soft-blue);
+    }
+    .cart-product-table th {
+      padding-block: 15px;
+      background: var(--navy);
+      font-weight: 650;
+    }
+    .cart-product-table tbody tr { transition: background 160ms ease; }
+    .cart-product-table tbody tr:nth-child(even) { background: color-mix(in oklch, var(--soft-blue), transparent 52%); }
+    .cart-product-table tbody tr:hover { background: color-mix(in oklch, var(--soft-teal), var(--surface) 34%); }
+    .cart-product-table td:nth-child(2) { color: var(--navy); font-weight: 600; }
+    .cart-product-table td:last-child { color: var(--navy); font-variant-numeric: tabular-nums; font-weight: 600; }
+    .cart-product-sources a { text-decoration-thickness: 1px; text-decoration-color: color-mix(in oklch, var(--accent), transparent 52%); }
+
+    .cart-technology-comparison { gap: 24px; margin-top: 30px; }
+    #detail-technology .section-heading-centered h2,
+    #detail-recovery .section-heading-centered h2 { max-width: none; word-break: keep-all; }
+    .cart-technology-item { gap: 18px; }
+    .cart-technology-item .detail-media-card {
+      padding: clamp(14px, 2vw, 24px);
+      background: color-mix(in oklch, var(--soft-blue), var(--surface) 54%);
+    }
+    .cart-technology-item .detail-media-card img {
+      border-radius: 4px;
+      filter: saturate(.76) contrast(1.025);
+      transition: transform 650ms var(--ease-premium), filter 360ms ease;
+    }
+    .cart-technology-item:hover .detail-media-card img { transform: scale(1.012); filter: saturate(.9) contrast(1.035); }
+    .cart-technology-item .detail-card { padding: 4px 2px 0; }
+    .cart-technology-item .detail-card h4 { color: var(--navy); font-size: 19px; }
+    .cart-technology-item .detail-card p { color: var(--muted); line-height: 1.72; }
+
+    #detail-procedure .detail-card,
+    #detail-followup .detail-card {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgb(17 43 68 / 6%);
+      transition: border-color 220ms ease, box-shadow 260ms var(--ease-premium), transform 260ms var(--ease-premium);
+    }
+    #detail-procedure .detail-card::before,
+    #detail-followup .detail-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: var(--accent);
+    }
+    #detail-procedure .detail-card:hover,
+    #detail-followup .detail-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+
+    .cart-flow-pulse { animation-duration: 10s; }
+    .cart-flow-node { transition: transform 220ms var(--ease-premium), background 220ms ease, box-shadow 220ms ease; }
+    .cart-flow-step:hover .cart-flow-node {
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--surface), 0 10px 24px rgb(24 123 128 / 20%);
+      transform: translateY(-2px);
+    }
+
+    .drawer-backdrop { background: rgb(16 43 68 / 44%); backdrop-filter: blur(8px); }
+    .consult-drawer {
+      transform: translateX(100%);
+      border-left: 1px solid var(--border);
+      box-shadow: -28px 0 80px rgb(16 43 68 / 20%);
+      transition: opacity 180ms ease-out, transform 440ms var(--ease-premium);
+    }
+    .consult-drawer.is-open { transform: translateX(0); }
+    .drawer-head { padding-block: 24px; }
+    .drawer-body { padding-block: 32px; }
+    .drawer-warning { border: 1px solid color-mix(in oklch, var(--warning-fg), transparent 76%); }
+
+    .motion-enabled .reveal-block {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms var(--ease-premium), transform 700ms var(--ease-premium);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .motion-enabled .reveal-block.is-revealed { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .mobile-nav {
+        display: grid;
+        max-height: 0;
+        padding-block: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: max-height 420ms var(--ease-premium), padding 360ms var(--ease-premium), opacity 180ms ease, transform 360ms var(--ease-premium);
+      }
+      .mobile-nav.is-open {
+        max-height: 420px;
+        padding-block: 8px 22px;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .page-anchor-nav {
+        mask-image: linear-gradient(90deg, #111 0, #111 calc(100% - 14px), transparent);
+      }
+      .faq-consult-card { top: auto; box-shadow: 0 14px 36px rgb(17 43 68 / 8%); }
+      #why-china .evidence-visual .section-media-frame { min-height: 0; }
+      .flow-step:hover { transform: none; }
+      .hospital-card:hover,
+      .expert-item:hover,
+      #detail-procedure .detail-card:hover,
+      #detail-followup .detail-card:hover { transform: none; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 430px; }
+      .hero-content { max-width: none; }
+      .hero:hover .hero-media img { transform: scale(1.01); }
+      .hero h1 { text-shadow: 0 8px 24px rgb(8 30 48 / 22%); }
+      .scope-item::after { display: none; }
+      .section-heading-centered h2 { max-width: none; font-size: 31px; line-height: 1.2; }
+      .section-intro { font-size: 15px; line-height: 1.68; }
+      #why-china .claim-item:hover,
+      #hospital-assessment .situation:hover { padding-left: 0; background: transparent; }
+      .hospital-carousel { grid-auto-columns: minmax(282px, 86vw); gap: 14px; padding-bottom: 18px; }
+      .hospital-card { min-height: 408px; grid-template-rows: 172px auto; }
+      .hospital-card-body { padding: 18px; }
+      .faq-list details:hover,
+      .faq-list details[open] { padding-inline: 8px; }
+      .cart-technology-comparison { gap: 34px; }
+      .cart-technology-item .detail-media-card { padding: 10px; }
+      .cart-product-table-wrap { margin-inline: -16px; border-radius: 0; }
+      .cart-product-table { min-width: 900px; }
+      .cart-flow-step:hover .cart-flow-node { transform: none; }
+      .motion-enabled .reveal-block {
+        transform: translateY(14px);
+        transition-duration: 520ms;
+      }
+    }
+    @media (max-width: 360px) {
+      .section-heading-centered h2 { font-size: 29px; }
+      #detail-technology .section-heading-centered h2,
+      #detail-recovery .section-heading-centered h2 { word-break: normal; }
+      .cart-technology-item .detail-card h4 { font-size: 18px; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .site-header,
+      .page-nav-band,
+      .hero .button-secondary { backdrop-filter: none; -webkit-backdrop-filter: none; }
+      .drawer-backdrop { backdrop-filter: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reading-progress { display: none !important; }
+      .hero-media img,
+      .hero:hover .hero-media img,
+      .motion-enabled .reveal-block,
+      .motion-enabled .reveal-block.is-revealed { opacity: 1 !important; transform: none !important; }
+      .institution-panel:not([hidden]),
+      .faq-list details[open] .faq-answer { animation: none !important; }
+    }
+
+    /* V2.2: unified consultation hierarchy, color system, and detail grouping. */
+    :root {
+      --route-blue: #1d7180;
+      --care-teal: #1d7180;
+      --accent: #1d7180;
+      --primary: #1d7180;
+      --brand-coral: #1d7180;
+      --brand-gradient: linear-gradient(90deg, #1d7180, #1d7180);
+      --gradient-cta: linear-gradient(120deg, #1d7180, #1d7180);
+    }
+    .language .active { background: var(--accent); }
+    .button-primary,
+    .hero .button-primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 22px rgb(29 113 128 / 20%);
+    }
+    .button-secondary,
+    .hero .button-secondary {
+      border-color: #a9c3c8;
+      background: #fff;
+      color: var(--accent);
+      box-shadow: none;
+    }
+    @media (hover: hover) {
+      .button-primary:hover,
+      .hero .button-primary:hover {
+        border-color: #155965;
+        background: #155965;
+        color: #fff;
+        box-shadow: 0 12px 28px rgb(29 113 128 / 24%);
+      }
+      .button-secondary:hover,
+      .hero .button-secondary:hover {
+        border-color: var(--accent);
+        background: #edf5f6;
+        color: #155965;
+      }
+    }
+    .flow-list::before,
+    .flow-list::after {
+      z-index: 0;
+      left: 23px;
+      top: 48px;
+    }
+    .flow-list::before { bottom: 48px; }
+    .flow-list::after { max-height: calc(100% - 96px); }
+    .flow-step {
+      z-index: 1;
+      isolation: isolate;
+    }
+    .flow-index,
+    .flow-step.is-active .flow-index {
+      z-index: 2;
+      box-shadow: 0 0 0 7px var(--bg);
+    }
+    .flow-index { background: #fff; }
+    .flow-step.is-active .flow-index {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 0 7px var(--bg), 0 8px 22px rgb(29 113 128 / 18%);
+    }
+    .institution-tab[aria-selected="true"],
+    .cart-flow-node { background: var(--accent); }
+    .expert-list {
+      gap: 24px;
+      align-items: stretch;
+    }
+    .expert-item {
+      position: relative;
+      grid-template-columns: 142px minmax(0, 1fr);
+      min-height: 260px;
+      align-items: stretch;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      background: #fff;
+      box-shadow: 0 14px 34px rgb(17 43 68 / 7%);
+    }
+    .expert-item:hover {
+      border-color: var(--border);
+      border-top-color: var(--accent);
+      box-shadow: 0 18px 42px rgb(17 43 68 / 11%);
+      transform: translateY(-2px);
+    }
+    .expert-photo {
+      align-self: center;
+      width: 108px;
+      height: 108px;
+      aspect-ratio: 1;
+      margin: 0 0 0 22px;
+      padding: 4px;
+      border: 1px solid #cbd9df;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 10px 24px rgb(17 43 68 / 9%);
+    }
+    .expert-photo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fff;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .expert-photo--pending {
+      border-radius: 50%;
+      background: #fff;
+    }
+    .expert-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 30px 28px 28px 20px;
+    }
+    .expert-item h4 {
+      color: var(--navy);
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+    .expert-item .expert-role {
+      margin-top: 10px !important;
+      color: var(--accent) !important;
+      font-size: 15px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+    .expert-item .expert-copy > p:last-child {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+    #hospital-assessment h2 strong {
+      color: inherit;
+      font-weight: 700;
+    }
+    .detailed-information-group {
+      scroll-margin-top: 132px;
+      background: var(--bg);
+    }
+    .detailed-information-header {
+      padding: 76px 0 34px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    .detailed-information-header .section-heading-centered { margin-bottom: 0; }
+    .detailed-information-group > .section { scroll-margin-top: 132px; }
+    .detailed-information-group > .section:first-of-type { border-top: 1px solid var(--border); }
+    @media (max-width: 900px) {
+      .detailed-information-group,
+      .detailed-information-group > .section { scroll-margin-top: 120px; }
+    }
+    @media (max-width: 640px) {
+      .flow-list::before,
+      .flow-list::after {
+        left: 19px;
+        top: 42px;
+      }
+      .flow-list::before { bottom: 42px; }
+      .flow-list::after { max-height: calc(100% - 84px); }
+      .flow-index,
+      .flow-step.is-active .flow-index { box-shadow: 0 0 0 6px var(--bg); }
+      .expert-list { gap: 16px; }
+      .expert-item {
+        grid-template-columns: 104px minmax(0, 1fr);
+        min-height: 0;
+        border-top-width: 3px;
+      }
+      .expert-photo {
+        width: 80px;
+        height: 80px;
+        margin: 22px 0 0 16px;
+        padding: 3px;
+        box-shadow: 0 7px 18px rgb(17 43 68 / 8%);
+      }
+      .expert-copy { padding: 20px 18px 22px 10px; }
+      .expert-item h4 { font-size: 20px; }
+      .expert-item .expert-role { margin-top: 7px !important; font-size: 14px; }
+      .expert-item .expert-copy > p:last-child {
+        margin-top: 14px;
+        padding-top: 14px;
+        font-size: 14px;
+        line-height: 1.68;
+      }
+      .detailed-information-group,
+      .detailed-information-group > .section { scroll-margin-top: 114px; }
+      .detailed-information-header { padding: 56px 0 24px; }
+    }
+
+    /* V2.5: keep each CAR-T comparison title, image, and explanation in one card. */
+    .cart-technology-comparison {
+      align-items: stretch;
+      gap: 24px;
+    }
+    .cart-technology-item {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      align-content: start;
+      min-width: 0;
+      padding: clamp(20px, 2.4vw, 30px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 14px 34px rgb(17 43 68 / 7%);
+      transition: border-color 220ms ease, box-shadow 260ms var(--ease-premium), transform 260ms var(--ease-premium);
+    }
+    .cart-technology-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: 21px;
+      font-weight: 650;
+      line-height: 1.35;
+      text-align: center;
+      text-wrap: balance;
+    }
+    .cart-technology-media {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      margin: 0;
+      place-items: center;
+      overflow: hidden;
+      border: 0;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .cart-technology-media img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      object-fit: contain;
+      filter: saturate(.76) contrast(1.025);
+      transition: transform 650ms var(--ease-premium), filter 360ms ease;
+    }
+    .cart-technology-copy {
+      margin: 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-soft);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+    @media (hover: hover) {
+      .cart-technology-item:hover {
+        border-color: color-mix(in oklch, var(--accent), var(--border) 62%);
+        box-shadow: 0 18px 42px rgb(17 43 68 / 11%);
+        transform: translateY(-2px);
+      }
+      .cart-technology-item:hover .cart-technology-media img {
+        transform: scale(1.012);
+        filter: saturate(.9) contrast(1.035);
+      }
+    }
+    @media (max-width: 900px) {
+      .cart-technology-item:hover { transform: none; }
+    }
+    @media (max-width: 640px) {
+      .cart-technology-comparison { gap: 22px; }
+      .cart-technology-item { gap: 16px; padding: 18px; }
+      .cart-technology-title { font-size: 19px; }
+      .cart-technology-copy { padding-top: 16px; font-size: 14px; line-height: 1.68; }
+    }
+    @media (max-width: 360px) {
+      .cart-technology-item { padding: 16px; }
+      .cart-technology-title { font-size: 17px; }
+    }
+
+    /* V2.8: replace rose-tinted neutral mixes with stable cool medical surfaces. */
+    :root {
+      --surface-subtle: #f3f7f8;
+      --surface-tint: #edf5f6;
+      --surface-tint-strong: #e5f0f1;
+      --border-soft: #e1e8eb;
+      --border-strong: #c5d3d8;
+    }
+    .preview-banner {
+      background: #eef5f5;
+      color: #365965;
+      border-bottom-color: #c9dcdf;
+    }
+    .preview-banner strong { color: var(--accent); }
+    .scope-breakdown,
+    .planning-panel.primary,
+    .recovery-lead { background: var(--surface-subtle); }
+    .institution-tabs {
+      border-color: var(--border-soft);
+      background: var(--surface-tint);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 78%);
+    }
+    #hospital-assessment .situation:hover { background: var(--surface-tint); }
+    .cart-product-table tbody tr:nth-child(even) { background: var(--surface-subtle); }
+    .cart-product-table tbody tr:hover { background: var(--surface-tint-strong); }
+
+    /* V2.10: keep the detail parent and its five child modules on one surface. */
+    .detailed-information-group { background: var(--surface); }
+    .detailed-information-header {
+      padding: clamp(64px, 7vw, 88px) 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-strong);
+      background: var(--surface);
+    }
+    .detailed-information-header .shell { margin-inline: auto; }
+    .detailed-information-header .section-heading-centered { margin: 0; }
+    #detailed-information > .detail-subsection {
+      padding-block: 72px;
+      border-top: 1px solid var(--border-strong);
+      background: var(--surface);
+    }
+    #detailed-information > .detail-subsection:first-of-type { border-top: 0; }
+    .detail-subsection-heading {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding-left: 22px;
+      border-left: 3px solid var(--accent);
+      text-align: left;
+    }
+    .detail-subsection-heading > h3 {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 650;
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+    .detail-subsection-heading .section-intro {
+      max-width: 78ch;
+      margin-top: 10px;
+    }
+    .cart-product-sources h4 {
+      margin: 0 0 10px;
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+    #detail-recovery .cart-flow-node {
+      box-shadow: 0 0 0 6px var(--surface), 0 10px 24px rgb(29 113 128 / 20%);
+    }
+    @media (max-width: 640px) {
+      .detailed-information-header { padding-block: 56px; }
+      #detailed-information > .detail-subsection { padding-block: 48px; }
+      .detail-subsection-heading {
+        padding-left: 14px;
+        border-left-width: 3px;
+      }
+      .detail-subsection-heading > h3 {
+        font-size: 28px;
+        line-height: 1.28;
+      }
+      .detail-subsection-heading .section-intro {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      #detail-recovery .cart-flow-node {
+        box-shadow: 0 0 0 6px var(--surface), 0 8px 20px rgb(29 113 128 / 18%);
+      }
+    }
+    @media (max-width: 360px) {
+      .detail-subsection-heading > h3 { font-size: 25px; }
+    }
+
+    /* V2.11: keep clinical content visible and make dense controls keyboard and touch friendly. */
+    .motion-enabled .reveal-block {
+      opacity: 1;
+      transform: translateY(10px);
+      transition: transform 480ms var(--ease-premium);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .motion-enabled .reveal-block.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cart-product-table-wrap {
+      overscroll-behavior-inline: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .faq-material-list {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+    .faq-material-list li { padding-left: 2px; }
+    @media (max-width: 640px) {
+      .page-anchor-nav a {
+        min-height: 44px;
+        padding-block: 10px;
+      }
+      .section,
+      #why-china,
+      .detailed-information-group,
+      .detailed-information-group > .section {
+        scroll-margin-top: 122px;
+      }
+    }
+
+    /* V2.12: reserve the vertical accent rule for subsection headings only. */
+    #detail-procedure .detail-card::before,
+    #detail-followup .detail-card::before { content: none; }
+    #detail-procedure .detail-card h4,
+    #detail-followup .detail-card h4 {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    /* V2.13: distribute the four return-row steps across the full desktop width. */
+    @media (min-width: 901px) {
+      .cart-flow {
+        --flow-row-size: 260px;
+        grid-template-columns: repeat(20, minmax(0, 1fr));
+        grid-template-rows: repeat(2, var(--flow-row-size));
+        column-gap: 0;
+        row-gap: 48px;
+      }
+      .cart-flow-track { height: calc(var(--flow-row-size) + 48px); }
+      .cart-flow-step--1 { grid-column: 1 / span 4; grid-row: 1; }
+      .cart-flow-step--2 { grid-column: 5 / span 4; grid-row: 1; }
+      .cart-flow-step--3 { grid-column: 9 / span 4; grid-row: 1; }
+      .cart-flow-step--4 { grid-column: 13 / span 4; grid-row: 1; }
+      .cart-flow-step--5 { grid-column: 17 / span 4; grid-row: 1; }
+      .cart-flow-step--6 { grid-column: 16 / span 5; grid-row: 2; }
+      .cart-flow-step--7 { grid-column: 11 / span 5; grid-row: 2; }
+      .cart-flow-step--8 { grid-column: 6 / span 5; grid-row: 2; }
+      .cart-flow-step--9 { grid-column: 1 / span 5; grid-row: 2; }
+    }
+    @media (min-width: 1200px) {
+      .cart-flow { --flow-row-size: 220px; }
+    }
+
+    /* V2.14: one horizontal axis with alternating content blocks on desktop. */
+    @media (min-width: 1280px) {
+      .cart-flow {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+        grid-template-rows: 500px;
+        gap: 0;
+        margin-top: 36px;
+        padding: 0;
+      }
+      .cart-flow::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        right: calc(100% / 18);
+        left: calc(100% / 18);
+        height: 2px;
+        background: var(--border-strong);
+      }
+      .cart-flow-track { display: none; }
+      .cart-flow-step,
+      .cart-flow-step--1,
+      .cart-flow-step--2,
+      .cart-flow-step--3,
+      .cart-flow-step--4,
+      .cart-flow-step--5,
+      .cart-flow-step--6,
+      .cart-flow-step--7,
+      .cart-flow-step--8,
+      .cart-flow-step--9 {
+        grid-column: auto;
+        grid-row: 1;
+      }
+      .cart-flow-step {
+        position: relative;
+        display: block;
+        height: 500px;
+        text-align: left;
+      }
+      .cart-flow-node {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+      }
+      .cart-flow-step:hover .cart-flow-node { transform: translate(-50%, calc(-50% - 2px)); }
+      .cart-flow-content {
+        position: absolute;
+        left: 50%;
+        width: min(210px, calc(200% - 18px));
+        padding: 16px;
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: 0 10px 26px rgb(17 43 68 / 6%);
+        transform: translateX(-50%);
+      }
+      .cart-flow-content::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        height: 20px;
+        background: var(--border-strong);
+        transform: translateX(-50%);
+      }
+      .cart-flow-step--1 .cart-flow-content,
+      .cart-flow-step--3 .cart-flow-content,
+      .cart-flow-step--5 .cart-flow-content,
+      .cart-flow-step--7 .cart-flow-content,
+      .cart-flow-step--9 .cart-flow-content { bottom: calc(50% + 44px); }
+      .cart-flow-step--1 .cart-flow-content::after,
+      .cart-flow-step--3 .cart-flow-content::after,
+      .cart-flow-step--5 .cart-flow-content::after,
+      .cart-flow-step--7 .cart-flow-content::after,
+      .cart-flow-step--9 .cart-flow-content::after { bottom: -20px; }
+      .cart-flow-step--2 .cart-flow-content,
+      .cart-flow-step--4 .cart-flow-content,
+      .cart-flow-step--6 .cart-flow-content,
+      .cart-flow-step--8 .cart-flow-content { top: calc(50% + 44px); }
+      .cart-flow-step--2 .cart-flow-content::after,
+      .cart-flow-step--4 .cart-flow-content::after,
+      .cart-flow-step--6 .cart-flow-content::after,
+      .cart-flow-step--8 .cart-flow-content::after { top: -20px; }
+      .cart-flow-content .cart-flow-time {
+        display: block;
+        min-height: 0;
+        margin-bottom: 7px;
+        font-size: 12px;
+        font-weight: 650;
+      }
+      .cart-flow-content .cart-flow-time:empty { display: none; }
+      .cart-flow-content .cart-flow-title { font-size: 15px; line-height: 1.38; }
+      .cart-flow-content .cart-flow-copy {
+        max-width: none;
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: 1.58;
+      }
+    }
+    @media (min-width: 901px) and (max-width: 1279px) {
+      .cart-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: none;
+        grid-auto-rows: auto;
+        gap: 52px 18px;
+      }
+      .cart-flow-track { display: none; }
+      .cart-flow-step,
+      .cart-flow-step--1,
+      .cart-flow-step--2,
+      .cart-flow-step--3,
+      .cart-flow-step--4,
+      .cart-flow-step--5,
+      .cart-flow-step--6,
+      .cart-flow-step--7,
+      .cart-flow-step--8,
+      .cart-flow-step--9 {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .cart-flow-content { display: grid; justify-items: center; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      .cart-flow-content {
+        grid-column: 2;
+        grid-row: 1;
+        display: grid;
+        justify-items: start;
+        width: 100%;
+        min-width: 0;
+        text-align: left;
+      }
+      .cart-flow-content .cart-flow-time,
+      .cart-flow-content .cart-flow-title,
+      .cart-flow-content .cart-flow-copy {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .cart-flow-content .cart-flow-time { min-height: 0; }
+      .cart-flow-content .cart-flow-copy { max-width: none; }
+    }
+
+    /* V2.15: equal timeline cards with restrained directional motion. */
+    @media (min-width: 1280px) {
+      .cart-flow::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 1px);
+        left: calc(100% / 18);
+        width: 44px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--accent);
+        box-shadow: 0 0 8px rgb(29 113 128 / 22%);
+        animation: timeline-axis-pulse 8s linear infinite;
+      }
+      .cart-flow-content {
+        width: 210px;
+        height: 168px;
+        transition: opacity 420ms ease, transform 520ms var(--ease-premium), border-color 220ms ease, box-shadow 260ms var(--ease-premium);
+      }
+      .motion-enabled .cart-flow-step.reveal-block .cart-flow-content { opacity: .92; }
+      .motion-enabled .cart-flow-step--1.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--3.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--5.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--7.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--9.reveal-block .cart-flow-content {
+        transform: translateX(-50%) translateY(10px);
+      }
+      .motion-enabled .cart-flow-step--2.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--4.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--6.reveal-block .cart-flow-content,
+      .motion-enabled .cart-flow-step--8.reveal-block .cart-flow-content {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      .motion-enabled .cart-flow-step.reveal-block.is-revealed .cart-flow-content {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    @media (min-width: 1280px) and (hover: hover) {
+      .cart-flow-step:hover .cart-flow-content {
+        border-color: var(--border-strong);
+        box-shadow: 0 16px 34px rgb(17 43 68 / 10%);
+      }
+    }
+    @keyframes timeline-axis-pulse {
+      from { left: calc(100% / 18); }
+      to { left: calc(100% - 100% / 18 - 44px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cart-flow::after { display: none; animation: none; }
+      .cart-flow-content { transition: none; }
+    }
+
+    /* V2.16: move duration to the card footer and reuse the active-nav tint. */
+    .cart-flow-content { background: var(--soft-teal); }
+    .cart-flow-content .cart-flow-time {
+      display: block;
+      width: 100%;
+      margin: 10px 0 0;
+      padding-top: 8px;
+      border-top: 1px solid color-mix(in oklch, var(--accent), transparent 78%);
+      text-align: inherit;
+    }
+    .cart-flow-content .cart-flow-time:empty { display: none; }
+    @media (min-width: 1280px) {
+      .cart-flow-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-flow-content .cart-flow-time { margin-top: auto; }
+    }
+  </style>
+<style id="cmt-content-spacing-fix">
+      main#main-content #why-china .claim-item { padding: 20px 18px !important; }
+      main#main-content #hospital-assessment .evaluation-layout--summary .situation,
+      main#main-content #hospital-assessment .evaluation-layout--summary .situation:hover {
+        padding: 24px !important;
+      }
+      @media (max-width: 720px) {
+        main#main-content #why-china .claim-item { padding: 18px 16px !important; }
+        main#main-content #hospital-assessment .evaluation-layout--summary .situation,
+        main#main-content #hospital-assessment .evaluation-layout--summary .situation:hover {
+          padding: 20px 18px !important;
+        }
+      }
+    </style></head>
+<body>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+  <!-- Lucide icon subset (ISC): menu, close, message, calendar, chevron, map pin. -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-menu" viewBox="0 0 24 24">
+      <path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24">
+      <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+    </symbol>
+    <symbol id="icon-message-circle" viewBox="0 0 24 24">
+      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+    </symbol>
+    <symbol id="icon-calendar-days" viewBox="0 0 24 24">
+      <path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+      <path d="m6 9 6 6 6-6"></path>
+    </symbol>
+    <symbol id="icon-map-pin" viewBox="0 0 24 24">
+      <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle>
+    </symbol>
+  </svg>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <div class="preview-banner" data-od-id="preview-banner" role="status">
+    <div class="shell">
+      <strong>发布审核中</strong>
+      <span>病种、医院和专家资料已按 2026 年 7 月 22 日汇编录入，正式上线前仍需医学、法务、隐私及素材授权审核。</span>
+    </div>
+  </div>
+  <header class="site-header" data-od-id="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="#hero" aria-label="CMT Health 首页" data-od-id="site-logo-link"><img class="brand-logo" src="assets/cmt-health-horizontal.svg" alt="CMT Health · China Medical Trip"></a>
+      <nav class="desktop-nav" aria-label="主导航" data-od-id="desktop-navigation">
+        <a href="../why-china.html">优势</a>
+        <a href="../treatments.html" aria-current="page">治疗</a>
+        <a href="../hospitals.html">医院</a>
+        <a href="../how-it-works.html">流程</a>
+        
+        <a href="../about.html">关于我们</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="language" aria-label="语言"><span>EN</span><span class="active">中文</span></div>
+        <button class="button button-primary" type="button" data-consult=""><svg class="icon" aria-hidden="true"><use href="#icon-message-circle"></use></svg><span>在线咨询</span></button>
+        <a class="button button-secondary" href="../index.html"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>预约回电</span></a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" data-od-id="mobile-menu-button">
+        <svg class="icon menu-icon-open" aria-hidden="true"><use href="#icon-menu"></use></svg>
+        <svg class="icon menu-icon-close" aria-hidden="true"><use href="#icon-x"></use></svg>
+        <span class="menu-label">菜单</span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-navigation" aria-label="移动端主导航" data-od-id="mobile-navigation">
+      <a href="../why-china.html">优势</a>
+      <a href="../treatments.html" aria-current="page">治疗</a>
+      <a href="../hospitals.html">医院</a>
+      <a href="../how-it-works.html">流程</a>
+      
+      <a href="../about.html">关于我们</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="hero" id="hero" data-od-id="hero-section">
+      
+      <div class="shell hero-grid">
+        <div class="hero-content" data-od-id="hero-content">
+          <p class="topic-label" data-od-id="hero-eyebrow">中国 CAR-T 临床研究全球领先，为全球患者带来更多细胞治疗选择。</p>
+          <h1 data-od-id="hero-heading">CAR-T 治疗</h1>
+          <p class="hero-copy">中国已有 9 款 CAR-T 产品获 NMPA 批准，覆盖多类复发或难治性血液肿瘤，并已拓展至晚期胃癌及胃食管结合部腺癌。</p>
+          
+          <div class="cta-group" data-od-id="hero-actions">
+            <button class="button button-primary" type="button" data-consult="" data-od-id="hero-chat-button"><svg class="icon" aria-hidden="true"><use href="#icon-message-circle"></use></svg><span>在线咨询</span></button>
+            <a class="button button-secondary" href="../index.html" data-od-id="hero-call-link"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>预约咨询</span></a>
+          </div>
+          <p class="cta-helper" data-od-id="hero-helper">可讨论语言、时间、目的地和行程偏好。请勿通过本页提交病历、影像或附件。</p>
+        </div>
+        <figure class="hero-media" data-od-id="hero-image">
+          <div class="hero-media-frame is-loading" id="hero-media-frame" aria-busy="true">
+            <img src="assets/banner-car-t.webp" alt="中国医院细胞治疗临床团队与实验室环境场景示意" width="1672" height="941" fetchpriority="high" id="hero-photo">
+            <div class="image-loading" id="hero-image-loading" role="status">图片加载中</div>
+            <div class="image-error" id="hero-image-error" role="alert">图片暂时无法显示。您仍可继续阅读页面内容，或稍后刷新重试。</div>
+          </div>
+          <figcaption>细胞治疗临床团队与实验室环境场景示意，不代表具体医院、产品或接诊安排。</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="scope-band" data-od-id="scope-band" aria-label="服务边界">
+      <div class="shell scope-grid">
+        <div class="scope-item scope-item--time" data-od-id="first-screen-time-card">
+          <strong class="scope-plan-value">4-6 周</strong>
+          <p class="scope-plan-label">建议预留的在华治疗时间，实际安排因个体情况调整</p>
+          
+          
+        </div>
+        <div class="scope-item scope-item--cost" data-od-id="first-screen-cost-card">
+          <strong class="scope-plan-value">99 万-129 万元</strong>
+          <p class="scope-plan-label">部分公开定价产品的药品价格，仅供预算参考</p>
+          
+          
+        </div>
+      </div>
+    </section>
+    <div class="page-nav-band" data-od-id="page-anchor-navigation">
+      <nav class="shell page-anchor-nav" aria-label="页面目录">
+        <a class="page-nav-back" href="../treatments.html#cancer-treatment">返回上级</a>
+        <a href="#why-china">中国优势</a>
+        <a href="#hospital-assessment">快速了解</a>
+        <a href="#care-journey">就医流程</a>
+        <a href="#institutions">医疗团队</a>
+        <a href="#next-step">常见问题</a>
+        <a href="#detailed-information">详细信息</a>
+      </nav>
+    </div>
+    <section class="section" id="why-china" data-od-id="why-china-section">
+      <div class="shell">
+        <div class="section-heading-centered">
+          <h2 data-od-id="why-china-heading">中国 CAR-T 治疗的全球贡献</h2>
+          
+        </div>
+        <div class="evidence-layout">
+          <div class="evidence-visual">
+            <figure class="section-media" data-od-id="why-china-image">
+              <div class="section-media-frame">
+                <img src="assets/car-t-cell-preparation-1200x900-optimized.webp" alt="实验室人员进行 CAR-T 细胞制备" width="1200" height="900" loading="lazy" decoding="async">
+              </div>
+              <figcaption>图片来源：项目提供的中国 CAR-T 治疗全球贡献图。</figcaption>
+            </figure>
+            
+          </div>
+          <div class="claim-list" data-od-id="evidence-claim-list">
+            <article class="claim-item" data-od-id="claim-regulation">
+              <h3>全球规模领先的 CAR-T 临床研究体系</h3>
+              <p>2026年全球临床试验分析共纳入1,908项CAR-T研究，中国1,006项、美国549项。</p>
+            </article>
+            <article class="claim-item" data-od-id="claim-tcm-rehabilitation">
+              <h3>推动 BCMA CAR-T 治疗多发性骨髓瘤</h3>
+              <p>中国目前已有伊基奥仑赛、泽沃基奥仑赛和西达基奥仑赛三款BCMA CAR-T产品获批，用于符合相应条件的复发或难治性多发性骨髓瘤患者。西达基奥仑赛由中国企业传奇生物参与原创研发，先后在美国、欧盟、日本和中国获批，是中国原创细胞治疗国际化的代表性成果。</p>
+            </article>
+            <article class="claim-item" data-od-id="claim-service-capability">
+              <h3>率先实现实体瘤 CAR-T 获批</h3>
+              <p>2026年6月22日，舒瑞基奥仑赛获NMPA批准，成为全球首款获监管机构批准用于实体瘤治疗的CAR-T产品。</p>
+            </article>
+            <article class="claim-item" data-od-id="claim-next-generation">
+              <h3>持续探索下一代 CAR-T</h3>
+              <p>中国研究团队正在推进通用型异体CAR-T、双靶点或多靶点CAR-T、装甲型CAR-T及体内CAR-T等技术路线。</p>
+            </article>
+            <article class="claim-item" data-od-id="claim-industry-chain">
+              <h3>建立 CAR-T 研发与生产产业链</h3>
+              <p>中国已形成覆盖靶点研究、质粒及病毒载体、细胞生产、质量控制、冷链运输、临床治疗和商业支付探索的CAR-T产业生态。</p>
+            </article>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="hospital-assessment" data-od-id="hospital-assessment-section">
+      <div class="shell">
+        <div class="section-heading-centered">
+          <h2 data-od-id="hospital-assessment-heading">快速了解 <strong>CAR-T</strong></h2>
+          <p class="section-intro">从产品核准、技术路线和患者评估，到治疗节奏与长期随访，以下五项帮助建立完整的 CAR-T 治疗信息框架。</p>
+        </div>
+        <div class="evaluation-layout evaluation-layout--summary">
+          <div class="evaluation-copy">
+            <div class="situation-list" data-od-id="evaluation-situations">
+              <article class="situation" data-od-id="situation-compare-options">
+                <h3>NMPA 已批准上市的 CAR-T 产品</h3>
+                <p>覆盖靶点、适应症概括与公开药品价格，具体使用条件以说明书和治疗中心评估为准。</p>
+                <a class="situation-link" href="#detail-basic">查看详情 <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+              </article>
+              <article class="situation" data-od-id="situation-access">
+                <h3>经典 CAR-T 与体内 CAR-T 的区别</h3>
+                <p>体外制备产品已获批应用；体内 CAR-T 仍处于早期临床研究阶段。</p>
+                <a class="situation-link" href="#detail-technology">查看详情 <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+              </article>
+              <article class="situation" data-od-id="situation-planning">
+                <h3>哪些患者可能接受 CAR-T 评估</h3>
+                <p>需结合癌种、靶点、既往治疗线数、器官功能、感染与体能状态综合判断。</p>
+                <a class="situation-link" href="#detail-procedure">查看详情 <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+              </article>
+              <article class="situation" data-od-id="situation-treatment-flow">
+                <h3>CAR-T 治疗流程与时间说明</h3>
+                <p>涵盖病历预审、单采血、2-4 周制备、清淋、回输与住院监测；建议预留 4-6 周。</p>
+                <a class="situation-link" href="#detail-recovery">查看详情 <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+              </article>
+              <article class="situation" data-od-id="situation-followup">
+                <h3>CAR-T 治疗需要恢复与长期随访</h3>
+                <p>关注 CRS、神经毒性、感染与血细胞减少；飞行与长期复查须由治疗团队评估。</p>
+                <a class="situation-link" href="#detail-followup">查看详情 <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+              </article>
+            </div>
+            
+          </div>
+          <figure class="section-media evaluation-summary-media" data-od-id="cart-treatment-summary-image">
+            <div class="section-media-frame">
+              <img src="assets/car-t-cell-infusion-chinese-nurse-1200x900-optimized.webp" alt="护士为患者进行 CAR-T 细胞回输护理" width="1200" height="900" loading="lazy" decoding="async">
+            </div>
+            <figcaption>CAR-T 细胞治疗主题场景示意，不代表具体产品、医院或接诊安排。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="care-journey" data-od-id="care-journey-section">
+      <div class="shell">
+        <div class="section-heading-centered">
+          <h2 data-od-id="care-journey-heading">就医流程</h2>
+          <p class="section-intro">从远程资料预审到回国后的延续性关怀，医疗决定始终由接诊医院与治疗团队作出；协调服务不替代临床评估。</p>
+        </div>
+        <div class="flow-wrap">
+          <ol class="flow-list" id="flow-list" data-od-id="care-flow-list">
+            <li class="flow-step" data-od-id="flow-step-needs">
+              <span class="flow-index">01</span>
+              <div><h3>远程咨询与资料预审</h3><span class="flow-owner">责任方：患者与协调团队</span></div>
+              <p>整理病理、靶点检测、影像及既往治疗记录，了解疾病类型与可能的评估方向。<strong style="font-weight: 400;">资料是否符合接诊条件由医院决定。</strong></p>
+            </li>
+            <li class="flow-step" data-od-id="flow-step-institution">
+              <span class="flow-index">02</span>
+              <div><h3>专家远程评估</h3><span class="flow-owner">责任方：医院与专家团队</span></div>
+              <p>由专家评估是否建议进一步到院检查、可能需要补充的资料，以及是否存在与已获批产品相符的评估路径。</p>
+            </li>
+            <li class="flow-step" data-od-id="flow-step-secure-channel">
+              <span class="flow-index">03</span>
+              <div><h3>行程规划与治疗准备</h3><span class="flow-owner">责任方：患者与协调团队</span></div>
+              <p>协助准备医疗签证、行程、住宿、翻译及成年陪护安排；医疗费用需以医院分项预算为准。</p>
+            </li>
+            <li class="flow-step" data-od-id="flow-step-assessment">
+              <span class="flow-index">04</span>
+              <div><h3>到院检查与多学科评估</h3><span class="flow-owner">责任方：医院与患者</span></div>
+              <p>完成病理复核、肿瘤负荷、器官功能、感染与体能状态等评估，并由医院确认后续路径。</p>
+            </li>
+            <li class="flow-step" data-od-id="flow-step-travel">
+              <span class="flow-index">05</span>
+              <div><h3>院内检查与 CAR-T 治疗</h3><span class="flow-owner">责任方：医院</span></div>
+              <p>依次可能涉及单采血、CAR-T 制备、必要时桥接治疗、清淋、细胞回输及住院监测，具体安排由治疗团队决定。</p>
+            </li>
+            <li class="flow-step" data-od-id="flow-step-followup">
+              <span class="flow-index">06</span>
+              <div><h3>恢复与延续性关怀</h3><span class="flow-owner">责任方：医院、患者与当地医疗机构</span></div>
+              <p>出院后需继续感染预防、复查和长期随访。是否适合搭乘国际航班由治疗团队依据血象、感染与急性毒性风险评估。</p>
+            </li>
+          </ol>
+        </div>
+        <div class="flow-cta cta-group" data-od-id="flow-actions">
+          <button class="button button-primary" type="button" data-consult=""><svg class="icon" aria-hidden="true"><use href="#icon-message-circle"></use></svg><span>在线咨询</span></button>
+          <a class="button button-secondary" href="../index.html"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>预约回电</span></a>
+          
+        </div>
+      </div>
+    </section>
+    <section class="section" id="institutions" data-od-id="institutions-section">
+      <div class="shell">
+        <div class="section-heading-centered">
+          <h2 data-od-id="institutions-heading">医疗团队</h2>
+          <p class="section-intro">以下按医院、代表专家、诊疗重点与代表成果整合文档提供的公开资料。具体产品治疗资质、团队配置与接诊安排须向医院核实。</p>
+        </div>
+        <div class="care-team-grid" data-od-id="care-team-grid" hidden="">
+          <article class="care-team-card"><h3>北京大学肿瘤医院</h3><p class="care-team-expert">代表专家：沈琳</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>胃癌、消化道肿瘤及实体瘤细胞治疗</dd></div><div><dt>代表成果</dt><dd>牵头 CLDN18.2 CAR-T 早期及关键临床研究</dd></div></dl></article>
+          <article class="care-team-card"><h3>中国医学科学院血液病医院</h3><p class="care-team-expert">代表专家：王建祥</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>白血病、淋巴瘤、多发性骨髓瘤及细胞治疗</dd></div><div><dt>代表成果</dt><dd>建有国家血液系统疾病临床医学研究中心，开展 CAR-T 与移植等综合研究</dd></div></dl></article>
+          <article class="care-team-card"><h3>浙江大学医学院附属第一医院</h3><p class="care-team-expert">代表专家：黄河</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>CAR-T 与造血干细胞移植衔接</dd></div><div><dt>代表成果</dt><dd>提出 CAR-T 序贯异基因造血干细胞移植的“杭州方案”</dd></div></dl></article>
+          <article class="care-team-card"><h3>华中科技大学同济医学院附属同济医院</h3><p class="care-team-expert">代表专家：周剑峰</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>白血病、淋巴瘤及儿童青少年 CAR-T</dd></div><div><dt>代表成果</dt><dd>较早开展 CAR-T 临床研究，并参与儿童及青少年 B-ALL 产品研究</dd></div></dl></article>
+          <article class="care-team-card"><h3>上海交通大学医学院附属瑞金医院</h3><p class="care-team-expert">代表专家：赵维莅</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>淋巴瘤 CAR-T、真实世界研究及多学科毒性管理</dd></div><div><dt>代表成果</dt><dd>开展商业化 CAR-T 治疗并发表中国亚裔患者研究结果</dd></div></dl></article>
+          <article class="care-team-card"><h3>复旦大学附属中山医院</h3><p class="care-team-expert">代表专家：刘天舒</p><dl class="care-team-meta"><div><dt>诊疗重点</dt><dd>胃癌及胃食管结合部肿瘤、病理复核和 MDT 评估</dd></div><div><dt>代表成果</dt><dd>开展获批实体瘤 CAR-T 患者筛查与商业化治疗</dd></div></dl></article>
+        </div>
+        <div class="institution-tabs" role="tablist" aria-label="CAR-T 医院与专家资料" data-od-id="cart-institution-tabs">
+          <button class="institution-tab" id="cart-institutions-tab-hospitals" type="button" role="tab" aria-selected="true" aria-controls="cart-institutions-panel-hospitals" data-cart-institution-tab="" data-od-id="cart-institutions-hospitals-tab">医院</button>
+          <button class="institution-tab" id="cart-institutions-tab-experts" type="button" role="tab" aria-selected="false" aria-controls="cart-institutions-panel-experts" tabindex="-1" data-cart-institution-tab="" data-od-id="cart-institutions-experts-tab">专家</button>
+        </div>
+        <div class="hospital-showcase institution-panel cart-institution-panel" id="cart-institutions-panel-hospitals" role="tabpanel" aria-labelledby="cart-institutions-tab-hospitals" data-od-id="care-team-carousel-showcase">
+          <div class="hospital-panel-heading">
+            <div><h3 style="color: rgb(24, 36, 95);">CAR-T 诊疗与临床转化医院</h3><p>以下为资料汇编所列的代表性医院，按资料顺序展示，不构成排名、推荐或接诊承诺。</p></div>
+            <div class="hospital-carousel-controls" aria-label="医疗团队卡片翻页">
+              <button class="hospital-carousel-button" type="button" title="上一组医疗团队" aria-label="上一组医疗团队" aria-controls="care-team-carousel" data-hospital-carousel-prev=""><svg class="icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button>
+              <button class="hospital-carousel-button" type="button" title="下一组医疗团队" aria-label="下一组医疗团队" aria-controls="care-team-carousel" data-hospital-carousel-next=""><svg class="icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button>
+            </div>
+          </div>
+          <div class="hospital-carousel" id="care-team-carousel" role="region" aria-label="CAR-T 医疗团队，可使用左右方向键浏览" tabindex="0" data-hospital-carousel="">
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-peking-cancer"><div class="hospital-card-media"><img src="assets/cart-hospitals/peking-cancer.jpeg" alt="北京大学肿瘤医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>北京大学肿瘤医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>北京</span></p><div class="hospital-highlight"><p>血液内科自2015年起较早开展CAR-T，建立覆盖细胞因子释放综合征、感染、骨髓抑制和病毒再激活的标准化安全管理体系，研究延伸至双靶点、联合治疗和体内CAR-T；2026年李春蕊团队参与的体内CAR-T成果发表于Nature Medicine。</p></div></div></article>
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-ihcams"><div class="hospital-card-media"><img src="assets/cart-hospitals/ihcams-tianjin.jpeg" alt="中国医学科学院血液病医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>中国医学科学院血液病医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>天津</span></p><div class="hospital-highlight"><p>设免疫细胞治疗中心，开展多靶点CAR-T、CAR-NK及抗体/靶向药临床研究；王建祥团队自主CD19 CAR-T技术转化的纳基奥仑赛注射液于2023年获批，体现从原创研发到临床转化的完整能力。</p></div></div></article>
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-zhejiang-first"><div class="hospital-card-media"><img src="assets/cart-hospitals/zhejiang-first.jpeg" alt="浙江大学医学院附属第一医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>浙江大学医学院附属第一医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>杭州</span></p><div class="hospital-highlight"><p>医院自2015年开展CAR-T，形成CD19、CD22、BCMA等靶点体系；黄河团队提出CAR-T序贯异基因造血干细胞移植的“杭州方案”，并积累了国际患者的细胞治疗全程护理经验。</p></div></div></article>
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-tongji-wuhan"><div class="hospital-card-media"><img src="assets/cart-hospitals/tongji-wuhan.jpeg" alt="华中科技大学同济医学院附属同济医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>华中科技大学同济医学院附属同济医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>武汉</span></p><div class="hospital-highlight"><p>血液内科自2015年起较早开展CAR-T，建立覆盖细胞因子释放综合征、感染、骨髓抑制和病毒再激活的标准化安全管理体系，研究延伸至双靶点、联合治疗和体内CAR-T；2026年李春蕊团队参与的体内CAR-T成果发表于Nature Medicine。</p></div></div></article>
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-ruijin"><div class="hospital-card-media"><img src="assets/cart-hospitals/ruijin-shanghai.jpeg" alt="上海交通大学医学院附属瑞金医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>上海交通大学医学院附属瑞金医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>上海</span></p><div class="hospital-highlight"><p>赵维莅团队开展淋巴瘤CAR-T临床应用及亚洲人群研究；官网披露截至2023年已有近100位淋巴瘤患者接受CAR-T，同时形成分子分型、细胞免疫治疗病房和真实世界管理体系。</p></div></div></article>
+            <article class="hospital-card hospital-card--team" data-od-id="cart-hospital-zhongshan"><div class="hospital-card-media"><img src="assets/cart-hospitals/zhongshan-shanghai.jpeg" alt="复旦大学附属中山医院院区" loading="lazy" decoding="async"></div><div class="hospital-card-body"><h4>复旦大学附属中山医院</h4><p class="hospital-city"><svg class="icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg><span>上海</span></p><div class="hospital-highlight"><p>医院在胃癌/胃食管结合部肿瘤的筛查、病理复核和MDT评估方面具备综合优势；上海市政府相关服务平台披露，刘天舒团队已完成舒瑞基奥仑赛商业化患者细胞采集，并形成覆盖预评估、MDT、靶点检测、采集、回输及随访的全流程体系。[S23]</p></div></div></article>
+          </div>
+          <p class="hospital-source-note">医院资料与图片来源：《CAR-T 优势医院资料汇编》（核验日期：2026 年 7 月 24 日）。正式发布前仍需按原始图片来源确认转载授权。</p>
+        </div>
+        <div class="expert-block institution-panel cart-institution-panel" id="cart-institutions-panel-experts" role="tabpanel" aria-labelledby="cart-institutions-tab-experts" hidden="" data-od-id="cart-expert-block">
+          <h3>CAR-T 相关专家公开资料</h3>
+          <p>以下为资料中同时具备可核验国际职务、国际期刊职务或具名国际荣誉，并与 CAR-T 临床研究或转化相关的代表专家。</p>
+          <div class="expert-list">
+            <article class="expert-item" data-od-id="cart-expert-wang-jianxiang"><div class="expert-photo"><img src="assets/cart-experts/wang-jianxiang-white-bg-v2.png" alt="王建祥教授肖像" loading="lazy" decoding="async"></div><div class="expert-copy"><h4>王建祥</h4><p class="expert-role">中国医学科学院血液病医院</p><p>亚太白血病联盟主席，国家血液系统疾病临床医学研究中心主任。开展自主知识产权的白血病 CAR 及 CAR-T 研究。</p></div></article>
+            <article class="expert-item" data-od-id="cart-expert-huang-he"><div class="expert-photo"><img src="assets/cart-experts/huang-he-white-bg-v2.png" alt="黄河教授肖像" loading="lazy" decoding="async"></div><div class="expert-copy"><h4>黄河</h4><p class="expert-role">浙江大学医学院附属第一医院</p><p>浙江大学血液学研究所所长。团队聚焦新型靶点、非病毒转染、免疫检查点整合与通用型 CAR-T，并开展移植与 CAR-T 融合临床转化。</p></div></article>
+            <article class="expert-item" data-od-id="cart-expert-zhou-jianfeng"><div class="expert-photo expert-photo--pending" aria-label="周剑峰医生官方肖像待补充">官方肖像<br>待补充</div><div class="expert-copy"><h4>周剑峰</h4><p class="expert-role">华中科技大学同济医学院附属同济医院</p><p>资料列示其为医院 CAR-T 相关代表专家。医院血液内科较早开展 CAR-T 临床研究，并参与儿童及青少年 B-ALL 产品研究。</p></div></article>
+            <article class="expert-item" data-od-id="cart-expert-shen-lin"><div class="expert-photo"><img src="assets/cart-experts/shen-lin-white-bg-v2.png" alt="沈琳教授肖像" loading="lazy" decoding="async"></div><div class="expert-copy"><h4>沈琳</h4><p class="expert-role">北京大学肿瘤医院</p><p>消化肿瘤内科主任，实体瘤细胞与基因治疗北京市重点实验室主任。牵头 CLDN18.2 CAR-T 治疗晚期消化道肿瘤 I 期研究。</p></div></article>
+            <article class="expert-item" data-od-id="cart-expert-zhao-weili"><div class="expert-photo"><img src="assets/cart-experts/zhao-weili-white-bg-v2.png" alt="赵维莅教授肖像" loading="lazy" decoding="async"></div><div class="expert-copy"><h4>赵维莅</h4><p class="expert-role">上海交通大学医学院附属瑞金医院 / 上海血液学研究所</p><p>上海血液学研究所第一副所长。围绕大 B 细胞淋巴瘤开展 CAR-T 临床与转化研究，提供亚洲患者相关研究证据。</p></div></article>
+            <article class="expert-item" data-od-id="cart-expert-liu-tianshu"><div class="expert-photo expert-photo--pending" aria-label="刘天舒医生官方肖像待补充">官方肖像<br>待补充</div><div class="expert-copy"><h4>刘天舒</h4><p class="expert-role">复旦大学附属中山医院</p><p>资料列示其为胃癌及胃食管结合部肿瘤 CAR-T 相关代表专家，参与舒瑞基奥仑赛商业化患者细胞采集与全流程体系建设。</p></div></article>
+          </div>
+          <p class="hospital-source-note">专家资料与照片来源：《中国 CAR-T 权威专家国际头衔汇编》（核验日期：2026 年 7 月 24 日）。图片版权归原机构或摄影者，正式发布前应确认授权。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="next-step" data-od-id="next-step-section">
+      <div class="shell">
+        <div class="section-heading-centered">
+          <h2 data-od-id="next-step-heading">常见问题</h2>
+          
+        </div>
+        <div class="faq-layout" data-od-id="cart-faq-layout">
+          <div class="faq-list faq-content" data-od-id="cart-faq-list">
+            <details><summary>外国患者来中国接受 CAR-T 治疗需要准备多少费用？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">目前有公开定价信息的国产 CAR-T 产品，基本医保报销前药品价格约为每人份 99 万-129 万元。外国医疗旅行患者通常没有中国基本医保，应按全自费计算。药品价格之外，还需另行计算检查、细胞采集、住院、清淋、桥接治疗和不良反应处理等费用，因此患者实际总费用会高于表中的药品价格。正式来华前，应取得医院出具的分项费用预算。</div></details>
+            <details><summary>治疗后多久可以乘坐国际航班？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">没有适用于所有患者的统一时间。是否适合飞行，需要根据血象、感染、神经系统状态、急性毒性风险和目的地医疗条件，由治疗团队评估。</div></details>
+            <details><summary>CAR-T 治疗后复发怎么办？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">医生可能根据复发机制、靶点变化及身体情况，评估其他靶点 CAR-T、抗体药物、双特异性抗体、化疗、造血干细胞移植或临床试验。</div></details>
+            <details><summary>治疗期间需要家属陪同吗？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">通常建议安排成年陪护人。回输后可能出现发热、低血压、意识或语言变化等症状，需要及时通知治疗团队。</div></details>
+            <details><summary>CAR-T 可以治疗所有癌症吗？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">不可以。每款获批产品都有明确的癌种、靶点和既往治疗要求。患者必须符合相应产品的核准适应症并通过治疗中心评估。</div></details>
+            <details><summary>CAR-T 能保证治愈吗？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">不能。部分患者可以获得深度或长期缓解，但也可能治疗无效或在治疗后复发。治疗效果与癌种、靶点、疾病负荷、既往治疗和患者身体情况有关。</div></details>
+            <details><summary>如何选择医院和 CAR-T 产品？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">应重点比较产品核准适应症、医院相应产品治疗资质、团队对该癌种和靶点的经验、重症及毒性处理能力、病理与感染支持体系，以及是否能够完成长期随访。医院和产品不能仅按照药品价格选择。</div></details>
+            <details><summary>接受 CAR-T 治疗前需要准备什么材料？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">不同产品的检查项目和入组条件并不完全相同，应以接诊医院和核准说明书为准。通常病人需要提供以下材料：<ul class="faq-material-list"><li>完整病理报告及必要的病理切片；</li><li>CD19、BCMA、CLDN18.2 等相关靶点检测；</li><li>最近的 CT、MRI、PET-CT 或骨髓检查资料；</li><li>既往全部治疗方案、用药剂量及疗效记录；</li><li>近期血常规、肝肾功能和凝血检查；</li><li>乙肝、丙肝、HIV 等感染筛查资料；</li><li>既往移植、重大感染及心肺疾病记录。</li></ul></div></details>
+            <details><summary>CAR-T 主要有哪些风险？<svg class="icon disclosure-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></summary><div class="faq-answer">主要风险包括细胞因子释放综合征、免疫效应细胞相关神经毒性综合征、感染、血细胞减少、低免疫球蛋白血症及继发恶性肿瘤风险。</div></details>
+          </div>
+          <aside class="faq-consult-card" aria-label="咨询安排" data-od-id="cart-faq-consult-card">
+            <p>可先讨论语言、目标城市、可出行时间、陪同人员、住宿和在华治疗安排。是否符合 CAR-T 治疗条件、选择何种产品及何时适合飞行，均由治疗团队评估。</p>
+            <div class="cta-group" data-od-id="cart-faq-consult-actions">
+              <button class="button button-primary" type="button" data-consult=""><svg class="icon" aria-hidden="true"><use href="#icon-message-circle"></use></svg><span>在线咨询</span></button>
+              <a class="button button-secondary" href="../index.html"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>预约回电</span></a>
+            </div>
+            <p class="cta-helper">本页和预约入口不接收医疗资料、影像或附件。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <section class="detailed-information-group" id="detailed-information" aria-labelledby="detailed-information-heading" data-od-id="detailed-information-section">
+      <header class="detailed-information-header">
+        <div class="shell">
+          <div class="section-heading-centered">
+            <h2 id="detailed-information-heading">详细信息</h2>
+            <p class="section-intro">查看获批产品、技术路线、治疗前评估、治疗时间与长期随访等完整信息。</p>
+          </div>
+        </div>
+      </header>
+    <section class="section detail-subsection" id="detail-basic" aria-labelledby="detail-basic-heading" data-od-id="detail-basic-section">
+      <div class="shell">
+        <div class="section-heading-centered detail-subsection-heading">
+          <h3 id="detail-basic-heading" data-od-id="detail-basic-heading">获批产品与适应症</h3>
+          <p class="section-intro">以下为文档所列 NMPA 已批准产品中的代表性信息。产品适应症为概括说明，不替代正式说明书与治疗中心评估。</p>
+        </div>
+        <div class="cart-product-table-wrap" role="region" tabindex="0" aria-label="获批 CAR-T 产品与适应症表格" data-od-id="cart-approved-products-table">
+          <table class="cart-product-table">
+            <thead><tr><th>获批时间</th><th>产品 / 商品名</th><th>靶点</th><th>企业</th><th>已获批适应症概括</th><th>公开药品价格</th></tr></thead>
+            <tbody>
+              <tr><td>2021 年 6 月</td><td>阿基仑赛注射液<br>奕凯达</td><td>CD19</td><td>复星凯瑞</td><td>成人复发或难治性大 B 细胞淋巴瘤；后新增部分二线 LBCL 患者</td><td>120 万元</td></tr>
+              <tr><td>2021 年 9 月</td><td>瑞基奥仑赛注射液<br>倍诺达</td><td>CD19</td><td>药明巨诺</td><td>成人复发或难治性大 B 细胞淋巴瘤、滤泡性淋巴瘤及套细胞淋巴瘤</td><td>129 万元</td></tr>
+              <tr><td>2023 年 6 月</td><td>伊基奥仑赛注射液<br>福可苏</td><td>BCMA</td><td>南京驯鹿生物、信达生物</td><td>经过至少三线治疗的成人复发或难治性多发性骨髓瘤</td><td>116.6 万元</td></tr>
+              <tr><td>2023 年 11 月</td><td>纳基奥仑赛注射液<br>源瑞达</td><td>CD19</td><td>合源生物</td><td>成人复发或难治性 B 细胞急性淋巴细胞白血病；后新增大 B 细胞淋巴瘤</td><td>99.9 万元</td></tr>
+              <tr><td>2024 年 3 月</td><td>泽沃基奥仑赛注射液<br>赛恺泽</td><td>BCMA</td><td>科济药业、恺兴生命</td><td>经过至少三线治疗的成人复发或难治性多发性骨髓瘤</td><td>115 万元</td></tr>
+              <tr><td>2024 年 8 月</td><td>西达基奥仑赛注射液<br>卡卫荻</td><td>BCMA</td><td>传奇生物、杨森</td><td>经过至少三线治疗的成人复发或难治性多发性骨髓瘤</td><td>未公开</td></tr>
+              <tr><td>2025 年 7 月</td><td>雷尼基奥仑赛注射液<br>恒凯莱</td><td>CD19</td><td>上海恒润达生</td><td>经过二线或以上系统治疗的成人复发或难治性大 B 细胞淋巴瘤</td><td>未公开</td></tr>
+              <tr><td>2025 年 11 月</td><td>普基奥仑赛注射液<br>普利得凯</td><td>CD19</td><td>重庆精准生物</td><td>3-21 岁 CD19 阳性复发或难治性 B 细胞急性淋巴细胞白血病</td><td>未公开</td></tr>
+              <tr><td>2026 年 6 月</td><td>舒瑞基奥仑赛注射液<br>恺力美</td><td>CLDN18.2</td><td>科济药业、恺兴生命</td><td>CLDN18.2 阳性、HER2 阴性、至少二线治疗失败的晚期胃癌或胃食管结合部腺癌</td><td>99 万元</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cart-product-sources">
+          <h4>产品与适应症数据来源</h4>
+          <ul>
+            <li><a href="https://www.fosunkairos.com/patient/product.html" target="_blank" rel="noopener noreferrer">阿基仑赛：复星凯瑞产品信息</a></li>
+            <li><a href="https://www.jwtherapeutics.com/cn/media/press-release/jw-therapeutics-announces-nmpa-approval-of-relmacabtagene-autoleucel-injection-in-china/" target="_blank" rel="noopener noreferrer">瑞基奥仑赛：药明巨诺首次批准信息</a></li>
+            <li><a href="https://english.nmpa.gov.cn/2023-06/30/c_940315.htm" target="_blank" rel="noopener noreferrer">伊基奥仑赛：NMPA 批准信息</a></li>
+            <li><a href="https://www.nhsa.gov.cn/attach/Ypsn2026/YPSW202600459/YPSW202600459%28ppt%29.pdf" target="_blank" rel="noopener noreferrer">纳基奥仑赛：国家医保局 2026 年药品申报公示材料</a></li>
+            <li><a href="https://kw.beijing.gov.cn/xwdt/kcyx/xwdtyqqy/202403/t20240304_3821759.html" target="_blank" rel="noopener noreferrer">泽沃基奥仑赛：北京市科委、中关村管委会</a></li>
+            <li><a href="https://english.nmpa.gov.cn/2025-02/19/c_1073591.htm" target="_blank" rel="noopener noreferrer">西达基奥仑赛：NMPA 产品信息</a></li>
+            <li><a href="https://www.shanghai.gov.cn/nw15343/20250801/10c74cc358814f4f9c6a4758c02c2c21.html" target="_blank" rel="noopener noreferrer">雷尼基奥仑赛：上海市人民政府</a></li>
+            <li><a href="https://m.12371.gov.cn/content/2025-11/09/content_502123.html" target="_blank" rel="noopener noreferrer">普基奥仑赛：重庆市官方发布</a></li>
+            <li><a href="https://english.pudong.gov.cn/2026-06/24/c_1192878.htm" target="_blank" rel="noopener noreferrer">舒瑞基奥仑赛：上海市浦东新区人民政府</a></li>
+          </ul>
+        </div>
+        <p class="cart-product-source">产品与适应症均应以 NMPA 最新批准信息、产品说明书及接诊医院评估为准。</p>
+        <div class="detail-section-grid detail-section-grid--media" hidden="">
+          <div class="detail-content-stack">
+            <aside class="detail-kicker"><h4>9 款已获批 CAR-T 产品</h4><p>产品选择不能仅按公开药品价格判断，还需匹配疾病类型、靶点、既往治疗线数与治疗中心资质。</p></aside>
+            <div class="detail-columns">
+              <article class="detail-card"><h4>CD19 靶点</h4><ul class="detail-list"><li>阿基仑赛注射液（奕凯达）</li><li>瑞基奥仑赛注射液（倍诺达）</li><li>纳基奥仑赛注射液（源瑞达）</li><li>雷尼基奥仑赛、普基奥仑赛等</li></ul></article>
+              <article class="detail-card"><h4>BCMA 与实体瘤靶点</h4><ul class="detail-list"><li>伊基奥仑赛、泽沃基奥仑赛、西达基奥仑赛</li><li>舒瑞基奥仑赛：CLDN18.2 靶点</li><li>公开药品价格约 99-129 万元 / 人份</li><li>未公开价格产品应向医院确认</li></ul></article>
+            </div>
+          </div>
+          <figure class="detail-media-card" data-od-id="legacy-cart-technology-image"><img src="assets/cart-image1.png" alt="体内 CAR-T 相关细胞递送与识别机制示意图" width="675" height="506" loading="lazy" decoding="async"><figcaption class="detail-media-caption"><strong>体外与体内 CAR-T 的技术路径</strong><span>当前已获批产品均为自体、体外制备 CAR-T；体内 CAR-T 仍处于早期临床研究阶段。</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+    <section class="section detail-subsection" id="detail-technology" aria-labelledby="detail-technology-heading" data-od-id="detail-technology-section">
+      <div class="shell">
+        <div class="section-heading-centered detail-subsection-heading">
+          <h3 id="detail-technology-heading">经典 CAR-T 与体内 CAR-T 的区别</h3>
+          <p class="section-intro">当前中国获批上市的 9 款产品均属于自体、体外制备的 CAR-T 产品。</p>
+        </div>
+        <div class="cart-technology-comparison">
+          <article class="cart-technology-item">
+            <h4 class="cart-technology-title">经典 CAR-T（Ex vivo CAR-T）</h4>
+            <figure class="cart-technology-media"><img src="assets/cart-image3-optimized.webp" alt="经典 CAR-T 制备与回输示意图" width="1200" height="1200" loading="lazy" decoding="async"></figure>
+            <p class="cart-technology-copy">在体外完成 T 细胞采集、基因改造、培养扩增、质量检测和回输。目前中国获批上市的 9 款产品均属于自体、体外制备的 CAR-T 产品。</p>
+          </article>
+          <article class="cart-technology-item">
+            <h4 class="cart-technology-title">体内 CAR-T（In vivo CAR-T）</h4>
+            <figure class="cart-technology-media"><img src="assets/cart-image4-optimized.webp" alt="体内 CAR-T 递送示意图" width="1200" height="900" loading="lazy" decoding="async"></figure>
+            <p class="cart-technology-copy">通过病毒载体或脂质纳米颗粒等递送系统，尝试在患者体内直接生成 CAR-T 细胞。该技术可能减少传统体外生产环节，但目前仍处于早期临床研究阶段，尚不是 NMPA 批准的常规商业治疗。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section detail-subsection" id="detail-procedure" aria-labelledby="detail-procedure-heading" data-od-id="detail-procedure-section">
+      <div class="shell">
+        <div class="section-heading-centered detail-subsection-heading">
+          <h3 id="detail-procedure-heading" data-od-id="detail-procedure-heading">治疗前评估</h3>
+          <p class="section-intro">患者还需根据具体产品说明书接受靶点、既往治疗线数、器官功能、感染状态、体能状态及疾病进展速度评估。以上为适应症概括，不替代正式说明书。</p>
+        </div>
+        <div class="detail-columns" data-od-id="cart-assessment-layout">
+          <article class="detail-card" data-od-id="cart-assessment-blood-cancers">
+            <h4>血液系统肿瘤</h4>
+            <ul class="detail-list"><li>复发或难治性大 B 细胞淋巴瘤</li><li>复发或难治性滤泡性淋巴瘤</li><li>复发或难治性套细胞淋巴瘤</li><li>复发或难治性 B 细胞急性淋巴细胞白血病</li><li>复发或难治性多发性骨髓瘤</li></ul>
+          </article>
+          <article class="detail-card" data-od-id="cart-assessment-solid-tumor">
+            <h4>实体瘤适应症</h4>
+            <ul class="detail-list"><li>符合特定条件的 CLDN18.2 阳性晚期胃癌或胃食管结合部腺癌</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section detail-subsection" id="detail-recovery" aria-labelledby="detail-recovery-heading" data-od-id="detail-recovery-section">
+      <div class="shell">
+        <div class="section-heading-centered detail-subsection-heading">
+          <h3 id="detail-recovery-heading" data-od-id="detail-recovery-heading">CAR-T 治疗流程与时间说明</h3>
+          <p class="section-intro">国际患者参考时间轴（建议预留 4-6 周在华治疗时间）</p>
+        </div>
+        <div class="cart-flow" data-od-id="cart-treatment-flow">
+          <div class="cart-flow-track" aria-hidden="true"><svg viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="cart-flow-path" pathLength="1000" d="M0 0 H1000 C1120 0 1120 440 968.75 440 H31.25"></path><path class="cart-flow-pulse" pathLength="1000" d="M0 0 H1000 C1120 0 1120 440 968.75 440 H31.25"></path></svg></div>
+          <article class="cart-flow-step cart-flow-step--1"><span class="cart-flow-node">01</span><div class="cart-flow-content"><h4 class="cart-flow-title">病历预审及适应症确认</h4><p class="cart-flow-copy">核对疾病诊断、靶点、既往治疗线数以及是否符合已获批适应症。</p><span class="cart-flow-time" aria-hidden="true"></span></div></article>
+          <article class="cart-flow-step cart-flow-step--2"><span class="cart-flow-node">02</span><div class="cart-flow-content"><h4 class="cart-flow-title">到院检查与多学科评估</h4><p class="cart-flow-copy">进行病理复核、肿瘤负荷、器官功能、感染和体能状态评估。</p><span class="cart-flow-time" aria-hidden="true"></span></div></article>
+          <article class="cart-flow-step cart-flow-step--3"><span class="cart-flow-node">03</span><div class="cart-flow-content"><h4 class="cart-flow-title">单采血采集 T 细胞</h4><p class="cart-flow-copy">采集患者外周血 T 细胞。</p><span class="cart-flow-time" aria-hidden="true"></span></div></article>
+          <article class="cart-flow-step cart-flow-step--4"><span class="cart-flow-node">04</span><div class="cart-flow-content"><h4 class="cart-flow-title">CAR-T 制备</h4><p class="cart-flow-copy">GMP 实验室完成 T 细胞分离、基因修饰、扩增、质量检测及运输。</p><span class="cart-flow-time">2-4 周</span></div></article>
+          <article class="cart-flow-step cart-flow-step--5"><span class="cart-flow-node">05</span><div class="cart-flow-content"><h4 class="cart-flow-title">必要时进行桥接治疗</h4><p class="cart-flow-copy">对病情进展较快患者给予化疗、靶向或其他治疗，稳定疾病，等待 CAR-T 制备完成。</p><span class="cart-flow-time">与制备同步</span></div></article>
+          <article class="cart-flow-step cart-flow-step--6"><span class="cart-flow-node">06</span><div class="cart-flow-content"><h4 class="cart-flow-title">淋巴细胞清除化疗</h4><p class="cart-flow-copy">采用 Fludarabine + Cyclophosphamide 方案，为 CAR-T 扩增创造条件。</p><span class="cart-flow-time">3 天</span></div></article>
+          <article class="cart-flow-step cart-flow-step--7"><span class="cart-flow-node">07</span><div class="cart-flow-content"><h4 class="cart-flow-title">CAR-T 回输</h4><p class="cart-flow-copy">静脉输注 CAR-T 细胞，通常 30-60 分钟即可完成。</p><span class="cart-flow-time">1 天</span></div></article>
+          <article class="cart-flow-step cart-flow-step--8"><span class="cart-flow-node">08</span><div class="cart-flow-content"><h4 class="cart-flow-title">住院监测</h4><p class="cart-flow-copy">重点监测细胞因子释放综合征（CRS）、神经毒性（ICANS）及感染等不良反应。</p><span class="cart-flow-time">7-14 天</span></div></article>
+          <article class="cart-flow-step cart-flow-step--9"><span class="cart-flow-node">09</span><div class="cart-flow-content"><h4 class="cart-flow-title">疗效评估与长期随访</h4><p class="cart-flow-copy">定期复查血常规、生化、CAR-T 扩增情况及疗效评价。</p><span class="cart-flow-time">2-4 周</span></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="section detail-subsection" id="detail-followup" aria-labelledby="detail-followup-heading" data-od-id="detail-followup-section">
+      <div class="shell">
+        <div class="section-heading-centered detail-subsection-heading">
+          <h3 id="detail-followup-heading">CAR-T 治疗需要恢复与长期随访的现象</h3>
+          <p class="section-intro">患者需按照治疗中心安排接受长期复查。是否能够乘坐国际航班，应由治疗团队根据血象、感染、神经系统状态和急性毒性风险进行评估，不能设定统一时间。</p>
+        </div>
+        <div class="detail-columns" data-od-id="cart-followup-layout">
+          <article class="detail-card" data-od-id="cart-followup-acute-watchlist">
+            <h4>治疗后需要关注的情况</h4>
+            <ul class="detail-list"><li>发热、低血压及呼吸困难</li><li>意识、语言、书写或行为变化</li><li>感染及长期血细胞减少</li><li>低免疫球蛋白血症</li></ul>
+          </article>
+          <article class="detail-card" data-od-id="cart-followup-longterm-watchlist">
+            <h4>长期随访中需要关注的情况</h4>
+            <ul class="detail-list"><li>肿瘤溶解综合征</li><li>迟发性神经系统症状</li><li>继发恶性肿瘤风险</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    </section>
+  </main>
+  <footer class="site-footer" data-od-id="site-footer">
+    <div class="shell footer-main">
+      <div class="footer-brand" data-od-id="footer-brand">
+        <img class="footer-brand-logo" src="assets/cmt-health-horizontal.svg" alt="CMT Health · China Medical Trip">
+        <p>帮助国际患者了解中国医疗资源，并协调医院沟通、语言支持和实际行程。</p>
+      </div>
+      <nav class="footer-group" aria-label="探索" data-od-id="footer-explore-links">
+        <h2>探索</h2>
+        <div class="footer-links">
+          <a href="../why-china.html">为什么选择中国</a>
+          <a href="../treatments.html">治疗项目</a>
+          <a href="../hospitals.html">医院</a>
+          <a href="../about.html#cases">患者故事</a>
+        </div>
+      </nav>
+      <nav class="footer-group" aria-label="支持" data-od-id="footer-support-links">
+        <h2>支持</h2>
+        <div class="footer-links">
+          <a href="../how-it-works.html">如何运作</a>
+          <a href="../about.html#faq">常见问题</a>
+          <a href="../about.html#faq">联系我们</a>
+        </div>
+      </nav>
+      <nav class="footer-group" aria-label="用户须知" data-od-id="footer-legal-links">
+        <h2>用户须知</h2>
+        <div class="footer-links">
+          <a href="../about.html#standards">内容标准</a>
+          <a href="../about.html#privacy">隐私政策</a>
+          <a href="../about.html#disclaimer">免责声明</a>
+        </div>
+      </nav>
+    </div>
+    <div class="shell footer-bottom" data-od-id="footer-bottom">
+      <p>©2026 CMT（China Medical Trip）</p>
+      <p>本网站仅提供一般信息和非临床协调服务，不构成医疗建议。</p>
+    </div>
+    <div class="footer-watermark" aria-hidden="true"><img src="assets/cmt-health-horizontal.svg" alt=""></div>
+  </footer>
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden=""></div>
+  <aside class="consult-drawer" id="consult-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-describedby="drawer-description" hidden="" data-od-id="consultation-drawer">
+    <div class="drawer-head">
+      <h2 id="drawer-title">在线咨询顾问</h2>
+      <button class="icon-button" type="button" aria-label="关闭咨询面板" data-drawer-close=""><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+    </div>
+    <div class="drawer-body">
+      <p id="drawer-description">协调顾问可以先帮助您梳理 CAR-T 就医相关的非临床问题，再说明下一步需要向医院确认什么。</p>
+      <div class="drawer-warning" role="note"><strong>请勿提交医疗资料</strong><br>不要发送诊断、症状、病历、影像、检查报告、身份证件或附件。</div>
+      <ul class="consult-topics" aria-label="可以讨论的内容">
+        <li>语言与沟通偏好</li>
+        <li>目标城市、可出行时间和陪同人员</li>
+        <li>住宿、术后康复与回程安排</li>
+        <li>如何进入医院认可的安全资料渠道</li>
+      </ul>
+      <p class="reply-time">留下非临床问题后，协调顾问将在 1 个工作日内回复。本原型不提供即时聊天或页面内留资。</p>
+    </div>
+    <div class="drawer-foot">
+      <a class="button button-secondary" href="../index.html"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"></use></svg><span>预约回电</span></a>
+    </div>
+  </aside>
+  <script>
+    (() => {
+      const menuButton = document.querySelector('.menu-toggle');
+      const menuLabel = menuButton.querySelector('.menu-label');
+      const mobileNav = document.getElementById('mobile-navigation');
+      const drawer = document.getElementById('consult-drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      const closeButton = drawer.querySelector('[data-drawer-close]');
+      const consultButtons = document.querySelectorAll('[data-consult]');
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let lastFocus = null;
+      let drawerCloseTimer = null;
+      let motionObserver = null;
+      let revealObserver = null;
+      let headerObserver = null;
+      const closeMenu = () => {
+        mobileNav.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuLabel.textContent = '菜单';
+      };
+      menuButton.addEventListener('click', () => {
+        const nextOpen = !mobileNav.classList.contains('is-open');
+        mobileNav.classList.toggle('is-open', nextOpen);
+        menuButton.setAttribute('aria-expanded', String(nextOpen));
+        menuLabel.textContent = nextOpen ? '关闭' : '菜单';
+      });
+      mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      const cartInstitutionTabs = Array.from(document.querySelectorAll('[data-cart-institution-tab]'));
+      const selectCartInstitutionTab = (selectedTab, moveFocus = false) => {
+        cartInstitutionTabs.forEach((tab) => {
+          const isSelected = tab === selectedTab;
+          const panel = document.getElementById(tab.getAttribute('aria-controls'));
+          tab.setAttribute('aria-selected', String(isSelected));
+          tab.tabIndex = isSelected ? 0 : -1;
+          panel.hidden = !isSelected;
+        });
+        if (moveFocus) selectedTab.focus();
+      };
+      cartInstitutionTabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectCartInstitutionTab(tab));
+        tab.addEventListener('keydown', (event) => {
+          let nextIndex = null;
+          if (event.key === 'ArrowLeft') nextIndex = (index - 1 + cartInstitutionTabs.length) % cartInstitutionTabs.length;
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % cartInstitutionTabs.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = cartInstitutionTabs.length - 1;
+          if (nextIndex === null) return;
+          event.preventDefault();
+          selectCartInstitutionTab(cartInstitutionTabs[nextIndex], true);
+        });
+      });
+      const hospitalCarousel = document.querySelector('[data-hospital-carousel]');
+      if (hospitalCarousel) {
+        const previousButton = document.querySelector('[data-hospital-carousel-prev]');
+        const nextButton = document.querySelector('[data-hospital-carousel-next]');
+        const updateCarouselControls = () => {
+          const maxScroll = hospitalCarousel.scrollWidth - hospitalCarousel.clientWidth;
+          previousButton.disabled = hospitalCarousel.scrollLeft <= 2;
+          nextButton.disabled = hospitalCarousel.scrollLeft >= maxScroll - 2;
+        };
+        const moveCarousel = (direction) => {
+          hospitalCarousel.scrollBy({
+            left: direction * Math.max(280, hospitalCarousel.clientWidth * .82),
+            behavior: motionQuery.matches ? 'auto' : 'smooth'
+          });
+        };
+        previousButton.addEventListener('click', () => moveCarousel(-1));
+        nextButton.addEventListener('click', () => moveCarousel(1));
+        hospitalCarousel.addEventListener('keydown', (event) => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          moveCarousel(event.key === 'ArrowLeft' ? -1 : 1);
+        });
+        hospitalCarousel.addEventListener('scroll', updateCarouselControls, { passive: true });
+        if ('ResizeObserver' in window) new ResizeObserver(updateCarouselControls).observe(hospitalCarousel);
+        updateCarouselControls();
+      }
+      const sectionLinks = Array.from(document.querySelectorAll('.page-anchor-nav a'));
+      const sectionNavigationMap = {
+        'detail-basic': 'detailed-information',
+        'detail-technology': 'detailed-information',
+        'detail-procedure': 'detailed-information',
+        'detail-recovery': 'detailed-information',
+        'detail-followup': 'detailed-information'
+      };
+      const sectionTargets = Array.from(document.querySelectorAll('main > section[id], #detailed-information > section[id]')).filter((section) =>
+        sectionLinks.some((link) => link.getAttribute('href') === `#${sectionNavigationMap[section.id] || section.id}`)
+      );
+      if ('IntersectionObserver' in window) {
+        const navigationObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const currentNavigationId = sectionNavigationMap[entry.target.id] || entry.target.id;
+            sectionLinks.forEach((link) => {
+              const isCurrent = link.getAttribute('href') === `#${currentNavigationId}`;
+              if (isCurrent) link.setAttribute('aria-current', 'location');
+              else link.removeAttribute('aria-current');
+            });
+            if (window.matchMedia('(max-width: 640px)').matches) {
+              const currentLink = sectionLinks.find((link) => link.getAttribute('href') === `#${currentNavigationId}`);
+              const navigation = currentLink && currentLink.parentElement;
+              if (currentLink && navigation) {
+                const linkStart = currentLink.offsetLeft;
+                const linkEnd = linkStart + currentLink.offsetWidth;
+                const viewStart = navigation.scrollLeft;
+                const viewEnd = viewStart + navigation.clientWidth;
+                if (linkStart < viewStart + 12 || linkEnd > viewEnd - 12) {
+                  navigation.scrollTo({
+                    left: Math.max(0, linkStart - (navigation.clientWidth - currentLink.offsetWidth) / 2),
+                    behavior: motionQuery.matches ? 'auto' : 'smooth'
+                  });
+                }
+              }
+            }
+          });
+        }, { rootMargin: '-28% 0px -62% 0px', threshold: 0 });
+        sectionTargets.forEach((section) => navigationObserver.observe(section));
+      }
+      const openDrawer = (trigger) => {
+        if (drawerCloseTimer) {
+          window.clearTimeout(drawerCloseTimer);
+          drawerCloseTimer = null;
+        }
+        lastFocus = trigger;
+        consultButtons.forEach((button) => button.setAttribute('aria-expanded', String(button === trigger)));
+        drawer.hidden = false;
+        backdrop.hidden = false;
+        document.body.classList.add('is-locked');
+        window.requestAnimationFrame(() => {
+          drawer.classList.add('is-open');
+          backdrop.classList.add('is-open');
+          closeButton.focus();
+        });
+        window.dispatchEvent(new CustomEvent('medora:open-consultation', { detail: { source: trigger.dataset.odId || 'landing-page' } }));
+      };
+      const finishDrawerClose = () => {
+        drawer.hidden = true;
+        backdrop.hidden = true;
+        drawerCloseTimer = null;
+        if (lastFocus) lastFocus.focus();
+      };
+      const closeDrawer = () => {
+        if (drawer.hidden) return;
+        drawer.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        document.body.classList.remove('is-locked');
+        consultButtons.forEach((button) => button.setAttribute('aria-expanded', 'false'));
+        if (drawerCloseTimer) window.clearTimeout(drawerCloseTimer);
+        if (motionQuery.matches) finishDrawerClose();
+        else drawerCloseTimer = window.setTimeout(finishDrawerClose, 230);
+      };
+      consultButtons.forEach((button) => {
+        button.setAttribute('aria-haspopup', 'dialog');
+        button.setAttribute('aria-controls', 'consult-drawer');
+        button.setAttribute('aria-expanded', 'false');
+        button.addEventListener('click', () => openDrawer(button));
+      });
+      closeButton.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          if (!drawer.hidden) closeDrawer();
+          closeMenu();
+        }
+        if (event.key === 'Tab' && !drawer.hidden) {
+          const focusable = drawer.querySelectorAll('button, a[href]');
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      });
+      const heroPhoto = document.getElementById('hero-photo');
+      const heroMediaFrame = document.getElementById('hero-media-frame');
+      const markHeroLoaded = () => {
+        heroMediaFrame.classList.remove('is-loading');
+        heroMediaFrame.setAttribute('aria-busy', 'false');
+      };
+      const markHeroError = () => {
+        heroMediaFrame.classList.remove('is-loading');
+        heroMediaFrame.setAttribute('aria-busy', 'false');
+        heroPhoto.hidden = true;
+        document.getElementById('hero-image-error').classList.add('is-visible');
+      };
+      if (heroPhoto.complete) {
+        if (heroPhoto.naturalWidth > 0) markHeroLoaded();
+        else markHeroError();
+      } else {
+        heroPhoto.addEventListener('load', markHeroLoaded, { once: true });
+        heroPhoto.addEventListener('error', markHeroError, { once: true });
+      }
+      const flowList = document.getElementById('flow-list');
+      const flowSteps = Array.from(flowList.querySelectorAll('.flow-step'));
+      const revealTargets = Array.from(document.querySelectorAll('.section-media'));
+      const revealGroups = [
+        '.section-heading-centered',
+        '#why-china .claim-item',
+        '#hospital-assessment .situation',
+        '.hospital-panel-heading',
+        '.cart-flow-step'
+      ];
+      const revealBlocks = [];
+      revealGroups.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((target, index) => {
+          target.classList.add('reveal-block');
+          target.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 55}ms`);
+          revealBlocks.push(target);
+        });
+      });
+      if ('IntersectionObserver' in window && !motionQuery.matches) {
+        document.documentElement.classList.add('motion-enabled');
+        motionObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            if (entry.target.classList.contains('section-media')) {
+              entry.target.classList.add('is-revealed');
+              motionObserver.unobserve(entry.target);
+              return;
+            }
+            const index = flowSteps.indexOf(entry.target);
+            flowSteps.forEach((step, stepIndex) => step.classList.toggle('is-active', stepIndex <= index));
+            const progress = flowSteps.length > 1 ? (index / (flowSteps.length - 1)) * 100 : 100;
+            flowList.style.setProperty('--flow-progress', `${progress}%`);
+          });
+        }, { rootMargin: '-28% 0px -52% 0px', threshold: 0.15 });
+        flowSteps.forEach((step) => motionObserver.observe(step));
+        revealTargets.forEach((target) => motionObserver.observe(target));
+        revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            revealObserver.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -2% 0px', threshold: 0.08 });
+        revealBlocks.forEach((target) => revealObserver.observe(target));
+      } else {
+        flowSteps.forEach((step) => step.classList.add('is-active'));
+        revealTargets.forEach((target) => target.classList.add('is-revealed'));
+        revealBlocks.forEach((target) => target.classList.add('is-revealed'));
+      }
+      if ('IntersectionObserver' in window) {
+        const header = document.querySelector('.site-header');
+        const hero = document.getElementById('hero');
+        headerObserver = new IntersectionObserver(([entry]) => {
+          header.classList.toggle('is-elevated', !entry.isIntersecting);
+        }, { rootMargin: '-120px 0px 0px', threshold: 0 });
+        headerObserver.observe(hero);
+      }
+      window.addEventListener('pagehide', () => {
+        if (drawerCloseTimer) window.clearTimeout(drawerCloseTimer);
+        if (motionObserver) motionObserver.disconnect();
+        if (revealObserver) revealObserver.disconnect();
+        if (headerObserver) headerObserver.disconnect();
+      }, { once: true });
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

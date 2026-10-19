@@ -1,0 +1,462 @@
+[
+  {
+    "path": "CMT-Health中文站-客户确认.html",
+    "bytes": 52854,
+    "sha256": "2adc00b58c7cb01aaeb884f60c15a71c5605d90a003d22a4bb4a2a8aef1edff1"
+  },
+  {
+    "path": "about.html",
+    "bytes": 35259,
+    "sha256": "56b219206eaba10d8d9c063692b5566cc0d7ff2f9724ff41545e3a64c82b7b16"
+  },
+  {
+    "path": "assets/brand/cmt-health-horizontal-white.svg",
+    "bytes": 9369,
+    "sha256": "00e4f62ac139707880d38e1970fb06aa1aaaab7af862934c59e2e98e18fee094"
+  },
+  {
+    "path": "assets/brand/cmt-health-horizontal.svg",
+    "bytes": 9379,
+    "sha256": "16adf53c43370cda25fc1796023b666932995c8faa65009745fb6210e6bbbaf5"
+  },
+  {
+    "path": "assets/brand/cmt-health-mark-white.svg",
+    "bytes": 918,
+    "sha256": "9f70e8ffa0866ecf6903e0cbbf0010e9e552af0e5d9b1e673884ede7c3ae2fc4"
+  },
+  {
+    "path": "assets/brand/cmt-health-mark.png",
+    "bytes": 29452,
+    "sha256": "e6006910886a4122396b0e22675013009faf77ffe0b7192310fa1c047e2807d1"
+  },
+  {
+    "path": "assets/brand/cmt-health-mark.svg",
+    "bytes": 904,
+    "sha256": "b72ef3b63a16ed145a792aad1528b008550d8fcb16467cdbbd8d9b1f5c972cc5"
+  },
+  {
+    "path": "assets/cdn/6394aafbddf74fb59e10e19e515c4d55.thumbnail.0000000000.jpg",
+    "bytes": 203731,
+    "sha256": "9a23bb2ddb17ab98c262c9c7e863c39597a3f8df54acebf06ee1aa777d108f73"
+  },
+  {
+    "path": "assets/cdn/aa419433482449aaa293fa2bf74246a0.thumbnail.0000000000.jpg",
+    "bytes": 140900,
+    "sha256": "cdb2eac5dc08199781af3c933bae2e4c44eb3b635e3ff225b2d838db8784234d"
+  },
+  {
+    "path": "assets/cdn/b01d4ecbd42842d6b06f5b62080b3ab3.thumbnail.0000000000.jpg",
+    "bytes": 100625,
+    "sha256": "19d48b6182d561e6824d9d8d522391b31535d3058dca5f622dc044a294d21705"
+  },
+  {
+    "path": "assets/cdn/cardiovascular-disease.webp",
+    "bytes": 231282,
+    "sha256": "3129cc1484a0e60f005c6eb4dd2f28536e6017995594827c188feaecd440f0a1"
+  },
+  {
+    "path": "assets/cdn/dental.webp",
+    "bytes": 220569,
+    "sha256": "3248c487e2acf35fe78618d43c189a183928ea30cac6823f6036155de6222867"
+  },
+  {
+    "path": "assets/cdn/digestive-disease.webp",
+    "bytes": 187622,
+    "sha256": "877d4bf3394a9fdd2536c51650f634aef1b7e952e7d39c5b0625fe9c9b40b821"
+  },
+  {
+    "path": "assets/cdn/ff99eaef79af444481cbcac8d3498e1d.thumbnail.0000000000.jpg",
+    "bytes": 211977,
+    "sha256": "b0b0f04e6c622c56ee85d539dda79495608aa7f8751456b53fadd779750cc27b"
+  },
+  {
+    "path": "assets/cdn/gynecological-disease.webp",
+    "bytes": 195143,
+    "sha256": "9ed350260885095d2701bc37756d0d08715824cf8db4a2167c8be56a408f2a30"
+  },
+  {
+    "path": "assets/cdn/hero-poster.webp",
+    "bytes": 145910,
+    "sha256": "0298fe66612cee66b2f326ab4b4b24383e7763f6fd978afc7bf14dfad08c6e01"
+  },
+  {
+    "path": "assets/cdn/high-end-health-travel.webp",
+    "bytes": 237431,
+    "sha256": "b7099a4f2a9139382b80b1551a33f2ba0190241fae46c10495b1294db914570d"
+  },
+  {
+    "path": "assets/cdn/hospital-001.jpg",
+    "bytes": 130165,
+    "sha256": "293064bd08867306b84770886fe7dadda35dbbb21bf2297922489777c3653d6f"
+  },
+  {
+    "path": "assets/cdn/hospital-002.jpg",
+    "bytes": 168464,
+    "sha256": "90d1214e3af948aa087c7f0a444b7e303b96ed501bbbdb36e50bc8decb3cc89a"
+  },
+  {
+    "path": "assets/cdn/hospital-003.jpg",
+    "bytes": 152908,
+    "sha256": "88e75367ee578f150fe9c542bdb700bb832c8006bf3f2377f79da41d337b5eb1"
+  },
+  {
+    "path": "assets/cdn/hospital-004.jpg",
+    "bytes": 146950,
+    "sha256": "fa3c75b12f5ac42ff77942096f408a1ae4957272c2c98ae53964f3e37eeb7631"
+  },
+  {
+    "path": "assets/cdn/hospital-005.jpg",
+    "bytes": 131202,
+    "sha256": "a67d56eb7c5a2eac768563cff006ee5080a4d46a0f68499eefb22606e035f3dc"
+  },
+  {
+    "path": "assets/cdn/hospital-006.jpg",
+    "bytes": 130193,
+    "sha256": "80cc3b9b3fee92655789415d5296ca424be1ace243232f833c7edac4fd693e4b"
+  },
+  {
+    "path": "assets/cdn/hospital-007.jpg",
+    "bytes": 122608,
+    "sha256": "d74bbbc022b485dd37f52ee84ebe085e190b0226e6f11f9cd84c493aacfd32c4"
+  },
+  {
+    "path": "assets/cdn/hospital-008.jpg",
+    "bytes": 114250,
+    "sha256": "d29b385d9b4bd74641ba53e62f285cbed9df20e9c1400a91d41a2389327bc58d"
+  },
+  {
+    "path": "assets/cdn/hospital-009.jpg",
+    "bytes": 145718,
+    "sha256": "d68544dc4dae6906eb3ff6a865712eb74d09265c668d226b2e6e8bcc0d9d5ea9"
+  },
+  {
+    "path": "assets/cdn/hospital-010.jpg",
+    "bytes": 168403,
+    "sha256": "0387c9a0379537bfbd25ef2ae422ef4b592cbd6aaa9ab477d4aea6d798577f50"
+  },
+  {
+    "path": "assets/cdn/hospital-011.jpg",
+    "bytes": 159932,
+    "sha256": "50753cf630eb433e66decd14321608c9959bdb10fb3fa3ed97ba5ab06dd13c76"
+  },
+  {
+    "path": "assets/cdn/hospital-012.jpg",
+    "bytes": 102542,
+    "sha256": "911908ac42dc3b7c1b46b63bfba95ad4a1c905155607f50b7a4b84eb1fae2953"
+  },
+  {
+    "path": "assets/cdn/hospital-013.jpg",
+    "bytes": 156349,
+    "sha256": "43cc5d600bc6102d3ddbb2260aa064d6f4ba9b60ec797a3557924fcdbc782d3a"
+  },
+  {
+    "path": "assets/cdn/hospital-014.jpg",
+    "bytes": 98700,
+    "sha256": "9e0ddb4cca97f2cca6e4714dc74ef00d54f0f5625a0824f0b48ff4f969ad35b0"
+  },
+  {
+    "path": "assets/cdn/hospital-015.jpg",
+    "bytes": 112250,
+    "sha256": "79c34e8a6b4444f46cff432fd0478a1daa2a9f187eb29396fb6957b7a480015c"
+  },
+  {
+    "path": "assets/cdn/hospital-016.jpg",
+    "bytes": 125869,
+    "sha256": "d812449e470ec674a9d85797ebb940df05222899177a9ea9838bcfb27625a383"
+  },
+  {
+    "path": "assets/cdn/hospital-017.jpg",
+    "bytes": 187023,
+    "sha256": "72c7c5489e4b44e7095e869beabb7e07993f8af8f4f125c6e29373e07d1e2021"
+  },
+  {
+    "path": "assets/cdn/hospital-018.jpg",
+    "bytes": 184067,
+    "sha256": "5460b9a0be6c4d11a69b333f1aca98950ff04f02349f3a1c341f6ffdabb40ea3"
+  },
+  {
+    "path": "assets/cdn/line-joint.webp",
+    "bytes": 174022,
+    "sha256": "3766d499c322fadbebb9e8c2ec9ac0feb9ec46a7f40bdabbb1fa54e8371c1b0f"
+  },
+  {
+    "path": "assets/cdn/line-light.webp",
+    "bytes": 169389,
+    "sha256": "8b78f24e41ab8d9054bf18354e858ac18ae5520266b23cac99e630d1cb8eb933"
+  },
+  {
+    "path": "assets/cdn/line-tcm.webp",
+    "bytes": 132552,
+    "sha256": "76242c31f673478c2ddc7863f360ffc83faa50566588add989c6897de5cefb65"
+  },
+  {
+    "path": "assets/cdn/manifest.json",
+    "bytes": 4418,
+    "sha256": "16938b0412f6071dcf77553632e91f4869cce4372e6fbd730cb0191bcc713f5e"
+  },
+  {
+    "path": "assets/css/car-t.css",
+    "bytes": 13504,
+    "sha256": "12f2d7119a84640ea6a2108f263ddcaa4da5002b14539309ec42afe7b58aadda"
+  },
+  {
+    "path": "assets/css/design-override.css",
+    "bytes": 57773,
+    "sha256": "5065f8490d645eab4b91bd886f29232f19068d3a54795142f0ebe52557f98cd2"
+  },
+  {
+    "path": "assets/css/medora.css",
+    "bytes": 612250,
+    "sha256": "3f19c9d63ce46362e046691637b3f9c467bfcbedf17b95a711b629500f952303"
+  },
+  {
+    "path": "assets/fonts/barlow-bold.woff2",
+    "bytes": 30052,
+    "sha256": "62926e5e4899ffef7f9821fc4cbf61a96818a1dbdb6d0afd341957e727cf5774"
+  },
+  {
+    "path": "assets/images/hospital-banner2.webp",
+    "bytes": 46544,
+    "sha256": "3e026f84dfe7fa891623d2cf3d76a3e8f15aff850609c63d7a0405b2f86780ef"
+  },
+  {
+    "path": "assets/images/request-a-call-banner.webp",
+    "bytes": 38194,
+    "sha256": "0ebe5fa2a442adc13cdc4ab91454443c954337e714d2a3329015143aeab83afd"
+  },
+  {
+    "path": "assets/images/stories-banner.webp",
+    "bytes": 35326,
+    "sha256": "c4f85a13889c3bf2f06e76d4d9f1da50088ec00be8ab9f26c58e206a2df4ff22"
+  },
+  {
+    "path": "assets/images/treatments-banner.webp",
+    "bytes": 37434,
+    "sha256": "1047d4e07997b41003a3b98c531f857e7abee0c158c9a2447401e70059af1228"
+  },
+  {
+    "path": "assets/images/trip-banner.webp",
+    "bytes": 39220,
+    "sha256": "c7bf0a9f9bf4cdd12116cc31800b02c3421c7d1b0a8baca2b2bef30bfcaafa5d"
+  },
+  {
+    "path": "assets/optimized/banner-about.webp",
+    "bytes": 58176,
+    "sha256": "4ffa9e20d66de03b72a1f7133a6db04b990b3144bd5c36baaf48c49195b7268b"
+  },
+  {
+    "path": "assets/optimized/banner-car-t.webp",
+    "bytes": 64464,
+    "sha256": "9ff5d900ba67f893294b614412ddbd4fe848710745b0fe03325badd58694f9e8"
+  },
+  {
+    "path": "assets/optimized/banner-hospitals.webp",
+    "bytes": 52166,
+    "sha256": "5d4398fc129adc0175315e81dd0d103775d8993b3fbbae8efc43e65f4a3fef71"
+  },
+  {
+    "path": "assets/optimized/banner-how-it-works.webp",
+    "bytes": 52718,
+    "sha256": "e5b962bf5d04df6c9c81648e924d71e570028dda2c3008039d8983c0ba54931d"
+  },
+  {
+    "path": "assets/optimized/banner-patient-stories.webp",
+    "bytes": 49866,
+    "sha256": "fed97f8165444cab12578f6384b49d92b98f729a863d6004e8907ee296243a13"
+  },
+  {
+    "path": "assets/optimized/banner-placeholder.webp",
+    "bytes": 51918,
+    "sha256": "be41472d6d0fb5f2e2eb2b1c725a3646d455209b7dda5799f34a7aa7fb8ddf6f"
+  },
+  {
+    "path": "assets/optimized/banner-tcm.webp",
+    "bytes": 41708,
+    "sha256": "ce62d38fb586fd134149457cbf1e3df3f5d3f3ccecc0f677b492b52858054748"
+  },
+  {
+    "path": "assets/optimized/banner-treatments.webp",
+    "bytes": 73770,
+    "sha256": "aa1eab2d39c37bf0595fb2f692b528334e08b11e66615f0f534449a6dd445b04"
+  },
+  {
+    "path": "assets/optimized/banner-why-china.webp",
+    "bytes": 51056,
+    "sha256": "30d47b4922c0ece78fe3b1e1b8f17028ec71db2c738cce46d893cf3c6b497916"
+  },
+  {
+    "path": "assets/optimized/hero-landscape.mp4",
+    "bytes": 845342,
+    "sha256": "cdb024170d964f4c4c112c952687eb4aedfbd586a7dca994047b03274d536fc1"
+  },
+  {
+    "path": "assets/optimized/hero-portrait.mp4",
+    "bytes": 553639,
+    "sha256": "79abb7709952cc987ba2f3786e30a88d8081a342c3fea9807bd799e9a0ab9a11"
+  },
+  {
+    "path": "assets/optimized/line-oncology.webp",
+    "bytes": 116678,
+    "sha256": "85fc9ada990eb77203d7c428019eff5d219a251a6957aa9782e3f31856e79275"
+  },
+  {
+    "path": "assets/optimized/source-han-sans-cn-subset.woff2",
+    "bytes": 154452,
+    "sha256": "5104a2af74e35dbff49af76ccbbd053fe3f750667362bcc462f5335c6964a6ad"
+  },
+  {
+    "path": "assets/videos/hero-poster.webp",
+    "bytes": 54032,
+    "sha256": "ee59926663892f85dd8234183e4ff8a8b53962cac5db55b840b9afa7ee63c0b1"
+  },
+  {
+    "path": "assets/videos/patient-stories/story-01.mp4",
+    "bytes": 3782895,
+    "sha256": "d8c421c7b7e24168b2bd3616a9b6362d77666c17af4e71d679478b7cd69025e5"
+  },
+  {
+    "path": "assets/videos/patient-stories/story-02.mp4",
+    "bytes": 18029790,
+    "sha256": "ea037943cdd20d5cb64f48166b761446cedf5c67328149bb92bbec35dbafdd94"
+  },
+  {
+    "path": "assets/videos/patient-stories/story-03.mp4",
+    "bytes": 15715843,
+    "sha256": "a6521f89f0ff19c228a2c8122d423d20f4651e1b3aca5ca641ad459621a7caf0"
+  },
+  {
+    "path": "assets/videos/patient-stories/story-04.mp4",
+    "bytes": 14755239,
+    "sha256": "519afa1502a288f0c88780672bd3df4b3904abaf1731fe5232c3fec53d1454c2"
+  },
+  {
+    "path": "car-t/assets/banner-car-t.webp",
+    "bytes": 64464,
+    "sha256": "9ff5d900ba67f893294b614412ddbd4fe848710745b0fe03325badd58694f9e8"
+  },
+  {
+    "path": "car-t/assets/car-t-cell-infusion-chinese-nurse-1200x900-optimized.webp",
+    "bytes": 79966,
+    "sha256": "2b0e2e548f01682ce21d3252373287f205357e28de817920550801a63a8ba52f"
+  },
+  {
+    "path": "car-t/assets/car-t-cell-preparation-1200x900-optimized.webp",
+    "bytes": 84000,
+    "sha256": "83630ace6ad0dcddef4b2e8ba081b9712d60f59dfc37007e500bf59f1d3f4eeb"
+  },
+  {
+    "path": "car-t/assets/cart-experts/huang-he-white-bg-v2.png",
+    "bytes": 79207,
+    "sha256": "f3e61aae6bb1e615116ad4468d466140651b1b5300d2422d6fe23456e43dcc9e"
+  },
+  {
+    "path": "car-t/assets/cart-experts/shen-lin-white-bg-v2.png",
+    "bytes": 121223,
+    "sha256": "9f59f96dee0047ec8af1bf13c73da2747469ca1c72088fe99c2dc73da18802be"
+  },
+  {
+    "path": "car-t/assets/cart-experts/wang-jianxiang-white-bg-v2.png",
+    "bytes": 119935,
+    "sha256": "4b41f6947b845c6664281ef42cb7fe76cf875c8d6b54af43ecefb48edf0f0420"
+  },
+  {
+    "path": "car-t/assets/cart-experts/zhao-weili-white-bg-v2.png",
+    "bytes": 48639,
+    "sha256": "889412cd6e9cc39c66d32c3b2e6faa95bc38c80ffe9112548c9966a4f4ba6262"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/ihcams-tianjin.jpeg",
+    "bytes": 145975,
+    "sha256": "e3d523f12a199e2ef99b99123c3f33f027b533b5a1d3012e75d4ac91f9458ca8"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/peking-cancer.jpeg",
+    "bytes": 63439,
+    "sha256": "4013ddc416c27a78619e905e094a60bf04d77befbe965250507aff903fc7cb0d"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/ruijin-shanghai.jpeg",
+    "bytes": 120444,
+    "sha256": "9a55fd79cb1119f31ac14add455fefb4158bb6e9fe28e25d5158a55e69d53a2b"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/tongji-wuhan.jpeg",
+    "bytes": 97110,
+    "sha256": "9a249b32a0397e2abab4a5cd373a51304315d010229a5e58c3e2237480acaef5"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/zhejiang-first.jpeg",
+    "bytes": 151820,
+    "sha256": "f8367ce495b1a82a9f9a9f71401c540b1d65a0b38476fa7da61579e309237a72"
+  },
+  {
+    "path": "car-t/assets/cart-hospitals/zhongshan-shanghai.jpeg",
+    "bytes": 121058,
+    "sha256": "77c4442964b0e011c10b1ea16ef07536d730ca40420d5f327c956af59e872f9a"
+  },
+  {
+    "path": "car-t/assets/cart-image1.png",
+    "bytes": 400280,
+    "sha256": "c6f1ec773c6f66421508c765532ca2744358379941d6dceeba3853a0e6c93160"
+  },
+  {
+    "path": "car-t/assets/cart-image3-optimized.webp",
+    "bytes": 103038,
+    "sha256": "347aff875a244d492568c0636a4709915f583ca1d2019d8e8658552470168ac0"
+  },
+  {
+    "path": "car-t/assets/cart-image4-optimized.webp",
+    "bytes": 49334,
+    "sha256": "9a6a5ad5cadd3714a19924e7e5f1d659ae72c682f13a469e43c02ed28c13ca90"
+  },
+  {
+    "path": "car-t/assets/cmt-health-horizontal.svg",
+    "bytes": 9500,
+    "sha256": "775f4b93f3a2230fd71ae0b6f195b11135c625cffe98715cca9d360b39993e7f"
+  },
+  {
+    "path": "car-t/assets/medora-cart-treatment-hero-v2-optimized.webp",
+    "bytes": 156004,
+    "sha256": "878afa376078023a2acc0989ff84822e5de2eb06453fbd35e73977e70cd92581"
+  },
+  {
+    "path": "car-t/index.html",
+    "bytes": 191531,
+    "sha256": "48eb1ad2112478c695499a7e45cc25dcc0882fcb8b7691b69f7036f65729a15a"
+  },
+  {
+    "path": "hospitals.html",
+    "bytes": 54907,
+    "sha256": "88f8a94751efbaf70bdba913afa600f92bfcd07d8a6fda5f284c060387ca9428"
+  },
+  {
+    "path": "how-it-works.html",
+    "bytes": 34120,
+    "sha256": "95058fc32ebabba8de9fa7dbc3318774a43f3a37d8793670efe784f772b6c362"
+  },
+  {
+    "path": "index.html",
+    "bytes": 52854,
+    "sha256": "2adc00b58c7cb01aaeb884f60c15a71c5605d90a003d22a4bb4a2a8aef1edff1"
+  },
+  {
+    "path": "static.js",
+    "bytes": 13577,
+    "sha256": "7d4538722bbc7e5a4fceaacce3f96a8d2f0b5c1abcea1c9b9469aa8be3ba29e5"
+  },
+  {
+    "path": "treatments.html",
+    "bytes": 37771,
+    "sha256": "4ccbe0f594381f953882283f5e427110d2523372340c79f75f0e85b12b0f0e9f"
+  },
+  {
+    "path": "why-china.html",
+    "bytes": 36860,
+    "sha256": "a06f6c16236996c155c5aa221cc8418170800760e43e3c0f5bf7c8cea2f40404"
+  },
+  {
+    "path": "使用说明.txt",
+    "bytes": 707,
+    "sha256": "3086ae6904c7e6fd0e0444bbd9850a84b04835680eb65cdb87f01741c700380c"
+  }
+]

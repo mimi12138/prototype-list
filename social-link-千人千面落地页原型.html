@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千人千面落地页 - 商品承接原型 v13</title>
+<style>
+:root{
+  --bg:#fff;--soft:#f6f7f9;--panel:#fbfcfd;--ink:#101828;--muted:#667085;--light:#98a2b3;
+  --line:#e4e7ec;--line2:#eef0f4;--blue:#1268d6;--blue2:#eef6ff;--green:#079455;--green2:#ecfdf3;
+  --amber:#b86b00;--amber2:#fff7e8;--red:#d92d20;--red2:#fef3f2;--violet:#6941c6;--violet2:#f4f3ff;
+  --r:8px;--r2:12px;--shadow:0 8px 24px rgba(16,24,40,.06),0 2px 8px rgba(16,24,40,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;overflow-x:hidden}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--soft);color:var(--ink);line-height:1.5}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer;border:0;background:none}
+a{text-decoration:none}
+.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh;max-width:100vw}
+.side{background:#111827;color:#d1d5db;padding:18px 14px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px}
+.mark{width:30px;height:30px;border-radius:7px;background:var(--blue);display:grid;place-items:center;font-size:13px}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav-group{font-size:12px;color:#9ca3af;font-weight:700;padding:10px 12px 4px}
+.nav button{color:#d1d5db;text-align:left;border-radius:7px;padding:10px 12px;font-size:13px}
+.nav button.active,.nav button:hover{background:#1f2937;color:#fff}
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:58px;background:#fff;border-bottom:1px solid var(--line2);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.top h1{font-size:17px;font-weight:650}
+.content{padding:22px 24px;overflow-x:hidden;overflow-y:auto;min-width:0}
+.screen{display:none}.screen.active{display:block}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.metric{background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:15px 16px;box-shadow:var(--shadow);text-align:left}
+.metric.active{border-color:var(--blue);background:var(--blue2)}
+.metric .k{font-size:12px;color:var(--muted)}.metric .v{font-size:24px;font-weight:750;margin-top:3px}
+.card{background:#fff;border:1px solid var(--line2);border-radius:var(--r2);box-shadow:var(--shadow);min-width:0}
+.pad{padding:18px}
+.toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.input,.select,textarea{border:1px solid var(--line);border-radius:6px;background:#fff;padding:8px 10px;font-size:13px;min-height:36px}
+.input{width:230px}.select{min-width:150px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;background:#fff;color:var(--ink);font-size:13px;font-weight:650;min-height:36px}
+.btn:hover{background:var(--soft)}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.blue{color:var(--blue);background:var(--blue2);border-color:#c9e1ff}.btn.danger{color:var(--red);border-color:#f2b8b5}.btn.sm{min-height:28px;padding:5px 9px;font-size:12px}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.table{width:100%;min-width:760px;border-collapse:collapse}.table th,.table td{padding:12px 14px;border-bottom:1px solid var(--line2);font-size:13px;text-align:left;vertical-align:middle}.table th{background:var(--panel);color:var(--muted);font-weight:650}.table tr:hover td{background:#fafafa}.report-table th:last-child,.report-table td:last-child{width:126px;min-width:126px}.report-table td:last-child .btn{white-space:nowrap}
+.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}.pager .btn{min-height:30px;padding:5px 10px;font-size:12px}.pager .page-current{color:var(--ink);font-weight:750}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;min-height:22px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+.tag.green{background:var(--green2);color:var(--green)}.tag.blue{background:var(--blue2);color:var(--blue)}.tag.amber{background:var(--amber2);color:var(--amber)}.tag.gray{background:#f2f4f7;color:#667085}.tag.violet{background:var(--violet2);color:var(--violet)}.tag.red{background:var(--red2);color:var(--red)}
+.mono{font-family:"SFMono-Regular",Consolas,monospace;font-size:12px;color:#475467}.url-text{display:block;max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:break-word;line-height:1.55}
+.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:11px;color:var(--light)}.tiny .tag{vertical-align:middle;margin-left:3px}
+.detail{display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px;align-items:start}
+.summary{display:flex;flex-direction:column;gap:12px}.kv{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line2);font-size:13px}.kv:last-child{border-bottom:0}.kv .k{color:var(--muted)}.kv .v{font-weight:650;min-width:0;overflow:hidden}
+.section-title{font-size:14px;font-weight:750;margin-bottom:12px}.subhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.version-list{display:grid;gap:10px}.version{border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff;display:grid;grid-template-columns:44px minmax(0,1.4fr) minmax(0,1fr) 110px minmax(160px,250px);gap:12px;align-items:center;min-width:0}.experiment-version{grid-template-columns:44px minmax(0,1.25fr) minmax(260px,1.1fr) 96px minmax(120px,180px)}.experiment-version .small{overflow-wrap:anywhere;word-break:break-word;line-height:1.55}
+.version:hover{border-color:#c9d8ef}.priority{width:32px;height:32px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:750;color:var(--muted);font-size:12px}.version .name{font-weight:750;font-size:13px}.version .desc{font-size:12px;color:var(--muted);margin-top:2px}
+.plan-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.flow-step{border:1px solid var(--line2);border-radius:var(--r);padding:10px;background:#fff}.flow-step b{display:block;font-size:12px}.flow-step span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.layout-note{background:var(--blue2);border:1px solid #d5e9ff;color:#1459a8;border-radius:var(--r);padding:10px 12px;font-size:12px;line-height:1.65}
+.layout-note.amber{background:#fff7e6;border-color:#ffd591;color:#8a4b00}
+.rule-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.rule-card{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:12px}.rule-card b{display:block;font-size:13px;margin-bottom:5px}.rule-card span{display:block;font-size:12px;color:var(--muted);line-height:1.55}
+.insight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.signal-box{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:12px}.signal-box h3{font-size:13px;margin-bottom:8px}.signal-box p{font-size:12px;color:var(--muted);line-height:1.65}
+.modal-cover{display:none;position:fixed;inset:0;background:rgba(15,23,42,.34);z-index:30;align-items:center;justify-content:center;padding:24px}.modal-cover.show{display:flex}
+.modal-cover.stack-top{z-index:40}
+.toast{position:fixed;right:22px;bottom:22px;z-index:80;max-width:420px;background:#111827;color:#fff;border-radius:8px;box-shadow:0 18px 48px rgba(16,24,40,.22);padding:12px 14px;font-size:13px;line-height:1.55;display:none}.toast.show{display:block}
+.modal{width:720px;max-height:88vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:var(--r2);box-shadow:0 24px 64px rgba(16,24,40,.20)}
+.modal.wide{width:980px}.modal.narrow{width:620px}.modal.link-wide{width:min(1120px,calc(100vw - 48px))}
+.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line2);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;z-index:2}.modal-head h3{font-size:16px}.close{width:30px;height:30px;border-radius:6px;font-size:20px;color:var(--muted)}.close:hover{background:var(--soft)}
+.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:14px}.field label{display:block;font-size:13px;font-weight:650;margin-bottom:5px}.req{color:var(--red);font-weight:800;margin-left:2px}.field .hint{font-size:11px;color:var(--light);margin-top:4px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px}.field textarea{min-height:72px;resize:vertical}.field input:disabled,.field select:disabled,.field textarea:disabled,.field input[readonly]{background:#f5f7fa;color:#667085;cursor:not-allowed}
+.modal-actions{position:sticky;bottom:-20px;margin:14px -20px -20px;padding:12px 20px;border-top:1px solid var(--line2);background:#fff;display:flex;justify-content:flex-end;gap:10px;z-index:3}
+.check-row{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line2);border-radius:var(--r);padding:10px;background:#fff}.check-row input{margin-top:3px}.check-row b{display:block;font-size:13px}.check-row span{display:block;font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{display:inline-flex;align-items:center;gap:4px;background:var(--blue2);color:var(--blue);font-size:11px;font-weight:700;border-radius:999px;padding:3px 8px}
+.preview-shell{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}.site-bar{height:42px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:12px}.site-nav{display:flex;gap:16px;color:#d1d5db}.hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:34px}.product-art{min-height:300px;border-radius:var(--r);background:linear-gradient(145deg,#f2f4f7,#fff);display:grid;place-items:center;border:1px solid var(--line2);overflow:hidden}.product-art img{width:100%;height:100%;object-fit:contain;display:block;padding:10px}.hero h2{font-size:30px;line-height:1.15;margin:8px 0 12px}.price{font-size:24px;font-weight:800;color:#b42318;margin-bottom:12px}.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 34px 28px}.block{border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff}.block b{font-size:13px}.block p{font-size:12px;color:var(--muted);margin-top:5px}
+.pdp-preview{padding:22px;background:#fff}.pdp-template-note{border:1px solid #d5e9ff;background:#f7fbff;border-radius:var(--r);padding:10px 12px;margin-bottom:14px;font-size:12px;color:#1459a8;line-height:1.6}.pdp-main{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(0,1.1fr);gap:24px}.pdp-locked,.pdp-slot{border-radius:var(--r);padding:12px}.pdp-locked{border:1px solid var(--line2);background:#f8fafc;color:#667085}.pdp-slot{border:1px solid #bcd5f6;background:#f7fbff;color:#1459a8}.pdp-locked b,.pdp-slot b{display:block;font-size:12px;margin-bottom:5px;color:var(--ink)}.pdp-locked p,.pdp-slot p{font-size:12px;line-height:1.55;color:var(--muted)}.pdp-stack{display:grid;gap:10px}.pdp-buybox{display:grid;gap:10px}.pdp-buybox .title{font-size:22px;font-weight:850;color:var(--ink)}.pdp-buybox .buy-row{height:38px;border-radius:6px;background:#111827}.pdp-rec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.pdp-rec .rec-mini{border:1px solid var(--line2);border-radius:6px;background:#fff;padding:9px;text-align:center;font-size:11px}.pdp-rec .rec-mini .pic{height:168px;background:var(--soft);border-radius:5px;margin-bottom:6px;display:grid;place-items:center;overflow:hidden}.pdp-rec .rec-mini .pic img{width:100%;height:100%;object-fit:contain;padding:4px}.preview-shell.mobile .site-bar{height:auto;align-items:flex-start;gap:8px;flex-direction:column;padding:12px}.preview-shell.mobile .site-nav{gap:10px;flex-wrap:wrap}.preview-shell.mobile .pdp-preview{padding:12px}.preview-shell.mobile .pdp-main{grid-template-columns:1fr;gap:12px}.preview-shell.mobile .product-art{min-height:210px!important}.preview-shell.mobile .pdp-buybox .title{font-size:18px;line-height:1.25}.preview-shell.mobile .pdp-rec{grid-template-columns:repeat(2,minmax(0,1fr))}.preview-shell.mobile .pdp-rec .rec-mini .pic{height:168px}.preview-shell.mobile .pdp-template-note{font-size:11px}.preview-shell.mobile .pdp-locked,.preview-shell.mobile .pdp-slot{padding:10px}@media(max-width:760px){.pdp-main{grid-template-columns:1fr}.pdp-rec{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.rec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rec-card{border:1px solid var(--line2);border-radius:var(--r);padding:10px;background:#fff;text-align:center}.rec-img{height:96px;border-radius:6px;background:var(--soft);display:grid;place-items:center;font-size:28px;margin-bottom:8px}.score{margin-top:5px;color:var(--blue);font-size:11px;font-weight:750}
+.rec-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:10px 0 12px}.rec-preview-card{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:10px;text-align:center}.rec-preview-card .pic{height:132px;border-radius:6px;background:var(--soft);display:grid;place-items:center;margin-bottom:8px;overflow:hidden}.rec-preview-card .pic img{width:100%;height:100%;object-fit:contain;padding:3px}.rec-preview-card b{display:block;font-size:12px;line-height:1.35;min-height:32px}.rec-preview-card span{display:block;font-size:12px;color:var(--red);font-weight:750;margin-top:4px}.rec-preview-card small{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+.rec-summary{border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}.rec-summary h4{font-size:14px;margin-bottom:4px}.rec-summary-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.rec-row{display:grid;grid-template-columns:42px minmax(0,1fr) 120px 90px minmax(220px,.8fr);gap:12px;align-items:center;border-bottom:1px solid var(--line2);padding:10px 0}.rec-row:last-child{border-bottom:0}.rec-rank{width:28px;height:28px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--muted)}
+.rec-modal{width:min(1040px,calc(100vw - 48px))}.rec-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.rec-context{font-size:13px;color:var(--muted);line-height:1.65}.rec-edit-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 10px}.rec-edit-head h4{font-size:13px;font-weight:750}.rec-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.rec-product-card{position:relative;border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff;text-align:center;min-height:326px;transition:border-color .15s,box-shadow .15s,transform .15s;cursor:grab;display:flex;flex-direction:column}.rec-product-card:hover{border-color:#bcd5f6;box-shadow:var(--shadow);transform:translateY(-1px)}.rec-product-card.dragging{opacity:.45}.rec-product-card.drag-over{border-color:var(--amber);border-style:dashed;background:#fffaf0}.rec-product-card .drag{position:absolute;top:7px;right:7px;width:24px;height:24px;display:grid;place-items:center;color:var(--light);font-size:15px}.rec-product-card .img{width:100%;height:168px;border-radius:6px;background:var(--soft);display:grid;place-items:center;margin-bottom:8px;overflow:hidden}.rec-product-card .img img{width:100%;height:100%;object-fit:contain;padding:4px}.rec-product-card .name{font-size:12px;font-weight:750;line-height:1.35;min-height:34px}.rec-product-card .price{font-size:13px;font-weight:750;color:var(--red);margin-top:4px}.rec-product-card .meta{font-size:11px;color:var(--muted);margin-top:3px;min-height:17px}.rec-product-card .rec-score{display:inline-flex;align-self:center;margin-top:6px;border-radius:999px;background:var(--blue2);color:var(--blue);padding:2px 8px;font-size:10px;font-weight:750}.rec-product-card .actions{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:auto;padding-top:10px}.rec-product-card.add{border:1px dashed var(--line);color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-weight:650;min-height:326px}.rec-product-card.add b{font-size:30px;color:var(--blue);margin-bottom:8px}.rec-product-card.add:hover{border-color:var(--blue);background:#f8fbff}.score-breakdown{display:flex;flex-direction:column;gap:10px}.score-line{display:grid;grid-template-columns:96px minmax(0,1fr) 44px 58px;gap:10px;align-items:center;font-size:12px}.score-bar{height:8px;background:#edf1f7;border-radius:999px;overflow:hidden}.score-bar i{display:block;height:100%;border-radius:999px;background:var(--blue)}
+.faq-list{display:grid;gap:10px}.faq-item{border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:12px}.faq-item-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.faq-item-head b{font-size:12px}.faq-actions{display:flex;gap:6px;flex-wrap:wrap}.faq-item .field{margin-bottom:10px}.faq-item .field:last-child{margin-bottom:0}.endorse-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.endorse-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.endorse-card{border:1px solid var(--line2);border-radius:6px;background:#fff;padding:10px}.endorse-card-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}.endorse-card b{font-size:12px;color:var(--ink)}.endorse-card p{font-size:12px;line-height:1.55;color:var(--muted)}.endorse-meta{font-size:11px;color:var(--light);margin-top:6px}.promo-preview{border:1px solid #ffd6a6;background:#fffaf2;border-radius:8px;padding:12px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}.promo-preview.no-code{grid-template-columns:1fr;border-color:#bbf7d0;background:#f7fef9}.promo-code{border:1px dashed #f59e0b;background:#fff;border-radius:6px;padding:8px 10px;text-align:center;min-width:86px}.promo-code span{display:block;font-size:10px;color:#92400e;margin-bottom:2px}.promo-code b{font-size:14px;color:#7c2d12}.promo-copy strong{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}.promo-copy p{font-size:12px;color:var(--muted);line-height:1.55;margin:0}.promo-copy small{display:block;font-size:11px;color:#92400e;margin-top:5px}.promo-copy .promo-cta{display:inline-flex;margin-top:8px;border:1px solid #111827;background:#111827;color:#fff;border-radius:5px;padding:5px 9px;font-size:11px}
+.template-summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:12px 14px;margin-bottom:16px}.template-panel{padding:0}.template-panel h3{font-size:13px;margin-bottom:7px}.template-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.template-flow span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#344054;line-height:1.35}.template-flow span::before{content:attr(data-step);width:16px;height:16px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:800;flex:0 0 auto}.template-flow span+span::after{content:"";display:none}.template-limits-wrap{max-width:420px}.template-limits{display:flex;gap:6px;flex-wrap:wrap}.template-limits span{display:inline-flex;align-items:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 8px;font-size:11px;color:#667085;font-weight:700}.template-limits-note{font-size:11px;color:var(--light);line-height:1.45;margin-top:7px}.template-table{min-width:1080px}.template-table th:nth-child(1){width:260px}.template-table th:nth-child(2){width:100px}.template-table th:nth-child(5){width:210px}.template-table th:nth-child(6){width:220px}.template-row-disabled td{background:#fbfbfc;color:#667085}.template-name{font-weight:800;color:var(--ink);margin-bottom:3px}.template-compact{display:flex;flex-wrap:wrap;gap:5px}.template-usage{font-weight:750;color:var(--ink);margin-bottom:3px}.template-fallback{font-size:11px;color:var(--muted);line-height:1.45}.template-wire{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:10px;min-height:214px}.wire-top{height:24px;border-radius:5px;background:#111827;margin-bottom:8px}.wire-hero{height:54px;border:1px solid #c9e1ff;background:var(--blue2);border-radius:6px;margin-bottom:8px;display:grid;place-items:center;color:var(--blue);font-size:11px;font-weight:750}.wire-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.wire-slot{border:1px dashed #cfd6e4;border-radius:6px;background:#fafbfc;min-height:40px;padding:7px;font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;text-align:center}.wire-slot.on{border-color:#bcd5f6;background:#f4f9ff;color:var(--blue);font-weight:750}.wire-slot.locked{border-style:solid;background:#f8fafc;color:#98a2b3}.wire-footer{height:22px;border-radius:5px;background:#eef2f6}.template-meta{display:grid;gap:10px}.template-kvs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.template-kv{border:1px solid var(--line2);border-radius:6px;background:var(--panel);padding:8px}.template-kv b{display:block;font-size:11px;color:var(--muted);margin-bottom:2px}.template-kv span{font-size:12px;font-weight:700}.slot-list{display:flex;flex-wrap:wrap;gap:6px}.slot-pill{font-size:11px;border:1px solid #d5e9ff;background:var(--blue2);color:var(--blue);border-radius:999px;padding:2px 8px;font-weight:700}.slot-pill.gray{border-color:var(--line);background:#f2f4f7;color:#667085}.template-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.template-builder{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(380px,.92fr);gap:18px;align-items:start}.builder-panel{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:14px}.builder-panel h4{font-size:14px;margin-bottom:12px}.form-section{padding-top:12px;margin-top:14px;border-top:1px solid var(--line2)}.form-section:first-of-type{padding-top:0;margin-top:0;border-top:0}.form-section-title{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}.form-section-title i{width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:10px;font-style:normal;font-weight:800;flex:0 0 auto;margin-top:1px}.form-section-title b{display:block;font-size:13px;color:var(--ink);line-height:1.25}.form-section-title span{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}.slot-check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.slot-check{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line2);border-radius:6px;padding:8px;background:var(--panel);font-size:12px}.slot-check input{margin-top:2px}.locked-source{font-size:11px;color:#1459a8;background:#f7fbff;border:1px solid #d5e9ff;border-radius:6px;padding:8px 10px;margin-bottom:10px}.risk-grid{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.risk-pill{border:1px solid #fedf89;background:#fffbeb;color:#b54708;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700}.builder-preview{position:sticky;top:72px;border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:14px}.preview-note{font-size:12px;color:var(--muted);line-height:1.65;margin-top:10px}.boundary-list{display:grid;gap:8px;margin-top:12px}.boundary-row{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;align-items:start;font-size:12px}.boundary-row b{color:var(--muted)}
+.builder-top{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;margin-bottom:14px}.builder-callout{border:1px solid #d5e9ff;background:#f7fbff;border-radius:var(--r);padding:12px}.builder-callout b{display:block;font-size:13px;margin-bottom:4px;color:#1459a8}.builder-callout span{font-size:12px;color:#475467;line-height:1.55}.template-status-box{border:1px solid var(--line2);background:#fff;border-radius:var(--r);padding:12px}.template-status-box .n{font-size:24px;font-weight:850;color:var(--blue);line-height:1}.slot-check b{font-size:12px}.slot-check:hover{border-color:#c9e1ff;background:#f8fbff}.slot-check:has(input:checked){border-color:#bcd5f6;background:var(--blue2)}.locked-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.locked-item{border:1px solid var(--line2);border-radius:6px;background:#f8fafc;padding:8px;font-size:12px;font-weight:700;color:#667085;text-align:center}.quality-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.quality-item{border:1px solid var(--line2);border-radius:6px;background:#fff;padding:9px}.quality-item b{display:block;font-size:12px;margin-bottom:2px}.quality-item span{font-size:11px;color:var(--muted);line-height:1.45}.builder-preview h4{display:flex;align-items:center;justify-content:space-between;gap:8px}.preview-tabs{display:flex;gap:5px;margin:10px 0}.preview-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:4px 9px;font-size:11px;color:var(--muted);font-weight:750;cursor:pointer}.preview-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.preview-tab:disabled,.btn:disabled{opacity:.45;cursor:not-allowed}.template-draft-name{font-size:13px;font-weight:800;margin-bottom:8px;color:var(--ink)}.template-wire.mobile{max-width:260px;margin:0 auto}.template-wire.mobile .wire-row{grid-template-columns:1fr}.template-wire.fallback .wire-slot.on{border-color:#fedf89;background:#fffbeb;color:#b54708}.template-readonly .builder-panel input,.template-readonly .builder-panel select,.template-readonly .builder-panel textarea{pointer-events:none;background:#f5f7fa;color:#667085}.template-readonly .slot-check{pointer-events:none}
+.report-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr);gap:14px;margin-bottom:14px}.report-verdict{border:1px solid #abefc6;background:var(--green2);border-radius:var(--r);padding:16px}.report-verdict h3{font-size:16px;margin-bottom:6px;color:#05603a}.report-verdict p{font-size:12px;color:#067647;line-height:1.7}.report-lift{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:16px}.report-lift .big{font-size:34px;font-weight:850;color:var(--green);line-height:1}.report-lift .split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.report-lift .mini{border:1px solid var(--line2);border-radius:6px;background:var(--panel);padding:8px}.report-lift .mini b{display:block;font-size:11px;color:var(--muted);margin-bottom:2px}.report-lift .mini span{font-size:13px;font-weight:800}.report-section-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:14px}.chart-panel{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:14px}.chart-panel h3{font-size:14px;margin-bottom:10px}.chart-sub{font-size:11px;color:var(--light);margin-top:-5px;margin-bottom:12px}.funnel{display:grid;gap:9px}.funnel-step{display:grid;grid-template-columns:108px minmax(0,1fr) 86px;gap:10px;align-items:center;font-size:12px}.funnel-step b{font-size:12px}.funnel-step span{font-size:11px;color:var(--muted)}.funnel-track{height:18px;background:#eef2f6;border-radius:999px;overflow:hidden}.funnel-track i{display:block;height:100%;border-radius:999px;background:var(--blue)}.bar-list{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:132px minmax(0,1fr) 76px;gap:10px;align-items:center;font-size:12px}.bar-row b{font-size:12px}.bar-row small{display:block;color:var(--muted);font-size:10px;margin-top:1px}.bar-track{height:8px;background:#eef2f6;border-radius:999px;overflow:hidden}.bar-track i{display:block;height:100%;background:var(--blue);border-radius:999px}.bar-row.green .bar-track i{background:var(--green)}.bar-row.amber .bar-track i{background:var(--amber)}.version-bars{display:grid;gap:10px}.version-bar{border:1px solid var(--line2);border-radius:6px;padding:10px;background:var(--panel)}.version-bar-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:8px}.version-bar-track{height:9px;background:#eef2f6;border-radius:999px;overflow:hidden}.version-bar-track i{display:block;height:100%;background:var(--green);border-radius:999px}.metric-note{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.45}
+.editor-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px}.block-list{display:flex;flex-direction:column;gap:7px}.block-btn{width:100%;border:1px solid var(--line2);border-radius:6px;padding:9px 10px;text-align:left;font-size:13px;background:#fff}.block-btn.active{border-color:var(--blue);background:var(--blue2);color:var(--blue);font-weight:750}.block-item.hidden .block-btn{color:var(--light);background:#fafafa;text-decoration:line-through}.edit-panel{border:1px solid var(--line2);border-radius:var(--r);padding:14px;background:#fff}
+.block-title-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.icon-btn{width:30px;height:30px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);display:inline-grid;place-items:center}.icon-btn:hover{background:var(--soft);color:var(--blue)}.icon-btn.active{background:#f2f4f7;color:var(--ink)}.icon-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.param-list{display:flex;flex-direction:column;gap:8px}.param-row{display:grid;grid-template-columns:1fr 1fr 32px;gap:8px;align-items:center}.param-row input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px}.param-row button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--red);font-weight:800}
+.cta-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr) 32px;gap:8px;align-items:center}.cta-row input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px}.cta-row button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--red);font-weight:800}
+.link-box{background:#f8fafc;border:1px solid var(--line2);border-radius:var(--r);padding:12px;font-size:12px;word-break:break-all}
+.link-manager{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:18px;align-items:start}.link-panel{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:14px}.link-panel h4{font-size:14px;margin-bottom:10px}.link-version-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:11px 12px;margin-bottom:12px}.link-records{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow:auto;padding-right:2px}.link-record{border:1px solid var(--line2);border-radius:var(--r);padding:11px;background:#fff}.link-record-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}.link-record-title{font-size:13px;font-weight:750}.link-record-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}.link-record-url{background:#f8fafc;border:1px solid var(--line2);border-radius:6px;padding:8px;word-break:break-all;margin-top:8px}.link-url-row{display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:8px;align-items:start}.copy-link-btn{width:30px;height:30px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);display:grid;place-items:center}.copy-link-btn:hover{background:var(--blue2);border-color:#c9e1ff;color:var(--blue)}.copy-link-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.empty-record{padding:14px;border:1px dashed var(--line);border-radius:var(--r);color:var(--muted);font-size:12px;line-height:1.7;background:#fafbfc}
+.report-grid{display:block;margin-bottom:14px}.visit-overview{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:14px;margin-bottom:12px}.visit-overview-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.visit-overview-head h3{font-size:14px;font-weight:800}.visit-overview-head span{font-size:11px;color:var(--muted)}.visit-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.visit-card{border:1px solid var(--line2);border-radius:6px;background:var(--panel);padding:12px}.visit-card .k{font-size:12px;color:var(--muted);font-weight:700}.visit-card .n{font-size:24px;font-weight:850;line-height:1.15;margin-top:6px}.visit-card .desc{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.45}.visit-card.result{background:#f9fbff}.visit-card.result .n{color:var(--blue)}.visit-card.recommend{background:#f7fef9}.visit-card.recommend .n{color:var(--green)}.behavior-path{border:1px solid var(--line2);border-radius:var(--r);background:#fff;padding:14px}.behavior-path-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.behavior-path-head h3{font-size:14px;font-weight:800}.behavior-path-head span{font-size:11px;color:var(--muted)}.behavior-path-body{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:stretch}.path-node{position:relative;border:1px solid var(--line2);border-right:0;background:#fff;padding:12px 14px;min-height:116px}.path-node:first-child{border-radius:6px 0 0 6px}.path-node:last-child{border-right:1px solid var(--line2);border-radius:0 6px 6px 0}.path-node:not(:last-child)::after{content:"";position:absolute;right:-9px;top:50%;width:18px;height:18px;background:#fff;border-top:1px solid var(--line2);border-right:1px solid var(--line2);transform:translateY(-50%) rotate(45deg);z-index:2}.path-node .k{font-size:12px;color:var(--muted);font-weight:700}.path-node .n{font-size:25px;line-height:1.15;font-weight:850;margin-top:7px;color:var(--ink)}.path-node .desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:7px}.path-node .rate{display:inline-flex;margin-top:8px;border-radius:999px;background:var(--blue2);color:var(--blue);padding:2px 8px;font-size:11px;font-weight:750}.path-node.result .rate{background:var(--green2);color:var(--green)}.report-card{border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#fff}.report-card .n{font-size:22px;font-weight:800;margin-top:4px}.report-page-detail{border:1px solid #d5e9ff;background:#f7fbff;border-radius:var(--r);padding:14px;margin-bottom:14px}.report-detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.report-detail-item{border:1px solid var(--line2);border-radius:6px;background:#fff;padding:10px}.report-detail-item b{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.report-detail-item span{font-size:13px;font-weight:800}.bar{height:7px;background:#eef2f6;border-radius:999px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--blue);border-radius:999px}
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.compare-card{border:1px solid var(--line2);border-radius:6px;background:var(--panel);padding:12px}.compare-card h4{font-size:13px;margin-bottom:8px}.compare-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.compare-metric{border:1px solid var(--line2);border-radius:6px;background:#fff;padding:8px}.compare-metric b{display:block;font-size:11px;color:var(--muted);font-weight:650;margin-bottom:3px}.compare-metric span{font-size:14px;font-weight:850}.compare-note{font-size:11px;color:var(--muted);line-height:1.55;margin-top:10px}
+.help{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:800;margin-left:4px;cursor:help;background:#fff}
+@media(max-width:1180px){.version{grid-template-columns:36px minmax(0,1fr);align-items:start}.version>*:nth-child(n+3){grid-column:2}.version>div:last-child{justify-content:flex-start!important}.report-detail-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.visit-cards,.behavior-path-body{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.path-node,.path-node:first-child,.path-node:last-child{border:1px solid var(--line2);border-radius:6px}.path-node::after{display:none}.compare-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:980px){.app{grid-template-columns:1fr}.side{display:none}.top{position:sticky;top:0;z-index:10}.detail{grid-template-columns:1fr}.grid4,.report-grid,.report-detail-grid,.rule-grid,.insight-grid,.template-summary,.template-grid,.template-builder,.report-hero,.report-section-grid,.compare-grid{grid-template-columns:1fr}.template-card{grid-template-columns:1fr}.builder-preview{position:static}.hero{grid-template-columns:1fr}.blocks,.plan-flow,.link-manager{grid-template-columns:1fr}}
+@media(max-width:760px){.rec-row{grid-template-columns:34px minmax(0,1fr)}.rec-row>*:nth-child(n+3){grid-column:2}.rec-row>div:last-child{justify-content:flex-start!important}.rec-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.content{padding:14px}.grid4,.report-grid,.rule-grid,.insight-grid,.template-grid,.rec-grid,.rec-product-grid{grid-template-columns:1fr}.toolbar,.subhead{align-items:flex-start}.input,.select{width:100%;min-width:0}.table{min-width:680px}.version{grid-template-columns:1fr}.version>*:nth-child(n){grid-column:1}.form-grid,.editor-layout{grid-template-columns:1fr}.modal-cover{padding:10px}.modal,.modal.wide,.modal.narrow,.modal.link-wide{width:100%;max-height:94vh}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="mark">SL</span><span>Social Link</span></div>
+    <div class="nav">
+      <div class="nav-group">营销增长</div>
+      <button class="active" onclick="showScreen('list',this)">个性化承接</button>
+      <button style="display:none" onclick="showScreen('templates',this);renderTemplates()">页面模板</button>
+      <button onclick="showScreen('report',this);openReport(currentPlanId)">效果数据</button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <h1>个性化承接</h1>
+    </header>
+    <div class="content">
+      <section id="screen-list" class="screen active">
+        <div id="runtimeNotice" class="layout-note" style="display:none;margin-bottom:14px"></div>
+        <div class="card pad">
+          <div class="toolbar">
+            <div class="filters">
+              <input class="input" id="search" placeholder="搜索商品、策略、人群" oninput="renderPlanTable()">
+            </div>
+            <button class="btn primary" type="button" onclick="openPlanModal()">新建商品策略</button>
+          </div>
+          <div class="table-wrap"><table class="table">
+            <thead><tr><th>策略名称</th><th>承载页 URL</th><th>实验比例</th><th>内容版本</th><th>投放链接</th><th>操作</th></tr></thead>
+            <tbody id="planRows">
+              <tr><td><b>白色连衣裙千人千面策略</b><div class="tiny mono">承载商品：white-dress</div></td><td><span class="mono">https://www.bellabarnett.com/products/white-dress</span></td><td>对照 10%<br><span class="tiny">实验 90%</span></td><td>5 个人群版本<br><span class="tiny">+ 1 个默认内容版本</span></td><td>5 条<br><span class="tiny">UTM / 广告标识</span></td><td><button class="btn sm blue" type="button" onclick="openPlan('202606270001')">详情</button></td></tr>
+              <tr><td><b>红色礼服千人千面策略</b><div class="tiny mono">承载商品：red-party-dress</div></td><td><span class="mono">https://www.bellabarnett.com/products/red-party-dress</span></td><td>对照 10%<br><span class="tiny">实验 90%</span></td><td>1 个人群版本<br><span class="tiny">+ 1 个默认内容版本</span></td><td>2 条<br><span class="tiny">UTM / 广告标识</span></td><td><button class="btn sm blue" type="button" onclick="openPlan('202606270002')">详情</button></td></tr>
+              <tr><td><b>高跟鞋加购承接策略</b><div class="tiny mono">承载商品：strappy-sandals</div></td><td><span class="mono">https://www.bellabarnett.com/products/strappy-sandals</span></td><td>对照 5%<br><span class="tiny">实验 95%</span></td><td>1 个人群版本<br><span class="tiny">+ 1 个默认内容版本</span></td><td>1 条<br><span class="tiny">UTM / 广告标识</span></td><td><button class="btn sm blue" type="button" onclick="openPlan('202606270003')">详情</button></td></tr>
+            </tbody>
+          </table></div>
+          <div class="pager" id="planPager"></div>
+        </div>
+      </section>
+
+      <section id="screen-detail" class="screen">
+        <div style="margin-bottom:14px"><button class="btn sm" onclick="showScreen('list')">返回列表</button></div>
+        <div class="detail">
+          <aside class="card pad summary">
+            <div>
+              <div style="font-weight:750" id="planTitle">-</div>
+              <div class="tiny mono" id="planId">-</div>
+            </div>
+            <div class="kv"><span class="k">承载商品</span><span class="v" id="planPrimary">-</span></div>
+            <div class="kv"><span class="k">推荐候选商品范围</span><span class="v" id="planSkus">-</span></div>
+            <div class="kv"><span class="k">页面范围</span><span class="v" id="planType">-</span></div>
+            <div class="kv"><span class="k">承载页 URL</span><span class="v mono url-text" id="planDefaultUrl">-</span></div>
+            <div class="kv"><span class="k">模板方案</span><span class="v" id="planTemplate">-</span></div>
+            <div class="layout-note">MVP 保留客户原站交易链路，只对承载页中可控模块做局部替换；商品详情页使用原站 PDP，聚合页使用客户已配置 SDK / 模板的集合页或专题页。</div>
+            <button class="btn primary" onclick="openLinkModal()">生成投放链接</button>
+            <button class="btn" onclick="openReport(currentPlanId)">查看效果数据</button>
+          </aside>
+          <div style="display:grid;gap:16px">
+            <div class="card pad">
+              <div class="subhead">
+                <div><div class="section-title" style="margin-bottom:2px">页面内容版本 · 按命中优先级排序</div><div class="tiny">系统会从上到下判断用户是否命中人群；越靠上的人群页优先生效。未命中任何人群时展示默认内容版本。</div></div>
+                <div style="display:flex;gap:8px"><button class="btn blue" onclick="openAudienceModal()">添加页面内容版本</button></div>
+              </div>
+              <div class="layout-note" style="margin-bottom:12px">列表顺序就是人群命中优先级。待启用、已启用、已停用版本可通过上移 / 下移调整；生成中或生成失败版本不可主动移动，但可被其他版本移动到其前方。只有已启用的人群内容版本参与实际命中。</div>
+              <div class="version-list" id="versionList"></div>
+            </div>
+            <div class="card pad">
+              <div class="subhead">
+                <div><div class="section-title" style="margin-bottom:2px">实验与安全配置</div><div class="tiny">对照组页面使用客户原有页面；安全兜底页仅处理参数无效、路由异常、策略不可用或渲染失败。</div></div>
+              </div>
+              <div class="version-list" id="experimentList"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-templates" class="screen">
+        <div class="card pad">
+          <div class="subhead">
+            <div><h2 style="font-size:18px">模板边界确认</h2><div class="tiny">P0 按客户提供的商品详情页定制一套默认 PDP 局部替换模板；这里仅用于查看可替换区、锁定区和适配边界。</div></div>
+          </div>
+          <div class="template-summary">
+            <div class="template-panel">
+              <h3>PDP 模板在 MVP 中的作用</h3>
+              <div class="template-flow">
+                <span data-step="1">识别原站 PDP 可替换插槽</span>
+                <span data-step="2">约束 AI 生成内容块</span>
+                <span data-step="3">保护 Header / 购物车 / 结算链路</span>
+                <span data-step="4">失败时回退原站内容</span>
+              </div>
+            </div>
+            <div class="template-panel">
+              <h3>模板不承担的事情</h3>
+              <div class="template-limits-wrap">
+                <div class="template-limits">
+                  <span>不创建人群</span>
+                  <span>不配置 UTM</span>
+                  <span>不调整算法权重</span>
+                  <span>不替代页面编辑器</span>
+                </div>
+                <div class="template-limits-note">模板只决定页面结构和可替换边界；具体内容在页面版本中编辑。</div>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table template-table">
+              <thead><tr><th>模板名称</th><th>适配状态</th><th>可替换区块</th><th>原站保留区</th><th>使用情况</th><th>操作</th></tr></thead>
+              <tbody id="templateGrid"></tbody>
+            </table>
+          </div>
+          <div class="pager" id="templatePager"></div>
+        </div>
+      </section>
+
+      <section id="screen-report" class="screen">
+        <div style="margin-bottom:14px"><button class="btn sm" onclick="openPlan(currentPlanId)">返回策略详情</button></div>
+        <div class="card pad">
+          <div class="subhead">
+            <div><h2 style="font-size:18px" id="reportTitle">效果数据</h2><div class="tiny" id="reportSub">-</div></div>
+            <div id="reportOverviewToolbar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="tag blue">商品策略总览</span><select class="select" id="reportRange" onchange="openReport(currentPlanId)"><option>近 7 天</option><option>今日</option><option>近 14 天</option><option>近 30 天</option><option>自定义</option></select><select class="select" id="reportPlanSelect" onchange="openReport(this.value)"></select></div>
+            <div id="reportSingleToolbar" style="display:none;gap:8px;align-items:center;flex-wrap:wrap"><select class="select" id="reportRangeSingle" onchange="syncReportRangeFromSingle()"><option>近 7 天</option><option>今日</option><option>近 14 天</option><option>近 30 天</option><option>自定义</option></select><button class="btn sm" type="button" onclick="openReport(currentPlanId)">返回商品策略总览</button></div>
+          </div>
+          <div class="layout-note" id="reportScopeNote" style="margin-bottom:14px">MVP 报表优先按用户行为流程统计：访问、加购人数、支付人数和 GMV。默认按商品策略维度展示，可继续按页面版本、渠道、UTM 和广告标识下钻。</div>
+          <div class="report-grid" id="reportMetrics"></div>
+          <div class="chart-panel" id="reportControlPanel" style="margin-bottom:14px"><h3 id="reportControlTitle">个性化承接组与对照组表现对比</h3><div id="reportControlCompare"></div></div>
+          <div class="report-page-detail" id="reportPageDetail" style="display:none"></div>
+          <div class="chart-panel" id="reportVersionPanel" style="margin-bottom:14px"><h3 id="reportVersionTitle">页面版本表现对比</h3><div class="version-bars" id="reportVersionBars"></div></div>
+          <div class="table-wrap"><div class="table-title" id="reportTableTitle" style="padding:12px 14px 0;font-weight:750">页面内容版本表现</div><table class="table report-table" id="reportTable"><thead id="reportHead"></thead><tbody id="reportRows"></tbody></table></div>
+          <div id="reportRecommendationPanel"></div>
+          <div class="chart-panel" id="reportSourcePanel" style="margin-top:14px"><h3 id="reportSourceTitle">主要来源摘要</h3><div id="reportChannels"></div></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-cover" id="planModal">
+  <div class="modal">
+    <div class="modal-head"><h3>新建商品策略</h3><button class="close" type="button" onclick="closeModal('planModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="layout-note" style="margin-bottom:16px">入口从单个承载商品开始，绑定千人千面承载页、安全兜底页和对照组；创建后自动生成一份默认内容版本，再按人群添加页面版本。</div>
+      <div class="field"><label>策略名称<span class="req">*</span></label><input id="newName" placeholder="如：白色连衣裙千人千面策略"></div>
+      <div class="form-grid">
+        <div class="field"><label>页面范围<span class="req">*</span></label><select id="newType" onchange="syncTemplateHint()"><option>商品详情页 PDP</option><option disabled>商品聚合页（后续）</option></select><div class="hint">当前 MVP 仅开放商品详情页局部替换；聚合页 / 专题页后续扩展。</div></div>
+        <div class="field"><label>模板方案<span class="req">*</span></label><select id="newTemplate" onchange="syncTemplateHint()"><option>默认模板</option><option disabled>聚合页内容替换方案（后续）</option></select><div class="hint" id="templateHint">默认模板由实施人员基于客户详情页配置生成。</div></div>
+        <div class="field"><label>承载商品<span class="req">*</span></label><input id="newPrimary" placeholder="填写商品handle"><div class="hint">商品详情页通常对应客户原站商品 URL 的 handle 。</div></div>
+        <div class="field"><label>推荐候选商品范围</label><input id="newSkus" placeholder="输入商品handle"><div class="hint">可选，多个用英文逗号分隔。填写后推荐区优先从这些商品中生成；不填写时由系统自动补齐候选池。</div></div>
+        <div class="field"><label>千人千面承载页URL<span class="req">*</span></label><input id="newDefaultUrl" placeholder="填写客户原站商品详情页完整 URL"><div class="hint" id="carrierUrlHint">请填写已完成模板适配的客户商品详情页 URL。</div></div>
+        <div class="field"><label>安全兜底页URL<span class="req">*</span></label><input id="newFallback" placeholder="填写异常时跳转的原站兜底页 URL"><div class="hint" id="carrierUrlHint">填写原站URL。</div></div>
+        <div class="field"><label>对照页URL<span class="req">*</span></label><input id="newControlUrl" placeholder="填写客户提供的实验对照页 URL"><div class="hint" id="carrierUrlHint">填写原站URL。</div></div>
+        <div class="field"><label>对照组比例<span class="req">*</span></label><div style="position:relative"><input id="newControlRatio" type="number" min="0" max="99" step="1" placeholder="10" style="padding-right:28px"><span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted)">%</span></div><div class="hint">填写对照组流量比例，剩余流量进入个性化承接组。</div></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px"><button class="btn" type="button" onclick="closeModal('planModal')">取消</button><button class="btn primary" onclick="createPlan()">创建策略</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="audienceModal">
+  <div class="modal narrow">
+    <div class="modal-head"><h3>添加页面内容版本</h3><button class="close" onclick="closeModal('audienceModal')">&times;</button></div>
+    <div class="modal-body">
+      <div id="audienceEditNotice" class="layout-note amber" style="display:none;margin-bottom:14px"></div>
+      <div class="field"><label>选择人群</label><select id="audienceName" onchange="syncAudienceDescription()"><optgroup label="会员价值"><option>高价值会员 · 晚宴场景</option><option>复购用户 · 配饰加购</option></optgroup><optgroup label="购买意图"><option>新客 · 派对礼服兴趣</option><option>弃购用户 · 红色连衣裙</option></optgroup><optgroup label="生命周期"><option>新客人群 · 首购转化</option><option>沉睡召回人群 · 促销唤醒</option></optgroup><optgroup label="弱识别 / 广告上下文"><option>弱标签人群 · 素材偏好命中</option><option>广告点击意图 · 白裙关注</option></optgroup></select><div class="hint">来自Social Link人群管理里计算成功的人群包；页面创建后不可修改人群，如需更换命中对象，请新建页面版本。</div></div>
+      <div class="field"><label>人群说明</label><input id="audienceDescription" readonly placeholder="来自 Social Link 人群管理的人群描述"><div class="hint">只读展示，来源于 Social Link 人群管理中的描述字段。</div></div>
+      <div class="field"><label>生成要求</label><textarea id="audiencePrompt">首屏承接广告素材风格，推荐区优先展示同场景搭配商品，CTA 保持去原站购买。</textarea></div>
+      <div class="layout-note" style="margin-bottom:14px">新增页面版本会追加到人群命中顺序末尾；可在页面版本列表中通过上移 / 下移调整优先生效顺序。</div>
+      <div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn" onclick="closeModal('audienceModal')">取消</button><button class="btn primary" id="audienceSaveBtn" onclick="saveAudienceVersionConfig()">生成页面版本</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="linkModal">
+  <div class="modal link-wide">
+    <div class="modal-head"><h3>商品策略投放链接</h3><button class="close" onclick="closeModal('linkModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="layout-note" style="margin-bottom:14px">广告投放使用商品策略级链接。用户访问后由 Decision API 判断对照组、人群页、默认内容版本或安全兜底页；页面版本 ID 是运行时返回结果，不放在正式投放链接里。</div>
+      <div class="layout-note amber" id="linkRiskNotice" style="display:none;margin-bottom:14px"></div>
+      <div class="link-version-card">
+        <div>
+          <div class="tiny">当前商品策略</div>
+          <div id="linkVersionName" style="font-weight:750;margin-top:2px">-</div>
+          <div class="tiny" id="linkVersionDesc" style="margin-top:3px">-</div>
+        </div>
+        <span class="tag blue" id="linkRecordCount">0 条链接</span>
+      </div>
+      <select id="linkVersion" onchange="syncLinkPreview()" style="display:none"></select>
+      <div class="link-manager">
+        <div class="link-panel">
+          <h4>新增投放链接</h4>
+          <div class="form-grid">
+            <div class="field"><label>流量来源<span class="req">*</span></label><select id="linkSourcePlatform" onchange="fillChannelDefaults();syncLinkPreview()"><option>Meta</option><option>Google</option><option>Klaviyo</option><option>自定义</option></select></div>
+            <div class="field"><label>投放渠道<span class="req">*</span></label><select id="linkChannelType" onchange="syncMediumFromChannel();syncLinkPreview()"><option value="paid_social">付费社媒 paid_social</option><option value="paid_search">付费搜索 paid_search</option><option value="email">邮件 email</option><option value="referral">站外引荐 referral</option><option value="custom">自定义 custom</option></select></div>
+            <div class="field"><label>utm_source<span class="req">*</span></label><input id="utmSource" readonly placeholder="根据流量来源自动生成" oninput="syncLinkPreview()"><div class="hint">由流量来源自动带出，避免运营手工填写不一致。</div></div>
+            <div class="field"><label>utm_medium<span class="req">*</span></label><input id="utmMedium" readonly placeholder="根据投放渠道自动生成" oninput="syncLinkPreview()"><div class="hint">由投放渠道自动带出，保存链接时作为归因参数。</div></div>
+            <div class="field"><label>utm_campaign<span class="req">*</span></label><input id="utmCampaign" placeholder="必填，填写投放活动名称，例如 summer_dress_campaign" oninput="syncLinkPreview()"></div>
+            <div class="field"><label>utm_content</label><input id="utmContent" placeholder="可选，用于区分素材、广告文案、邮件模块" oninput="syncLinkPreview()"></div>
+            <div class="field"><label>utm_term</label><input id="utmTerm" placeholder="可选，搜索广告关键词或受众标识" oninput="syncLinkPreview()"></div>
+            <div class="field"><label>ad_id / creative_id</label><input id="adId" placeholder="可选，广告 ID 或素材 ID；填写后同时写入 ad_id 和 creative_id" oninput="syncLinkPreview()"></div>
+          </div>
+          <div class="field"><label>自定义参数</label><div class="layout-note" style="margin-bottom:10px">可补充 email_id、segment、creative_group 等业务参数；系统保留 key 不允许覆盖。</div><div class="param-list" id="linkParamList"></div><button type="button" class="btn sm blue" onclick="addLinkParam()">添加参数</button><div class="hint" id="linkParamHint">系统保留：strategy_id、product_handle、product_id、UTM、ad_id、creative_id。version_id 由 Decision API 返回，用于渲染与报表归因。</div></div>
+          <div class="field"><label>待保存链接</label><div class="link-box mono" id="linkPreview">-</div><div class="hint">保存后进入右侧记录，作为该商品策略的投放链接记录。</div></div>
+          <div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn" onclick="closeModal('linkModal')">关闭</button><button class="btn primary" onclick="saveLink()">保存为新链接</button></div>
+        </div>
+        <div class="link-panel">
+          <div class="subhead"><div><h4 style="margin-bottom:2px">链接记录</h4><div class="tiny">记录谁在什么时候，为哪个来源 / campaign 生成了链接。</div></div></div>
+          <div id="linkRecordList" class="link-records"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="templateModal">
+  <div class="modal link-wide">
+    <div class="modal-head"><h3>查看模板边界</h3><button class="close" onclick="closeModal('templateModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="builder-top">
+        <div class="builder-callout"><b>模板定位</b><span>模板定义 Social Link 支持的内容模块和结构边界；当前演示使用预配置商品详情页适配档案，确认可替换区、锁定区与风险区后再生成页面版本。</span></div>
+        <div class="template-status-box"><div class="tiny">已选区域</div><div class="n" id="templateCompleteness">5/6</div><div class="tiny">至少选择 1 个区域</div></div>
+      </div>
+      <div class="template-builder">
+        <div class="builder-panel">
+          <h4>模板配置</h4>
+          <div class="form-section">
+            <div class="form-section-title"><i>1</i><div><b>基础信息</b><span>页面类型与模板用途</span></div></div>
+            <div class="form-grid">
+              <div class="field"><label>模板名称</label><input id="templateName" placeholder="如：PDP 标准替换模板" oninput="updateTemplateDraft()"></div>
+              <div class="field"><label>适用页面</label><select id="templateType" onchange="updateTemplateDraft()"><option>商品详情页 PDP</option><option disabled>商品聚合页（后续）</option><option disabled>专题页（后续）</option><option disabled>类目页（后续）</option></select></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title"><i>2</i><div><b>可替换区域</b><span>AI 可生成内容区</span></div></div>
+            <div class="slot-check-grid">
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="首屏卖点" checked onchange="updateTemplateDraft()"><span><b>首屏卖点</b><br><span class="tiny">承接广告素材与人群意图</span></span></label>
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="促销与优惠券" checked onchange="updateTemplateDraft()"><span><b>促销与优惠券</b><br><span class="tiny">折扣码、优惠券、限时权益</span></span></label>
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="推荐区" checked onchange="updateTemplateDraft()"><span><b>推荐区</b><br><span class="tiny">相似、搭配、配件推荐</span></span></label>
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="客户评价与达人背书" checked onchange="updateTemplateDraft()"><span><b>客户评价与达人背书</b><br><span class="tiny">买家评价、达人推荐、社媒背书</span></span></label>
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="CTA" checked onchange="updateTemplateDraft()"><span><b>CTA</b><br><span class="tiny">承接原站交易组件附近引导</span></span></label>
+              <label class="slot-check"><input type="checkbox" name="tplReplace" value="信任背书" onchange="updateTemplateDraft()"><span><b>信任背书</b><br><span class="tiny">评价、安全支付、品牌承诺</span></span></label>
+            </div><textarea id="templateBlocks" style="display:none">首屏卖点
+促销与优惠券
+推荐区
+客户评价与达人背书
+CTA</textarea>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title"><i>3</i><div><b>锁定边界</b><span>来自商品详情页适配档案，默认不可编辑</span></div></div>
+            <div class="locked-source">锁定区由页面检测与人工确认沉淀，不是运营临时选择；用于保护价格、库存、规格、购物车、支付和结算链路。</div>
+            <div class="locked-grid"><div class="locked-item">Header</div><div class="locked-item">商品主图</div><div class="locked-item">价格</div><div class="locked-item">规格选择</div><div class="locked-item">购物车/结算</div><div class="locked-item">Footer</div></div><textarea id="templateLocked" style="display:none">Header
+商品主图
+价格
+规格选择
+购物车/结算
+Footer</textarea>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title"><i>4</i><div><b>回退策略</b><span>异常时保留原站体验</span></div></div>
+            <div class="locked-source"><b>插槽失败时保留原站内容</b><br>当某个可替换区未识别、接口超时或渲染失败时，不输出 Social Link 内容，保留客户原站对应区域。</div>
+            <input id="templateFallback" type="hidden" value="插槽失败时保留原站内容">
+          </div>
+        </div>
+        <div class="builder-preview">
+          <h4><span>模板预览</span><span class="tag green" id="templateDraftStatus">已适配</span></h4>
+          <div class="template-draft-name" id="templateDraftName">PDP 标准替换模板</div>
+          <div class="preview-tabs"><button class="preview-tab active" id="templatePreviewDesktop" type="button" onclick="setTemplatePreviewMode('desktop')">桌面 PDP</button><button class="preview-tab" id="templatePreviewMobile" type="button" onclick="setTemplatePreviewMode('mobile')">移动端</button><button class="preview-tab" id="templatePreviewFallback" type="button" onclick="setTemplatePreviewMode('fallback')">失败回退</button></div>
+          <div id="templateDraftWire"></div>
+          <div class="boundary-list">
+            <div class="boundary-row"><b>可替换</b><div id="templateDraftReplace" class="slot-list"></div></div>
+            <div class="boundary-row"><b>锁定</b><div id="templateDraftLocked" class="slot-list"></div></div>
+            <div class="boundary-row"><b>回退</b><div id="templateDraftFallback" class="tiny"></div></div>
+          </div>
+          <div class="preview-note">保存后，模板只作为页面版本生成的结构约束。具体文案、推荐商品和 CTA 仍在页面版本编辑器中调整。</div>
+        </div>
+      </div>
+      <div class="modal-actions"><button class="btn" onclick="closeModal('templateModal')">取消</button><button class="btn primary" id="templateSaveBtn" onclick="createTemplate()">保存模板</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="recModal">
+  <div class="modal rec-modal">
+    <div class="modal-head"><h3>推荐商品列表</h3><button class="close" type="button" onclick="closeModal('recModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="rec-toolbar">
+        <div class="rec-context">拖拽商品卡片可调整顺序；支持替换、删除和添加商品。调整只作用于当前页面版本。</div>
+      </div>
+      <div id="recEditor">
+        <div class="layout-note" style="margin-bottom:12px">当前调整对象：默认内容版本 · 默认内容版本推荐列表。候选池来自同承载商品组、同标签商品、搭配商品、热销商品和库存可售商品；运营只调整最终列表，不调整算法参数。</div>
+        <div class="rec-edit-head"><h4>推荐商品</h4><span class="tiny">拖拽排序，列表可人工调整</span></div>
+        <div class="rec-product-grid">
+          <div class="rec-product-card"><div class="drag">⠿</div><div class="img"><img src="assets/products/sequin-dress.png" alt="White Midi Dress"></div><div class="name">White Midi Dress</div><div class="price">$98</div><div class="meta">默认内容推荐</div><div class="rec-score">综合 92分</div><div class="actions"><button class="btn sm" type="button">替换</button><button class="btn sm danger" type="button">删除</button></div></div>
+          <div class="rec-product-card"><div class="drag">⠿</div><div class="img"><img src="assets/products/gold-clutch.png" alt="Gold Clutch Bag"></div><div class="name">Gold Clutch Bag</div><div class="price">$65</div><div class="meta">搭配商品</div><div class="rec-score">综合 86分</div><div class="actions"><button class="btn sm" type="button">替换</button><button class="btn sm danger" type="button">删除</button></div></div>
+          <div class="rec-product-card"><div class="drag">⠿</div><div class="img"><img src="assets/products/black-heels.png" alt="Strappy Sandals"></div><div class="name">Strappy Sandals</div><div class="price">$88</div><div class="meta">搭配商品</div><div class="rec-score">综合 81分</div><div class="actions"><button class="btn sm" type="button">替换</button><button class="btn sm danger" type="button">删除</button></div></div>
+          <div class="rec-product-card"><div class="drag">⠿</div><div class="img"><img src="assets/products/pearl-earrings.png" alt="Pearl Earrings"></div><div class="name">Pearl Earrings</div><div class="price">$35</div><div class="meta">同标签商品</div><div class="rec-score">综合 74分</div><div class="actions"><button class="btn sm" type="button">替换</button><button class="btn sm danger" type="button">删除</button></div></div>
+          <button type="button" class="rec-product-card add" onclick="if(window.addRecProduct){addRecProduct()}"><b>＋</b><span>添加推荐商品</span></button>
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:8px;justify-content:flex-end"><button class="btn primary" type="button" onclick="closeModal('recModal')">保存调整</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="pageEditorModal">
+  <div class="modal wide">
+    <div class="modal-head"><h3 id="editorTitle">页面版本编辑器</h3><button class="close" onclick="closePageEditorModal()">&times;</button></div>
+    <div class="modal-body">
+      <div class="layout-note" style="margin-bottom:14px">模板决定 PDP 中可替换区的位置和边界；这里编辑的是 AI 生成后的 slot 内容。可以改文案、隐藏当前页面版本的区块、单区块重新生成、调整推荐列表，再启用。</div>
+      <div class="layout-note amber" id="editorDirtyNotice" style="display:none;margin-bottom:14px;font-weight:750">当前有未保存修改</div>
+      <div class="editor-layout">
+        <div>
+          <div class="section-title">内容块</div>
+          <div class="block-list" id="editorBlockList"></div>
+        </div>
+        <div class="edit-panel" id="editorPanel"></div>
+      </div>
+      <div id="editorFooterActions" style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="ruleModal">
+  <div class="modal narrow">
+    <div class="modal-head"><h3 id="ruleTitle">规则配置</h3><button class="close" onclick="closeModal('ruleModal')">&times;</button></div>
+    <div class="modal-body" id="ruleBody"></div>
+  </div>
+</div>
+
+<div class="modal-cover" id="previewModal">
+  <div class="modal wide">
+    <div class="modal-head"><h3 id="previewTitle">承载页模板模拟预览</h3><button class="close" onclick="closeModal('previewModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="toolbar"><div class="filters"><select class="select" id="previewVersion" onchange="renderPreview()" style="display:none"></select><div class="preview-tabs" style="margin:0"><button class="preview-tab active" id="previewDesktopTab" onclick="setPreviewDevice('桌面')">桌面</button><button class="preview-tab" id="previewMobileTab" onclick="setPreviewDevice('移动端')">移动端</button></div></div></div>
+      <div id="previewBody"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-cover" id="strategyModal">
+  <div class="modal">
+    <div class="modal-head"><h3>推荐依据</h3><button class="close" onclick="closeModal('strategyModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="layout-note" style="margin-bottom:14px">算法参数只读展示。客户可查看主要依据和默认权重，但不能直接修改算法权重、评分模型、素材阈值或推荐模型参数。</div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>因子</th><th>默认权重</th><th>说明</th></tr></thead><tbody>
+        <tr><td>标签匹配度</td><td>35%</td><td>广告素材标签、商品标签、用户/人群标签按属性分类加权匹配。</td></tr>
+        <tr><td>商品热度</td><td>30%</td><td>近 30 天销量、点击、加购等行为数据归一化。</td></tr>
+        <tr><td>商品新鲜度</td><td>20%</td><td>新品优先，随上架天数递减。</td></tr>
+        <tr><td>库存状态</td><td>15%</td><td>无货过滤，低库存降权。</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showToast(message){
+  const el=document.getElementById('toast');
+  if(!el)return;
+  el.textContent=message;
+  el.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+window.alert=function(message){showToast(String(message||''))};
+window.confirm=function(message){showToast(String(message||''));return true};
+const plans=[
+  {id:'202606270001',name:'白色连衣裙千人千面策略',primarySku:'white-dress',skus:['white-dress','gold-clutch','strappy-sandals'],type:'商品详情页 PDP',template:'默认模板',defaultUrl:'https://www.bellabarnett.com/products/white-dress',controlUrl:'https://www.bellabarnett.com/products/white-dress',controlRatio:'10%',fallbackUrl:'https://www.bellabarnett.com/products/white-dress',status:'已启用',statusColor:'green',links:5,linkRecords:[{key:'Meta|paid_social|summer_dress_campaign|video_red_style_a',platform:'Meta',medium:'paid_social',campaign:'summer_dress_campaign',content:'video_red_style_a',createdBy:'张群成',createdAt:'2026-06-27 10:20',url:'https://www.bellabarnett.com/products/white-dress?strategy_id=202606270001&product_handle=white-dress&utm_source=facebook&utm_medium=paid_social&utm_campaign=summer_dress_campaign&utm_content=video_red_style_a'},{key:'Google|paid_search|brand_search|ad_991',platform:'Google',medium:'paid_search',campaign:'brand_search',content:'ad_991',createdBy:'张群成',createdAt:'2026-06-27 11:05',url:'https://www.bellabarnett.com/products/white-dress?strategy_id=202606270001&product_handle=white-dress&utm_source=google&utm_medium=paid_search&utm_campaign=brand_search&utm_content=ad_991'},{key:'Meta|paid_social|summer_dress_campaign|video_party_a',platform:'Meta',medium:'paid_social',campaign:'summer_dress_campaign',content:'video_party_a',createdBy:'张群成',createdAt:'2026-06-27 12:15',url:'https://www.bellabarnett.com/products/white-dress?strategy_id=202606270001&product_handle=white-dress&utm_source=facebook&utm_medium=paid_social&utm_campaign=summer_dress_campaign&utm_content=video_party_a'},{key:'Klaviyo|email|vip_evening_drop|vip_a',platform:'Klaviyo',medium:'email',campaign:'vip_evening_drop',content:'vip_a',createdBy:'李欣',createdAt:'2026-06-28 15:42',url:'https://www.bellabarnett.com/products/white-dress?strategy_id=202606270001&product_handle=white-dress&utm_source=klaviyo&utm_medium=email&utm_campaign=vip_evening_drop&utm_content=vip_a'},{key:'Meta|paid_social|spring_sale_legacy|old_creative',platform:'Meta',medium:'paid_social',campaign:'spring_sale_legacy',content:'old_creative',createdBy:'王婷',createdAt:'2026-06-20 09:30',url:'https://www.bellabarnett.com/products/white-dress?strategy_id=202606270001&product_handle=white-dress&utm_source=facebook&utm_medium=paid_social&utm_campaign=spring_sale_legacy&utm_content=old_creative'}],versions:[
+    {id:'v_default',kind:'default',name:'默认内容版本',audience:'未命中人群，但有商品 / 素材 / UTM 上下文',priority:'-',status:'已启用',statusColor:'green',goal:'承接广告商品'},
+    {id:'v_new_party',kind:'audience',name:'新客 · 派对礼服兴趣',audience:'Meta 素材标签 + 新客人群',priority:1,status:'已启用',statusColor:'green',goal:'突出承载商品'},
+    {id:'v_vip_evening',kind:'audience',name:'高价值会员 · 晚宴场景',audience:'会员标签 + 高客单偏好',priority:2,status:'待启用',statusColor:'amber',goal:'推高搭配客单'},
+    {id:'v_size_focus',kind:'audience',name:'尺码顾虑用户 · 版型解释',audience:'弱标签人群 · 尺码/退换关注',priority:3,status:'生成中',statusColor:'blue',goal:'降低尺码疑虑并引导查看原站尺码表'},
+    {id:'v_fit_error',kind:'audience',name:'尺码强化版 · 生成失败',audience:'尺码/退换关注人群 · AI 生成异常',priority:4,status:'生成失败',statusColor:'red',goal:'展示生成失败后可重新生成'},
+    {id:'v_old_sale',kind:'audience',name:'旧版折扣承接页',audience:'历史促销人群 · 已停止投放',priority:5,status:'已停用',statusColor:'gray',goal:'历史活动归档，不再承接新流量'},
+    {id:'v_control',kind:'control',name:'实验对照页',audience:'随机 10% 流量，不执行个性化',priority:'-',status:'已启用',statusColor:'gray',goal:'验证转化增量'},
+    {id:'v_fallback',kind:'fallback',name:'安全兜底页',audience:'strategy_id 无效、商品标识无效、服务异常、未启用',priority:'-',status:'已启用',statusColor:'gray',goal:'保护投放链路'}
+  ]},
+  {id:'202606270002',name:'红色礼服千人千面策略',primarySku:'red-party-dress',skus:['red-party-dress','gold-clutch','black-heels'],type:'商品详情页 PDP',template:'默认模板',defaultUrl:'https://www.bellabarnett.com/products/red-party-dress',controlUrl:'https://www.bellabarnett.com/products/red-party-dress',controlRatio:'10%',fallbackUrl:'https://www.bellabarnett.com/products/red-party-dress',status:'待启用',statusColor:'amber',links:2,linkRecords:[{key:'Meta|paid_social|red_party_campaign|red_video_a',platform:'Meta',medium:'paid_social',campaign:'red_party_campaign',content:'red_video_a',createdBy:'张群成',createdAt:'2026-06-29 10:30',url:'https://www.bellabarnett.com/products/red-party-dress?strategy_id=202606270002&product_handle=red-party-dress&utm_source=facebook&utm_medium=paid_social&utm_campaign=red_party_campaign&utm_content=red_video_a'},{key:'Google|paid_search|red_dress_search|ad_203',platform:'Google',medium:'paid_search',campaign:'red_dress_search',content:'ad_203',createdBy:'李欣',createdAt:'2026-06-29 11:20',url:'https://www.bellabarnett.com/products/red-party-dress?strategy_id=202606270002&product_handle=red-party-dress&utm_source=google&utm_medium=paid_search&utm_campaign=red_dress_search&utm_content=ad_203'}],versions:[
+    {id:'v_default',kind:'default',name:'默认内容版本',audience:'未识别用户，使用广告上下文和商品标签',priority:'-',status:'已启用',statusColor:'green',goal:'承接广告素材卖点'},
+    {id:'v_cart',kind:'audience',name:'弃购用户 · 红裙偏好',audience:'弃购标签 + 红色/派对素材标签',priority:1,status:'待启用',statusColor:'amber',goal:'召回继续购买'},
+    {id:'v_control',kind:'control',name:'实验对照页',audience:'随机 10% 流量',priority:'-',status:'已启用',statusColor:'gray',goal:'转化增量对比'},
+    {id:'v_fallback',kind:'fallback',name:'安全兜底页',audience:'异常或未启用',priority:'-',status:'已启用',statusColor:'gray',goal:'回到安全兜底页'}
+  ]},
+  {id:'202606270003',name:'高跟鞋加购承接策略',primarySku:'strappy-sandals',skus:['strappy-sandals','gold-clutch','pearl-earrings'],type:'商品详情页 PDP',template:'默认模板',defaultUrl:'https://www.bellabarnett.com/products/strappy-sandals',controlUrl:'https://www.bellabarnett.com/products/strappy-sandals',controlRatio:'5%',fallbackUrl:'https://www.bellabarnett.com/products/strappy-sandals',status:'生成中',statusColor:'blue',links:1,linkRecords:[{key:'Meta|paid_social|shoe_bundle_campaign|shoe_story',platform:'Meta',medium:'paid_social',campaign:'shoe_bundle_campaign',content:'shoe_story',createdBy:'王婷',createdAt:'2026-06-30 14:20',url:'https://www.bellabarnett.com/products/strappy-sandals?strategy_id=202606270003&product_handle=strappy-sandals&utm_source=facebook&utm_medium=paid_social&utm_campaign=shoe_bundle_campaign&utm_content=shoe_story'}],versions:[
+    {id:'v_default',kind:'default',name:'默认内容版本',audience:'广告商品 + 配饰标签',priority:'-',status:'生成中',statusColor:'blue',goal:'突出搭配购买'},
+    {id:'v_repeat',kind:'audience',name:'复购用户 · 配饰加购',audience:'复购标签 + 配饰浏览历史',priority:1,status:'生成中',statusColor:'blue',goal:'提高推荐点击'},
+    {id:'v_control',kind:'control',name:'实验对照页',audience:'随机 5% 流量',priority:'-',status:'已启用',statusColor:'gray',goal:'转化增量对比'},
+    {id:'v_fallback',kind:'fallback',name:'安全兜底页',audience:'异常或未启用',priority:'-',status:'已启用',statusColor:'gray',goal:'回到安全兜底页'}
+  ]}
+];
+const defaultRecProducts=[
+  {name:'White Midi Dress',price:'$98',image:'assets/products/sequin-dress.png',score:92,source:'候选范围'},
+  {name:'Gold Clutch Bag',price:'$65',image:'assets/products/gold-clutch.png',score:86,source:'候选范围'},
+  {name:'Strappy Sandals',price:'$88',image:'assets/products/black-heels.png',score:81,source:'候选范围'},
+  {name:'Pearl Earrings',price:'$35',image:'assets/products/pearl-earrings.png',score:74,source:'同标签商品'}
+];
+const recReplacePool=[
+  {name:'Satin Evening Dress',price:'$118',image:'assets/products/black-slip-dress.png',score:89,source:'同标签商品'},
+  {name:'Crystal Mini Bag',price:'$72',image:'assets/products/gold-clutch.png',score:84,source:'搭配商品'},
+  {name:'Nude Heels',price:'$92',image:'assets/products/black-heels.png',score:82,source:'热销商品'},
+  {name:'Layered Necklace',price:'$46',image:'assets/products/pearl-earrings.png',score:77,source:'配件推荐'}
+];
+const templates=[
+  {name:'默认 PDP 局部替换模板',type:'商品详情页',status:'已适配',usage:'3 个商品策略使用中',mode:'局部替换',replace:['首屏卖点','促销与优惠券','推荐区','客户评价与达人背书','CTA'],locked:['Header','商品主图','价格','规格选择','购物车/结算','Footer'],fallback:'插槽失败时保留原站内容'}
+];
+let currentPlanId=plans[0].id;let metricFilter='all';let planPage=1;let templatePage=1;const pageSize=10;let currentVersionId='v_default';let currentReportVersionId=null;let currentEditorBlock='hero';let currentRecVersionId='v_default';let currentPreviewDevice='桌面';let currentTemplatePreviewMode='desktop';let currentTemplateMode='create';let currentTemplateIndex=null;let currentTemplateStatus='草稿';let linkCustomParams=[];let editorBlockState={};let ctaState={};let faqState={};let offerState={};let recState={};let editorDirtyState={};let recDragIndex=null;
+const defaultEditorBlocks=[
+  {id:'hero',name:'首屏承接区'},
+  {id:'selling',name:'核心卖点区'},
+  {id:'recommendation',name:'AI 推荐区'},
+  {id:'offer',name:'促销与优惠券'},
+  {id:'trust',name:'信任保障区'},
+  {id:'faq',name:'客户评价与达人背书'},
+  {id:'cta',name:'行动按钮区'}
+];
+const slotMeta={
+  '首屏卖点':{id:'hero',name:'首屏卖点区',position:'商品标题与购买区之间',type:'标题、描述',zone:'buybox'},
+  '首屏文案':{id:'hero',name:'首屏文案区',position:'商品标题下方',type:'标题、描述',zone:'buybox'},
+  '卖点组合':{id:'selling',name:'卖点组合区',position:'购买区下方',type:'卖点短句',zone:'buybox'},
+  '促销与优惠券':{id:'offer',name:'促销与优惠券',position:'购买按钮下方',type:'优惠券、折扣码、限时权益',zone:'buybox'},
+  '推荐区':{id:'recommendation',name:'推荐商品区',position:'主商品信息下方，横跨承载页内容区',type:'商品列表',zone:'wide'},
+  '客户评价与达人背书':{id:'faq',name:'客户评价与达人背书',position:'商品详情说明下方',type:'买家评价、达人推荐、社媒背书',zone:'bottom'},
+  'CTA':{id:'cta',name:'辅助 CTA 区',position:'页面底部或推荐区后方',type:'原站交易引导',zone:'bottom'},
+  '信任背书':{id:'trust',name:'信任背书区',position:'购买区下方',type:'保障说明',zone:'buybox'}
+};
+const audienceDescriptions={
+  '新客 · 派对礼服兴趣':'Meta 素材标签 + 新客人群',
+  '高价值会员 · 晚宴场景':'会员标签 + 高客单偏好',
+  '弃购用户 · 红色连衣裙':'弃购标签 + 红色/派对素材标签',
+  '复购用户 · 配饰加购':'复购标签 + 配饰浏览历史',
+  '新客人群 · 首购转化':'生命周期标签 + 首购转化意向',
+  '沉睡召回人群 · 促销唤醒':'生命周期标签 + 长期未购买 + 促销敏感',
+  '弱标签人群 · 素材偏好命中':'弱标签人群 · 尺码/退换关注',
+  '广告点击意图 · 白裙关注':'广告素材标签 + 当前商品点击意图'
+};
+function $(id){return document.getElementById(id)}
+function plan(){return plans.find(p=>p.id===currentPlanId)||plans[0]}
+function clearHash(){if(location.hash)history.replaceState(null,'',location.pathname+location.search)}
+function clearModals(){document.querySelectorAll('.modal-cover').forEach(m=>m.classList.remove('show','stack-top'))}
+function showScreen(name,btn){clearModals();clearHash();document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const screen=$('screen-'+name);if(screen)screen.classList.add('active');if(btn){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}}
+function bindStableEntrypoints(){
+  const navButtons=[...document.querySelectorAll('.nav button')];
+  if(navButtons[0])navButtons[0].addEventListener('click',()=>showScreen('list',navButtons[0]));
+  if(navButtons[1])navButtons[1].addEventListener('click',()=>{showScreen('templates',navButtons[1]);renderTemplates()});
+  if(navButtons[2])navButtons[2].addEventListener('click',()=>{showScreen('report',navButtons[2]);openReport(currentPlanId)});
+  document.querySelectorAll('.metric').forEach((btn,i)=>{
+    const filters=['all','published','audience','todo'];
+    btn.addEventListener('click',()=>setMetric(filters[i]||'all',btn));
+  });
+  const search=$('search');
+  if(search)search.addEventListener('input',()=>{planPage=1;renderPlanTable()});
+}
+function setMetric(f,el){metricFilter=f;planPage=1;document.querySelectorAll('.metric').forEach(m=>m.classList.remove('active'));el.classList.add('active');renderPlanTable()}
+function renderMetrics(){const versions=plans.flatMap(p=>p.versions);$('mPlans').textContent=plans.length;$('mPublished').textContent=versions.filter(v=>v.status==='已启用'&&v.kind!=='control'&&v.kind!=='fallback').length;$('mAudiences').textContent=versions.filter(v=>v.kind==='audience').length;$('mTodo').textContent=versions.filter(v=>['待启用','生成中','生成失败'].includes(v.status)).length}
+function statusTag(text,color){return '<span class="tag '+color+'">'+text+'</span>'}
+function ratioNumber(value){const n=parseInt(String(value||0).replace('%',''),10);if(Number.isNaN(n))return 0;return Math.max(0,Math.min(99,n))}
+function ratioText(value){return ratioNumber(value)+'%'}
+function experimentRatio(value){return (100-ratioNumber(value))+'%'}
+function renderPager(elId,total,page,onChangeName){
+  const el=$(elId);if(!el)return;
+  const pages=Math.max(1,Math.ceil(total/pageSize));
+  const safePage=Math.min(Math.max(1,page),pages);
+  el.innerHTML='<span>共 '+total+' 条</span><button class="btn sm" '+(safePage<=1?'disabled':'')+' onclick="'+onChangeName+'('+(safePage-1)+')">上一页</button><span class="page-current">'+safePage+' / '+pages+'</span><button class="btn sm" '+(safePage>=pages?'disabled':'')+' onclick="'+onChangeName+'('+(safePage+1)+')">下一页</button>';
+  if(typeof hydrateInlineHandlers==='function')hydrateInlineHandlers(el);
+  return safePage;
+}
+function changePlanPage(page){planPage=page;renderPlanTable()}
+function changeTemplatePage(page){templatePage=page;renderTemplates()}
+function renderPlanTable(){
+  const kw=($('search').value||'').toLowerCase();
+  let rows='';
+  const filtered=plans.filter(p=>{
+    if(metricFilter==='published'&&!p.versions.some(v=>v.status==='已启用'&&v.kind!=='control'&&v.kind!=='fallback'))return false;
+    if(metricFilter==='audience'&&!p.versions.some(v=>v.kind==='audience'))return false;
+    if(metricFilter==='todo'&&!p.versions.some(v=>['待启用','生成中','生成失败'].includes(v.status)))return false;
+    const bag=[p.name,p.primarySku,p.skus.join(','),p.type,p.template,...p.versions.map(v=>v.name+v.audience)].join(' ').toLowerCase();
+    return !kw||bag.includes(kw);
+  });
+  planPage=renderPager('planPager',filtered.length,planPage,'changePlanPage')||1;
+  filtered.slice((planPage-1)*pageSize,planPage*pageSize).forEach(p=>{
+    const av=p.versions.filter(v=>v.kind==='audience').length;
+    const linkCount=strategyLinkRecords(p).length;
+    rows+=`<tr><td><b>${p.name}</b><div class="tiny mono">承载商品：${p.primarySku}</div></td><td><span class="mono">${p.defaultUrl}</span></td><td>对照 ${ratioText(p.controlRatio)}<br><span class="tiny">实验 ${experimentRatio(p.controlRatio)}</span></td><td>${av} 个人群版本<br><span class="tiny">+ 1 个默认内容版本</span></td><td>${linkCount} 条<br><span class="tiny">UTM / 广告标识</span></td><td><button class="btn sm blue" type="button" onclick="openPlan('${p.id}')">详情</button></td></tr>`;
+  });
+  $('planRows').innerHTML=rows||'<tr><td colspan="6" class="muted">没有匹配的计划</td></tr>';
+}
+function openPlan(id){currentPlanId=id;const p=plan();showScreen('detail');$('planTitle').textContent=p.name;$('planId').textContent=p.id;$('planPrimary').textContent=p.primarySku;$('planSkus').innerHTML=p.skus.map(s=>'<span class="chip">'+s+'</span>').join(' ');$('planType').textContent=p.type;if($('planDefaultUrl'))$('planDefaultUrl').textContent=p.defaultUrl;$('planTemplate').textContent=p.template;renderVersions();renderExperimentConfig()}
+function normalizeAudiencePriority(p){(p.versions||[]).filter(v=>v.kind==='audience').forEach((v,i)=>{v.priority=i+1})}
+function orderedRuntimeVersions(p){const audience=(p.versions||[]).filter(v=>v.kind==='audience');const defaults=(p.versions||[]).filter(v=>v.kind==='default');return audience.concat(defaults)}
+function audienceMoveState(id){const list=(plan().versions||[]).filter(v=>v.kind==='audience');const index=list.findIndex(v=>v.id===id);return{index,first:index<=0,last:index<0||index>=list.length-1}}
+function moveAudienceVersion(id,dir){const p=plan();const list=p.versions;const audiences=list.filter(v=>v.kind==='audience');const idx=audiences.findIndex(v=>v.id===id);const target=idx+dir;if(idx<0||target<0||target>=audiences.length)return;const current=audiences[idx];const next=audiences[target];const currentIndex=list.findIndex(v=>v.id===current.id);const nextIndex=list.findIndex(v=>v.id===next.id);list[currentIndex]=next;list[nextIndex]=current;normalizeAudiencePriority(p);refreshPlanUI()}
+function statusHelp(v){if(v.kind==='default'&&v.status==='已启用')return '默认内容版本用于兜住匿名或未命中用户，MVP 不允许停用';if(v.status==='生成中')return 'AI 正在生成内容，完成前不可查看内容';if(v.status==='生成失败')return 'AI 生成失败，可重新生成或删除该页面版本';if(v.status==='待启用')return '内容已生成，可查看、编辑，启用后才会参与运行时命中';if(v.status==='已启用')return '正在参与运行时命中；如需调整内容建议复制新版本';if(v.status==='已停用')return '曾经启用承接过流量，当前不再承接新流量；历史数据继续保留';return '页面版本状态'}
+function generationBrief(v){return v.prompt||v.goal||'基于承载商品、广告上下文和人群标签生成页面内容'}
+function renderVersions(){const p=plan();normalizeAudiencePriority(p);let h='';orderedRuntimeVersions(p).forEach((v,i)=>{const audienceLine=v.kind==='audience'?'人群说明：'+v.audience:v.audience;const matchNote=v.kind==='default'?'未命中默认内容':(['生成中','生成失败'].includes(v.status)?'暂不参与命中':'靠前优先生效');h+=`<div class="version"><div class="priority">${v.kind==='default'?'默认':i+1}</div><div><div class="name">${v.name} ${statusTag(v.status,v.statusColor)}</div><div class="desc">${audienceLine}</div><div class="tiny" style="margin-top:3px">${statusHelp(v)}</div></div><div><div class="tiny">生成要求</div><div class="small">${generationBrief(v)}</div></div><div><div>${kindLabel(v.kind)}</div><div class="tiny" style="margin-top:4px">${matchNote}</div></div><div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">${versionActions(v)}</div></div>`});$('versionList').innerHTML=h}
+function renderExperimentConfig(){const p=plan();let h=`<div class="layout-note" style="margin-bottom:10px">对照组按商品策略维度配置比例，并按访客稳定分流；同一访客在实验周期内保持同一分组，避免重复访问时在个性化承接组和对照组之间切换。安全兜底页仅处理参数无效、页面不可用或渲染异常。</div>`;p.versions.filter(v=>v.kind==='control'||v.kind==='fallback').forEach(v=>{const extra=v.kind==='control'?`${p.controlUrl}`:`${p.fallbackUrl}`;h+=`<div class="version experiment-version"><div class="priority">--</div><div><div class="name">${v.name}</div><div class="desc">${v.audience}</div></div><div><div class="tiny">配置</div><div class="small">${extra}</div></div><div>${kindLabel(v.kind)}</div><div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap"><button class="btn sm" onclick="openRuleConfig('${v.id}')">配置</button></div></div>`});$('experimentList').innerHTML=h}
+function canDeleteAudienceVersion(v){return v&&v.kind==='audience'&&['待启用','已停用','生成失败'].includes(v.status)}
+function versionHasReportData(v){return v&&strategyLinkRecords(plan()).length>0&&['已启用','已停用'].includes(v.status)}
+function versionActions(v){let h='';if(v.kind==='control'||v.kind==='fallback'){h+=`<button class="btn sm" onclick="openRuleConfig('${v.id}')">配置</button>`}else{const canMove=v.kind==='audience'&&!['生成中','生成失败'].includes(v.status);if(canMove){const move=audienceMoveState(v.id);h+=`<button class="btn sm" onclick="moveAudienceVersion('${v.id}',-1)" ${move.first?'disabled':''}>上移</button><button class="btn sm" onclick="moveAudienceVersion('${v.id}',1)" ${move.last?'disabled':''}>下移</button>`}if(v.status==='生成中'){return h}if(v.status!=='生成失败')h+=`<button class="btn sm" onclick="openPageEditor('${v.id}')">查看内容</button>`;if(v.kind==='audience'&&v.status==='待启用')h+=`<button class="btn sm" onclick="openAudienceEditModal('${v.id}')">重新生成</button>`;if(v.status==='待启用'||(v.status==='已停用'&&v.kind==='audience'))h+=`<button class="btn sm blue" onclick="publishVersion('${v.id}')">${v.status==='已停用'?'重新启用':'启用'}</button>`;if(v.status==='生成失败')h+=`<button class="btn sm blue" onclick="regenerateVersion('${v.id}')">重新生成</button>`;if(v.status==='已启用'&&v.kind==='audience')h+=`<button class="btn sm danger" onclick="offlineVersion('${v.id}')">停用</button>`;if(canDeleteAudienceVersion(v))h+=`<button class="btn sm danger" onclick="deleteAudienceVersion('${v.id}')">删除</button>`;if(versionHasReportData(v))h+=`<button class="btn sm" onclick="openReport(currentPlanId,'${v.id}')">数据</button>`}return h}
+function kindLabel(k){return k==='audience'?statusTag('人群页','violet'):k==='default'?statusTag('默认内容','blue'):k==='control'?statusTag('对照页','gray'):statusTag('兜底页','amber')}
+function recVersions(){return plan().versions.filter(v=>v.kind!=='control'&&v.kind!=='fallback')}
+function recKey(){return currentPlanId+'::'+currentRecVersionId}
+function productFactors(score,i){const base=Math.max(58,Math.min(96,score||80));return{tag:Math.max(55,Math.min(98,base+3-i*2)),heat:Math.max(50,Math.min(95,base-4+i)),fresh:Math.max(48,Math.min(92,base-9+i*3)),stock:Math.max(70,Math.min(100,base+6))}}
+function recProducts(){const key=recKey();if(!recState[key]){const v=versionById(currentRecVersionId)||{};recState[key]=defaultRecProducts.map((r,i)=>({...r,id:'rec_'+i+'_'+currentRecVersionId,score:Math.max(60,r.score-(v.kind==='default'?0:i*2)+(v.kind==='audience'?3:0)),source:i<3?'候选范围':(v.kind==='default'?r.source:(i===0?'人群标签命中':r.source)),factors:productFactors(r.score,i)}))}return recState[key]}
+function slotWire(label,selected){
+  return '<div class="wire-slot '+(selected.includes(label)?'on':'')+'">'+label+(selected.includes(label)?'':'未替换')+'</div>';
+}
+function templateWire(t){
+  const selected=t.replace||[];
+  const mode=t.previewMode||currentTemplatePreviewMode;
+  const isFallback=mode==='fallback';
+  const klass='template-wire '+(mode==='mobile'?'mobile ':'')+(isFallback?'fallback':'');
+  if(isFallback){
+    return '<div class="'+klass+'"><div class="wire-top"></div><div class="wire-hero">异常回退：保留原站 PDP 内容</div><div class="wire-row"><div class="wire-slot locked">商品主图 / 价格 / 规格锁定</div><div class="wire-slot locked">加购 / 结算链路锁定</div></div><div class="wire-row"><div class="wire-slot on">可替换区失败时不渲染</div><div class="wire-slot on">'+(t.fallback||'插槽失败时保留原站内容')+'</div></div><div class="wire-footer"></div></div>';
+  }
+  return '<div class="'+klass+'"><div class="wire-top"></div><div class="wire-hero">'+(selected.includes('首屏卖点')||selected.includes('首屏文案')?'首屏承接插槽':'原站首屏内容')+'</div><div class="wire-row"><div class="wire-slot locked">商品主图 / 价格锁定</div><div class="wire-slot locked">规格选择 / 购物车结算锁定</div></div><div class="wire-row">'+slotWire(selected.includes('卖点组合')?'卖点组合':'首屏卖点',selected)+slotWire('促销与优惠券',selected)+'</div><div class="wire-row">'+slotWire('推荐区',selected)+slotWire('信任背书',selected)+'</div><div class="wire-row">'+slotWire('客户评价与达人背书',selected)+slotWire('CTA',selected)+'</div><div class="wire-footer"></div></div>';
+}
+function compactPills(items,color,limit){
+  const list=(items||[]).slice(0,limit||3).map(x=>'<span class="slot-pill '+(color||'')+'">'+x+'</span>');
+  const rest=(items||[]).length-list.length;
+  if(rest>0)list.push('<span class="slot-pill gray">+'+rest+'</span>');
+  return '<div class="template-compact">'+list.join('')+'</div>';
+}
+function renderTemplates(){
+  let h='';
+  templatePage=renderPager('templatePager',templates.length,templatePage,'changeTemplatePage')||1;
+  templates.slice((templatePage-1)*pageSize,templatePage*pageSize).forEach((t,offset)=>{
+    const i=(templatePage-1)*pageSize+offset;
+    const color='green';
+    const actions=`<button class="btn sm" onclick="openTemplateInspect(${i},'view')">查看模板</button>`;
+    h+=`<tr>
+      <td><div class="template-name">${t.name}</div><div class="tiny">${t.type} · ${t.mode}</div></td>
+      <td>${statusTag(t.status,color)}</td>
+      <td>${compactPills(t.replace,'',4)}</td>
+      <td>${compactPills(t.locked,'gray',4)}</td>
+      <td><div class="template-usage">${t.usage}</div></td>
+      <td><div class="template-actions">${actions}</div></td>
+    </tr>`;
+  });
+  $('templateGrid').innerHTML=h;
+  if(typeof hydrateInlineHandlers==='function')hydrateInlineHandlers($('templateGrid'));
+}
+function setDefaultTemplate(i){
+  const target=templates[i];if(!target||target.status.includes('后续')||target.status==='草稿')return;
+  templates.forEach(t=>{if(t.type===target.type&&t.status==='默认模板')t.status='已启用'});
+  target.status='默认模板';
+  renderTemplates();
+  toast('已设为该页面类型默认模板');
+}
+function enableTemplate(i){const t=templates[i];if(!t)return;t.status='已启用';renderTemplates();toast('模板已启用')}
+function deleteTemplate(i){const t=templates[i];if(!t||t.usage!=='未使用'){alert('该模板已有使用记录，不能删除');return}templates.splice(i,1);renderTemplates();toast('模板已删除')}
+function setTemplatePreviewMode(mode){
+  currentTemplatePreviewMode=mode;
+  $('templatePreviewDesktop')?.classList.toggle('active',mode==='desktop');
+  $('templatePreviewMobile')?.classList.toggle('active',mode==='mobile');
+  $('templatePreviewFallback')?.classList.toggle('active',mode==='fallback');
+  updateTemplateDraft();
+}
+function setTemplateModalMode(mode){
+  currentTemplateMode=mode;
+  const readonly=mode==='view';
+  const modal=$('templateModal')?.querySelector('.modal');
+  modal?.classList.toggle('template-readonly',readonly);
+  const title=$('templateModal')?.querySelector('.modal-head h3');
+  if(title)title.textContent=readonly?'查看模板边界':'模板边界确认';
+  if($('templateSaveBtn'))$('templateSaveBtn').style.display=readonly?'none':'inline-flex';
+}
+function openTemplateInspect(i,mode='edit'){
+  const t=templates[i];
+  if(!t)return;
+  if(mode==='edit'&&t.status!=='草稿')mode='view';
+  currentTemplateIndex=i;
+  currentTemplatePreviewMode='desktop';
+  setTemplateModalMode(mode);
+  $('templateName').value=t.name;
+  $('templateType').value=t.type.includes('PDP')?'商品详情页 PDP':'商品详情页 PDP';
+  currentTemplateStatus=t.status;
+  document.querySelectorAll('input[name="tplReplace"]').forEach(x=>x.checked=t.replace.includes(x.value)||t.replace.some(v=>x.value.includes(v)||v.includes(x.value)));
+  $('templateLocked').value=(t.locked||[]).join('\n');
+  $('templateFallback').value='插槽失败时保留原站内容';
+  updateTemplateDraft();
+  openModal('templateModal');
+}
+function selectedTemplateReplace(){return [...document.querySelectorAll('input[name="tplReplace"]:checked')].map(x=>x.value)}
+function updateTemplateDraft(){
+  const selected=selectedTemplateReplace();
+  const mode='局部替换';
+  const name=($('templateName')?.value||'PDP 标准替换模板').trim()||'PDP 标准替换模板';
+  const fallback=$('templateFallback')?.value||'插槽失败时保留原站内容';
+  const locked=($('templateLocked')?.value||'').split('\n').map(x=>x.trim()).filter(Boolean);
+  if($('templateBlocks'))$('templateBlocks').value=selected.join('\n');
+  if($('templateDraftName'))$('templateDraftName').textContent=name+' · '+mode;
+  if($('templateDraftStatus'))$('templateDraftStatus').textContent=currentTemplateMode==='create'?'草稿':currentTemplateStatus;
+  if($('templateCompleteness'))$('templateCompleteness').textContent=selected.length+'/6';
+  if($('templateDraftWire'))$('templateDraftWire').innerHTML=templateWire({type:$('templateType')?.value||'商品详情页 PDP',replace:selected,locked,fallback,previewMode:currentTemplatePreviewMode,status:'可选'});
+  if($('templateDraftReplace'))$('templateDraftReplace').innerHTML=selected.map(x=>'<span class="slot-pill">'+x+'</span>').join('')||'<span class="tiny">请至少选择一个可替换区域</span>';
+  if($('templateDraftLocked'))$('templateDraftLocked').innerHTML=locked.map(x=>'<span class="slot-pill gray">'+x+'</span>').join('')||'<span class="tiny">暂无锁定边界</span>';
+  if($('templateDraftFallback'))$('templateDraftFallback').textContent=fallback;
+}
+function openTemplateModal(){currentTemplateIndex=null;currentTemplateStatus='草稿';currentTemplatePreviewMode='desktop';setTemplateModalMode('create');$('templateName').value='';$('templateType').value='商品详情页 PDP';document.querySelectorAll('input[name="tplReplace"]').forEach(x=>x.checked=['首屏卖点','促销与优惠券','推荐区','客户评价与达人背书','CTA'].includes(x.value));$('templateLocked').value='Header\n商品主图\n价格\n规格选择\n购物车/结算\nFooter';$('templateFallback').value='插槽失败时保留原站内容';setTemplatePreviewMode('desktop');updateTemplateDraft();openModal('templateModal')}
+function createTemplate(){
+  const replace=selectedTemplateReplace();
+  if(!replace.length){alert('请至少选择一个可替换区域');return}
+  const name=$('templateName').value.trim()||'自定义 PDP 模板';
+  const next={name,type:$('templateType').value,status:'草稿',usage:'未使用',mode:'局部替换',replace,locked:$('templateLocked').value.split('\n').map(x=>x.trim()).filter(Boolean),fallback:$('templateFallback').value};
+  if(currentTemplateIndex!==null&&templates[currentTemplateIndex]){
+    templates[currentTemplateIndex]={...templates[currentTemplateIndex],...next,status:templates[currentTemplateIndex].status};
+  }else{
+    templates.unshift(next);
+  }
+  closeModal('templateModal');
+  showScreen('templates');
+  renderTemplates();
+}
+function openRecModal(e){if(e)e.preventDefault();const versions=recVersions();if(currentVersionId&&versions.some(v=>v.id===currentVersionId))currentRecVersionId=currentVersionId;if(!versions.some(v=>v.id===currentRecVersionId))currentRecVersionId=versions[0]?.id||'v_default';try{renderRecEditor()}catch(err){showRuntimeNotice('推荐商品编辑器打开时使用了静态兜底内容：'+(err&&err.message?err.message:err),true)}openModal('recModal');return false}
+function recVersionLabel(){const v=versionById(currentRecVersionId)||{};return v.kind==='audience'?'人群页推荐列表':v.kind==='default'?'默认内容版本推荐列表':'当前页面推荐列表'}
+function recProductCard(item,i){
+  const score='综合 '+item.score+'分';
+  return '<div class="rec-product-card" draggable="true" ondragstart="recDragStart(event,'+i+')" ondragover="recDragOver(event,'+i+')" ondrop="recDrop(event,'+i+')" ondragend="recDragEnd(event)"><div class="drag">⠿</div><div class="img"><img src="'+(item.image||'assets/products/sequin-dress.png')+'" alt="'+item.name+'"></div><div class="name">'+item.name+'</div><div class="price">'+item.price+'</div><div class="meta">'+item.source+'</div><div class="rec-score">'+score+'</div><div class="actions"><button type="button" class="btn sm" draggable="false" onmousedown="event.stopPropagation()" onclick="event.stopPropagation();replaceRec('+i+')">替换</button><button type="button" class="btn sm danger" draggable="false" onmousedown="event.stopPropagation()" onclick="event.stopPropagation();removeRec('+i+')">删除</button></div></div>';
+}
+function addRecCard(){return '<button type="button" class="rec-product-card add" onclick="event.stopPropagation();addRecProduct()"><b>＋</b><span>添加推荐商品</span></button>'}
+function renderRecEditor(){
+  const v=versionById(currentRecVersionId)||{};
+  const items=recProducts();
+  let h='<div class="layout-note" style="margin-bottom:12px">当前调整对象：'+(v.name||'当前页面版本')+' · '+recVersionLabel()+'。推荐优先从当前策略的「推荐候选商品范围」中生成，也可补充同标签商品、搭配商品、热销商品和库存可售商品；运营只调整最终列表，不调整算法参数。</div>';
+  h+='<div class="rec-edit-head"><h4>推荐商品</h4><span class="tiny">拖拽排序，列表可人工调整</span></div><div class="rec-product-grid">';
+  items.forEach((item,i)=>h+=recProductCard(item,i));
+  h+=addRecCard()+'</div>';
+  $('recEditor').innerHTML=h;
+  hydrateInlineHandlers($('recEditor'));
+}
+function renderRecSummary(){if(currentEditorBlock==='recommendation'&&$('editorPanel'))renderEditorPanel();if($('previewBody')&&$('previewModal')?.classList.contains('show'))renderPreview()}
+function moveRec(i,dir){const items=recProducts();const j=i+dir;if(j<0||j>=items.length)return;const t=items[i];items[i]=items[j];items[j]=t;renderRecSummary();renderRecEditor()}
+function addRecProduct(){const items=recProducts();const next=recReplacePool[items.length%recReplacePool.length];items.push({...next,id:'rec_added_'+Date.now(),manual:true,source:'人工新增',factors:productFactors(next.score,items.length)});markEditorDirty();renderRecSummary();renderRecEditor()}
+function replaceRec(i){const items=recProducts();if(!items[i])return;const candidate=recReplacePool[(i+items.length)%recReplacePool.length];items[i]={...candidate,id:'rec_replace_'+Date.now(),manual:true,source:candidate.source+' · 替换',factors:productFactors(candidate.score,i)};markEditorDirty();renderRecSummary();renderRecEditor()}
+function removeRec(i){const items=recProducts();if(items.length<=1){alert('至少保留一个推荐商品');return}items.splice(i,1);markEditorDirty();renderRecSummary();renderRecEditor()}
+function recDragStart(e,i){recDragIndex=i;e.currentTarget.classList.add('dragging')}
+function recDragOver(e,i){e.preventDefault();document.querySelectorAll('.rec-product-card').forEach(c=>c.classList.remove('drag-over'));if(recDragIndex!==null&&recDragIndex!==i)e.currentTarget.classList.add('drag-over')}
+function recDrop(e,i){e.preventDefault();e.stopPropagation();if(recDragIndex===null||recDragIndex===i)return;const items=recProducts();const from=items[recDragIndex];const to=items[i];if(!from||!to)return;const moved=items.splice(recDragIndex,1)[0];items.splice(i,0,moved);markEditorDirty();renderRecSummary();renderRecEditor()}
+function recDragEnd(){document.querySelectorAll('.rec-product-card').forEach(c=>{c.classList.remove('dragging');c.classList.remove('drag-over')});recDragIndex=null}
+function versionById(id){return plan().versions.find(v=>v.id===id)}
+function colorForStatus(status){return status==='已启用'?'green':status==='待启用'?'amber':status==='生成中'?'blue':status==='生成失败'?'red':status==='已停用'?'gray':'gray'}
+function syncPlanStatus(p){const active=p.versions.filter(v=>v.kind!=='control'&&v.kind!=='fallback');if(active.some(v=>v.status==='生成中')){p.status='生成中';p.statusColor='blue'}else if(active.some(v=>v.status==='待启用'||v.status==='生成失败')){p.status='待启用';p.statusColor='amber'}else if(active.some(v=>v.status==='已启用')){p.status='已启用';p.statusColor='green'}else{p.status='已停用';p.statusColor='gray'}}
+function refreshPlanUI(){const p=plan();syncPlanStatus(p);if($('screen-detail')&&$('screen-detail').classList.contains('active'))openPlan(p.id);else renderPlanTable()}
+function saveControlConfig(){
+  const p=plan();
+  p.controlUrl=($('ruleControlUrl').value||p.controlUrl).trim()||p.defaultUrl;
+  p.controlRatio=String(ratioNumber($('ruleControlRatio').value));
+  const control=p.versions.find(v=>v.kind==='control');
+  if(control)control.audience='随机 '+ratioText(p.controlRatio)+' 流量，不执行个性化';
+  closeModal('ruleModal');
+  renderExperimentConfig();
+  renderPlanTable();
+}
+function publishVersion(id){const v=versionById(id);if(!v)return;if(v.status==='生成中'){alert('生成中版本需等待完成后启用');return}if(v.status==='生成失败'){alert('生成失败版本需重新生成成功后才能启用');return}if(typeof isEditorDirty==='function'&&currentVersionId===id&&isEditorDirty()){alert('当前有未保存修改，启用前请先保存。');return}if(!confirm('启用后，该内容版本将参与运行时命中，新的访问可能看到该内容。确认启用？'))return;v.status='已启用';v.statusColor='green';refreshPlanUI()}
+function offlineVersion(id){const v=versionById(id);if(!v)return;if(v.kind==='default'){alert('默认内容版本用于未命中或匿名用户兜底，MVP 不允许停用');return}if(!confirm('停用后，该内容版本不再参与新访问命中，历史数据仍保留。确认停用？'))return;v.status='已停用';v.statusColor='gray';refreshPlanUI()}
+function regenerateVersion(id){const v=versionById(id);if(!v)return;if(v.status==='已启用'){alert('已启用页面不允许直接重新生成。如需调整内容，请复制为新页面版本后再生成。');return}if(v.status==='已停用'){alert('已停用页面保留历史数据，不允许在原版本上重新生成；请复制为新页面版本后再生成。');return}if(!confirm('重新生成后，当前内容版本中的文案、推荐商品顺序和模块内容将被新生成结果覆盖。确认继续？'))return;v.status='生成中';v.statusColor='blue';renderVersions();renderExperimentConfig();renderPlanTable();closeModal('pageEditorModal');setTimeout(()=>{v.status='待启用';v.statusColor='amber';renderVersions();renderExperimentConfig();renderPlanTable()},900)}
+function deleteAudienceVersion(id){const p=plan();const v=p.versions.find(x=>x.id===id);if(!canDeleteAudienceVersion(v))return;if(!confirm('确认删除「'+v.name+'」？\n删除后，该页面内容版本将从当前商品策略中移除，策略级投放链接不受影响。'))return;p.versions=p.versions.filter(x=>x.id!==id);delete editorBlockState[currentPlanId+'::'+id];delete ctaState[id];delete offerState[id];delete faqState[id];Object.keys(recState).forEach(k=>{if(k.endsWith('::'+id))delete recState[k]});if(currentRecVersionId===id)currentRecVersionId=p.versions.find(x=>x.kind!=='control'&&x.kind!=='fallback')?.id||'v_default';refreshPlanUI()}
+function openRuleConfig(id){
+  const p=plan();const v=versionById(id);if(!v)return;
+  $('ruleTitle').textContent=v.kind==='control'?'实验对照组配置':'安全兜底页配置';
+  if(v.kind==='control'){
+    $('ruleBody').innerHTML=`<div class="layout-note" style="margin-bottom:14px">对照页由客户提供 URL；系统按商品策略级比例稳定分流，不执行个性化策略。</div><div class="field"><label>对照页 URL</label><input id="ruleControlUrl" value="${p.controlUrl}"></div><div class="field"><label>对照组比例</label><div style="position:relative"><input id="ruleControlRatio" type="number" min="0" max="99" step="1" value="${ratioNumber(p.controlRatio)}" style="padding-right:28px"><span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted)">%</span></div><div class="hint">手工输入 0-99 的数字；实验组比例自动按剩余流量计算。</div></div><div style="display:flex;justify-content:flex-end"><button class="btn primary" onclick="saveControlConfig()">保存配置</button></div>`;
+  }else{
+    $('ruleBody').innerHTML=`<div class="layout-note" style="margin-bottom:14px">当 strategy_id 无效、商品标识无效、服务异常或页面未启用时，进入安全兜底页。</div><div class="field"><label>兜底页 URL</label><input value="${p.fallbackUrl}"></div><div style="display:flex;justify-content:flex-end"><button class="btn primary" onclick="closeModal('ruleModal')">保存配置</button></div>`;
+  }
+  openModal('ruleModal');
+}
+function templateForPlan(p){return templates.find(t=>t.name===p.template||t.name.includes(p.template)||p.template.includes(t.name.replace('模板','方案')))||templates[0]}
+function templateSlots(p){const tpl=templateForPlan(p);const seen=new Set();const slots=(tpl.replace||[]).map(raw=>{const meta=slotMeta[raw]||{id:raw.toLowerCase().replace(/\s+/g,'_'),name:raw,position:'由模板配置决定',type:'AI 生成内容'};let id=meta.id;if(seen.has(id))id=id+'_'+seen.size;seen.add(id);return {...meta,source:raw,hidden:false,required:meta.id==='recommendation'}});return slots.length?slots:defaultEditorBlocks.map(b=>({...b,position:'由模板配置决定',type:'AI 生成内容',source:b.name,hidden:false}))}
+function getEditorBlocks(){const p=plan();const key=currentPlanId+'::'+currentVersionId;if(!editorBlockState[key])editorBlockState[key]=templateSlots(p).map(b=>({...b,hidden:false}));return editorBlockState[key]}
+function selectExistingBlock(){const blocks=getEditorBlocks();if(!blocks.some(b=>b.id===currentEditorBlock))currentEditorBlock=blocks[0]?.id||''}
+function editorDirtyKey(){return currentPlanId+'::'+currentVersionId}
+function isEditorDirty(){return !!editorDirtyState[editorDirtyKey()]}
+function markEditorDirty(){const v=versionById(currentVersionId);if(v&&v.status==='待启用'){editorDirtyState[editorDirtyKey()]=true;renderEditorDirtyNotice();renderEditorFooterActions(v)}}
+function clearEditorDirty(id){const key=currentPlanId+'::'+(id||currentVersionId);delete editorDirtyState[key]}
+function renderEditorDirtyNotice(){const el=$('editorDirtyNotice');if(el)el.style.display=isEditorDirty()?'block':'none'}
+function saveEditorChanges(){clearEditorDirty();renderEditorDirtyNotice();renderEditorFooterActions(versionById(currentVersionId)||{});toast('修改已保存')}
+function closePageEditorModal(){if(isEditorDirty()){if(!confirm('当前有未保存修改，关闭后这些修改不会保存。'))return;clearEditorDirty()}closeModal('pageEditorModal')}
+function openPageEditor(id){currentVersionId=id;const v=versionById(id);if(!v)return;if(v.status==='生成中'){alert('AI 正在生成页面内容，完成后可查看');return}if(v.status==='生成失败'){alert('页面生成失败，暂无可查看内容，请先重新生成');return}currentEditorBlock=getEditorBlocks()[0]?.id||'';$('editorTitle').textContent='承载页局部替换内容 · '+v.name;renderEditorBlocks();renderEditorPanel();renderEditorFooterActions(v);openModal('pageEditorModal')}
+function renderEditorFooterActions(v){const wrap=$('editorFooterActions');if(!wrap)return;let h=`<button class="btn" onclick="openPreview(currentPlanId,currentVersionId)">预览</button>`;if(v.status==='待启用')h+=`<button class="btn" onclick="saveEditorChanges()">保存修改</button><button class="btn primary" onclick="publishVersion(currentVersionId)">启用</button>`;if(v.status==='已停用')h+=`<button class="btn primary" onclick="publishVersion(currentVersionId)">重新启用</button>`;if(v.status==='已启用')h+=`<button class="btn danger" onclick="offlineVersion(currentVersionId)">停用</button>`;wrap.innerHTML=h;renderEditorDirtyNotice()}
+function renderEditorBlocks(){selectExistingBlock();const blocks=getEditorBlocks();const tpl=templateForPlan(plan());let h='<div class="layout-note" style="margin-bottom:10px">当前模板：'+tpl.name+'。这里只编辑模板允许的 Social Link 可替换区；原站购买、规格、库存和结算区保持只读。区块位置由模板决定。</div>';blocks.forEach((b,i)=>{h+=`<div class="block-item ${b.hidden?'hidden':''}"><button class="block-btn ${b.id===currentEditorBlock?'active':''}" onclick="currentEditorBlock='${b.id}';renderEditorBlocks();renderEditorPanel()">${i+1}. ${b.name}${b.hidden?' · 已隐藏':''}<div class="tiny" style="margin-top:3px">${b.position||'由模板配置决定'}</div></button></div>`});$('editorBlockList').innerHTML=h||'<div class="empty-record">当前模板暂无可替换区。</div>'}
+function toggleEditorBlock(id){const b=getEditorBlocks().find(x=>x.id===id);if(!b)return;b.hidden=!b.hidden;markEditorDirty();renderEditorBlocks();renderEditorPanel()}
+function resetEditorBlock(id){const b=getEditorBlocks().find(x=>x.id===id);if(!b)return;b.hidden=false;markEditorDirty();renderEditorBlocks();renderEditorPanel()}
+function eyeIcon(hidden){return hidden?'<svg viewBox="0 0 24 24"><path d="M3 3l18 18"></path><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.1A10.4 10.4 0 0 1 12 5c6 0 10 7 10 7a18.5 18.5 0 0 1-2.7 3.5"></path><path d="M6.2 6.3C3.6 8.1 2 12 2 12s4 7 10 7c1.5 0 2.9-.4 4.1-1"></path></svg>':'<svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>'}
+function getCtas(){if(!ctaState[currentVersionId])ctaState[currentVersionId]=[{text:'立即选购',url:plan().defaultUrl||'https://www.bellabarnett.com/products/white-dress'}];return ctaState[currentVersionId]}
+function renderCtaRows(){const wrap=$('ctaRows');if(!wrap)return;const rows=getCtas();wrap.innerHTML=rows.map((c,i)=>`<div class="cta-row"><input value="${c.text||''}" placeholder="按钮文案" oninput="updateCta(${i},'text',this.value)"><input value="${c.url||''}" placeholder="https://www.bellabarnett.com/products/xxx" oninput="updateCta(${i},'url',this.value)"><button type="button" onclick="removeCta(${i})">×</button></div>`).join('')}
+function addCta(){getCtas().push({text:'查看更多',url:plan().fallbackUrl||plan().defaultUrl});markEditorDirty();renderCtaRows()}
+function updateCta(i,field,value){if(getCtas()[i]){getCtas()[i][field]=value;markEditorDirty()}}
+function removeCta(i){const rows=getCtas();if(rows.length<=1){alert('至少保留一个 CTA');return}rows.splice(i,1);markEditorDirty();renderCtaRows()}
+function getOffer(){if(!offerState[currentVersionId])offerState[currentVersionId]={title:'派对季专属优惠',copy:'下单前复制优惠码，前往原站结账页使用。',code:'PARTY15',note:'最终优惠以原站结账页为准。'};return offerState[currentVersionId]}
+function updateOffer(field,value){getOffer()[field]=value;markEditorDirty()}
+function offerPreviewHtml(){const o=getOffer();const title=o.title||'促销与优惠券';const copy=o.copy||'展示当前人群可见的促销权益。';const note=o.note||'最终优惠以原站结账页为准。';const code=(o.code||'').trim();if(code)return '<div class="promo-preview"><div class="promo-code"><span>优惠码</span><b>'+code+'</b></div><div class="promo-copy"><strong>'+title+'</strong><p>'+copy+'</p><small>'+note+'</small><span class="promo-cta">复制优惠码</span></div></div>';return '<div class="promo-preview no-code"><div class="promo-copy"><strong>'+title+'</strong><p>'+copy+'</p><small>'+note+'</small></div></div>'}
+function getFaqs(){if(!faqState[currentVersionId])faqState[currentVersionId]=[{type:'客户评价',source:'Verified Buyer · Emily R.',platform:'官网评价',rating:'5.0',quote:'“裙型很显瘦，参加派对拍照非常出片，尺码也符合预期。”',url:''},{type:'达人背书',source:'Fashion Creator · Mia Chen',platform:'Instagram / TikTok',rating:'推荐',quote:'适合晚宴、派对和约会场景，可搭配金色手包和细跟凉鞋。',url:'https://www.instagram.com/'}];return faqState[currentVersionId]}
+function renderFaqRows(){const wrap=$('faqRows');if(!wrap)return;const rows=getFaqs();wrap.innerHTML=rows.map((item,i)=>`<div class="faq-item"><div class="faq-item-head"><b>背书卡片 ${i+1}</b><div class="faq-actions"><button type="button" class="btn sm" onclick="moveFaq(${i},-1)" ${i===0?'disabled':''}>上移</button><button type="button" class="btn sm" onclick="moveFaq(${i},1)" ${i===rows.length-1?'disabled':''}>下移</button><button type="button" class="btn sm danger" onclick="removeFaq(${i})">删除</button></div></div><div class="endorse-grid"><div class="field"><label>背书类型</label><select onchange="updateFaq(${i},'type',this.value)"><option ${item.type==='客户评价'?'selected':''}>客户评价</option><option ${item.type==='达人背书'?'selected':''}>达人背书</option><option ${item.type==='媒体引用'?'selected':''}>媒体引用</option><option ${item.type==='社媒内容'?'selected':''}>社媒内容</option></select></div><div class="field"><label>来源名称</label><input value="${item.source||''}" placeholder="如：Verified Buyer · Emily R." oninput="updateFaq(${i},'source',this.value)"></div><div class="field"><label>平台 / 渠道</label><input value="${item.platform||''}" placeholder="如：官网评价 / Instagram / TikTok" oninput="updateFaq(${i},'platform',this.value)"></div><div class="field"><label>评分 / 标记</label><input value="${item.rating||''}" placeholder="如：5.0 / 推荐 / 媒体精选" oninput="updateFaq(${i},'rating',this.value)"></div></div><div class="field"><label>背书文案</label><textarea placeholder="输入客户评价、达人推荐或媒体引用内容" oninput="updateFaq(${i},'quote',this.value)">${item.quote||''}</textarea></div><div class="field"><label>来源链接（可选）</label><input value="${item.url||''}" placeholder="https://..." oninput="updateFaq(${i},'url',this.value)"></div></div>`).join('')}
+function addFaq(){getFaqs().push({type:'客户评价',source:'新增来源',platform:'官网评价',rating:'5.0',quote:'输入客户评价、达人推荐或社媒背书内容。',url:''});markEditorDirty();renderFaqRows()}
+function updateFaq(i,field,value){if(getFaqs()[i]){getFaqs()[i][field]=value;markEditorDirty()}}
+function moveFaq(i,dir){const rows=getFaqs();const j=i+dir;if(j<0||j>=rows.length)return;const t=rows[i];rows[i]=rows[j];rows[j]=t;markEditorDirty();renderFaqRows()}
+function removeFaq(i){const rows=getFaqs();if(rows.length<=1){alert('至少保留一条背书内容');return}rows.splice(i,1);markEditorDirty();renderFaqRows()}
+function renderEditorPanel(){
+  const v=versionById(currentVersionId)||{};
+  selectExistingBlock();
+  const block=getEditorBlocks().find(b=>b.id===currentEditorBlock);
+  if(!block){$('editorPanel').innerHTML='<div class="empty-record">请先添加或恢复内容块。</div>';return}
+  const regenBtn=(v.status==='待启用')?'<button class="btn sm blue" onclick="alert(\'原型模拟：重新生成当前区块\')">重新生成区块</button>':'';
+  const reasonBtn=currentEditorBlock==='recommendation'?'<button class="btn sm" onclick="openStrategyModal()">查看推荐依据</button>':'';
+  const hideBtn=`<button class="icon-btn ${block.hidden?'active':''}" title="${block.hidden?'显示该区块':'隐藏该区块'}" aria-label="${block.hidden?'显示该区块':'隐藏该区块'}" onclick="toggleEditorBlock('${block.id}')">${eyeIcon(block.hidden)}</button>`;
+  const slotActions=`<div class="block-title-actions">${regenBtn}${reasonBtn}${hideBtn}</div>`;
+  let h=`<div class="subhead"><div><h3 style="font-size:15px">${block.name} ${block.hidden?statusTag('已隐藏','gray'):''}</h3><div class="tiny">${block.position||'由模板配置决定'}</div></div>${slotActions}</div>`;
+  h+='<div class="layout-note" style="margin-bottom:12px">内容类型：'+(block.type||'AI 生成内容')+'。该区域位置来自当前模板配置，预览会按模板模拟嵌入承载页后的效果。</div>';
+  if(block.hidden)h+='<div class="layout-note" style="margin-bottom:12px">该区块已隐藏，启用后不会展示；仍可保留内容，之后可再次显示。</div>';
+  if(currentEditorBlock==='hero'){
+    h+='<div class="field"><label>卖点标题</label><input value="为你重排的专属白裙造型" oninput="markEditorDirty()"></div><div class="field"><label>卖点描述</label><textarea oninput="markEditorDirty()">根据当前人群标签、商品标签和历史行为数据生成承载页内的辅助承接文案。</textarea></div>';
+  }else if(currentEditorBlock==='recommendation'){
+    const items=recProducts();
+    h+='<div class="rec-summary-meta"><span class="tag blue">'+items.length+' 个推荐商品</span></div><div class="rec-preview-grid">'+items.slice(0,4).map(r=>'<div class="rec-preview-card"><div class="pic"><img src="'+(r.image||'assets/products/sequin-dress.png')+'" alt="'+r.name+'"></div><b>'+r.name+'</b><span>'+r.price+'</span><small>'+r.source+'</small></div>').join('')+'</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn blue" type="button" onclick="openRecModal()">查看并调整全部商品</button></div>';
+  }else if(currentEditorBlock==='selling'){
+    h+='<div class="field"><label>卖点 1</label><input value="精选高弹力面料，贴身舒适不紧绷" oninput="markEditorDirty()"></div><div class="field"><label>卖点 2</label><input value="按场景突出派对、晚宴或通勤诉求" oninput="markEditorDirty()"></div><div class="field"><label>卖点 3</label><input value="搭配推荐提升整套造型转化" oninput="markEditorDirty()"></div>';
+  }else if(currentEditorBlock==='offer'){
+    const o=getOffer();
+    h+='<div class="field"><label>促销标题</label><input value="'+(o.title||'')+'" oninput="updateOffer(\'title\',this.value);renderOfferInlinePreview()"></div><div class="field"><label>促销文案</label><textarea oninput="updateOffer(\'copy\',this.value);renderOfferInlinePreview()">'+(o.copy||'')+'</textarea></div><div class="field"><label>优惠码展示（可选）</label><input value="'+(o.code||'')+'" placeholder="如 PARTY15；无优惠码时可留空" oninput="updateOffer(\'code\',this.value);renderOfferInlinePreview()"></div><div class="field"><label>使用说明，小字</label><textarea oninput="updateOffer(\'note\',this.value);renderOfferInlinePreview()">'+(o.note||'')+'</textarea></div><div class="layout-note amber" style="margin-bottom:12px">优惠码与折扣规则由客户原站配置，Social Link 仅展示和引导。</div><div id="offerInlinePreview">'+offerPreviewHtml()+'</div>';
+  }else if(currentEditorBlock==='trust'){
+    h+='<div class="field"><label>信任点</label><textarea oninput="markEditorDirty()">安全支付\\n快速配送\\n30 天退换</textarea></div>';
+  }else if(currentEditorBlock==='faq'){
+    h+='<div class="field"><div class="faq-list" id="faqRows"></div><button type="button" class="btn sm blue" onclick="addFaq()" style="margin-top:10px">添加背书内容</button></div>';
+  }else{
+    h+='<div class="field"><label>CTA 按钮</label><div class="layout-note" style="margin-bottom:10px">可保留一个主 CTA，也可以新增多个按钮，用于不同跳转目标。</div><div class="param-list" id="ctaRows"></div><button type="button" class="btn sm blue" onclick="addCta()">添加 CTA</button><div class="hint">每个 CTA 可设置按钮文案、跳转方式和目标 URL。</div></div>';
+  }
+  $('editorPanel').innerHTML=h;
+  if(currentEditorBlock==='cta')renderCtaRows();
+  if(currentEditorBlock==='faq')renderFaqRows();
+}
+function renderOfferInlinePreview(){const wrap=$('offerInlinePreview');if(wrap)wrap.innerHTML=offerPreviewHtml()}
+function openPlanModal(){['newName','newPrimary','newSkus','newDefaultUrl','newControlUrl','newFallback'].forEach(id=>{if($(id))$(id).value=''});$('newControlRatio').value='10';$('newType').value='商品详情页 PDP';$('newTemplate').value='默认模板';syncTemplateHint();openModal('planModal')}
+function syncTemplateHint(){const type=$('newType')?.value||'商品详情页 PDP';$('templateHint').textContent=type.includes('聚合页')?'聚合页模板方案由实施人员基于客户集合页或专题页配置生成。':'默认模板由实施人员基于客户详情页配置生成。';if($('carrierUrlHint'))$('carrierUrlHint').textContent=type.includes('聚合页')?'商品聚合页：填写客户已配置 SDK / 模板的集合页或专题页链接。系统会在该 URL 后追加 strategy_id、product_handle 和 UTM 参数；页面版本由运行时 Decision 返回。':'请填写已完成模板适配的客户商品详情页 URL。'}
+function createPlan(){const name=$('newName').value.trim()||'新商品策略';const primary=$('newPrimary').value.trim()||'new-product';const skus=($('newSkus').value.trim()||primary).split(',').map(s=>s.trim()).filter(Boolean);const defaultUrl=$('newDefaultUrl').value.trim();const controlUrl=$('newControlUrl').value.trim();const fallbackUrl=$('newFallback').value.trim();const urlFields=[['千人千面承载页URL',defaultUrl],['对照页URL',controlUrl],['安全兜底页URL',fallbackUrl]];const invalid=urlFields.find(item=>!/^https?:\/\//i.test(item[1]));if(invalid){alert('请填写完整的 '+invalid[0]);return}const id=String(Date.now()).slice(-12);const controlRatio=String(ratioNumber($('newControlRatio').value));plans.unshift({id,name,primarySku:primary,skus,type:$('newType').value,template:$('newTemplate').value,defaultUrl,controlUrl,controlRatio,fallbackUrl,status:'待启用',statusColor:'amber',links:0,linkRecords:[],versions:[{id:'v_default',kind:'default',name:'默认内容版本',audience:'未命中目标人群，但商品、UTM 或广告参数有效',priority:'-',status:'生成中',statusColor:'blue',goal:'基于广告上下文和商品策略承接流量'},{id:'v_control',kind:'control',name:'实验对照页',audience:'随机 '+ratioText(controlRatio)+' 流量，不执行个性化',priority:'-',status:'已启用',statusColor:'gray',goal:'客户提供承载页基线'},{id:'v_fallback',kind:'fallback',name:'安全兜底页',audience:'商品标识、UTM、路由、策略或渲染异常',priority:'-',status:'已启用',statusColor:'gray',goal:'保护交易链路'}]});closeModal('planModal');renderPlanTable();openPlan(id);setTimeout(()=>{const p=plans.find(x=>x.id===id);const v=p?.versions.find(x=>x.id==='v_default');if(v&&v.status==='生成中'){v.status='待启用';v.statusColor='amber';refreshPlanUI()}},900)}
+let editingAudienceVersionId=null;
+function setAudienceEditState(v){
+  const notice=$('audienceEditNotice');
+  const isEdit=!!v;
+  const isPublished=v&&v.status==='已启用';
+  $('audienceName').disabled=isEdit;
+  $('audiencePrompt').disabled=v&&v.status!=='待启用';
+  if(!notice)return;
+  if(!isEdit){notice.style.display='none';notice.textContent='';return}
+  notice.style.display='block';
+  if(v.status==='待启用')notice.textContent='这里只修改生成要求。点击“重新生成页面”后，当前页面版本会进入生成中，生成完成后仍为待启用。';
+  else if(v.status==='生成中')notice.textContent='当前页面正在生成，暂不可修改配置。';
+  else notice.textContent='当前状态不可修改生成要求；命中顺序请在页面版本列表中通过上移 / 下移调整。';
+}
+function audiencePromptDefault(){return '首屏承接广告素材风格，推荐区优先展示同场景搭配商品，CTA 保持去原站购买。'}
+function syncAudienceDescription(){const name=$('audienceName')?.value||'';if($('audienceDescription'))$('audienceDescription').value=audienceDescriptions[name]||'来自 Social Link 人群管理的人群描述'}
+function openAudienceModal(){editingAudienceVersionId=null;$('audienceModal').querySelector('.modal-head h3').textContent='添加页面内容版本';$('audienceName').value='新客 · 派对礼服兴趣';syncAudienceDescription();$('audiencePrompt').value=audiencePromptDefault();$('audienceSaveBtn').textContent='生成页面版本';setAudienceEditState(null);openModal('audienceModal')}
+function ensureAudienceOption(name){const select=$('audienceName');if(!select||!name)return;if(![...select.options].some(o=>o.value===name)){let group=[...select.querySelectorAll('optgroup')].find(g=>g.label==='自定义 / 历史人群');if(!group){group=document.createElement('optgroup');group.label='自定义 / 历史人群';select.appendChild(group)}const opt=document.createElement('option');opt.value=name;opt.textContent=name;group.appendChild(opt)}}
+function openAudienceEditModal(id){const v=versionById(id);if(!v||v.kind!=='audience')return;if(v.status!=='待启用'){alert('只有待启用页面可以调整生成要求并重新生成');return}editingAudienceVersionId=id;$('audienceModal').querySelector('.modal-head h3').textContent='重新生成页面';ensureAudienceOption(v.name);$('audienceName').value=v.name;if($('audienceDescription'))$('audienceDescription').value=v.audience||audienceDescriptions[v.name]||'';$('audiencePrompt').value=v.prompt||audiencePromptDefault();$('audienceSaveBtn').textContent='确认重新生成';setAudienceEditState(v);openModal('audienceModal')}
+function saveAudienceVersionConfig(){if(editingAudienceVersionId){const v=versionById(editingAudienceVersionId);if(v&&v.kind==='audience'&&v.status==='待启用'){if(!confirm('重新生成后，当前内容版本中的文案、推荐商品顺序和模块内容将被新生成结果覆盖。确认继续？'))return;v.prompt=$('audiencePrompt').value.trim()||audiencePromptDefault();v.goal=v.prompt;v.status='生成中';v.statusColor='blue';const id=v.id;editingAudienceVersionId=null;closeModal('audienceModal');renderVersions();renderPlanTable();setTimeout(()=>{const done=versionById(id);if(done&&done.status==='生成中'){done.status='待启用';done.statusColor='amber';renderVersions();renderPlanTable()}},900);return}editingAudienceVersionId=null;closeModal('audienceModal');return}addAudienceVersion()}
+function addAudienceVersion(){const p=plan();const name=$('audienceName').value;const prompt=$('audiencePrompt').value.trim()||audiencePromptDefault();const audience=$('audienceDescription')?.value||audienceDescriptions[name]||'来自 Social Link 人群管理的人群描述';const controlIndex=p.versions.findIndex(v=>v.kind==='control');const insertAt=controlIndex>=0?controlIndex:p.versions.length;p.versions.splice(insertAt,0,{id:'v_'+Date.now().toString(36),kind:'audience',name,audience,priority:999,status:'生成中',statusColor:'blue',goal:prompt,prompt});normalizeAudiencePriority(p);closeModal('audienceModal');renderVersions();syncRecVersionOptions();renderPlanTable();setTimeout(()=>{const v=p.versions.find(x=>x.name===name&&x.status==='生成中');if(v){v.status='待启用';v.statusColor='amber';renderVersions();renderPlanTable()}},900)}
+function strategyLinkRecords(p){if(!p)return[];p.linkRecords=p.linkRecords||[];return p.linkRecords}
+function openLinkModal(){const p=plan();$('linkVersion').innerHTML='<option value="'+p.id+'">'+p.name+'</option>';$('linkVersion').value=p.id;['utmCampaign','utmContent','utmTerm','adId'].forEach(id=>{if($(id))$(id).value=''});linkCustomParams=[];renderLinkParams();fillChannelDefaults();syncLinkPreview();renderLinkRecords();openModal('linkModal');$('linkModal').querySelector('.modal').scrollTop=0}
+function fillChannelDefaults(){const platform=$('linkSourcePlatform').value;const map={Meta:['facebook','paid_social','paid_social'],Google:['google','paid_search','paid_search'],Klaviyo:['klaviyo','email','email'],自定义:['custom','custom','custom']};const [s,m,t]=map[platform]||map.Meta;$('linkChannelType').value=t;$('utmSource').value=s;$('utmMedium').value=m}
+function syncMediumFromChannel(){$('utmMedium').value=$('linkChannelType').value}
+function linkKey(){return [$('linkSourcePlatform').value,$('utmMedium').value.trim(),$('utmCampaign').value.trim(),$('adId').value.trim()||$('utmContent').value.trim()].join('|')}
+function currentLinkPlan(){return plan()}
+function renderLinkParams(){const wrap=$('linkParamList');if(!wrap)return;if(!linkCustomParams.length){wrap.innerHTML='<div class="tiny" style="padding:8px;border:1px dashed var(--line);border-radius:6px">暂无自定义参数</div>';return}wrap.innerHTML=linkCustomParams.map((p,i)=>`<div class="param-row"><input placeholder="key，例如 email_id" value="${p.key||''}" oninput="updateLinkParam(${i},'key',this.value)"><input placeholder="value" value="${p.value||''}" oninput="updateLinkParam(${i},'value',this.value)"><button type="button" onclick="removeLinkParam(${i})">×</button></div>`).join('')}
+function addLinkParam(){linkCustomParams.push({key:'',value:''});renderLinkParams()}
+function updateLinkParam(i,field,value){if(linkCustomParams[i])linkCustomParams[i][field]=value;syncLinkPreview()}
+function removeLinkParam(i){linkCustomParams.splice(i,1);renderLinkParams();syncLinkPreview()}
+function sanitizeLinkParams(params){const reserved=new Set(['strategy_id','product_handle','product_id','sku','skus','utm_source','utm_medium','utm_campaign','utm_content','utm_term','ad_id','creative_id','version_id','debug_version_id']);const seen=new Set();const out=[];(params||[]).forEach(p=>{const key=String(p.key||'').trim();const value=String(p.value||'').trim();if(!key||!value)return;const lower=key.toLowerCase();if(reserved.has(lower)||seen.has(lower)||!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(key))return;seen.add(lower);out.push({key,value})});return out}
+function carrierLinkBase(p){const raw=(p&&p.defaultUrl)||'https://www.bellabarnett.com/products/'+((p&&p.primarySku)||'product');return raw.startsWith('http')?raw:'https://www.bellabarnett.com'+(raw.startsWith('/')?raw:'/'+raw)}
+function linkReadiness(p){const missing=[];if(!p.defaultUrl)missing.push('承载页 URL');if(!p.fallbackUrl)missing.push('安全兜底页 URL');const defaultVersion=(p.versions||[]).find(v=>v.kind==='default');return{missing,defaultOnline:defaultVersion&&defaultVersion.status==='已启用'}}
+function syncLinkRiskNotice(){const el=$('linkRiskNotice');if(!el)return;const p=plan();const ready=linkReadiness(p);if(ready.missing.length){el.style.display='block';el.textContent='缺少 '+ready.missing.join('、')+'，不建议生成正式投放链接。';return}if(!ready.defaultOnline){el.style.display='block';el.textContent='默认内容版本未启用，链接可用于配置准备，但不建议正式投放。未命中人群用户将无法看到默认承接内容。';return}el.style.display='none';el.textContent=''}
+function syncLinkPreview(){const p=plan();const url=new URL(carrierLinkBase(p));url.searchParams.set('strategy_id',p.id);url.searchParams.set('product_handle',p.primarySku);url.searchParams.set('utm_source',($('utmSource').value||'').trim());url.searchParams.set('utm_medium',($('utmMedium').value||'').trim());url.searchParams.set('utm_campaign',($('utmCampaign').value||'').trim());const content=($('utmContent').value||'').trim();const term=($('utmTerm').value||'').trim();const adId=($('adId').value||'').trim();if(content)url.searchParams.set('utm_content',content);if(term)url.searchParams.set('utm_term',term);if(adId){url.searchParams.set('ad_id',adId);url.searchParams.set('creative_id',adId)}sanitizeLinkParams(linkCustomParams).forEach(item=>url.searchParams.set(item.key,item.value));$('linkPreview').textContent=url.toString();syncLinkRiskNotice();renderLinkRecords()}
+function copyIcon(){return '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>'}
+function copyText(text){const value=String(text||'');if(!value)return;if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(value).then(()=>showToast('链接已复制')).catch(()=>fallbackCopyText(value));return}fallbackCopyText(value)}
+function fallbackCopyText(value){const ta=document.createElement('textarea');ta.value=value;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showToast('链接已复制')}catch(err){showToast('复制失败，请手动复制链接')}document.body.removeChild(ta)}
+function renderLinkRecords(){const wrap=$('linkRecordList');if(!wrap)return;const p=currentLinkPlan();const rows=strategyLinkRecords(p);$('linkVersionName').textContent=p?p.name:'-';$('linkVersionDesc').textContent=p?'承载页 URL：'+carrierLinkBase(p)+' · 承载商品：'+p.primarySku:'-';$('linkRecordCount').textContent=rows.length+' 条链接';if(!rows.length){wrap.innerHTML='<div class="empty-record">暂无链接记录。保存后，这里会记录来源平台、渠道类型、campaign/ad、创建人、创建时间和最终 URL。</div>';return}wrap.innerHTML=rows.map((r,i)=>`<div class="link-record"><div class="link-record-top"><div><div class="link-record-title">${r.platform} / ${r.campaign}</div><div class="link-record-meta"><span class="tag gray">${r.medium}</span>${r.content?'<span class="tag blue">'+r.content+'</span>':''}</div></div><div class="tiny" style="text-align:right">${r.createdBy}<br>${r.createdAt}</div></div><div class="link-url-row"><div class="mono link-record-url">${r.url}</div><button type="button" class="copy-link-btn" title="复制完整链接" aria-label="复制完整链接" onclick="copyText(strategyLinkRecords(plan())[${i}].url)">${copyIcon()}</button></div></div>`).join('');hydrateInlineHandlers(wrap)}
+function saveLink(){const required=['utmSource','utmMedium','utmCampaign'];if(required.some(id=>!$(id).value.trim())){alert('请填写必填字段：流量来源、投放渠道、utm_campaign');return}if(sanitizeLinkParams(linkCustomParams).length!==linkCustomParams.filter(p=>p.key||p.value).length){alert('自定义参数存在无效、重复或系统保留 key，请调整后保存。');return}const p=plan();const records=strategyLinkRecords(p);const key=linkKey();if(records.some(r=>r.key===key)){alert('该商品策略下相同来源渠道 / campaign / 广告素材已生成过链接，请查看链接记录。');return}const now=new Date();const pad=n=>String(n).padStart(2,'0');records.push({key,platform:$('linkSourcePlatform').value,medium:$('utmMedium').value.trim(),campaign:$('utmCampaign').value.trim(),content:$('adId').value.trim()||$('utmContent').value.trim(),createdBy:'当前用户',createdAt:`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`,url:$('linkPreview').textContent});p.links=records.length;renderLinkRecords();renderVersions();renderPlanTable();alert('原型模拟：链接已保存到商品策略')}
+function openPreview(id,versionId){currentPlanId=id||currentPlanId;const p=plan();$('previewTitle').textContent='承载页模板模拟预览 · '+p.name;$('previewVersion').innerHTML=p.versions.map(v=>'<option value="'+v.id+'">'+v.name+'</option>').join('');if(versionId)$('previewVersion').value=versionId;renderPreview();openModal('previewModal')}
+function setPreviewDevice(device){currentPreviewDevice=device;$('previewDesktopTab')?.classList.toggle('active',device==='桌面');$('previewMobileTab')?.classList.toggle('active',device==='移动端');renderPreview()}
+function slotPreview(block,v){
+  if(block.hidden)return '<div class="pdp-slot" style="opacity:.45"><b>'+block.name+' · 已隐藏</b><p>访客不可见，内容仅在工作台保留。</p></div>';
+  if(block.id==='hero')return '<div class="pdp-slot"><b>'+block.name+'</b><p>'+(v.kind==='default'?'基于广告素材与 商品标签展示默认卖点。':'面向「'+v.name+'」强调更匹配的场景、版型或购买理由。')+'</p></div>';
+  if(block.id==='recommendation')return '<div class="pdp-slot"><b>'+block.name+'</b><div class="pdp-rec">'+recProducts().slice(0,4).map(r=>'<div class="rec-mini"><div class="pic"><img src="'+(r.image||'assets/products/sequin-dress.png')+'" alt="'+r.name+'"></div><b>'+r.name+'</b><p>'+r.price+'</p></div>').join('')+'</div></div>';
+  if(block.id==='offer')return '<div class="pdp-slot"><b>'+block.name+'</b>'+offerPreviewHtml()+'</div>';
+  if(block.id==='trust')return '<div class="pdp-slot"><b>'+block.name+'</b><p>安全支付 / 快速配送 / 30 天退换</p></div>';
+  if(block.id==='faq')return '<div class="pdp-slot"><b>'+block.name+'</b><div class="endorse-preview">'+getFaqs().map(item=>'<div class="endorse-card"><div class="endorse-card-top"><b>'+((item.type||'背书')+' · '+(item.rating||''))+'</b><span class="tag gray">'+(item.platform||'来源')+'</span></div><p>'+(item.quote||'')+'</p><div class="endorse-meta">'+(item.source||'')+(item.url?' · 可查看来源链接':'')+'</div></div>').join('')+'</div></div>';
+  if(block.id==='cta')return '<div class="pdp-slot"><b>'+block.name+'</b><p>查看原站购买选项</p></div>';
+  return '<div class="pdp-slot"><b>'+block.name+'</b><p>AI 按当前页面版本生成的模板 slot 内容。</p></div>';
+}
+function slotsByZone(blocks,zone){return blocks.filter(b=>(b.zone||'bottom')===zone).map(b=>slotPreview(b,versionById($('previewVersion').value)||{})).join('')}
+function renderPreview(){const p=plan();const tpl=templateForPlan(p);const v=p.versions.find(x=>x.id===$('previewVersion').value)||p.versions[0];const mobile=currentPreviewDevice==='移动端';$('previewDesktopTab')?.classList.toggle('active',!mobile);$('previewMobileTab')?.classList.toggle('active',mobile);let label=v.kind==='control'?'实验对照：客户提供的对照页':v.kind==='fallback'?'安全兜底：跳安全兜底页':v.kind==='default'?'默认内容：广告上下文驱动':'人群命中：'+v.name;let h='<div class="preview-shell '+(mobile?'mobile':'')+'" style="max-width:'+(mobile?'390px':'100%')+';margin:0 auto"><div class="site-bar"><b>Bella Barnett</b><div class="site-nav"><span>New In</span><span>Dresses</span><span>Sale</span></div></div>';if(v.kind==='control'||v.kind==='fallback'){h+='<div style="padding:'+(mobile?'40px 16px':'70px 28px')+';text-align:center"><span class="tag '+(v.kind==='control'?'gray':'amber')+'">'+label+'</span><h2 style="margin:16px 0 8px">跳转到 '+(v.kind==='control'?p.controlUrl:p.fallbackUrl)+'</h2><p class="muted">不执行 Social Link 个性化 slot 渲染，用于效果对照或链路保护。</p></div></div>';$('previewBody').innerHTML=h;return}
+  const blocks=getEditorBlocks();
+  const buyboxSlots=slotsByZone(blocks,'buybox');
+  const wideSlots=slotsByZone(blocks,'wide');
+  const bottomSlots=slotsByZone(blocks,'bottom');
+  h+='<div class="pdp-preview"><div class="pdp-template-note">预览基于当前策略选择的「'+tpl.name+'」模拟：原站保留区保持只读，Social Link 按模板 slot 位置分散渲染。真实位置以客户原站接入模板为准。</div><div class="pdp-main"><div class="pdp-stack"><div class="pdp-locked"><b>原站保留区 · 商品主图</b><div class="product-art" style="min-height:260px"><img src="assets/products/sequin-dress.png" alt="White Midi Dress"></div></div></div><div class="pdp-stack"><div class="pdp-locked pdp-buybox"><b>原站保留区 · 商品信息与交易组件</b><div class="title">'+p.primarySku+'</div><p>商品标题、价格、尺码选择、库存、加购、Buy Now、购物车和结算由客户原站负责。</p><div class="price">$98</div><div class="buy-row"></div></div>'+buyboxSlots+'</div></div><div class="pdp-stack" style="margin-top:12px">'+(wideSlots||'')+'<div class="pdp-locked"><b>原站保留区 · 商品详情描述</b><p>面料、尺码、护理方式和品牌详情由客户原站保留。</p></div>'+(bottomSlots||'')+'<div class="pdp-locked"><b>原站保留区 · Header / Footer</b><p>'+(tpl.locked||[]).join('、')+'。异常回退：'+tpl.fallback+'</p></div></div></div></div>';$('previewBody').innerHTML=h}
+function reportableVersions(p){return (p.versions||[]).filter(v=>v.kind!=='fallback'&&v.kind!=='control'&&['已启用','已停用'].includes(v.status))}
+function sourceSummaryFromRecords(records){const rows=records||[];if(!rows.length)return '暂无投放链接';const counts={};rows.forEach(r=>{const key=r.platform+' / '+r.campaign;counts[key]=(counts[key]||0)+1});const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);if(sorted.length===1)return sorted[0][0];return sorted.slice(0,2).map(x=>x[0]).join('、')}
+function buildVisitOverview(p,rows){
+  const records=strategyLinkRecords(p);
+  const pv=rows.reduce((sum,r)=>sum+(r.pv||0),0);
+  const unique=rows.reduce((sum,r)=>sum+(r.unique||Math.round((r.uv||0)*.72)),0);
+  const effective=rows.reduce((sum,r)=>sum+r.uv,0);
+  const displayPv=records.length&&pv?pv:(records.length?Math.round(effective*1.34+records.length*138):0);
+  return{pv:displayPv,unique,effective};
+}
+function buildReportRows(p){
+  const records=strategyLinkRecords(p);
+  if(!records.length)return[];
+  const versions=reportableVersions(p);
+  const weights={default:.38,audience:.62};
+  const audienceCount=Math.max(1,versions.filter(v=>v.kind==='audience'&&v.status==='已启用').length);
+  return versions.map((v,i)=>{
+    const base=records.length*820+p.id.length*16;
+    const online=v.status==='已启用';
+    const isDefault=v.kind==='default';
+    const factor=isDefault?weights.default:(online?weights.audience/audienceCount:.12);
+    const uv=Math.round(base*factor*(v.status==='已停用' ? .28 : 1));
+    const unique=Math.round(uv*.72);
+    const pv=Math.round(uv*(1.28+i*.04)+120);
+    const add=isDefault?9.8+i*.2:(online?12.4+i*.7:7.2);
+    const pay=isDefault?2.6+i*.1:(online?3.2+i*.2:1.4);
+    const addUsers=Math.round(uv*add/100);
+    const payUsers=Math.round(uv*pay/100);
+    const gmv=Math.round(payUsers*(88+i*7));
+    const source=sourceSummaryFromRecords(records);
+    return {v,pv,uv,unique,add,pay,addUsers,payUsers,gmv,lift:'-',source,orders:payUsers};
+  });
+}
+function buildControlReportRow(p){
+  const control=p.versions.find(v=>v.kind==='control');
+  const records=strategyLinkRecords(p);
+  if(!control||!records.length)return null;
+  const base=records.length*760+p.id.length*12;
+  const uv=Math.round(base*ratioNumber(p.controlRatio)/10);
+  const unique=Math.round(uv*.74);
+  const pv=Math.round(uv*1.22+80);
+  const addUsers=Math.round(uv*.086);
+  const payUsers=Math.round(uv*.024);
+  const gmv=Math.round(payUsers*96);
+  const source='对照分流 / baseline';
+  return {v:control,pv,uv,unique,add:8.6,pay:2.4,addUsers,payUsers,gmv,lift:'基线',source,orders:payUsers};
+}
+function helpLabel(label,tip){return label+'<span class="help" title="'+tip+'">?</span>'}
+function linkPerformanceRows(r,p){
+  const records=strategyLinkRecords(p);
+  return records.map((item,i)=>{
+    const share=records.length===1?1:(i===0 ? .58 : .42/(records.length-1));
+    const uv=r.uv>0?Math.max(80,Math.round(r.uv*share)):0;
+    const unique=Math.round(uv*.72);
+    const pv=Math.round(uv*(1.24+i*.05)+24);
+    const add=r.uv>0?Math.max(.8,r.add-(i*.35)):0;
+    const pay=r.uv>0?Math.max(.8,r.pay-(i*.25)):0;
+    const addUsers=Math.round(uv*add/100);
+    const payUsers=Math.round(uv*pay/100);
+    const gmv=Math.round(uv*pay/100*(92+i*7));
+    return {name:item.platform+' / '+item.campaign,pv,uv,unique,add,pay,addUsers,payUsers,gmv,meta:item.medium+(item.content&&item.content!=='-'?' · '+item.content:''),url:item.url};
+  });
+}
+function recommendationContributionRows(r,p){
+  if(!r||!r.uv)return[];
+  const previousVersionId=currentVersionId;
+  const previousRecVersionId=currentRecVersionId;
+  currentVersionId=r.v.id;
+  currentRecVersionId=r.v.id;
+  const products=recProducts().slice(0,4);
+  currentVersionId=previousVersionId;
+  currentRecVersionId=previousRecVersionId;
+  const totalWeight=products.reduce((sum,item,i)=>sum+Math.max(1,(item.score||70)-i*8),0)||1;
+  return products.map((item,i)=>{
+    const weight=Math.max(1,(item.score||70)-i*8)/totalWeight;
+    const isPrimary=i===0||item.name.toLowerCase().includes('dress');
+    const exposureUsers=Math.max(0,Math.round(r.unique*(.76-i*.08)));
+    const clickRate=isPrimary ? .18 : .11;
+    const clickUsers=Math.max(0,Math.round(exposureUsers*clickRate));
+    const addUsers=Math.max(0,Math.round(r.addUsers*weight*(isPrimary ? .55 : 1.05)));
+    const payUsers=Math.max(0,Math.round(r.payUsers*weight*(isPrimary ? .48 : 1.12)));
+    const price=parseInt(String(item.price||'0').replace(/[^0-9]/g,''),10)||80;
+    const gmv=payUsers*price;
+    return {name:item.name,role:isPrimary?'广告主推商品':'推荐商品',exposureUsers,clickUsers,addUsers,payUsers,gmv};
+  });
+}
+function renderRecommendationContribution(r,p){
+  const rows=recommendationContributionRows(r,p);
+  if(!rows.length)return '';
+  const attributionTip='用户在访问某个内容版本后，点击或曝光了推荐商品，并在 24 小时内购买该推荐商品，则该商品成交计入该内容版本的推荐带动 GMV。优先按推荐商品点击归因；无点击但有曝光时按曝光归因；同一用户多个触点取最后一次触点；超过 24 小时不计入推荐带动 GMV，仍可计入总 GMV。';
+  return '<div class="chart-panel" style="margin:14px 0"><h3>'+helpLabel('推荐商品成交贡献',attributionTip)+'</h3><div class="chart-sub">按当前页面版本推荐区商品拆分；曝光人数和点击人数来自 SDK 商品级埋点，加购、支付和 GMV 依赖客户站事件与订单 SKU 回流。推荐带动 GMV 采用 24 小时短窗口、点击优先、最后触点归因。</div><div class="table-wrap"><table class="table"><thead><tr><th>'+helpLabel('商品','当前页面版本推荐区展示的商品。')+'</th><th>'+helpLabel('角色','广告主推商品或推荐商品；用于区分用户是否购买了广告之外的商品。')+'</th><th>'+helpLabel('曝光人数','在统计周期内至少看到过该推荐商品卡片的去重访客数。技术依赖：SDK 判断商品卡片进入可视区域并上报。')+'</th><th>'+helpLabel('点击人数','点击过该推荐商品的去重访客数。技术依赖：SDK 商品点击事件。推荐带动 GMV 优先使用点击作为归因触点。')+'</th><th>'+helpLabel('加购人数','看过或点击过该推荐商品后，在 24 小时归因窗口内加购该推荐商品对应 SKU 的去重用户数。依赖客户站 add_to_cart SKU 回流。')+'</th><th>'+helpLabel('支付人数','看过或点击过该推荐商品后，在 24 小时归因窗口内支付购买该推荐商品对应 SKU 的去重用户数。依赖客户站订单 SKU 回流。')+'</th><th>'+helpLabel('GMV','归因到该推荐商品的成交金额。优先按点击归因，无点击但有曝光时按曝光归因；同一用户多个触点取最后一次触点。公式：Σ 订单中该推荐商品对应 SKU 的支付金额。')+'</th></tr></thead><tbody>'+rows.map(item=>'<tr><td><b>'+item.name+'</b></td><td>'+item.role+'</td><td>'+item.exposureUsers.toLocaleString()+'</td><td>'+item.clickUsers.toLocaleString()+'</td><td>'+item.addUsers.toLocaleString()+'</td><td>'+item.payUsers.toLocaleString()+'</td><td>$'+item.gmv.toLocaleString()+'</td></tr>').join('')+'</tbody></table></div></div>';
+}
+function recommendationSummary(rows,p){
+  const detailRows=(rows||[]).flatMap(r=>recommendationContributionRows(r,p));
+  const recRows=detailRows.filter(item=>item.role==='推荐商品');
+  return {
+    payUsers:recRows.reduce((sum,item)=>sum+item.payUsers,0),
+    gmv:recRows.reduce((sum,item)=>sum+item.gmv,0)
+  };
+}
+function renderVisitOverview(metrics){
+  const isSingle=metrics.scope==='single';
+  const pvTip=isSingle?'统计周期内命中该页面内容版本后的页面浏览次数。同一访客多次命中会重复计数。不包含对照组、安全兜底页和无效参数访问。':'统计周期内进入个性化承接组的页面浏览次数。同一访客多次访问会重复计数。个性化承接组包括默认内容版本和人群内容版本，不包含对照组、安全兜底页和无效参数访问。';
+  const uvTip=isSingle?'统计周期内命中该页面内容版本后的去重访客数，按 visitor_id / cookie / 设备标识去重。不包含对照组、安全兜底页和无效参数访问。':'统计周期内进入个性化承接组的去重访客数，按 visitor_id / cookie / 设备标识去重。个性化承接组包括默认内容版本和人群内容版本，不包含对照组、安全兜底页和无效参数访问。';
+  const recTip='用户在访问某个内容版本后，点击或曝光了推荐商品，并在 24 小时内购买该推荐商品，则该商品成交计入该内容版本的推荐带动 GMV。优先按推荐商品点击归因；无点击但有曝光时按曝光归因；同一用户多个触点取最后一次触点；超过 24 小时不计入推荐带动 GMV，仍可计入总 GMV。';
+  return '<div class="visit-overview"><div class="visit-overview-head"><h3>个性化承接数据概览</h3><span>PV / UV / 加购 / 支付 / GMV / 推荐带动 GMV</span></div><div class="visit-cards">'+
+    '<div class="visit-card"><div class="k">'+helpLabel('PV',pvTip)+'</div><div class="n">'+(metrics.pv||0).toLocaleString()+'</div><div class="desc">页面浏览次数</div></div>'+
+    '<div class="visit-card"><div class="k">'+helpLabel('UV',uvTip)+'</div><div class="n">'+(metrics.unique||0).toLocaleString()+'</div><div class="desc">去重访客数</div></div>'+
+    '<div class="visit-card"><div class="k">'+helpLabel('加购人数','触发加购行为的去重用户数，依赖客户站 add_to_cart 事件回流；同一用户多次加购只计 1 人。')+'</div><div class="n">'+(metrics.addUsers||0).toLocaleString()+'</div><div class="desc">产生购买意向</div></div>'+
+    '<div class="visit-card"><div class="k">'+helpLabel('支付人数','完成支付的去重用户数，依赖客户站订单事件回流；同一用户多次支付只计 1 人。')+'</div><div class="n">'+(metrics.payUsers||0).toLocaleString()+'</div><div class="desc">完成支付成交</div></div>'+
+    '<div class="visit-card result"><div class="k">'+helpLabel('GMV','归因到当前报表范围的成交金额，依赖客户站订单金额回流。公式：Σ 订单支付金额。')+'</div><div class="n">$'+(metrics.gmv||0).toLocaleString()+'</div><div class="desc">成交金额合计</div></div>'+
+    '<div class="visit-card recommend"><div class="k">'+helpLabel('推荐带动 GMV',recTip)+'</div><div class="n">$'+(metrics.recommendGmv||0).toLocaleString()+'</div><div class="desc">'+(metrics.recommendPayUsers?metrics.recommendPayUsers.toLocaleString()+' 个支付用户':'推荐商品成交')+'</div></div>'+
+    '</div></div>';
+}
+function renderBehaviorPath(target,metrics){
+  target.innerHTML=renderVisitOverview(metrics);
+}
+function controlMetric(label,value,tip){return '<div class="compare-metric"><b>'+(tip?helpLabel(label,tip):label)+'</b><span>'+value+'</span></div>'}
+function renderControlCompare(target,primary,control,mode){
+  if(!target)return;
+  if(!control){target.innerHTML='<div class="empty-record">当前策略未配置对照组，暂无可对比数据。</div>';return}
+  const title=mode==='single'?'当前页':'实验页合计';
+  const primaryPayRate=(primary.unique?primary.payUsers/primary.unique*100:0).toFixed(1)+'%';
+  const controlPayRate=(control.unique?control.payUsers/control.unique*100:0).toFixed(1)+'%';
+  const payRateTip='支付转化率 = 支付人数 / UV × 100%。支付人数和 UV 均按去重用户统计，用于比较不同流量规模下的成交效率。';
+  target.innerHTML='<div class="compare-grid"><div class="compare-card"><h4>'+title+'</h4><div class="compare-metrics">'+
+    controlMetric('PV',primary.pv?.toLocaleString?.()||Math.round(primary.uv*1.3).toLocaleString(),'成功进入实验页的页面浏览次数，同一访客重复访问会重复计数；不包含安全兜底页和无效参数访问。')+
+    controlMetric('UV',primary.unique?.toLocaleString?.()||primary.uv.toLocaleString(),'成功进入实验页的去重访客数，按当前报表范围统计；不包含安全兜底页和无效参数访问。')+
+    controlMetric('加购人数',primary.addUsers.toLocaleString())+
+    controlMetric('支付人数',primary.payUsers.toLocaleString())+
+    controlMetric('支付转化率',primaryPayRate,payRateTip)+
+    controlMetric('GMV','$'+primary.gmv.toLocaleString())+
+    '</div></div><div class="compare-card"><h4>对照组</h4><div class="compare-metrics">'+
+    controlMetric('PV',control.pv?.toLocaleString?.()||Math.round(control.uv*1.25).toLocaleString(),'成功进入对照组的页面浏览次数，同一访客重复访问会重复计数；不包含安全兜底页和无效参数访问。')+
+    controlMetric('UV',control.unique?.toLocaleString?.()||control.uv.toLocaleString(),'成功进入对照组的去重访客数，按同一时间范围统计；不包含安全兜底页和无效参数访问。')+
+    controlMetric('加购人数',control.addUsers.toLocaleString())+
+    controlMetric('支付人数',control.payUsers.toLocaleString())+
+    controlMetric('支付转化率',controlPayRate,payRateTip)+
+    controlMetric('GMV','$'+control.gmv.toLocaleString())+
+    '</div></div></div><div class="compare-note">对照组用于观察未个性化承接时的基线表现；当前仅展示同一时间范围内的行为数据对比，是否形成显著增量需结合样本量和实验设计判断。</div>';
+}
+function reportRange(){return $('reportRange')?.value||$('reportRangeSingle')?.value||'近 7 天'}
+function syncReportRangeControls(){const value=reportRange();if($('reportRange'))$('reportRange').value=value;if($('reportRangeSingle'))$('reportRangeSingle').value=value;return value}
+function syncReportRangeFromSingle(){if($('reportRange')&&$('reportRangeSingle'))$('reportRange').value=$('reportRangeSingle').value;openReport(currentPlanId,currentReportVersionId)}
+function openReport(id,versionId){
+  currentPlanId=id||currentPlanId;
+  currentReportVersionId=versionId||null;
+  showScreen('report');
+  syncReportRangeControls();
+  const p=plan();
+  const reportRows=buildReportRows(p);
+  const control=buildControlReportRow(p);
+  const selected=versionId?reportRows.find(r=>r.v.id===versionId):null;
+  const experimental=reportRows.filter(r=>r.v.kind!=='control');
+  const bestRow=experimental.slice().sort((a,b)=>b.pay-a.pay)[0]||null;
+  const bestLift=experimental.length?Math.max(...experimental.map(r=>parseFloat(r.lift))).toFixed(1)+'%':'-';
+  $('reportPlanSelect').innerHTML=plans.map(x=>'<option value="'+x.id+'">'+x.name+'</option>').join('');
+  $('reportPlanSelect').value=p.id;
+  syncReportRangeControls();
+  if(selected){
+    renderSingleReport(p,reportRows,selected,control,bestRow);
+  }else{
+    renderOverviewReport(p,reportRows,experimental,control,bestRow,bestLift);
+  }
+  if(typeof hydrateInlineHandlers==='function')hydrateInlineHandlers($('screen-report'));
+}
+function renderOverviewReport(p,reportRows,experimental,control,bestRow,bestLift){
+  const totalUv=reportRows.reduce((sum,r)=>sum+r.uv,0);
+  const totalPv=reportRows.reduce((sum,r)=>sum+r.pv,0);
+  const totalAddUsers=reportRows.reduce((sum,r)=>sum+r.addUsers,0);
+  const totalPayUsers=reportRows.reduce((sum,r)=>sum+r.payUsers,0);
+  const totalGmv=reportRows.reduce((sum,r)=>sum+r.gmv,0);
+  const recSummary=recommendationSummary(reportRows,p);
+  const visitOverview=buildVisitOverview(p,reportRows);
+  $('reportOverviewToolbar').style.display='flex';
+  $('reportSingleToolbar').style.display='none';
+  $('reportVersionPanel').style.display='none';
+  $('reportTable').closest('.table-wrap').style.display='block';
+  $('reportTableTitle').style.display='block';
+  $('reportTitle').textContent='效果数据 · '+p.name;
+  $('reportSub').textContent='承载商品：'+p.primarySku+' · 商品策略总览：按策略级投放链接汇总访问，再按 Decision 命中页面版本拆分 · '+reportRange();
+  $('reportScopeNote').textContent='个性化承接组包括默认内容版本和人群内容版本；对照组为按比例进入客户对照页的访问；安全兜底和无效参数访问不进入效果报表。';
+  $('reportPageDetail').style.display='none';
+  $('reportRecommendationPanel').innerHTML='';
+  renderBehaviorPath($('reportMetrics'),{scope:'overview',pv:visitOverview.pv,unique:visitOverview.unique,effective:visitOverview.effective,uv:totalUv,addUsers:totalAddUsers,payUsers:totalPayUsers,gmv:totalGmv,recommendGmv:recSummary.gmv,recommendPayUsers:recSummary.payUsers});
+  $('reportControlPanel').style.display='block';
+  $('reportControlTitle').innerHTML=helpLabel('个性化承接组与对照组表现对比','对照组按访客稳定分流，同一访客在实验周期内保持同一分组。该模块用于比较个性化承接组与对照组在 UV、加购、支付、支付转化率和 GMV 上的差异。');
+  renderControlCompare($('reportControlCompare'),{pv:totalPv,uv:totalUv,unique:visitOverview.unique,addUsers:totalAddUsers,payUsers:totalPayUsers,gmv:totalGmv},control,'overview');
+  const channelMap={};
+  strategyLinkRecords(p).forEach((record,i)=>{const share=strategyLinkRecords(p).length===1?1:(i===0 ? .46 : .54/Math.max(1,strategyLinkRecords(p).length-1));const channel=record.platform;if(!channelMap[channel])channelMap[channel]={pv:0,uv:0,addUsers:0,payUsers:0,gmv:0};channelMap[channel].pv+=Math.round(totalPv*share);channelMap[channel].uv+=Math.round(totalUv*share);channelMap[channel].addUsers+=Math.round(totalAddUsers*share);channelMap[channel].payUsers+=Math.round(totalPayUsers*share);channelMap[channel].gmv+=Math.round(totalGmv*share)});
+  const channels=Object.entries(channelMap).map(([name,v])=>({name,pv:v.pv,uv:v.uv,unique:Math.round(v.uv*.72),addUsers:v.addUsers,payUsers:v.payUsers,gmv:v.gmv,share:totalUv?v.uv/totalUv*100:0})).sort((a,b)=>b.uv-a.uv);
+  $('reportSourceTitle').innerHTML=helpLabel('主要来源摘要','商品策略总览下按策略级投放链接的来源聚合，用于快速判断整体流量主要来自 Meta、Google、Klaviyo 还是自定义来源。');
+  $('reportChannels').innerHTML='<div class="chart-sub">这里展示商品策略级投放来源，不区分页面版本；具体某个页面版本命中后的来源拆分请进入单页详情查看。</div>'+channels.slice(0,3).map(c=>'<div class="version-bar"><div class="version-bar-top"><span>'+helpLabel(c.name,'流量来源，按商品策略投放链接的 platform 聚合，例如 Meta、Google、Klaviyo。')+'</span><b>'+helpLabel(c.share.toFixed(1)+'% UV 占比','该来源 UV 占当前商品策略总 UV 的比例。公式：来源 UV / 商品策略总 UV × 100%；不包含安全兜底页和无效参数访问。')+'</b></div><div class="metric-note">'+helpLabel('PV','该来源下成功进入实验页或对照页的页面浏览次数估算，不包含安全兜底页和无效参数访问。')+' '+c.pv.toLocaleString()+' · '+helpLabel('UV','该来源下成功进入实验页或对照页的去重访客数估算，不包含安全兜底页和无效参数访问。')+' '+c.unique.toLocaleString()+' · '+helpLabel('加购人数','该来源在当前商品策略下的去重加购用户数估算合计。')+' '+c.addUsers.toLocaleString()+' · '+helpLabel('支付人数','该来源在当前商品策略下的去重支付用户数估算合计。')+' '+c.payUsers.toLocaleString()+' · '+helpLabel('GMV','该来源在当前商品策略下的成交金额估算合计。')+' $'+c.gmv.toLocaleString()+'</div></div>').join('');
+  $('reportHead').innerHTML='<tr><th>'+helpLabel('页面版本','当前商品策略下纳入报表的默认内容版本或人群承接页；生成中、生成失败、待启用页面不进入报表。')+'</th><th>'+helpLabel('页面角色','默认内容版本或人群页；页面版本由 Decision API 在访问时命中，不是单独投放链接。')+'</th><th>'+helpLabel('PV','统计周期内命中该页面内容版本后的页面浏览次数。同一访客多次命中会重复计数。不包含对照组、安全兜底页和无效参数访问。')+'</th><th>'+helpLabel('UV','统计周期内命中该页面内容版本后的去重访客数，按 visitor_id / cookie / 设备标识去重。不包含对照组、安全兜底页和无效参数访问。')+'</th><th>'+helpLabel('加购人数','命中该页面版本后触发加购行为的去重用户数，依赖客户站 add_to_cart 事件回流。')+'</th><th>'+helpLabel('支付人数','命中该页面版本后完成支付的去重用户数，依赖客户站订单事件回流。')+'</th><th>'+helpLabel('GMV','命中该页面版本后归因到的成交金额。公式：Σ 订单支付金额。')+'</th><th>'+helpLabel('推荐带动 GMV','用户在访问某个内容版本后，点击或曝光了推荐商品，并在 24 小时内购买该推荐商品，则该商品成交计入该内容版本的推荐带动 GMV。优先按推荐商品点击归因；无点击但有曝光时按曝光归因；同一用户多个触点取最后一次触点；超过 24 小时不计入推荐带动 GMV，仍可计入总 GMV。')+'</th><th>'+helpLabel('状态','页面版本当前启用状态；已停用只保留所选时间范围内的历史命中数据。')+'</th><th>'+helpLabel('操作','进入当前页面版本的单页效果详情。')+'</th></tr>';
+  $('reportRows').innerHTML=reportRows.map(r=>{const rec=recommendationSummary([r],p);return `<tr><td><b>${r.v.name}</b><div class="tiny">${r.v.audience}</div></td><td>${kindLabel(r.v.kind)}</td><td>${r.pv.toLocaleString()}</td><td>${r.unique.toLocaleString()}</td><td>${r.addUsers.toLocaleString()}</td><td>${r.payUsers.toLocaleString()}</td><td>$${r.gmv.toLocaleString()}</td><td>$${rec.gmv.toLocaleString()}</td><td>${statusTag(r.v.status,r.v.statusColor)}</td><td><button class="btn sm" onclick="openReport(currentPlanId,'${r.v.id}')">查看详情</button></td></tr>`}).join('');
+}
+function renderSingleReport(p,reportRows,r,control,bestRow){
+  const visitOverview=buildVisitOverview(p,[r]);
+  const recSummary=recommendationSummary([r],p);
+  $('reportOverviewToolbar').style.display='none';
+  $('reportSingleToolbar').style.display='flex';
+  $('reportVersionPanel').style.display='none';
+  $('reportTable').closest('.table-wrap').style.display='none';
+  $('reportTableTitle').style.display='none';
+  $('reportTitle').textContent='效果数据 · '+r.v.name;
+  $('reportSub').innerHTML=p.name+' · '+kindLabel(r.v.kind)+' · '+r.v.audience+' · '+reportRange()+' · '+statusTag(r.v.status,r.v.statusColor);
+  $('reportScopeNote').textContent='单页详情用于回答：策略级投放链接进入后，Decision 命中这个页面版本的访客在'+reportRange()+'内带来了多少加购、支付和 GMV；推荐商品成交贡献依赖 SDK 商品级曝光/点击埋点和客户站订单 SKU 回流。';
+  $('reportPageDetail').style.display='none';
+  $('reportPageDetail').innerHTML='';
+  renderBehaviorPath($('reportMetrics'),{scope:'single',pv:visitOverview.pv,unique:visitOverview.unique,effective:r.uv,uv:r.uv,addUsers:r.addUsers,payUsers:r.payUsers,gmv:r.gmv,recommendGmv:recSummary.gmv,recommendPayUsers:recSummary.payUsers});
+  $('reportControlPanel').style.display='none';
+  const linkRows=linkPerformanceRows(r,p);
+  $('reportRecommendationPanel').innerHTML=renderRecommendationContribution(r,p);
+  $('reportSourceTitle').innerHTML=helpLabel('命中来源表现','当前页面版本的访问不是来自版本专属链接，而是来自商品策略级投放链接；这里按命中该版本后的来源、campaign 和素材拆分表现。');
+  $('reportChannels').innerHTML='<div class="chart-sub">按商品策略投放链接拆分命中该页面版本后的表现，用于判断哪些投放来源更容易命中并转化。</div><div class="table-wrap"><table class="table"><thead><tr><th>'+helpLabel('来源 / 投放活动','商品策略级投放链接的来源与 campaign，用于区分不同广告、邮件或自定义来源。')+'</th><th>'+helpLabel('渠道 / 素材标识','该链接的 utm_medium、utm_content、creative_id 或 ad_id，用于区分渠道类型和具体广告素材。')+'</th><th>'+helpLabel('PV','该来源命中当前页面版本后的页面浏览次数；不包含安全兜底页和无效参数访问。')+'</th><th>'+helpLabel('UV','该来源命中当前页面版本后的去重访客数；不包含安全兜底页和无效参数访问。')+'</th><th>'+helpLabel('加购人数','该来源命中当前页面版本后带来的去重加购用户数。')+'</th><th>'+helpLabel('支付人数','该来源命中当前页面版本后带来的去重支付用户数。')+'</th><th>'+helpLabel('GMV','该来源命中当前页面版本后归因到的成交金额。')+'</th></tr></thead><tbody>'+linkRows.map(c=>'<tr><td><b>'+c.name+'</b><div class="tiny mono url-text">'+(c.url&&c.url!=='-'?c.url:'未生成正式链接')+'</div></td><td>'+c.meta+'</td><td>'+c.pv.toLocaleString()+'</td><td>'+c.unique.toLocaleString()+'</td><td>'+c.addUsers.toLocaleString()+'</td><td>'+c.payUsers.toLocaleString()+'</td><td>$'+c.gmv.toLocaleString()+'</td></tr>').join('')+'</tbody></table></div>';
+}
+function openStrategyModal(){openModal('strategyModal')}
+function openModal(id){const el=$(id);if(!el)return false;if(location.hash&&location.hash!=='#'+id)clearHash();document.querySelectorAll('.modal-cover').forEach(m=>m.classList.remove('stack-top'));el.classList.add('show','stack-top');return false}
+function closeModal(id){const el=$(id);if(!el)return false;el.classList.remove('show','stack-top');if(location.hash==='#'+id)history.replaceState(null,'',location.pathname+location.search);const open=[...document.querySelectorAll('.modal-cover.show')].pop();if(open)open.classList.add('stack-top');return false}
+function showRuntimeNotice(message,isError){
+  const el=$('runtimeNotice');
+  if(!el)return;
+  el.style.display='block';
+  el.style.background=isError?'var(--red2)':'var(--green2)';
+  el.style.borderColor=isError?'#f2b8b5':'#abefc6';
+  el.style.color=isError?'#912018':'#05603a';
+  el.textContent=message;
+}
+function attachInlineHandler(el,attr,type){
+  if(!el||!el.getAttribute)return;
+  const code=el.getAttribute(attr);
+  if(!code||el.dataset['slBound'+attr])return;
+  el.dataset['slBound'+attr]='1';
+  el.addEventListener(type,event=>{
+    try{
+      const result=Function('event','with(window){'+code+'}').call(el,event);
+      if(result===false)event.preventDefault();
+    }catch(err){
+      showRuntimeNotice('按钮动作执行失败：'+(err&&err.message?err.message:err),true);
+    }
+  });
+  el.removeAttribute(attr);
+}
+function hydrateInlineHandlers(root){
+  const scope=root&&root.querySelectorAll?root:document;
+  scope.querySelectorAll('[onclick]').forEach(el=>attachInlineHandler(el,'onclick','click'));
+  scope.querySelectorAll('[onchange]').forEach(el=>attachInlineHandler(el,'onchange','change'));
+  scope.querySelectorAll('[oninput]').forEach(el=>attachInlineHandler(el,'oninput','input'));
+}
+function observeDynamicButtons(){
+  hydrateInlineHandlers(document);
+  const observer=new MutationObserver(mutations=>{
+    mutations.forEach(m=>{
+      m.addedNodes.forEach(node=>{
+        if(node.nodeType!==1)return;
+        if(node.matches&&node.matches('[onclick],[onchange],[oninput]'))hydrateInlineHandlers({querySelectorAll:s=>node.matches(s)?[node]:[]});
+        hydrateInlineHandlers(node);
+      });
+    });
+  });
+  observer.observe(document.body,{childList:true,subtree:true});
+}
+document.querySelectorAll('.modal-cover').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+try{
+  observeDynamicButtons();
+  bindStableEntrypoints();
+  clearModals();
+  clearHash();
+  showScreen('list');
+  renderPlanTable();
+  hydrateInlineHandlers(document);
+  const notice=$('runtimeNotice');
+  if(notice)notice.style.display='none';
+}catch(err){
+  showScreen('list');
+  showRuntimeNotice('页面脚本未完整执行，已显示静态兜底列表。请刷新页面或联系产品同学查看错误：'+(err&&err.message?err.message:err),true);
+}
+</script>
+</body>
+</html>
