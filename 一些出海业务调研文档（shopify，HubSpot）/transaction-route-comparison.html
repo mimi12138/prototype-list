@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Medora 定制服务交易路线对比</title>
+<style>
+:root{--ink:#17324d;--muted:#627687;--line:#d9e5e8;--bg:#f4f7f8;--surface:#fff;--navy:#123956;--teal:#176d7b;--teal-bg:#e5f3f4;--gold:#9a6410;--gold-bg:#fff3d8;--green:#176b46;--green-bg:#e6f5ec;--red:#a23d3d;--red-bg:#fff0f0;--shadow:0 8px 24px rgba(18,57,86,.07);--radius:8px;--font:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 var(--font)}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1220px;margin:0 auto;padding:0 22px 64px}.hero{background:var(--navy);color:#fff;padding:46px 0 34px}.hero h1{margin:0;font-size:32px;line-height:1.25}.hero p{max-width:900px;margin:13px 0 0;color:#d7e6ec;font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.meta span{padding:4px 10px;border:1px solid rgba(255,255,255,.25);border-radius:999px;color:#e5f1f3;background:rgba(255,255,255,.08);font-size:12px}.toc,.section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.toc{margin-top:24px;padding:16px 20px}.toc strong{display:block;margin-bottom:7px;font-size:18px}.toc ol{columns:2;margin:0;padding-left:22px}.toc li{margin:3px 0;break-inside:avoid}.section{margin-top:24px;padding:23px 25px}.section h2{margin:0 0 15px;padding-bottom:9px;border-bottom:2px solid var(--teal);font-size:22px;line-height:1.35}.section h3{margin:19px 0 8px;font-size:17px;color:var(--navy)}.lead{font-size:17px}.callout{margin:14px 0;padding:13px 16px;border-left:5px solid var(--teal);border-radius:0 7px 7px 0;background:var(--teal-bg)}.callout.good{border-color:var(--green);background:var(--green-bg)}.callout.warn{border-color:var(--gold);background:var(--gold-bg)}.callout.bad{border-color:var(--red);background:var(--red-bg)}.callout strong{color:var(--navy)}.summary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.summary-card{padding:17px;border:1px solid var(--line);border-radius:7px;background:#fbfdfd}.summary-card.recommended{border:2px solid #76aeb2;background:#eff9f9}.summary-card h3{margin:0 0 7px;color:var(--navy)}.summary-card p{margin:5px 0;color:var(--muted)}.label{display:inline-block;margin-bottom:8px;padding:3px 8px;border-radius:4px;background:var(--teal-bg);color:var(--teal);font-size:12px;font-weight:700}.label.gold{background:var(--gold-bg);color:var(--gold)}.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:16px 0}.flow-step{position:relative;min-height:106px;padding:12px 11px;border:1px solid #b8d9dc;border-radius:7px;background:#f2fbfb}.flow-step:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:35px;color:var(--teal);font-size:20px;font-weight:700;z-index:1}.num{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700}.flow-step b{display:block;margin-top:8px;font-size:13px}.flow-step small{display:block;margin-top:3px;color:var(--muted);line-height:1.45}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:10px 0;border:1px solid var(--line);background:#fff}th,td{padding:10px 11px;border-bottom:1px solid #e5ecef;text-align:left;vertical-align:top}th{background:#edf5f5;color:var(--navy);font-weight:700}tr:nth-child(even) td{background:#fbfcfc}.compare th:first-child{width:15%}.compare th:nth-child(2),.compare th:nth-child(3){width:42.5%}.compare td:nth-child(3){background:#f4fbf8}.compare .winner{color:var(--green);font-weight:700}.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.status-panel{padding:15px;border:1px solid var(--line);border-radius:7px;background:#fbfdfd}.status-panel h4{margin:0 0 9px;color:var(--navy)}.status-row{display:grid;grid-template-columns:145px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #e7eef0}.status-row:last-child{border-bottom:0}.status{display:inline-block;width:max-content;padding:2px 7px;border-radius:4px;background:var(--teal-bg);color:var(--teal);font-size:12px;font-weight:700}.status.green{background:var(--green-bg);color:var(--green)}.status.gold{background:var(--gold-bg);color:var(--gold)}.object-model{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;align-items:center;margin:17px 0}.object{min-height:103px;padding:12px 10px;border:1px solid var(--line);border-radius:7px;background:#fff}.object.primary{border-color:#75adb1;background:#eff9f9}.object.green{border-color:#9fc7ab;background:#f3fbf5}.object strong{display:block;color:var(--navy);font-size:14px}.object span{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.45}.object-arrow{text-align:center;color:var(--muted);font-size:19px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{padding:15px;border:1px solid var(--line);border-radius:7px;background:#fbfdfd}.card h3{margin:0 0 6px;color:var(--navy);font-size:16px}.card p{margin:0;color:var(--muted);font-size:13.5px}.check{list-style:none;padding:0;margin:10px 0}.check li{position:relative;margin:7px 0;padding-left:24px}.check li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}code{padding:1px 5px;border:1px solid #d8e5e8;border-radius:4px;background:#f0f6f7;font:12px ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.muted{color:var(--muted);font-size:13px}.footer{margin-top:25px;color:var(--muted);font-size:12px}
+@media(max-width:920px){.flow{grid-template-columns:repeat(3,minmax(0,1fr))}.flow-step:not(:last-child)::after{display:none}.object-model{grid-template-columns:repeat(3,minmax(0,1fr))}.object-arrow{display:none}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.wrap{padding:0 15px 45px}.hero{padding-top:34px}.hero h1{font-size:25px}.hero p{font-size:15px}.toc ol{columns:1}.section{padding:18px 16px}.summary,.status-grid,.grid,.flow,.object-model{grid-template-columns:1fr}.flow-step{min-height:auto}.section h2{font-size:20px}.status-row{grid-template-columns:1fr;gap:3px}table{min-width:760px}.compare{min-width:900px}.compare-wrap{overflow-x:auto}}
+@media print{body{background:#fff}.hero{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.toc,.section,.summary-card,.card{box-shadow:none}.section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <h1>Medora 定制服务交易路线对比</h1>
+  <p>围绕“多项虚拟服务收款、分项履约、余额扣费、续费提醒和消费者只读查看进度”，比较 Shopify 下单 + HubSpot 管理与 HubSpot 独立交易两套实现路线。</p>
+  <div class="meta"><span>适用业务：医疗服务 / 医旅定制</span><span>付款方式：付款链接</span><span>履约主体：CMT 客服与服务团队</span><span>版本：v1.0 · 2026-09-03</span></div>
+</div></header>
+<main class="wrap">
+<nav class="toc" aria-label="方案目录"><strong>方案导航</strong><ol><li><a href="#decision">结论与选择建议</a></li><li><a href="#comparison">一页对比表</a></li><li><a href="#service-status">服务进度如何管理</a></li><li><a href="#balance">余额与扣费如何运作</a></li><li><a href="#consumer">消费者能看到什么</a></li><li><a href="#routes">两套方案的完整流程</a></li><li><a href="#cost">费用与开发量</a></li><li><a href="#implementation">实施准备与验收</a></li></ol></nav>
+
+<section id="decision" class="section"><h2>1. 结论与选择建议</h2>
+  <p class="lead"><strong>按当前项目状态，建议先用方案一跑通真实业务；长期的服务型业务可以迁移到方案二。</strong></p>
+  <div class="summary">
+    <div class="summary-card recommended"><span class="label">当前落地优先</span><h3>方案一：Shopify 下单 + HubSpot 管理</h3><p>付款、退款和客户订单链接已经验证，近期上线风险更低。HubSpot 负责 Deal、Ticket、Task 和余额摘要。</p></div>
+    <div class="summary-card"><span class="label gold">长期服务型方向</span><h3>方案二：HubSpot 产品 + Deal + Payment Link</h3><p>系统更集中，适合医疗服务和医旅定制；但需要 Stripe 审核、相关 HubSpot 套餐，以及消费者服务页面开发。</p></div>
+  </div>
+  <div class="callout good"><strong>无论选哪套：</strong>消费者只读服务进度；CMT 客服或系统更新状态。余额不能只靠 Deal 或订单金额推算，必须由受控财务流水计算，再将余额和预警结果同步到 HubSpot。</div>
+</section>
+
+<section id="comparison" class="section"><h2>2. 一页对比表</h2>
+<div class="compare-wrap"><table class="compare"><thead><tr><th>比较维度</th><th>方案一<br>Shopify 下单 + HubSpot CRM</th><th>方案二<br>HubSpot 独立交易</th></tr></thead><tbody>
+<tr><th>付款入口</th><td>Shopify Draft Order / Checkout Link</td><td>HubSpot Payment Link（连接 Stripe）</td></tr>
+<tr><th>付款前提</th><td class="winner">当前已能测试，付款链路成熟</td><td>需先完成 Stripe 账户注册、审核和收款配置</td></tr>
+<tr><th>产品明细</th><td>Shopify 商品和订单 Line Items</td><td>HubSpot Product 和 Deal Line Items</td></tr>
+<tr><th>交易记录</th><td>Shopify Order 是付款事实；HubSpot Deal 管理业务过程</td><td>HubSpot Deal 管理交易；Payment 记录付款</td></tr>
+<tr><th>分项服务状态</th><td>Shopify 拆分履约不会自动映射成 HubSpot 服务状态，需要 Ticket/API</td><td>Line Item 可加状态字段，但正式履约仍建议使用 Ticket</td></tr>
+<tr><th>客服操作</th><td>Shopify 看订单，HubSpot 更新 Deal 和 Ticket，系统之间切换</td><td>产品、Deal、Payment、Ticket 集中在 HubSpot</td></tr>
+<tr><th>退款</th><td class="winner">Shopify 原生执行退款并保留订单记录</td><td>通过 HubSpot 支付/Stripe 处理，需确认账户和退款能力</td></tr>
+<tr><th>消费者订单详情</th><td class="winner">Shopify 邮件可进入原生订单状态页</td><td>Payment Link 只有付款确认/收据，不提供同等订单中心</td></tr>
+<tr><th>消费者服务进度</th><td>需自建页面；Shopify 页面不能直接显示 Medora 自定义阶段</td><td>Customer Portal 可显示 Ticket；完整订单与余额仍需自建页面</td></tr>
+<tr><th>余额管理</th><td>需财务工具计算，HubSpot 保存汇总和预警</td><td>同样需要财务工具或余额服务，HubSpot 不替代流水账</td></tr>
+<tr><th>跨系统集成</th><td>Shopify → HubSpot + 财务 → HubSpot</td><td>Stripe/HubSpot Payment → HubSpot + 财务 → HubSpot</td></tr>
+<tr><th>主要开发量</th><td>订单匹配、分项服务 Ticket、余额同步、消费者进度页</td><td>支付回调、服务 Ticket、余额同步、消费者进度页</td></tr>
+<tr><th>整体判断</th><td class="winner"><strong>近期更稳，适合先上线</strong></td><td><strong>长期更统一，但前置条件更多</strong></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="service-status" class="section"><h2>3. 服务进度如何管理</h2>
+<p>一笔交易可以包含多个虚拟服务，但“买了什么”和“服务做到哪一步”是两类数据，不能只用订单或产品明细代替履约记录。</p>
+<div class="status-grid">
+  <div class="status-panel"><h4>推荐的数据结构</h4><div class="status-row"><span><strong>Deal</strong></span><span>整笔定制交易、总金额、付款结果和余额摘要</span></div><div class="status-row"><span><strong>Line Item</strong></span><span>购买了哪些服务、数量和价格，可增加“服务状态”作为辅助</span></div><div class="status-row"><span><strong>Ticket</strong></span><span>每个服务的负责人、阶段、备注、时间线和完成记录</span></div><div class="status-row"><span><strong>Task</strong></span><span>服务下的具体待办，例如资料收集、预约确认、回访提醒</span></div></div>
+  <div class="status-panel"><h4>服务状态示例</h4><div class="status-row"><span class="status">待开始</span><span>已付款，尚未启动该服务</span></div><div class="status-row"><span class="status gold">资料准备</span><span>等待客户资料或内部核验</span></div><div class="status-row"><span class="status">进行中</span><span>客服或服务团队正在执行</span></div><div class="status-row"><span class="status">待确认</span><span>等待 CMT 内部确认结果</span></div><div class="status-row"><span class="status green">已完成</span><span>服务交付完成，允许按规则完成扣费</span></div></div>
+</div>
+<div class="callout"><strong>关于“一条 Ticket + 多个 Task”：</strong>这种方式适合内部轻量跟进；但如果要分别展示“服务1完成、服务2进行中”，建议每个服务一条 Ticket。消费者只读 Ticket 对应的进度，不能直接修改状态。</div>
+<div class="callout warn"><strong>Shopify 和 HubSpot 的共同限制：</strong>Shopify 的 Fulfillment 状态、HubSpot 的 Line Item 状态，都不等同于“医院已预约、行前准备中、服务执行中”等 Medora 业务进度。正式状态应由 Ticket 或独立服务记录承载。</div>
+</section>
+
+<section id="balance" class="section"><h2>4. 余额与扣费如何运作</h2>
+<div class="object-model"><div class="object primary"><strong>预付款账户</strong><span>财务工具保存逐笔充值、扣费、退款和凭证</span></div><div class="object-arrow">→</div><div class="object green"><strong>扣费确认</strong><span>服务达到规定节点后，由 CMT/财务确认可扣金额</span></div><div class="object-arrow">→</div><div class="object"><strong>HubSpot Deal</strong><span>保存余额汇总、状态和最近对账时间</span></div></div>
+<p class="lead"><strong>当前余额 = 累计预付款 + 累计补款 − 累计已确认支出 − 累计退款</strong></p>
+<div class="grid"><div class="card"><h3>扣费触发</h3><p>不是客户自行点击完成，也不是 Shopify/HubSpot 自动发货。由服务 Ticket 达到规定阶段后，CMT 或财务确认扣费。</p></div><div class="card"><h3>余额更新</h3><p>财务工具完成流水后，把累计预付款、累计支出、累计退款、余额和最近对账时间回填 HubSpot。</p></div><div class="card"><h3>余额预警</h3><p>余额低于阈值时创建 Task、通知负责人，并向客户发送补款或续费链接。</p></div></div>
+<div class="callout bad"><strong>必须保留的边界：</strong>HubSpot 只保存汇总和业务状态，不作为逐笔资金台账。每笔扣费要有服务、金额、时间、凭证和操作人/系统来源，避免重复扣费。</div>
+</section>
+
+<section id="consumer" class="section"><h2>5. 消费者能看到什么</h2>
+<div class="table-wrap"><table><thead><tr><th>能力</th><th>方案一：Shopify</th><th>方案二：HubSpot</th></tr></thead><tbody>
+<tr><td>付款后确认</td><td>Shopify 订单确认页和邮件</td><td>Payment Link 确认页和付款收据</td></tr>
+<tr><td>订单/交易明细</td><td>Shopify 原生订单状态页</td><td>没有同等的 Payment Link 订单中心</td></tr>
+<tr><td>每个服务进度</td><td>需自建 Medora 页面，不能直接用 Shopify Fulfillment 表示业务进度</td><td>Customer Portal 可展示 Ticket；完整页面仍需自建</td></tr>
+<tr><td>当前余额</td><td>默认不展示</td><td>默认不展示</td></tr>
+<tr><td>历史交易</td><td>客户账户或邮件订单链接可查看</td><td>需客户门户/自建账户页，Payment Link 本身不提供历史订单列表</td></tr>
+</tbody></table></div>
+<div class="callout good"><strong>目标页面建议：</strong>在正式域名下提供“我的服务”页面，展示交易名称、每项服务状态、已扣金额、当前余额和补款入口。客户只读查看；状态由 CMT/系统更新。</div>
+<p class="muted">HubSpot Customer Portal 的定位是登录后查看和回复关联 Ticket 的服务门户，需要 Service Hub Professional 或 Enterprise；它不是自动生成的付款订单中心。</p>
+</section>
+
+<section id="routes" class="section"><h2>6. 两套方案的完整流程</h2>
+<h3>方案一：Shopify 下单 + HubSpot 管理</h3>
+<div class="flow"><div class="flow-step"><span class="num">1</span><b>HubSpot 建 Contact / Deal</b><small>记录客户和本次定制服务</small></div><div class="flow-step"><span class="num">2</span><b>Shopify 建商品/订单</b><small>Draft Order 包含多个虚拟服务</small></div><div class="flow-step"><span class="num">3</span><b>客户付款</b><small>Shopify Order 记录 Paid</small></div><div class="flow-step"><span class="num">4</span><b>创建服务 Ticket</b><small>每项服务一条，分别推进</small></div><div class="flow-step"><span class="num">5</span><b>扣费与余额</b><small>财务记录后回填 HubSpot</small></div></div>
+<div class="callout"><strong>关键开发：</strong>Shopify <code>Order paid</code> 事件通过订单 ID/Deal ID 匹配 HubSpot；不能只依赖姓名或邮箱。订单同步后，仍要把每个服务映射到 Ticket，Shopify 拆分履约状态不会自动成为 Medora 服务状态。</div>
+<h3>方案二：HubSpot 产品 + Deal + Payment Link</h3>
+<div class="flow"><div class="flow-step"><span class="num">1</span><b>HubSpot 建 Product</b><small>建立服务名称、价格和 SKU</small></div><div class="flow-step"><span class="num">2</span><b>创建 Deal</b><small>关联 Contact 和多个 Line Item</small></div><div class="flow-step"><span class="num">3</span><b>生成 Payment Link</b><small>客户直接在 HubSpot/Stripe 页面付款</small></div><div class="flow-step"><span class="num">4</span><b>创建服务 Ticket</b><small>每项服务一条，分别推进</small></div><div class="flow-step"><span class="num">5</span><b>扣费与余额</b><small>财务记录后回填 HubSpot</small></div></div>
+<div class="callout"><strong>关键前提：</strong>必须先完成 Stripe 收款账户注册与审核；Payment Link 解决的是收款，不会自动产生消费者订单中心，也不会自动创建完整的服务履约记录。</div>
+</section>
+
+<section id="cost" class="section"><h2>7. 费用与开发量</h2>
+<div class="table-wrap"><table><thead><tr><th>项目</th><th>方案一：Shopify</th><th>方案二：HubSpot</th></tr></thead><tbody>
+<tr><td>平台月费</td><td>Shopify 套餐费；HubSpot 按实际使用的 Hub/席位计费</td><td>HubSpot 套餐和席位成本更集中，Quote 还需要相应 Revenue/Commerce 席位</td></tr>
+<tr><td>支付费</td><td>Shopify Payments 处理费；若用第三方支付，还可能产生 Shopify 第三方交易费</td><td>Stripe 支付处理费 + HubSpot 0.75% 平台费；实际 Stripe 费率按账户地区、卡种和币种确定</td></tr>
+<tr><td>退款处理</td><td>Shopify 后台执行，订单和退款记录清晰</td><td>Stripe/HubSpot 执行，需确认香港主体的退款和结算能力</td></tr>
+<tr><td>状态开发</td><td>订单行项目 → 服务 Ticket 的映射和状态同步</td><td>Payment → 服务 Ticket 的自动创建和状态同步</td></tr>
+<tr><td>余额开发</td><td colspan="2">两套都需要受控财务流水、扣费规则、余额计算、接口回写和预警机制</td></tr>
+<tr><td>消费者页面</td><td colspan="2">两套都需要自建 Medora 页面，才能展示自定义服务进度和余额</td></tr>
+</tbody></table></div>
+<div class="callout warn"><strong>费用判断：</strong>只比较支付手续费时，香港 Shopify Payments 通常比“Stripe + HubSpot 0.75%”更有优势；但最终要把平台月费、席位、支付账户审核结果和客户页面开发成本一起计算。</div>
+</section>
+
+<section id="implementation" class="section"><h2>8. 实施准备与验收</h2>
+<div class="grid"><div class="card"><span class="label">第一阶段</span><h3>先跑通当前方案</h3><p>用 Shopify 完成一笔多服务定制订单；HubSpot 关联 Contact、Deal 和服务 Ticket，手动更新各服务状态。</p></div><div class="card"><span class="label">第二阶段</span><h3>建立余额规则</h3><p>明确每个服务节点的扣费金额、凭证要求、余额阈值、补款方式和退款规则。</p></div><div class="card"><span class="label">第三阶段</span><h3>再评估迁移 HubSpot</h3><p>Stripe 审核通过且套餐成本可接受后，用同一套服务 Ticket 和余额规则切换付款入口。</p></div></div>
+<h3>正式上线前必须验证</h3><ul class="check"><li>付款成功后，正确匹配 Contact 和 Deal，不重复创建交易。</li><li>一笔交易的多个服务可以分别建立 Ticket，并分别更新状态。</li><li>服务状态变化有负责人、时间线和操作记录。</li><li>扣费只在规定节点确认后发生，重复回调不会重复扣费。</li><li>余额低于阈值时生成提醒，并能向客户提供补款入口。</li><li>消费者只能查看状态和余额，不能直接修改履约状态。</li><li>消费者页面不展示诊断、病历、检查报告或其他敏感临床信息。</li></ul>
+<div class="callout good"><strong>推荐最终架构：</strong><code>Deal</code> 管整笔交易，<code>Line Item</code> 记录购买服务，<code>Ticket</code> 管每项服务进度，财务工具管逐笔资金流水，Medora 自建页面向消费者只读展示服务状态和当前余额。</div>
+<p class="muted">能力参考：<a href="https://knowledge.hubspot.com/payment-links/create-and-share-a-products-payment-link" target="_blank" rel="noreferrer">HubSpot Payment Links</a>、<a href="https://knowledge.hubspot.com/records/use-line-items-with-deals" target="_blank" rel="noreferrer">HubSpot Line Items</a>、<a href="https://knowledge.hubspot.com/inbox/set-up-a-customer-portal" target="_blank" rel="noreferrer">HubSpot Customer Portal</a>、<a href="https://help.shopify.com/en/manual/payments/shopify-payments/onboarding/cost-of-shopify-payments" target="_blank" rel="noreferrer">Shopify Payments 费用</a>。实际可用套餐、支付资质、费率和权限以客户账户最终显示为准。</p>
+</section>
+<p class="footer">本页面只表达当前确认的业务方案，不包含讨论过程。支付、税务、退款、隐私和跨境合规仍需由客户、财务及法务最终确认。</p>
+</main>
+</body>
+</html>

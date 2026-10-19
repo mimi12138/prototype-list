@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Medora 定制交易 CRM 方案｜HubSpot + Shopify + e签宝</title>
+<style>
+:root{--ink:#17324d;--muted:#607383;--line:#d9e4e8;--bg:#f4f7f8;--surface:#fff;--teal:#176d7b;--teal-2:#dff1f2;--navy:#123956;--gold:#b87718;--gold-bg:#fff5df;--green:#18794e;--green-bg:#e4f5eb;--red:#b33b3b;--red-bg:#fff0f0;--shadow:0 10px 26px rgba(20,55,70,.07);--radius:8px;--font:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 var(--font)}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1180px;margin:0 auto;padding:0 22px 64px}.hero{background:var(--navy);color:#fff;padding:48px 0 34px}.hero h1{margin:0;font-size:32px;line-height:1.25;letter-spacing:0}.hero p{max-width:840px;margin:13px 0 0;color:#d9e7ed}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.meta span{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 10px;font-size:12px;color:#e5f1f3;background:rgba(255,255,255,.08)}.toc,.section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.toc{margin-top:24px;padding:17px 20px}.toc strong{display:block;margin-bottom:8px;font-size:18px}.toc ol{columns:2;margin:0;padding-left:22px}.toc li{margin:3px 0;break-inside:avoid}.section{margin-top:24px;padding:22px 24px}.section h2{margin:0 0 14px;padding-bottom:9px;border-bottom:2px solid var(--teal);font-size:22px;line-height:1.35}.section h3{margin:18px 0 8px;font-size:17px}.lead{font-size:17px}.callout{margin:14px 0;padding:13px 16px;border-left:4px solid var(--teal);border-radius:0 7px 7px 0;background:var(--teal-2)}.callout.good{border-color:var(--green);background:var(--green-bg)}.callout.warn{border-color:var(--gold);background:var(--gold-bg)}.callout.bad{border-color:var(--red);background:var(--red-bg)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.card{border:1px solid var(--line);border-radius:7px;background:#fbfdfd;padding:15px}.card h3{margin:0 0 7px;color:var(--navy);font-size:16px}.tag{display:inline-block;margin-bottom:9px;padding:3px 8px;border-radius:4px;background:var(--teal-2);color:var(--teal);font-size:12px;font-weight:700}.tag.gold{background:var(--gold-bg);color:#79500b}.tag.green{background:var(--green-bg);color:#14643f}.flow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:stretch;margin:18px 0}.flow-step{position:relative;min-height:100px;padding:12px 10px;border:1px solid #b9d9dc;border-radius:7px;background:#f1fbfb}.flow-step:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:36px;color:var(--teal);font-size:20px;font-weight:700;z-index:1}.num{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700}.flow-step b{display:block;margin-top:8px;font-size:13px}.flow-step small{display:block;margin-top:4px;color:var(--muted);line-height:1.45}.object-model{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:center;margin:18px 0}.object{min-height:112px;padding:13px 11px;border:1px solid var(--line);border-radius:7px;background:#fff}.object.primary{border-color:#75adb1;background:#eff9f9}.object.gold{border-color:#d9b472;background:#fff9ed}.object.green{border-color:#9fc7ab;background:#f3fbf5}.object strong{display:block;color:var(--navy);font-size:15px}.object span{display:block;margin-top:5px;color:var(--muted);font-size:12px}.object-arrow{color:var(--muted);text-align:center;font-size:20px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:10px 0;border:1px solid var(--line);background:#fff}th,td{padding:9px 11px;border-bottom:1px solid #e5ecef;text-align:left;vertical-align:top}th{background:#edf5f5;color:var(--navy)}tr:nth-child(even) td{background:#fbfcfc}code{padding:1px 5px;border:1px solid #d8e5e8;border-radius:4px;background:#f0f6f7;font:12px ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.check{list-style:none;padding:0;margin:10px 0}.check li{margin:7px 0;padding-left:25px;position:relative}.check li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}.note-link{display:inline-block;margin-left:8px;color:var(--red);font-size:12px;font-weight:700;cursor:pointer}.note-link:focus{outline:2px solid var(--red);outline-offset:2px}.pill-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.pill{padding:6px 10px;border:1px solid var(--line);border-radius:5px;background:#fafcfc;font-size:13px}.pill.active{border-color:#80b8bc;background:var(--teal-2);color:var(--teal);font-weight:700}.footer{margin-top:25px;color:var(--muted);font-size:12px}.modal{display:none;position:fixed;inset:0;background:rgba(12,38,53,.48);z-index:5;padding:22px}.modal.open{display:grid;place-items:center}.modal-box{width:min(560px,100%);max-height:80vh;overflow:auto;background:#fff;border-radius:8px;padding:22px;box-shadow:0 16px 50px rgba(0,0,0,.2)}.modal-box h2{margin:0 0 10px;font-size:19px}.close{float:right;border:1px solid var(--line);background:#fff;border-radius:5px;padding:3px 9px;cursor:pointer;color:var(--muted)}
+@media(max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.flow-step:not(:last-child)::after{display:none}.object-model{grid-template-columns:repeat(2,minmax(0,1fr))}.object-arrow{display:none}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.wrap{padding-right:15px;padding-left:15px}.hero{padding-top:34px}.hero h1{font-size:25px}.toc ol{columns:1}.section{padding:18px 16px}.grid,.flow,.object-model,.test-grid{grid-template-columns:1fr}.flow-step{min-height:auto}.section h2{font-size:20px}table{min-width:680px}}
+@media print{body{background:#fff}.hero{background:#123956!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.toc,.section,.card{box-shadow:none}.section{break-inside:avoid}.note-link{display:none}}
+.callout.priority{border:1px solid #d39a2c;border-left:6px solid #c17808;background:#fff0c9;box-shadow:0 4px 12px rgba(176,113,18,.12)}.callout.priority strong{color:#704600}.subscription-highlight{display:inline-block;padding:3px 7px;border:1px solid #d39a2c;border-radius:4px;background:#fff0c9;color:#704600;font-weight:700}
+.test-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.test-card{border:1px solid var(--line);border-radius:7px;background:#fbfdfd;padding:15px}.test-card .step-no{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;margin-right:7px}.test-card h3{display:inline;font-size:16px;color:var(--navy)}.test-card p{margin:9px 0 0;color:var(--muted);font-size:13.5px}.test-card ul{margin:8px 0 0;padding-left:20px;font-size:13px}.test-card li{margin:4px 0}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <h1>Medora 定制交易 CRM 方案</h1>
+  <p>以 HubSpot 管理客户与交易流程，e签宝管理合同签署，Shopify 管理每次收款与退款；Medora 财务沿用既有受控工具记录预付款账户流水，并将余额汇总回填至 HubSpot。</p>
+  <div class="meta"><span>当前版本：v1.2</span><span>适用业务：线上问诊 / 来华就医服务</span><span>数据边界：仅非临床商务信息</span><span>更新时间：2026-09-02</span></div>
+</div></header>
+<main class="wrap">
+<nav class="toc" aria-label="方案目录"><strong>方案导航</strong><ol><li><a href="#conclusion">结论与原则</a></li><li><a href="#roles">三系统职责</a></li><li><a href="#flow">端到端流程</a></li><li><a href="#model">数据模型</a></li><li><a href="#deal">Deal 字段和阶段</a></li><li><a href="#capability">能力、套餐与自动化</a></li><li><a href="#operations">客服操作 SOP</a></li><li><a href="#controls">控制点与边界</a></li><li><a href="#testing">HubSpot 准备与测试清单</a></li><li><a href="#rollout">落地顺序</a></li></ol></nav>
+
+<section id="conclusion" class="section"><h2>1. 结论与原则</h2>
+  <p class="lead"><strong>Medora 的服务流程由 HubSpot、e签宝、Shopify 和既有财务记录协同完成。</strong>每位客户可先完成线上问诊，再进入来华就医服务；两项收费分别建立 Deal，来华后的长期服务由 Ticket/Task 跟进。</p>
+  <div class="callout good"><strong>运作方式：</strong>客服在 HubSpot 创建 Contact，并分别建立“线上问诊”和“来华就医服务”Deal；签署、付款和财务核对完成后，将各系统编号及余额汇总回填 Deal，形成完整的客户与交易视图。</div>
+  <div class="grid"><div class="card"><span class="tag">客户</span><h3>Contact</h3><p>姓名、邮箱、手机号、国家、语言、来源和非临床兴趣。一个客户可以关联多条 Deal。</p></div><div class="card"><span class="tag gold">两类交易</span><h3>Deal</h3><p>线上问诊与来华就医服务分别建立 Deal，记录对应报价、签署、付款及关联编号。</p></div><div class="card"><span class="tag green">服务与资金</span><h3>Ticket / 财务记录</h3><p>Ticket/Task 跟进服务执行；既有财务工具记录预付款流水，HubSpot 显示汇总状态。</p></div></div>
+</section>
+
+<section id="roles" class="section"><h2>2. 三系统职责</h2>
+<div class="table-wrap"><table><thead><tr><th>系统</th><th>职责范围</th><th>关键记录</th></tr></thead><tbody>
+<tr><td><strong>HubSpot</strong></td><td>Contact、两类 Deal、负责人、报价、复核任务、客服沟通、服务跟进、报表</td><td>Contact ID、Deal ID、流程阶段、非临床字段、Shopify/e签宝关联 ID、预付款余额汇总</td></tr>
+<tr><td><strong>e签宝</strong></td><td>合同模板、签署人、发起签署、完成签署、签署证据</td><td>document/envelope ID、模板版本、签署状态、时间</td></tr>
+<tr><td><strong>Shopify</strong></td><td>Draft Order、Checkout Link、支付、正式 Order、退款、Fulfilled 状态</td><td>Draft Order ID、Order ID、Payment/Refund ID、履约状态</td></tr>
+<tr><td><strong>财务既有工具</strong></td><td>预付款账户逐笔入账、补款、费用扣除、余额核对、D03 结算和结余退款</td><td>预付款账户编号、逐笔流水、凭证编号、余额、D03、退款凭证</td></tr>
+</tbody></table></div>
+<p class="muted">Shopify Order 同步到 HubSpot 后用于 CRM 查询和报表；订单仍是 Shopify 的只读单向同步对象，不能在 HubSpot 修改后反写 Shopify。<a href="https://knowledge.hubspot.com/integrations/connect-hubspot-and-shopify-via-data-sync" target="_blank" rel="noreferrer">查看官方同步说明</a></p>
+</section>
+
+<section id="flow" class="section"><h2>3. 端到端流程</h2>
+<div class="flow"><div class="flow-step"><span class="num">1</span><b>获客与分诊</b><small>创建 Contact，记录来源、国家、语言和非临床需求</small></div><div class="flow-step"><span class="num">2</span><b>线上问诊 Deal</b><small>A01 签署，Shopify 收取独立问诊费</small></div><div class="flow-step"><span class="num">3</span><b>问诊与方案</b><small>问诊完成后输出三档医院/医生方案</small></div><div class="flow-step"><span class="num">4</span><b>来华服务 Deal</b><small>客户确认方案后新建 Deal</small></div><div class="flow-step"><span class="num">5</span><b>签约与预付款</b><small>B01/B02 签署，Shopify 收取服务费和医疗预付款</small></div><div class="flow-step"><span class="num">6</span><b>服务执行</b><small>Ticket/Task 跟进行前、落地、到院和回访</small></div><div class="flow-step"><span class="num">7</span><b>结算与退款</b><small>财务核对 D03；Shopify 记录实际退款</small></div></div>
+<div class="callout warn"><strong>付款链接的门槛：</strong>对应 Deal 已复核、e签宝全部必签方已完成签署、Shopify 金额/邮箱核对无误。线上问诊使用 A01；来华服务使用 B01/B02。</div>
+</section>
+
+<section id="model" class="section"><h2>4. 数据模型</h2>
+<div class="object-model"><div class="object primary"><strong>Contact</strong><span>客户主档案<br>邮箱作为主要匹配键</span></div><div class="object gold"><strong>Deal 1</strong><span>线上问诊<br>A01 与问诊费</span></div><div class="object gold"><strong>Deal 2</strong><span>来华就医服务<br>B01/B02 与预付款</span></div><div class="object green"><strong>Shopify Order</strong><span>每次收款、补款与退款<br>订单事实来源</span></div><div class="object"><strong>Ticket / 财务记录</strong><span>服务执行、预付款流水<br>与余额汇总</span></div></div>
+<div class="callout"><strong>交易记录组织方式：</strong>线上问诊和来华服务分别建立 Deal。来华服务 Deal 关联对应 Shopify Order、e签宝 B01/B02、服务 Ticket 和预付款账户编号；财务流水保留在 Medora 既有受控工具中。</div>
+<span class="note-link" data-note="数据来源：Shopify Order 仅在 Shopify 产生正式订单后同步；签署前的报价和复核记录必须先存在 HubSpot Deal。不要用 Order 反推签署前流程。">开发须知</span>
+</section>
+
+<section id="deal" class="section"><h2>5. Deal 字段和阶段 <span class="note-link" data-note="每一笔定制报价都要新建 Deal，禁止复用上一笔 Deal 或用 Contact 字段覆盖历史交易。字段命名和选项值应固定，金额应保留报价版本快照。">开发须知</span></h2>
+<h3>5.1 建议字段</h3><div class="table-wrap"><table><thead><tr><th>字段组</th><th>字段</th><th>说明</th></tr></thead><tbody>
+<tr><td>交易识别</td><td><code>transaction_id</code>、交易类型、报价编号、报价版本</td><td>交易类型为“线上问诊”或“来华就医服务”；每笔 Deal 唯一</td></tr>
+<tr><td>商务</td><td>服务代码/名称、金额、币种、退款条款版本</td><td>线上问诊费和来华服务费分别记录；仅使用非临床描述</td></tr>
+<tr><td>复核</td><td>负责人、复核人、复核时间、复核结果</td><td>配合 Task 形成双人复核留痕</td></tr>
+<tr><td>签署</td><td>e签宝文档 ID、模板版本、签署状态、完成时间</td><td>合同原件和存证留在 e签宝</td></tr>
+<tr><td>Shopify</td><td>Draft Order ID、Order ID、付款状态、退款状态</td><td>问诊费、服务费、预付款和补款分别关联对应订单；实际支付/退款在 Shopify 执行</td></tr>
+<tr><td>预付款汇总</td><td>预付款账户编号、累计预付款、累计支出、累计退款、上次对账余额、余额状态、最近对账时间、D03 编号</td><td>仅在来华服务 Deal 使用；财务人员从既有受控财务记录回填汇总值，HubSpot 不作为实时资金账本</td></tr>
+<tr><td>异常</td><td>异常类型、说明、下一步、关闭时间</td><td>敏感临床信息不得写入备注</td></tr>
+</tbody></table></div>
+<h3>5.2 Deal Pipeline 阶段</h3><div class="pill-row"><span class="pill active">需求确认</span><span class="pill active">待复核</span><span class="pill active">待签署</span><span class="pill active">签署完成</span><span class="pill active">Draft Order 已创建</span><span class="pill active">付款链接已发送</span><span class="pill">已完成 / 已付款</span><span class="pill">已取消</span></div>
+<p class="muted">线上问诊 Deal 在完成问诊与方案交付后进入“已完成 / 已付款”；来华服务 Deal 在 B01/B02 签署并收到服务费及预付款后进入同一阶段。后续行前、到院、结算和回访由关联 Ticket/Task 跟进；异常通过“异常状态”字段和关联 Task 处理；Shopify Order 记录每次付款和退款。</p>
+</section>
+
+<section id="capability" class="section"><h2>6. HubSpot 能力、套餐与自动化边界</h2>
+<p class="lead"><strong>HubSpot 可以承担 CRM 和流程自动化，但“能管理”不等于“安装后自动流转”。</strong>内部提醒和任务可由 HubSpot 配置；表单建 Deal 需要完整工作流；e签宝签署、Shopify 付款与财务余额回写需要以唯一编号为基础的接口集成。</p>
+<div class="callout priority"><strong>套餐判断：</strong>Starter 适合先减少内部提醒和待办的人工操作；要实现“表单提交后自动创建并关联 Deal”等完整业务工作流，需 Professional；Shopify 与 e签宝的跨系统状态联动不由任何 HubSpot 套餐单独提供，仍需 API / Webhook 集成。</div>
+<h3>6.1 各项自动化能做到什么程度</h3>
+<div class="table-wrap"><table><thead><tr><th>业务动作</th><th>免费版 / 人工流程</th><th>Starter 可配置</th><th>Professional 可配置</th><th>仍需额外集成</th></tr></thead><tbody>
+<tr><td><strong>Deal、Ticket、Task 与字段维护</strong></td><td>人工创建、关联、修改阶段和填写字段</td><td>Deal 进入指定阶段后，可创建 Task、发内部通知或更新简单字段</td><td>可按条件、分支、延时和重新触发设计完整工作流</td><td>不需要</td></tr>
+<tr><td><strong>预约回电表单</strong></td><td>表单按邮箱创建/更新 Contact；客服人工建 Deal</td><td>可做基础表单后续提醒</td><td>表单提交后自动创建 Deal，并关联提交表单的 Contact；可自动分配负责人和创建首条跟进 Task</td><td>不需要。表单必须收集邮箱，且需定义避免重复建 Deal 的规则</td></tr>
+<tr><td><strong>WhatsApp 咨询</strong></td><td>客服在外部 WhatsApp 沟通后人工登记</td><td>Sales Starter 本身不含 HubSpot 原生 WhatsApp 通道</td><td>连接 WhatsApp Business 后在 HubSpot 统一处理会话；客服确认“需要报价”后，可触发创建 Deal 的工作流</td><td>原生 WhatsApp 通道需 Marketing Hub 或 Service Hub Professional/Enterprise，并完成 Meta Business 配置；不应对每条消息自动建 Deal</td></tr>
+<tr><td><strong>e签宝签署完成</strong></td><td>客服在 Deal 手动更新签署状态和签署编号</td><td>可在状态改为“已签署”后自动提醒下一位负责人</td><td>可在签署状态回写后触发后续 Task、通知和阶段流转</td><td>e签宝 API 回调 → Medora 接口 → HubSpot API。发起签署时需保存 Deal ID 与 e签宝签署流程 ID</td></tr>
+<tr><td><strong>Shopify 定制链接付款</strong></td><td>Shopify Order 同步至 HubSpot；客服人工关联至正确 Deal 并更新阶段</td><td>可在人工更新 Deal 阶段后自动提醒交付团队</td><td>可在订单已正确关联并更新 Deal 后，自动创建 Ticket/Task、通知负责人和更新汇总字段</td><td>Shopify <code>Order paid</code> 事件 → Medora 接口 → HubSpot API。创建 Draft Order 时需保存 Deal ID / Draft Order ID，避免错误匹配订单</td></tr>
+<tr><td><strong>预付款余额摘要</strong></td><td>财务在既有工具记账；在 Deal 手动更新“上次对账余额”和对账时间</td><td>余额字段仍由财务手动更新</td><td>可用计算字段计算余额，并在余额或累计金额变动后自动更新时间、创建对账 Task</td><td>若需自动刷新余额：财务工具 / 受控表格 → Medora 接口 → HubSpot API；HubSpot 不记录逐笔扣费台账</td></tr>
+</tbody></table></div>
+<h3>6.2 推荐购买路径</h3>
+<div class="table-wrap"><table><thead><tr><th>阶段</th><th>建议套餐</th><th>适用范围</th><th>暂不包含</th></tr></thead><tbody>
+<tr><td><strong>当前测试</strong></td><td>现有免费版</td><td>手动跑通 Contact → Deal → Shopify Order → Ticket → Task；确认字段、阶段、负责人和财务摘要口径</td><td>自动创建 Deal、自动写入对账时间、跨系统状态流转</td></tr>
+<tr><td><strong>基础内部自动化</strong></td><td>Sales Hub Starter</td><td>Deal 阶段变化后自动建 Task、通知内部人员、更新简单字段</td><td>完整的条件/分支工作流、表单自动建 Deal、WhatsApp 原生通道、Shopify/e签宝自动匹配</td></tr>
+<tr><td><strong>获客与销售自动化</strong></td><td>Sales Hub Professional</td><td>预约表单 → Contact + Deal、负责人分配、延时提醒、阶段和字段自动化、余额计算字段</td><td>WhatsApp 原生通道，以及 Shopify/e签宝直接自动回写</td></tr>
+<tr><td><strong>WhatsApp 与服务交付自动化</strong></td><td>在 Sales Hub Professional 基础上增加 Service Hub Professional；或选含相应能力的客户平台组合</td><td>WhatsApp Business 统一会话、Ticket 自动化、服务交付提醒与工单流程</td><td>e签宝签署和 Shopify 付款的业务匹配逻辑</td></tr>
+<tr><td><strong>跨系统自动流转</strong></td><td>在所选 HubSpot 套餐之外，单独实施 API / Webhook 集成</td><td>e签宝签完自动更新 Deal；Shopify 付款自动关联 Order、推进 Deal；财务摘要定时或事件回写</td><td>不应将诊断、病历、检查报告或逐笔资金流水同步到 HubSpot</td></tr>
+</tbody></table></div>
+<div class="callout warn"><strong>上线控制：</strong>在接口上线前，Deal 的“已完成 / 已付款”必须由客服或财务依据 Shopify Order 手动确认；不可仅凭订单同步自动推进。所有自动匹配均应使用 <code>Deal ID</code>、<code>Draft Order ID</code>、<code>Order ID</code> 或 e签宝签署流程 ID，不能只依赖姓名或邮箱。</div>
+<p class="muted">能力依据：<a href="https://knowledge.hubspot.com/records/set-up-automations-in-the-updated-board-view" target="_blank" rel="noreferrer">Pipeline 阶段自动化</a>、<a href="https://knowledge.hubspot.com/workflows/create-workflows" target="_blank" rel="noreferrer">完整工作流</a>、<a href="https://knowledge.hubspot.com/workflows/create-records-with-workflows" target="_blank" rel="noreferrer">工作流创建记录</a>、<a href="https://knowledge.hubspot.com/inbox/connect-channels-to-the-conversations-inbox" target="_blank" rel="noreferrer">WhatsApp 通道</a>、<a href="https://knowledge.hubspot.com/integrations/connect-hubspot-and-shopify-via-data-sync" target="_blank" rel="noreferrer">Shopify Data Sync</a>、<a href="https://knowledge.hubspot.com/properties/create-calculation-properties" target="_blank" rel="noreferrer">计算字段</a>官方文档。实际价格、席位与权限以客户账户报价页为准。</p>
+</section>
+
+<section id="operations" class="section"><h2>7. 客服操作 SOP</h2>
+<h3>7.1 获客与线上问诊</h3><ol><li>用邮箱匹配已有 Contact；找不到时创建 Contact，并记录来源、国家、语言和非临床需求。</li><li>创建“线上问诊”Deal，填写报价、币种、A01 签署状态和负责人。</li><li>完成复核后在 e签宝发起 A01；签署完成后在 Shopify 创建问诊费 Draft Order。</li><li>Shopify 显示 Paid 后，更新 Deal 并创建资料准备、问诊和方案跟进 Task。</li></ol>
+<h3>7.2 来华服务签约与预付款</h3><ol><li>客户确认医院/医生方案后，在同一 Contact 下创建新的“来华就医服务”Deal。</li><li>完成 B01/B02 签署后，在 Shopify 创建服务费和医疗预付款的 Draft Order；将各订单 ID 回填 Deal。</li><li>财务确认收款后，在既有财务工具建立预付款账户流水；将账户编号、累计预付款、上次对账余额和最近对账时间回填 Deal。</li><li>创建关联 Ticket/Task，交接行前安排、落地复签、到院服务和后续结算。</li></ol>
+<h3>7.3 服务执行、结算和退款</h3><ol><li>Ticket/Task 跟进行前安排、落地复签、到院就诊、余额预警、补款、治疗结束和深度回访。</li><li>财务在既有受控工具中记录医院、第三方和现场服务的逐笔费用；HubSpot Deal 仅更新累计支出、累计退款、上次对账余额、余额状态和最近对账时间。</li><li>费用核对完成后记录 D03 编号；需要退还结余时在 Shopify 执行 Refund，并将退款金额、Refund ID 和状态回填 Deal。</li></ol>
+<div class="callout warn"><strong>邮箱是关键匹配键：</strong>Shopify Checkout 已设置邮箱必填。客服在创建 Contact、Deal、e签宝和 Draft Order 时必须使用同一个经确认的邮箱，避免 Order 同步后出现无关联 Contact。</div>
+</section>
+
+<section id="controls" class="section"><h2>8. 控制点与数据边界</h2>
+<ul class="check"><li>线上问诊费与来华服务费/医疗预付款分别建立 Deal 和 Shopify 订单。</li><li>未签署完成不得发送对应 Shopify 付款链接；线上问诊使用 A01，来华服务使用 B01/B02。</li><li>报价金额变化必须新建版本，并重新复核。</li><li>同一 transaction_id 不得存在多个有效未支付 Draft Order。</li><li>Shopify 记录实际支付和退款；e签宝保存合同原件与签署证据；HubSpot 保存关联 ID 和业务汇总。</li><li>预付款账户逐笔流水由财务在既有受控工具中管理；HubSpot Deal 只回填累计金额、上次对账余额、状态和最近对账时间，不作为实时资金账本。</li><li>HubSpot、Shopify、e签宝、WhatsApp、邮件、日志和普通表单均不得存放诊断、病历、影像、报告或治疗方案。</li><li>付款链接只发给已核对的收件人，不粘贴到公开文档或群聊。</li></ul>
+<div class="callout bad">系统状态管理规则：发生金额争议时，以财务记录、Shopify Order/Refund 和原始凭证为准；发生签署争议时，以 e签宝签署证据为准。HubSpot 用于汇总状态、分配任务和客户沟通。</div>
+</section>
+
+<section id="testing" class="section"><h2>9. HubSpot 准备与测试清单</h2>
+<p>Shopify Order 已完成同步后，按以下顺序在 HubSpot 中做准备和验证。所有测试优先使用测试联系人、测试 Deal 和测试订单，避免修改真实业务记录。</p>
+<div class="test-grid">
+<div class="test-card"><span class="step-no">1</span><h3>配置默认销售管道</h3><p>当前免费版使用已有“销售管道”，用于两类 Deal 的签约与付款进度。</p><ul><li>需求确认 → 待复核 → 待签署</li><li>签署完成 → Draft Order 已创建 → 付款链接已发送</li><li>已完成 / 已付款（Won）</li><li>已取消（Lost）；异常使用字段和 Task 处理</li></ul></div>
+<div class="test-card"><span class="step-no">2</span><h3>创建 Deal 自定义字段</h3><p>为“线上问诊”和“来华就医服务”两类 Deal 配置共同字段和专属字段。</p><ul><li>交易类型、交易编号、报价编号、报价版本</li><li>A01 或 B01/B02 文档 ID、签署状态</li><li>Draft Order / Order ID、付款状态</li><li>预付款账户编号、余额汇总、D03 编号</li></ul></div>
+<div class="test-card"><span class="step-no">3</span><h3>创建两类测试 Deal</h3><p>在同一测试 Contact 下分别创建线上问诊 Deal 和来华服务 Deal。</p><ul><li>线上问诊 Deal 关联问诊费订单</li><li>来华服务 Deal 关联服务费/预付款订单</li><li>为来华服务创建关联 Ticket/Task</li><li>确认 Contact、Deal、Order 可以互相跳转</li></ul></div>
+<div class="test-card"><span class="step-no">4</span><h3>建立保存视图</h3><p>将销售交易和服务执行分别形成常用工作列表。</p><ul><li>待复核、待签署、付款链接已发送</li><li>线上问诊已付款</li><li>来华服务已付款待交接</li><li>余额预警、待补款、异常状态为待处理</li></ul></div>
+<div class="test-card"><span class="step-no">5</span><h3>测试 Task 和负责人</h3><p>验证问诊、签署、付款核对、行前、结算和退款任务的分配。</p><ul><li>指定负责人和截止时间</li><li>确认负责人能看到任务和提醒</li><li>确认任务出现在 Deal/Contact 时间线上</li></ul></div>
+<div class="test-card"><span class="step-no">6</span><h3>验证订单同步</h3><p>用 Shopify 中的状态变化检查 HubSpot Order 是否更新。</p><ul><li>核对订单金额、币种、状态</li><li>确认订单关联到正确 Contact</li><li>确认 Order 状态在 Shopify 维护</li><li>记录同步延迟和异常情况</li></ul></div>
+</div>
+<div class="callout priority"><strong>完成标准：</strong>客服可以从一个 Contact 查看两类 Deal、关联 Shopify Order 和服务 Task；财务人员可将预付款账户编号、余额汇总和 D03 编号回填来华服务 Deal；逐笔资金流水继续保留在既有财务记录中。</div>
+</section>
+
+<section id="rollout" class="section"><h2>10. 落地顺序</h2>
+<div class="grid"><div class="card" style="border-color:#d39a2c;background:#fff8e8"><span class="tag gold">第 1 步 · 前置确认</span><h3>确认订阅和权限</h3><p>确认当前 HubSpot 是否支持 Deal 字段、Pipeline、Task，以及后续需要的自动化和阶段权限。功能可用范围取决于实际套餐。</p></div><div class="card"><span class="tag">第 2 步</span><h3>配置 Deal 模型</h3><p>建立字段、阶段、负责人和保存视图；把关键字段放到 Deal 记录页。</p></div><div class="card"><span class="tag">第 3 步</span><h3>跑通人工闭环</h3><p>用测试邮箱完成 Contact → Deal → e签宝 → Draft Order → 支付 → Order 同步 → 退款演练。</p></div></div>
+<div class="callout priority"><strong>上线前必须确认：</strong>客户当前 HubSpot 套餐和用户权限是否支持 Deal 自定义字段、Pipeline、Task，以及计划启用的工作流和阶段权限。确认后再进行正式配置。</div>
+<div class="callout good"><strong>MVP 推荐配置：</strong>Deal 自定义字段 + Deal Pipeline + Task + Shopify Order 同步 + e签宝文档 ID 手动关联。先验证 3–5 笔真实定制交易，再启用自动化。</div>
+<p><span class="note-link" data-note="开发边界：本方案只描述 HubSpot、Shopify、e签宝的业务配置和人工协作，不要求本轮修改 Hydrogen 仓库，也不写入 Shopify 远程数据。正式实现时，HubSpot API、e签宝 API、Webhook 和密钥应单独评审。">开发须知</span></p>
+</section>
+<p class="footer">本方案以《Medora业务全流程SOP》为服务流程依据。HubSpot 订阅能力以客户账户实际显示和官方最新文档为准；本页不构成支付、税务、隐私或法律意见。</p>
+</main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-box"><button class="close" type="button" id="close">关闭</button><h2 id="modal-title">开发须知</h2><p id="modal-text"></p></div></div>
+<script>
+const modal=document.getElementById('modal'),text=document.getElementById('modal-text');
+document.querySelectorAll('.note-link').forEach((el)=>el.addEventListener('click',()=>{text.textContent=el.dataset.note;modal.classList.add('open')}));
+document.getElementById('close').addEventListener('click',()=>modal.classList.remove('open'));
+modal.addEventListener('click',(e)=>{if(e.target===modal)modal.classList.remove('open')});
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')modal.classList.remove('open')});
+</script>
+</body>
+</html>
